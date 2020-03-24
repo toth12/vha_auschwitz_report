@@ -147,8 +147,13 @@ df_keywords["YearKeywordCreated"] = df_keywords['DateKeywordCreated'].map(lambda
 df_keyword_counts = df.groupby(['KeywordID'])['KeywordID'].agg('count')
 count = df_keyword_counts.to_frame(name="TotalNumberUsed").reset_index()
 df_keywords = df_keywords.merge(count,how='left',on="KeywordID")
+
+# Calculate how many interviewee uses a keyword
+number_of_interviewee_using = df.groupby(['KeywordID'])['IntCode'].unique().map(lambda x: len(x))
+number_of_interviewee_using = number_of_interviewee_using.to_frame(name="TotalNumberIntervieweeUsing").reset_index()
+df_keywords = df_keywords.merge(number_of_interviewee_using,how='left',on="KeywordID")
 pdb.set_trace()
 
 pd.to_datetime(df_keywords['DateKeywordCreated'])
-df_segment_length[df_segment_length['\ufeffIntCode']=='10']
+df[df['KeywordID']=='12044']
 
