@@ -12,6 +12,8 @@ import seaborn as sns
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.ensemble import IsolationForest
+import datetime
+
 
 
 
@@ -24,12 +26,12 @@ input_files = [input_directory+i for i in input_files]
 # Read the input files into panda dataframe
 
 csv_data = []
-for el in input_files:
+for el in input_files[0:1]:
     f = codecs.open(el,"rb","utf-8")
     csvread = csv.reader(f,delimiter=',')
     csv_data_temp = list(csvread)
     columns = csv_data_temp[0]
-    csv_data.extend(csv_data_temp)
+    csv_data.extend(csv_data_temp[0:500])
 
 
 
@@ -114,19 +116,6 @@ report += "Average length: "+str(df_interview_segment_length['length_in_minutes'
 report += "Median length: "+str(df_interview_segment_length['length_in_minutes'].median())+"\n"
 report += "Maximum length: "+str(df_interview_segment_length['length_in_minutes'].max())+"\n"
 
-
-
-# Remove outliers
-length_in_minutes = np.array(df_interview_segment_length['length_in_minutes'].values.tolist())
-
-# Reshape it to two dimensional array
-length_in_minutes = np.reshape(length_in_minutes, (-1, 1))
-
-
-clf = IsolationForest(behaviour = 'new', max_samples=12000, random_state = 1, contamination= 'auto')
-preds = clf.fit_predict(length_in_minutes)
-
-
 # Render a boxplot
 sns.set_style("whitegrid")
 ax = sns.boxplot(data=df_interview_segment_length['length_in_minutes'])
@@ -138,7 +127,28 @@ plt.savefig(output_directory+'plots/interviewee_total_segment_histogram.png')
 plt.clf()
 
 
+# Keyword analysis
 
 
+
+report += "Analysis of keywords:\n\n"
+
+total_number_of_keywords = len(df['KeywordID'].unique())
+
+report += "Total number of keywords: "+str(total_number_of_keywords)+"\n\n"
+
+# Create a keywordframe
+df_keywords = df.drop_duplicates('KeywordID')[['KeywordID','KeywordLabel','DateKeywordCreated']]
+df_keywords["DateKeywordCreated"] = pd.to_datetime(df_keywords['DateKeywordCreated'])
+df_keywords["YearKeywordCreated"] = df_keywords['DateKeywordCreated'].map(lambda x: x.year)
+
+
+# Calculate how many times a keyword is used
+df_keyword_counts = df.groupby(['KeywordID'])['KeywordID'].agg('count')
+count = df_keyword_counts.to_frame(name="TotalNumberUsed").reset_index()
+df_keywords = df_keywords.merge(count,how='left',on="KeywordID")
+pdb.set_trace()
+
+pd.to_datetime(df_keywords['DateKeywordCreated'])
 df_segment_length[df_segment_length['\ufeffIntCode']=='10']
 
