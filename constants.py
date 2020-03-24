@@ -13,4 +13,4 @@ input_files_biodata='Auschwitz_testimonies_031220.xlsx'
 # Output data
 
 output_data = "data/output/"
-output_data_report_statistical_analysis = output_data+'reports_statistical_analysis'
+output_data_report_statistical_analysis = output_data+'reports_statistical_analysis/'

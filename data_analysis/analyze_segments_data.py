@@ -8,6 +8,11 @@ import pandas as pd
 import codecs
 import csv
 import pdb
+import seaborn as sns
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.ensemble import IsolationForest
+
 
 
 input_directory = constants.input_data
@@ -24,7 +29,7 @@ for el in input_files:
     csvread = csv.reader(f,delimiter=',')
     csv_data_temp = list(csvread)
     columns = csv_data_temp[0]
-    csv_data.extend(csv_data_temp[1:])
+    csv_data.extend(csv_data_temp)
 
 
 
@@ -54,7 +59,7 @@ number_data_points = len(df)
 
 report += "Total number of datapoints in input data: "+str(number_data_points)+"\n\n" 
 report += "Total number of segments: "+str(len(df['SegmentID'].unique()))+"\n\n" 
-report += "Total number of interviewees: "+str(len(IntCode))+"\n\n" 
+report += "Total number of interviewees (Jewish Survivors): "+str(len(IntCode))+"\n\n" 
 
 # Analyze segment data
 
@@ -97,13 +102,43 @@ df_interview_segment_length = pd.DataFrame({'IntCode':df_interview_segment_lengt
 
 df_interview_segment_length = df_interview_segment_length.sort_values('length')
 
-# Write out the result to a table
-df_interview_segment_length.to_csv(output_directory+'interviewee_total_segment_lenght.csv')
+# Calculate in minutes
 
-report += "Average length: "+str(df_interview_segment_length['length'].mean())+"\n"
-report += "Median length: "+str(df_interview_segment_length['length'].median())+"\n"
-report += "Maximum length: "+str(df_interview_segment_length['length'].max())+"\n"
-pdb.set_trace()
+time = pd.DatetimeIndex(df_interview_segment_length['length'])
+df_interview_segment_length['length_in_minutes']=time.hour * 60 + time.minute
+
+
+# Write out the result to a table
+df_interview_segment_length.to_csv(output_directory+'tables/'+'interviewee_total_segment_lenght.csv')
+report += "Average length: "+str(df_interview_segment_length['length_in_minutes'].mean())+"\n"
+report += "Median length: "+str(df_interview_segment_length['length_in_minutes'].median())+"\n"
+report += "Maximum length: "+str(df_interview_segment_length['length_in_minutes'].max())+"\n"
+
+
+
+# Remove outliers
+length_in_minutes = np.array(df_interview_segment_length['length_in_minutes'].values.tolist())
+
+# Reshape it to two dimensional array
+length_in_minutes = np.reshape(length_in_minutes, (-1, 1))
+
+
+clf = IsolationForest(behaviour = 'new', max_samples=12000, random_state = 1, contamination= 'auto')
+preds = clf.fit_predict(length_in_minutes)
+
+
+# Render a boxplot
+sns.set_style("whitegrid")
+ax = sns.boxplot(data=df_interview_segment_length['length_in_minutes'])
+plt.savefig(output_directory+'plots/interviewee_total_segment_boxplot.png')
+plt.clf()
+# Render the histogram
+ax = sns.distplot(df_interview_segment_length['length_in_minutes'])
+plt.savefig(output_directory+'plots/interviewee_total_segment_histogram.png')
+plt.clf()
+
+
+
 
 df_segment_length[df_segment_length['\ufeffIntCode']=='10']
 
