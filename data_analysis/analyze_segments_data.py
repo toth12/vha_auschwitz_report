@@ -26,13 +26,14 @@ input_files = [input_directory+i for i in input_files]
 # Read the input files into panda dataframe
 
 csv_data = []
-for el in input_files[0:1]:
+for el in input_files:
     f = codecs.open(el,"rb","utf-8")
     csvread = csv.reader(f,delimiter=',')
     csv_data_temp = list(csvread)
     columns = csv_data_temp[0]
-    csv_data.extend(csv_data_temp[0:500])
-
+    #Drop the first line as that is the column
+    del csv_data_temp[0]
+    csv_data.extend(csv_data_temp)
 
 
 
@@ -45,12 +46,25 @@ df = pd.DataFrame(csv_data,columns=columns)
 bio_data = constants.input_files_biodata
 df_biodata = pd.read_excel(input_directory+bio_data, sheet_name=None)['Sheet1']
 
+
+
+
 # Get the IntCode of Jewish survivors
 IntCode = df_biodata[df_biodata['ExperienceGroup']=='Jewish Survivor']['IntCode'].to_list()
 IntCode = [str(el) for el in IntCode]
 
+
+
 # Leave only Jewish survivors
 df = df[df['IntCode'].isin(IntCode)]
+
+df_biodata = df_biodata[df_biodata['IntCode'].isin(IntCode)]
+
+
+
+# Make time sequence from interview dates in the biodata
+
+df_biodata['InterviewDate'] = pd.to_datetime(df_biodata['InterviewDate'])
 
 # Initiate an empty string to hold the report data
 report = 'This is a statistical description of Auschwitz segments (only Jewish survivors)\n\n'
@@ -139,7 +153,11 @@ report += "Total number of keywords: "+str(total_number_of_keywords)+"\n\n"
 
 # Create a keywordframe
 df_keywords = df.drop_duplicates('KeywordID')[['KeywordID','KeywordLabel','DateKeywordCreated']]
-df_keywords["DateKeywordCreated"] = pd.to_datetime(df_keywords['DateKeywordCreated'])
+
+
+
+
+df_keywords["DateKeywordCreated"] = pd.to_datetime(df_keywords['DateKeywordCreated'],errors='coerce')
 df_keywords["YearKeywordCreated"] = df_keywords['DateKeywordCreated'].map(lambda x: x.year)
 
 
@@ -152,6 +170,39 @@ df_keywords = df_keywords.merge(count,how='left',on="KeywordID")
 number_of_interviewee_using = df.groupby(['KeywordID'])['IntCode'].unique().map(lambda x: len(x))
 number_of_interviewee_using = number_of_interviewee_using.to_frame(name="TotalNumberIntervieweeUsing").reset_index()
 df_keywords = df_keywords.merge(number_of_interviewee_using,how='left',on="KeywordID")
+
+# Calculate the relative value of interviewee using a keyword
+# I.e Find the number of interviews following the creation of a keyword, and use it 
+# to rescale the number of a keyword is used
+
+number_of_possible_interviews = []
+keywords_used_retrospectively = []
+for i, time in enumerate(df_keywords['DateKeywordCreated']):
+    # Check if it was also used retrospectively
+    print (i)
+    # Check all the interviews when it was used
+    KeywordID = df_keywords.iloc[i]['KeywordID']
+    interviews_used = df[df.KeywordID==KeywordID]['IntCode'].unique().tolist()
+
+    #Find the ones that are before the creation
+    number_of_times_used_retrospectively = df_biodata[(df_biodata['IntCode'].isin(interviews_used))& (df_biodata['InterviewDate']<time)]['InterviewDate'].count()
+    number_of_times_used_after_creation = df_biodata[(df_biodata['IntCode'].isin(interviews_used))& (df_biodata['InterviewDate']>=time)]['InterviewDate'].count()
+
+    if number_of_times_used_retrospectively != 0:
+        keywords_used_retrospectively.append(df_keywords.iloc[i]['KeywordLabel'])
+        number_of_possible_interviews.append(np.nan)
+    else:
+        number_of_possible_interviews.append(number_of_times_used_after_creation)
+
+
+df_keywords['number_of_possible_interview'] = pd.DataFrame(number_of_possible_interviews)
+
+pdb.set_trace()
+
+time = df_keywords['DateKeywordCreated'][30]
+df_biodata[df_biodata['InterviewDate']>time]['IntCode'].count()
+
+
 pdb.set_trace()
 
 pd.to_datetime(df_keywords['DateKeywordCreated'])
