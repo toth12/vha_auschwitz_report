@@ -185,6 +185,21 @@ plt.savefig(output_directory+'plots/year_number_of_index_terms_histogram.png')
 plt.clf()
 
 
+
+# Render the distribution of index term per interview
+ax = sns.distplot(df_keywords['TotalNumberIntervieweeUsing'])
+plt.savefig(output_directory+'plots/keyword_interviewee_histogram_total.png')
+plt.clf()
+
+
+
+# Render the distribution of index term per interview
+ax = sns.distplot(df_keywords[df_keywords['TotalNumberIntervieweeUsing']<1000]['TotalNumberIntervieweeUsing'])
+plt.savefig(output_directory+'plots/keyword_interviewee_histogram_less_than_1000.png')
+plt.clf()
+
+report += "Average of the total number of times a keyword is used (at least once) in an interview: "+str(df_keywords['TotalNumberIntervieweeUsing'].mean())+"\n\n"
+report += "Median of the total number of times a keyword is used (at least once) in an interview"+str(df_keywords['TotalNumberIntervieweeUsing'].median())+"\n\n"
 pdb.set_trace()
 
 
