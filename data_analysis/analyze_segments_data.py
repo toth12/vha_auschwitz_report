@@ -175,62 +175,18 @@ df_keywords = df_keywords.merge(number_of_interviewee_using,how='left',on="Keywo
 # I.e Find the number of interviews following the creation of a keyword, and use it 
 # to rescale the number of a keyword is used
 
-df_keywords['merged'] = df_keywords['KeywordID']
-columns =['IntCode']
-columns.extend(df_keywords['merged'].to_list())
-interview_keyword = pd.DataFrame(columns=columns)
-interview_keyword['IntCode']= df_biodata['IntCode'].to_list()
-
-for i,element in enumerate(interview_keyword['IntCode']):
-     all_keywords = df[df['IntCode']==str(element)][['KeywordID','DateKeywordCreated']].drop_duplicates('KeywordID')
-     print (i)
-     for d in range(0,len(all_keywords)):
-        try:
-            KeywordID = all_keywords.iloc[d]['KeywordID']
-            DateKeywordCreated = all_keywords.iloc[d]["DateKeywordCreated"]
-            InterviewDate = df_biodata[df_biodata['IntCode']==element]['InterviewDate']
-            InterviewDate = InterviewDate.to_list()[0].strftime("%d-%b-%Y (%H:%M:%S.%f)")
-            entry = InterviewDate + '_'+ DateKeywordCreated
-            interview_keyword.at[i,KeywordID] = entry
-        except:
-            interview_keyword.at[i,KeywordID] = np.nan
-pdb.set_trace()
-
-
-
-number_of_possible_interviews = []
-keywords_used_retrospectively = []
-
-
-
-for i, time in enumerate(df_keywords['DateKeywordCreated']):
-    # Check if it was also used retrospectively
-    print (i)
-    # Check all the interviews when it was used
-    KeywordID = df_keywords.iloc[i]['KeywordID']
-    interviews_used = df[df.KeywordID==KeywordID]['IntCode'].unique().tolist()
-
-    #Find the ones that are before the creation
-    number_of_times_used_retrospectively = df_biodata[(df_biodata['IntCode'].isin(interviews_used))& (df_biodata['InterviewDate']<time)]['InterviewDate'].count()
-    number_of_times_used_after_creation = df_biodata[(df_biodata['IntCode'].isin(interviews_used))& (df_biodata['InterviewDate']>=time)]['InterviewDate'].count()
-
-    if number_of_times_used_retrospectively != 0:
-        keywords_used_retrospectively.append(df_keywords.iloc[i]['KeywordLabel'])
-        number_of_possible_interviews.append(np.nan)
-    else:
-        number_of_possible_interviews.append(number_of_times_used_after_creation)
-
-
-df_keywords['number_of_possible_interview'] = pd.DataFrame(number_of_possible_interviews)
-
-pdb.set_trace()
-
-time = df_keywords['DateKeywordCreated'][30]
-df_biodata[df_biodata['InterviewDate']>time]['IntCode'].count()
+# Create a histogram showing the number
+year_number_of_index_terms = df_keywords.groupby('YearKeywordCreated').count()['KeywordID'].to_frame(name="Number_of_terms_introduced").reset_index()
+year_number_of_index_terms = year_number_of_index_terms.astype(int)
+a4_dims = (11.7, 8.27)
+fig, ax = plt.subplots(figsize=a4_dims)
+ax = sns.barplot(x="YearKeywordCreated", y="Number_of_terms_introduced", data=year_number_of_index_terms)
+plt.savefig(output_directory+'plots/year_number_of_index_terms_histogram.png')
+plt.clf()
 
 
 pdb.set_trace()
 
-pd.to_datetime(df_keywords['DateKeywordCreated'])
+
 df[df['KeywordID']=='12044']
 
