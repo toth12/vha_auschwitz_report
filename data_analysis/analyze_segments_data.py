@@ -267,8 +267,8 @@ ax = sns.distplot(df_interview_year_zoomed)
 plt.savefig(output_directory+'plots/interview_year_histogram_zoomed.png')
 plt.clf()
 
-# Render the histogram
-ax = sns.distplot(df_interview_year)
+# Render the histogram, set the bins to the number of categories you have
+x = sns.distplot(df_interview_year['count'],kde=False,bins=37)
 plt.savefig(output_directory+'plots/interview_year_histogram.png')
 plt.clf()
 
