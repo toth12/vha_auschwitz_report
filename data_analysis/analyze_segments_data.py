@@ -200,8 +200,88 @@ plt.clf()
 
 report += "Average of the total number of times a keyword is used (at least once) in an interview: "+str(df_keywords['TotalNumberIntervieweeUsing'].mean())+"\n\n"
 report += "Median of the total number of times a keyword is used (at least once) in an interview"+str(df_keywords['TotalNumberIntervieweeUsing'].median())+"\n\n"
+report += "Analysis of biodata:\n\n"
+
+# Add year of birth
+
+index = df_biodata[df_biodata['IntCode']==55567][['DateOfBirth']].index[0]    
+
+df_biodata.at[index,"DateOfBirth"] = datetime.datetime(1913, 10, 21, 0, 0)
+
+df_biodata["DateOfBirth"] = pd.to_datetime(df_biodata['DateOfBirth'],errors='coerce')
+df_biodata["YearOfBirth"] = df_biodata["DateOfBirth"].map(lambda x: x.year)
+
+
+# Render the histogram
+ax = sns.distplot(df_biodata["YearOfBirth"])
+plt.savefig(output_directory+'plots/interviewee_year_of_birth_histogram.png')
+plt.clf()
+
+
+# Describe age groups
+
+report += "Average year of birth: "+str(df_biodata["YearOfBirth"].mean())+"\n\n"
+report += "Median of year of birth"+str(df_biodata["YearOfBirth"].median())+"\n\n"
+report += "Oldest interviewee: "+str(df_biodata["YearOfBirth"].min())+"\n\n"
+report += "Youngest interviewee: "+str(df_biodata["YearOfBirth"].max())+"\n\n"
+
+report += "Analysis of biodata:\n\n"
+
+#df_biodata[(df_biodata["DateOfBirth"]>datetime.datetime(1923,1, 1, 0, 0)) & (df_biodata["DateOfBirth"]<datetime.datetime(1924, 1, 1, 0, 0))]
+
+
+
+# Date of birth
+birth_year_count = df_biodata.groupby('YearOfBirth').count()['IntCode'].to_frame(name="Count").reset_index()
+birth_year_count.to_csv(output_directory+'tables/'+'birth_year_count.csv')
+
+# Countries of orign
+country_of_orign_count = df_biodata.groupby('CountryOfBirth').count()['IntCode'].to_frame(name="Count").reset_index()
+country_of_orign_count = country_of_orign_count.sort_values('Count',ascending=False)
+
+
+a4_dims = (11.7, 8.27)
+fig, ax = plt.subplots(figsize=a4_dims)
+
+ax = sns.barplot(x="Count", y="CountryOfBirth", data=country_of_orign_count)
+plt.savefig(output_directory+'plots/country_of_orign_count.png')
+plt.clf()
+
+# Interview Year
+
+df_biodata["InterviewDate"] = pd.to_datetime(df_biodata['InterviewDate'],errors='coerce')
+df_biodata["InterviewYear"] = df_biodata["InterviewDate"].map(lambda x: x.year)
+
+df_interview_year= df_biodata["InterviewYear"]
+
+df_interview_year = pd.to_numeric(df_interview_year, errors='coerce')
+df_interview_year  = df_interview_year.dropna()
+df_interview_year = df_interview_year.to_frame('count')
+
+df_interview_year['count'] = df_interview_year['count'].map(lambda x: int(x))
+
+df_interview_year_zoomed = df_interview_year[(df_interview_year['count']>1993)& (df_interview_year['count']<2002)]
+
+# Render the histogram
+ax = sns.distplot(df_interview_year_zoomed)
+plt.savefig(output_directory+'plots/interview_year_histogram_zoomed.png')
+plt.clf()
+
+# Render the histogram
+ax = sns.distplot(df_interview_year)
+plt.savefig(output_directory+'plots/interview_year_histogram.png')
+plt.clf()
+
+#df_interview_year.to_frame(name="InterviewYear").groupby('InterviewYear')['InterviewYear'].count()
+interview_year_count = df_biodata.groupby('InterviewYear').count()['IntCode'].to_frame(name="Count").reset_index()
+a4_dims = (11.7, 8.27)
+interview_year_count['InterviewYearTruncated'] = interview_year_count['InterviewYear'].map(lambda x: str(int(x))[2:])
+fig, ax = plt.subplots(figsize=a4_dims)
+ax = sns.barplot(y="Count", x="InterviewYearTruncated", data=interview_year_count)
+plt.savefig(output_directory+'plots/interview_year_count_bar_plot.png')
+plt.clf()
+
 pdb.set_trace()
-
-
 df[df['KeywordID']=='12044']
-
+#df_keywords[df_keywords.KeywordLabel.str.contains(pat = 'suicide')][['KeywordLabel','YearKeywordCreated','TotalNumberIntervieweeUsing']]
+# df_interview_year.to_frame()['InterviewYear']
