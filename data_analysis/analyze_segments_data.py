@@ -13,6 +13,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.ensemble import IsolationForest
 import datetime
+from scipy import stats, integrate
 
 
 
@@ -26,13 +27,14 @@ input_files = [input_directory+i for i in input_files]
 # Read the input files into panda dataframe
 
 csv_data = []
-for el in input_files:
+for el in input_files[0:1]:
+
     f = codecs.open(el,"rb","utf-8")
     csvread = csv.reader(f,delimiter=',')
     csv_data_temp = list(csvread)
     columns = csv_data_temp[0]
     #Drop the first line as that is the column
-    del csv_data_temp[0]
+    del csv_data_temp[0:10]
     csv_data.extend(csv_data_temp)
 
 
@@ -60,8 +62,46 @@ df = df[df['IntCode'].isin(IntCode)]
 
 df_biodata = df_biodata[df_biodata['IntCode'].isin(IntCode)]
 
+#From here
+
+df_biodata['DateOfBirth'] = pd.to_datetime(df_biodata['DateOfBirth'])
+df = df_biodata[['DateOfBirth']]
+df = df.sort_values('DateOfBirth').dropna()
+df = df.set_index(['DateOfBirth'])
+df['value']=range(0,df.shape[0])
 
 
+df['tvalue'] = df.index
+df['delta'] = (df['tvalue']-df['tvalue'].shift()).fillna(0)
+
+container = []
+for i,element in enumerate(df['delta'].items()):
+    
+    if i==0:
+        container.append(element[1])
+
+    else:
+        duration = element[1]+container[-1]
+        container.append(duration)
+
+container = [element.days for element in container]
+ser = pd.Series(container)
+
+pp= ser.plot.kde()
+
+pdb.set_trace()
+
+plt.axes[0,1].set_xticks([0,1,2,4.5])
+
+plt.show()
+plt.savefig(output_directory+'plots/age_probability.png')
+
+plt.clf()
+
+pdb.set_trace()
+
+
+#to here
 # Make time sequence from interview dates in the biodata
 
 df_biodata['InterviewDate'] = pd.to_datetime(df_biodata['InterviewDate'])
