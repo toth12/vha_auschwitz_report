@@ -62,43 +62,7 @@ df = df[df['IntCode'].isin(IntCode)]
 
 df_biodata = df_biodata[df_biodata['IntCode'].isin(IntCode)]
 
-#From here
 
-df_biodata['DateOfBirth'] = pd.to_datetime(df_biodata['DateOfBirth'])
-df = df_biodata[['DateOfBirth']]
-df = df.sort_values('DateOfBirth').dropna()
-df = df.set_index(['DateOfBirth'])
-df['value']=range(0,df.shape[0])
-
-
-df['tvalue'] = df.index
-df['delta'] = (df['tvalue']-df['tvalue'].shift()).fillna(0)
-
-container = []
-for i,element in enumerate(df['delta'].items()):
-    
-    if i==0:
-        container.append(element[1])
-
-    else:
-        duration = element[1]+container[-1]
-        container.append(duration)
-
-container = [element.days for element in container]
-ser = pd.Series(container)
-
-pp= ser.plot.kde()
-
-pdb.set_trace()
-
-plt.axes[0,1].set_xticks([0,1,2,4.5])
-
-plt.show()
-plt.savefig(output_directory+'plots/age_probability.png')
-
-plt.clf()
-
-pdb.set_trace()
 
 
 #to here
@@ -224,6 +188,9 @@ ax = sns.barplot(x="YearKeywordCreated", y="Number_of_terms_introduced", data=ye
 plt.savefig(output_directory+'plots/year_number_of_index_terms_histogram.png')
 plt.clf()
 
+# Write out the result
+
+df_keywords.to_csv(output_directory+'tables/'"keywrods.csv")
 
 
 # Render the distribution of index term per interview
@@ -231,6 +198,8 @@ ax = sns.distplot(df_keywords['TotalNumberIntervieweeUsing'])
 plt.savefig(output_directory+'plots/keyword_interviewee_histogram_total.png')
 plt.clf()
 
+# suicide_decision = df[df['KeywordID']=='42099']['IntCode'].to_list()
+# df_biodata[df_biodata['IntCode'].isin(suicide_decision)]
 
 
 # Render the distribution of index term per interview
@@ -258,6 +227,22 @@ plt.savefig(output_directory+'plots/interviewee_year_of_birth_histogram.png')
 plt.clf()
 
 
+# Date of birth per gender
+
+gender_birthyear = df_biodata.groupby(['YearOfBirth','Gender'])['IntCode'].count().to_frame(name="Count").reset_index()
+
+male = df_biodata[df_biodata.Gender=="M"][['YearOfBirth']]
+female = df_biodata[df_biodata.Gender=="F"][['YearOfBirth']]
+
+sns.distplot(male[['YearOfBirth']], hist=False, rug=True)
+sns.distplot(female[['YearOfBirth']], hist=False, rug=True)
+
+# Render the histogram
+plt.savefig(output_directory+'plots/interviewee_year_of_birth_histogram_gender.png')
+plt.clf()
+
+
+
 # Describe age groups
 
 report += "Average year of birth: "+str(df_biodata["YearOfBirth"].mean())+"\n\n"
@@ -277,15 +262,27 @@ birth_year_count.to_csv(output_directory+'tables/'+'birth_year_count.csv')
 
 # Countries of orign
 country_of_orign_count = df_biodata.groupby('CountryOfBirth').count()['IntCode'].to_frame(name="Count").reset_index()
+
+
+
+country_of_orign_count['Percentage'] = country_of_orign_count['Count']/country_of_orign_count['Count'].sum()*100
 country_of_orign_count = country_of_orign_count.sort_values('Count',ascending=False)
 
 
-a4_dims = (11.7, 8.27)
+a4_dims = (33.1, 23.4)
+
+
+
+sns.set(font_scale=2)
 fig, ax = plt.subplots(figsize=a4_dims)
 
-ax = sns.barplot(x="Count", y="CountryOfBirth", data=country_of_orign_count)
+
+ax = sns.barplot(x="Percentage", y="CountryOfBirth", data=country_of_orign_count)
 plt.savefig(output_directory+'plots/country_of_orign_count.png')
 plt.clf()
+
+# Date of birth for gender
+
 
 # Interview Year
 
@@ -314,12 +311,81 @@ plt.clf()
 
 #df_interview_year.to_frame(name="InterviewYear").groupby('InterviewYear')['InterviewYear'].count()
 interview_year_count = df_biodata.groupby('InterviewYear').count()['IntCode'].to_frame(name="Count").reset_index()
-a4_dims = (11.7, 8.27)
-interview_year_count['InterviewYearTruncated'] = interview_year_count['InterviewYear'].map(lambda x: str(int(x))[2:])
+a4_dims = (33.1, 23.4)
+sns.set(font_scale=2)
+interview_year_count['InterviewYearTruncated'] = interview_year_count['InterviewYear'].map(lambda x: str(int(x)))
 fig, ax = plt.subplots(figsize=a4_dims)
 ax = sns.barplot(y="Count", x="InterviewYearTruncated", data=interview_year_count)
 plt.savefig(output_directory+'plots/interview_year_count_bar_plot.png')
 plt.clf()
+
+
+# Interview Country
+
+# Interview country
+interview_country = df_biodata.groupby('InterviewCountry').count()['IntCode'].to_frame(name="Count").reset_index()
+interview_country['Percentage'] = interview_country['Count']/interview_country['Count'].sum()*100
+interview_country= interview_country.sort_values('Count',ascending=False)
+
+
+a4_dims = (33.1, 23.4)
+
+
+
+fig, ax = plt.subplots(figsize=a4_dims)
+
+ax = sns.barplot(y="Percentage", x="InterviewCountry", data=interview_country)
+
+
+plt.savefig(output_directory+'plots/country_of_interview_count.png')
+plt.clf()
+
+
+# Interview Language
+interview_language = df_biodata.groupby('InterviewLanguage').count()['IntCode'].to_frame(name="Count").reset_index()
+interview_language = interview_language[interview_language.Count>4]
+interview_language['Percentage'] = interview_language['Count']/interview_language['Count'].sum()*100
+interview_language= interview_language.sort_values('Count',ascending=False)
+
+
+
+a4_dims = (33.1, 23.4)
+
+
+
+fig, ax = plt.subplots(figsize=a4_dims)
+ax = sns.barplot(y="Percentage", x="InterviewLanguage", data=interview_language)
+
+#ax = sns.barplot(x="x", y="x", data=df, estimator=lambda x: len(x) / len(df) * 100)
+plt.savefig(output_directory+'plots/language_of_interview_count.png')
+plt.clf()
+
+# Gender of the interviewee
+
+report += "Number of women: "+str(df_biodata[df_biodata.Gender =="F"].count()[0])+"\n\n"
+report += "Number of men: "+str(df_biodata[df_biodata.Gender =="M"].count()[0])+"\n\n"
+
+
+gender_country = df_biodata.groupby(['CountryOfBirth','Gender'])['IntCode'].count().to_frame(name="Count").reset_index()
+gender_country['Percentage'] = gender_country['Count']/gender_country['Count'].sum()*100
+
+a4_dims = (33.1, 23.4)
+
+
+
+sns.set(font_scale=2)
+fig, ax = plt.subplots(figsize=a4_dims)
+
+
+ax = sns.barplot(x="Percentage", y="CountryOfBirth", hue="Gender", data=gender_country)
+plt.legend()
+plt.savefig(output_directory+'plots/country_of_orign_gender_count.png')
+plt.clf()
+
+
+f = open(output_directory+'report.txt', "w")
+f.write(report)
+f.close()
 
 pdb.set_trace()
 df[df['KeywordID']=='12044']

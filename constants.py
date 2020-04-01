@@ -8,7 +8,7 @@ input_data = "data/input/"
 # Input data sets
 
 input_files_segments = ["Auschwitz_segments_03112020_1.csv","Auschwitz_segments_03112020_2.csv"]
-input_files_biodata='Auschwitz_testimonies_031220.xlsx'
+input_files_biodata='biodata.xlsx'
 
 # Output data
 
