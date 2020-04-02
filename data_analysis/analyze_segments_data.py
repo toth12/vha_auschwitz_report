@@ -387,7 +387,32 @@ f = open(output_directory+'report.txt', "w")
 f.write(report)
 f.close()
 
+
+
+gender = df_biodata[['Gender','IntCode']]
+df["IntCode"] = df.IntCode.map(lambda x: int(x))
+df = df.merge(gender,how='left',on="IntCode")
+df = pd.concat([df, df.Gender.str.get_dummies()], axis=1)
+contingency = df.groupby(['KeywordLabel','IntCode']).agg({'F': 'sum', 'M': 'sum'}).reset_index()
+
+contingency['M'] = contingency['M'].apply(lambda x: 0 if x <1 else 1)
+contingency['F'] = contingency['F'].apply(lambda x: 0 if x <1 else 1)
+contingency = contingency.groupby("KeywordLabel").agg({'F': 'sum', 'M': 'sum'}).reset_index()
+
+total_f=len(df_biodata[df_biodata['Gender']=="F"])
+total_m=len(df_biodata[df_biodata['Gender']=="M"])
+
+
+
+#df.groupby(['KeywordLabel','Gender'])['IntCode'].count().to_frame("Count").reset_index()
+
+
 pdb.set_trace()
 df[df['KeywordID']=='12044']
 #df_keywords[df_keywords.KeywordLabel.str.contains(pat = 'suicide')][['KeywordLabel','YearKeywordCreated','TotalNumberIntervieweeUsing']]
 # df_interview_year.to_frame()['InterviewYear']
+
+df.groupby(['IntCode'])["KeywordID"].unique().to_frame(name="KeywordID").reset_index()
+
+#tye(df_biodata[['Gender','IntCode']].iloc[0]['IntCode'])
+
