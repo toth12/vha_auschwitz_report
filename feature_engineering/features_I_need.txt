@@ -2,8 +2,8 @@ Feature engineering:
 
 Main nodes to use:
 
-1. Camp living conditions + Housing Conditions + Environment conditions + latrines
-2. Clothing + shoes as a general node
+1. Camp living conditions + Housing Conditions + Environment conditions + latrines x
+2. Clothing + shoes as a general node x
 3. Food and eating - food sharing
 4. Educational experience
 5. Loved one's
