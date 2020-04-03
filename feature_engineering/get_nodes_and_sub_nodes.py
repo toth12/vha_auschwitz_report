@@ -10,25 +10,15 @@ from anytree import search
 
 
 
-input_directory = constants.input_data
-input_files_term_hierarchy = constants.input_files_term_hierarchy 
-with codecs.open(input_directory+input_files_term_hierarchy,encoding = "utf-8-sig") as json_file:
-    treedict = json.load(json_file)
-
-# ,\n^\s*"children": null
 
 
-root = importer.import_(treedict)
 
-
-conditions_container_nodes = ['camp living conditions','housing conditions','environmental conditions']
-clothing_container_nodes =['clothing']
 def find_container_subnodes(container_node_names):
     node_ids = []
-    for element in conditions_container_nodes:
+    for element in container_node_names:
         container_node = search.findall_by_attr(root,element,name='name')
         if len(container_node) ==0:
-            print (element)
+            pdb.set_trace()
         for node in container_node:
             node_ids.append(node.id)
             descendants = node.descendants
@@ -43,6 +33,8 @@ def find_nodes_by_name_pattern(name_pattern):
     node_ids = []
     
     nodes = search.findall(root,filter_=lambda node: name_pattern in node.name)
+    if len(nodes) ==0:
+        pdb.set_trace()
     for node in nodes:
             node_ids.append(node.id)
             descendants = node.descendants
@@ -52,44 +44,42 @@ def find_nodes_by_name_pattern(name_pattern):
     node_ids = [i for i in node_ids]
     return node_ids
 
-conditions = find_container_subnodes(conditions_container_nodes)
-clothing = find_container_subnodes(clothing_container_nodes)
-shoes = find_nodes_by_name_pattern('shoes')
-loved_ones = find_nodes_by_name_pattern('loved ones')
-latrines = find_nodes_by_name_pattern('latrines')
-pdb.set_trace()
+if __name__ == '__main__':
+    input_directory = constants.input_data
+    input_files_term_hierarchy = constants.input_files_term_hierarchy 
+    with codecs.open(input_directory+input_files_term_hierarchy,encoding = "utf-8-sig") as json_file:
+        treedict = json.load(json_file)
 
-#7. Wartime family interactions + family members
-# 10. Social relations + friendship + food sharing
-#11. Barter + covert economic activities
-#22. brutal treatment + executions and killings + violent attacks -> Violence 
+    # preprocess data with this pattern ,\n^\s*"children": null
 
+    # create a tree object
+    root = importer.import_(treedict)
 
-
-camp_living_conditions = search.findall_by_attr(root,'camp living conditions',name='name')[0].descendants
-housing_conditions = search.findall_by_attr(root,'housing conditions',name='name')[0].descendants
-environment_conditions = search.findall_by_attr(root,'environment conditions',name='name')[0].descendants
-
-
-clothing = search.findall_by_attr(root,'clothing',name='name')[0].descendants
-loved_ones = search.findall(root,filter_=lambda node: 'loved ones' in node.name)
-
-pdb.set_trace()
-
-name = next(iter(treedict.keys()))
-
-edges = []
-def get_edges(treedict, parent=None):
-    name = next(iter(treedict.keys()))
-    if parent is not None:
-        edges.append((parent, name))
-    for item in treedict["children"]:
-        pdb.set_trace
-        print(item)
-        if isinstance(item, dict):
-            get_edges(item, parent=name)
+    #open the nodes file
+    main_nodes = open('main_nodes.txt').readlines()
+    complete_results = []
+    for node_name in main_nodes:
+    # Check if a combination of nodes
+        if not '+' in node_name:
+            if '[' not in node_name:
+                result = find_container_subnodes([node_name.strip()])
+                complete_results.append({node_name.strip():result})
+            else:
+                result = find_nodes_by_name_pattern(node_name.strip().split('[')[0])
+                complete_results.append({node_name.strip().split('[')[0]:result})
         else:
-            edges.append((name, item))
+            partial_result = []
+            covering_term = node_name.split('=')[0].strip()
+            nodes = node_name.split('=')[1:][0].split('+')
+            for element in nodes:
+                if '[' not in element:
+                    result = find_container_subnodes([element.strip()])
+                    partial_result.extend(result)
+                else:
+                    result = find_nodes_by_name_pattern(element.split('[')[0])
+                    partial_result.extend(result)      
+            complete_results.append({covering_term:partial_result})
+    pdb.set_trace()
 
-edges = get_edges(treedict)
+
 

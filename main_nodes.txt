@@ -1,0 +1,29 @@
+food and eating
+educational experience
+childbearing
+Jewish life
+sexual activities
+bribery
+smuggling
+cigarette importance
+stealing
+time awareness
+suicides
+humor
+hunger
+thirst
+rumors
+body searches
+deaths
+humiliation
+medical experiments
+punishments
+sexual assaults
+camp guards
+children
+faith issues
+conditions = camp living conditions+housing conditions+environmental conditions+latrines[patt]
+clothing = clothing + shoes[patt] 
+family = wartime family interactions+family members
+violence = brutal treatment+executions and killings+violent attacks
+social_relations = social relations+friendship +food sharing + discussions
