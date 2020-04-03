@@ -1,0 +1,59 @@
+Feature engineering:
+
+Main nodes to use:
+
+1. Camp living conditions + Housing Conditions + Environment conditions + latrines
+2. Clothing + shoes as a general node
+3. Food and eating - food sharing
+4. Educational experience
+5. Loved one's
+6. Childbearing
+7. Wartime family interactions + family members
+8. Jewish life
+9. Sexual activities
+10. Social relations + friendship + food sharing
+11. Barter + covert economic activities
+12.  Bribery
+13. Smuggling
+13.  Cigarette importance
+14. Stealing
+15. Time awareness
+15. Sucide
+16. Discussions
+17. Humor
+18. hunger
+19. Thirst
+20. Rumors
+21. Body searches
+22. brutal treatment + executions and killings + violent attacks -> Violence 
+23. Deaths
+24. Humiliation
+25. medical experiments
+26. Punishments
+27. sexual assaults
+28. camp guards
+28. children
+29. faith issues
+
+https://stackoverflow.com/questions/40118113/how-to-convert-json-data-into-a-tree-image
+
+
+
+
+1. Read in the hiearchy
+2. Try to have only containers instead of words
+
+
+
+
+
+
+Saby: 
+
+1. General Node Clothing with shoes as a subnode and a general node shoes -> they should not be separated
+2. General Node latrines and a general node camp living conditions -> the former should below the latter
+3. Food sharing is a social activity but it is under Food and Eating general node and unconnected with the social relations general node and subsides
+4. Family and social relations are different but they should be connected
+5. Friendship is not under the node Social relations
+
+

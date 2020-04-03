@@ -9,6 +9,7 @@ input_data = "data/input/"
 
 input_files_segments = ["Auschwitz_segments_03112020_1.csv","Auschwitz_segments_03112020_2.csv"]
 input_files_biodata='biodata.xlsx'
+input_files_term_hierarchy = 'termhierarchy_2.json'
 
 # Output data
 
