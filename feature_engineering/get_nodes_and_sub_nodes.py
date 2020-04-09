@@ -13,6 +13,7 @@ from anytree import search
 
 
 
+
 def find_container_subnodes(container_node_names):
     node_ids = []
     for element in container_node_names:
@@ -46,7 +47,10 @@ def find_nodes_by_name_pattern(name_pattern):
 
 if __name__ == '__main__':
     input_directory = constants.input_data
-    input_files_term_hierarchy = constants.input_files_term_hierarchy 
+    output_directory = constants.output_data
+    input_files_term_hierarchy = constants.input_files_term_hierarchy
+    node_filter = output_directory + 'filtered_nodes/'+'node_filter_1_input.txt' 
+    node_filter_output = output_directory + 'filtered_nodes/'+'node_filter_1_output.json' 
     with codecs.open(input_directory+input_files_term_hierarchy,encoding = "utf-8-sig") as json_file:
         treedict = json.load(json_file)
 
@@ -56,7 +60,7 @@ if __name__ == '__main__':
     root = importer.import_(treedict)
 
     #open the nodes file
-    main_nodes = open('main_nodes.txt').readlines()
+    main_nodes = open(node_filter).readlines()
     complete_results = []
     for node_name in main_nodes:
     # Check if a combination of nodes
@@ -79,6 +83,9 @@ if __name__ == '__main__':
                     result = find_nodes_by_name_pattern(element.split('[')[0])
                     partial_result.extend(result)      
             complete_results.append({covering_term:partial_result})
+    
+    with open(node_filter_output, 'w') as f:
+        json.dump(complete_results, f)
     pdb.set_trace()
 
 

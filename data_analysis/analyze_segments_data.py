@@ -234,9 +234,11 @@ gender_birthyear = df_biodata.groupby(['YearOfBirth','Gender'])['IntCode'].count
 male = df_biodata[df_biodata.Gender=="M"][['YearOfBirth']]
 female = df_biodata[df_biodata.Gender=="F"][['YearOfBirth']]
 
+a4_dims = (11.7, 8.27)
+fig, ax = plt.subplots(figsize=a4_dims)
 sns.distplot(male[['YearOfBirth']], hist=False, rug=True)
 sns.distplot(female[['YearOfBirth']], hist=False, rug=True)
-
+plt.legend()
 # Render the histogram
 plt.savefig(output_directory+'plots/interviewee_year_of_birth_histogram_gender.png')
 plt.clf()
