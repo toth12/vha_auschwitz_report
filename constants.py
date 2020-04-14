@@ -16,3 +16,5 @@ input_files_term_hierarchy = 'termhierarchy_3.json'
 output_data = "data/output/"
 output_data_report_statistical_analysis = output_data+'reports_statistical_analysis/'
 output_chi2_test = output_data+'chi2test/'
+output_data_features = "data/output/features/"
+output_data_filtered_nodes = "data/output/filtered_nodes/"

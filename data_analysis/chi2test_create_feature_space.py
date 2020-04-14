@@ -166,7 +166,15 @@ if __name__ == '__main__':
     
     kws = df.groupby(['KeywordID'])['IntCode'].unique().map(lambda x: len(x)).to_frame(name="TotalNumberIntervieweeUsing").reset_index()
     kws_needed = kws[kws.TotalNumberIntervieweeUsing>25]['KeywordID'].to_list()
-    #df = df[df['KeywordID'].isin(kws_needed)] 
+    df = df[df['KeywordID'].isin(kws_needed)]
+
+    df = pd.concat([df, df['KeywordLabel'].str.get_dummies()], axis=1)
+    pdb.set_trace()
+    features = {key: 'sum' for (key) in df.columns[13:]}
+    df = df.groupby(['IntCode'],as_index=False).agg(features)
+    df = df.astype(bool).astype(int)
+    df.to_csv('interview_keyword_all_min_25.csv')
+
     
     result = chi2test(df,df_biodata,'CountryOfBirth')
     result.to_csv('chi_test_filtered_country_of_origin.csv')

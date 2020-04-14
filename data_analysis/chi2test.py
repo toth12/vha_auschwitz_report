@@ -14,6 +14,10 @@ from scipy.stats import chi2_contingency
 from random import randint
 import json
 from matplotlib.lines import Line2D
+import mpld3
+from plotly import express as px
+import plotly
+import plotly.figure_factory as ff
 
 
 
@@ -41,7 +45,7 @@ def chi2test(df,df_biodata,category):
     for key in agg_pipeline:
 
         contingency[key] = contingency[key].apply(lambda x: 0 if x <1 else 1)
-        contingency[key] = contingency[key].apply(lambda x: 0 if x <1 else 1)
+
     
     contingency = contingency.groupby(['KeywordID',"KeywordLabel"]).agg(agg_pipeline).reset_index()
 
@@ -108,15 +112,6 @@ def chi2test(df,df_biodata,category):
             
         results_for_individual_cat = total_obs[:,0] / test_result[3][:,0]
 
-        '''
-        others_present=np.delete(total_obs[:,0],0)
-        others_not_present=np.delete(total_obs[:,1],0)
-        others = np.array([others_present.sum(),others_not_present.sum()])
-        conting = np.concatenate([[total_obs[0]],[others]]).T
-        oddsratio, pvalue = stats.fisher_exact(conting)
-        '''
-
-        
 
         # Calculate odds ratio
 
@@ -136,18 +131,92 @@ def chi2test(df,df_biodata,category):
         partial_result = [element[1]['KeywordID'],element[1]['KeywordLabel'],test_stat,p_value]
         partial_result.extend(results_for_individual_cat.tolist())
         partial_result.extend(odds_ratios)
+        partial_result.extend(total_obs[:,0].tolist())
+        partial_result.extend(test_result[3][:,0].tolist())
+
         result.append(partial_result)
         
 
     column_labels_observed_expected_ratio = [element+'_observed_expected_ratio' for element in agg_pipeline]
     column_labels_assoc_strength = [element+'_assoc_strength' for element in agg_pipeline]
+    column_labels_count_observed = [element+'_count_observed' for element in agg_pipeline]
+    column_labels_count_expected = [element+'_count_expected' for element in agg_pipeline]
     columns = ['KeywordID','KeywordLabel','test_stat','p_value']
     columns.extend(column_labels_observed_expected_ratio)
     columns.extend(column_labels_assoc_strength)
+    columns.extend(column_labels_count_observed)
+    columns.extend(column_labels_count_expected)
     df_chi = pd.DataFrame(result,columns=columns)
     df_chi = df_chi.sort_values('test_stat',ascending=False)
     df_chi['p_value'] = df_chi['p_value']*len(df_chi)
     df_chi['significance'] = df_chi['p_value']<0.05
+    
+
+    #visualize country keyword
+
+    selected_categories = df_chi[df_chi.columns[df_chi.columns.to_series().str.contains('count')]]
+
+    for element in agg_pipeline:
+        # select the column about the county
+        observed = element+'_count_observed'
+        expected= element+'_count_expected'
+        ratio = element+'_observed_expected_ratio'
+        assoc_strength =  element+'_assoc_strength'
+        individual_category = pd.DataFrame()
+        individual_category['observed'] = df_chi[observed]
+        individual_category['expected'] = df_chi[expected]
+        individual_category['KeywordLabel'] = df_chi['KeywordLabel']
+        individual_category['ratio'] = df_chi[ratio]
+        individual_category['strength'] = df_chi[assoc_strength]
+
+
+        
+
+
+
+        config = dict({'scrollZoom': True})
+
+        plt.ylim(0, max(individual_category['expected'].max(),individual_category['observed'].max())+10)
+        plt.xlim(0, max(individual_category['expected'].max(),individual_category['observed'].max())+10)
+
+
+        fig = px.scatter(individual_category, y="observed",x="expected", hover_data=["KeywordLabel","ratio","strength"],width=800, height=800)
+        
+
+        fig.update_xaxes(range=[0, max(individual_category['expected'].max(),individual_category['observed'].max())+100])
+        fig.update_yaxes(range=[0, max(individual_category['expected'].max(),individual_category['observed'].max())+100])
+
+       
+    
+        line=dict(type="line",x0=1,y0=0,x1=max(individual_category['expected'].max(),individual_category['observed'].max())+100,y1=max(individual_category['expected'].max(),individual_category['observed'].max())+100)
+        fig.update_layout(shapes=[line])
+        xaxis=dict(showspikes = True,spikesnap = 'cursor',showline=True,showgrid=True,spikemode  = 'across',spikedash = 'solid')    
+        fig.update_layout(xaxis=xaxis)
+        yaxis=dict(showspikes = True,spikesnap = 'cursor',showline=True,showgrid=True,spikemode  = 'across',spikedash = 'solid')    
+        fig.update_layout(yaxis=yaxis)
+
+
+        filename = "_".join(element.split(' '))+'.html'
+        plotly.offline.plot(fig, filename=filename,config=config)
+
+
+
+    #Visualize a heatmap in plotly
+    '''
+    colorscale = [[0, 'navy'], [1, 'plum']]
+    font_colors = ['white', 'black']
+
+    selected_categories = result[result.columns[result.columns.to_series().str.contains('_assoc_strength')]].values.tolist()
+    ylabel = result['KeywordLabel'].tolist()
+    xlabel =selected_categories.columns.tolist()
+
+    fig = px.imshow(selected_categories)
+    plotly.offline.plot(fig, filename='cluster_heatmap.html')
+    '''
+
+
+        
+
 
     return (df_chi)
 
@@ -220,7 +289,7 @@ if __name__ == '__main__':
 
 
 
-    with codecs.open('new_features.json') as json_file:
+    with codecs.open(features_filter ) as json_file:
         new_features = json.load(json_file)
     for element in new_features:
         for covering_term in element:

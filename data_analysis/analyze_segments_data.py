@@ -14,6 +14,7 @@ import matplotlib.pyplot as plt
 from sklearn.ensemble import IsolationForest
 import datetime
 from scipy import stats, integrate
+from scipy.stats import gaussian_kde
 
 
 
@@ -236,13 +237,27 @@ female = df_biodata[df_biodata.Gender=="F"][['YearOfBirth']]
 
 a4_dims = (11.7, 8.27)
 fig, ax = plt.subplots(figsize=a4_dims)
-sns.distplot(male[['YearOfBirth']], hist=False, rug=True)
-sns.distplot(female[['YearOfBirth']], hist=False, rug=True)
-plt.legend()
+sns.distplot(male[['YearOfBirth']].dropna(), hist=False, rug=True,label="Male")
+sns.distplot(female[['YearOfBirth']].dropna(), hist=False, rug=True,label = 'Female')
+
 # Render the histogram
 plt.savefig(output_directory+'plots/interviewee_year_of_birth_histogram_gender.png')
 plt.clf()
 
+# Calculate survival chances for each group
+
+
+older_man = gaussian_kde(male.dropna()['YearOfBirth'].array).integrate_box_1d(1902,1919.6)
+older_women = gaussian_kde(female.dropna()['YearOfBirth'].array).integrate_box_1d(1902,1919.6)
+
+ratio = older_man / older_women
+report += "Older man had (year of birth between 1902 and 1919.6) " +str(ratio)+ " times more chances to survive than older women.\n"
+
+
+younger_man = gaussian_kde(male.dropna()['YearOfBirth'].array).integrate_box_1d(1919.36,1926.6)
+younger_women = gaussian_kde(female.dropna()['YearOfBirth'].array).integrate_box_1d(1919.36,1926.6)
+ratio = younger_women / younger_man
+report += "Younger woman had (year of birth between 1919 and 1926) " +str(ratio)+ " times more chances to survive than younger man.\n"
 
 
 # Describe age groups
