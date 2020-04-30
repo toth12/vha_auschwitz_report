@@ -7,11 +7,12 @@ from corextopic import vis_topic as vt
 import constants
 import codecs
 import json
+import prince
 
 input_directory = constants.output_data_features
-data = np.loadtxt(input_directory+'segment_keyword_matrix.txt', dtype=int)
-features_df = pd.DataFrame.from_csv(input_directory+'keyword_index.csv')
-segment_df = pd.DataFrame.from_csv(input_directory+'segment_index.csv')
+data = np.loadtxt(input_directory+'segment_keyword_matrix_merged.txt', dtype=int)
+features_df = pd.DataFrame.from_csv(input_directory+'keyword_index_merged_segments.csv')
+segment_df = pd.DataFrame.from_csv(input_directory+'segment_index_merged.csv')
 features = features_df['KeywordLabel'].values.tolist()
 node_filters = constants.output_data_filtered_nodes + "node_filter_1_output.json"
 
@@ -27,18 +28,20 @@ for element in new_features:
             except:
                 pass
 
-
+mca = prince.MCA(n_components=2,    n_iter=3,copy=True,check_input=True,engine='auto',random_state=42)
+pdb.set_trace()
 
 # Sparse matrices are also supported
 X = ss.csr_matrix(data)
 # Word labels for each column can be provided to the model
 # Document labels for each row can be provided
 
-
+#anchors=['camp adaptation methods']
 # Train the CorEx topic model
-topic_model = ct.Corex(n_hidden=3)  # Define the number of latent (hidden) topics to use.
+topic_model = ct.Corex(n_hidden=20)  # Define the number of latent (hidden) topics to use.
+anchors.append("camp menstruation")
 
-topic_model.fit(X, words=features,anchors=[anchors,anchors,anchors],anchor_strength=2)
+topic_model.fit(X, docs=segment_df.updated_id.tolist(),words=features,anchors=["camp adaptation methods","camp adaptation methods","camp adaptation methods","camp adaptation methods","camp adaptation methods"],anchor_strength=10)
 #topic_model.fit(X, words=features)
 topics = topic_model.get_topics()
 for topic_n,topic in enumerate(topics):
@@ -55,7 +58,7 @@ for topic_n, topic_docs in enumerate(top_docs):
 
 pdb.set_trace()
 # Train the first layer
-topic_model = ct.Corex(n_hidden=20)
+topic_model = ct.Corex(n_hidden=18)
 topic_model.fit(X)
 
 # Train successive layers

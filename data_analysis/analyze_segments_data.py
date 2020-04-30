@@ -28,14 +28,14 @@ input_files = [input_directory+i for i in input_files]
 # Read the input files into panda dataframe
 
 csv_data = []
-for el in input_files[0:1]:
+for el in input_files:
 
     f = codecs.open(el,"rb","utf-8")
     csvread = csv.reader(f,delimiter=',')
     csv_data_temp = list(csvread)
     columns = csv_data_temp[0]
     #Drop the first line as that is the column
-    del csv_data_temp[0:10]
+    del csv_data_temp[0:1]
     csv_data.extend(csv_data_temp)
 
 
@@ -125,8 +125,9 @@ df_interview_segment_length = df_interview_segment_length.sort_values('length')
 
 # Calculate in minutes
 
-time = pd.DatetimeIndex(df_interview_segment_length['length'])
-df_interview_segment_length['length_in_minutes']=time.hour * 60 + time.minute
+df_interview_segment_length['length_in_minutes']= np.round(df_interview_segment_length['length'] / np.timedelta64(1, 'm'))
+
+
 
 
 # Write out the result to a table
@@ -239,6 +240,7 @@ a4_dims = (11.7, 8.27)
 fig, ax = plt.subplots(figsize=a4_dims)
 sns.distplot(male[['YearOfBirth']].dropna(), hist=False, rug=True,label="Male")
 sns.distplot(female[['YearOfBirth']].dropna(), hist=False, rug=True,label = 'Female')
+
 
 # Render the histogram
 plt.savefig(output_directory+'plots/interviewee_year_of_birth_histogram_gender.png')

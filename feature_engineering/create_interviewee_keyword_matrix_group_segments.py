@@ -107,14 +107,7 @@ if __name__ == '__main__':
 
     df["IntCode"] = df.IntCode.map(lambda x: int(x))
 
-    '''
-    kws = df.groupby(['KeywordID','KeywordLabel'])['IntCode'].unique().map(lambda x: len(x)).to_frame(name="TotalNumberIntervieweeUsing").reset_index()
-    kws =kws[kws['KeywordLabel'].str.islower()]
-
-    kws_needed = kws[kws.TotalNumberIntervieweeUsing>4][['KeywordID','KeywordLabel']]
-    keywords = kws_needed.reset_index()[['KeywordID','KeywordLabel']]
-    df = df[df['KeywordID'].isin(kws_needed['KeywordID'])]
-    '''
+    
     df_intcode_segment = df.groupby("IntCode")['SegmentNumber'].unique().to_frame(name="SegmentID").reset_index()
 
     df_intcode_segment.SegmentID.apply(lambda x: sorted(x,reverse=False))
@@ -129,39 +122,57 @@ if __name__ == '__main__':
 
     df = df[df['IntCode'].isin(int_codes_to_delete)]
 
-    for i,element in enumerate(df_intcode_segment.iterrows()):
-        print (i)
+   
+
+    df['new_segment_id']=df.IntCode.astype(str)+'_'+df.SegmentNumber.astype(str)
+
+    new_segment_ids = []
+    for i,element in enumerate(df_intcode_segment.iterrows()):        
         intcode = element[1]["IntCode"]
         for SegmentIDs in element[1]['SegmentID']:
             new_id = str(intcode)+'_'+'_'.join(SegmentIDs)
             for SegmentID in SegmentIDs:
-                df.loc[df[((df.IntCode==intcode) & (df.SegmentNumber == SegmentID))].index,'SegmentID']=new_id
-
-               
-
-
-    pdb.set_trace()
-
-    interviewee_keyword = df.groupby(['IntCode'])["KeywordID"].unique().to_frame(name="KeywordID").reset_index()
-    interviewee_keyword_matrix =np.zeros(shape=(len(interviewee_keyword),len(keywords)))
-    for i,element in enumerate(interviewee_keyword.iterrows()):
-        for keyword in element[1]['KeywordID']:
-            keyword_index = keywords[keywords.KeywordID==keyword].index[0]
-            interviewee_keyword_matrix[i, keyword_index] = 1
+                new_segment_ids.append([str(intcode)+'_'+SegmentID,new_id])
+                #pdb.set_trace()
+                #df.loc[df[((df.IntCode==intcode) & (df.SegmentNumber == SegmentID))].index,'SegmentID']=new_id
 
 
-    np.savetxt(output_directory+'interviewee_keyword_matrix.txt', interviewee_keyword_matrix, fmt='%d')
-    interviewee_keyword.to_csv(output_directory+'interview_index.csv')
-    keywords.to_csv(output_directory+'keyword_index.csv')
 
-    segment_keyword = df.groupby(['SegmentID'])["KeywordID"].unique().to_frame(name="KeywordID").reset_index()
+    df_new_segment_ids = pd.DataFrame(new_segment_ids,columns=["new_segment_id","updated_id"])
+
+    df = df.merge(df_new_segment_ids)
+
+    # Get rid of unnecessary keywords
+
+
+    kws = df.groupby(['KeywordID','KeywordLabel'])['updated_id'].unique().map(lambda x: len(x)).to_frame(name="TotalNumberIntervieweeUsing").reset_index()
+    kws =kws[kws['KeywordLabel'].str.islower()]
+
+    kws_needed = kws[kws.TotalNumberIntervieweeUsing>50][['KeywordID','KeywordLabel']]
+    keywords = kws_needed.reset_index()[['KeywordID','KeywordLabel']]
+    df = df[df['KeywordID'].isin(kws_needed['KeywordID'])]
+    
+
+
+
+
+
+    keywords.to_csv(output_directory+'keyword_index_merged_segments.csv')
+
+    segment_keyword = df.groupby(['updated_id'])["KeywordID"].unique().to_frame(name="KeywordID").reset_index()
+
+    #Eliminate those entries that have less than two keywords
+    segment_keyword = segment_keyword[segment_keyword['KeywordID'].str.len()>2]
+    
     segment_keyword_matrix =np.zeros(shape=(len(segment_keyword),len(keywords)))
     for i,element in enumerate(segment_keyword.iterrows()):
         for keyword in element[1]['KeywordID']:
             keyword_index = keywords[keywords.KeywordID==keyword].index[0]
             segment_keyword_matrix[i, keyword_index] = 1
-    np.savetxt(output_directory+'segment_keyword_matrix.txt', interviewee_keyword_matrix, fmt='%d')
-    segment_keyword.to_csv(output_directory+'segment_index.csv')
+    np.savetxt(output_directory+'segment_keyword_matrix_merged.txt', segment_keyword_matrix, fmt='%d')
+    segment_keyword.to_csv(output_directory+'segment_index_merged.csv')
+
+    
 
 
 pdb.set_trace()
