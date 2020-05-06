@@ -1,0 +1,18 @@
+0: camp forced labor,camp daily services forced labor,forced labor conditions,personal property sorting forced labor,construction forced labor,armament forced labor,corpse disposal forced labor,quarry forced labor,factory forced labor,agricultural forced labor
+1: camp brutal treatment,beatings,camp punishments,camp killings,camp executions,hangings,shootings,kapos,dog attacks,camp escape attempts
+2: camp selections,camp intake procedures,loved ones' separations,camp first impressions,loved ones' final contacts,age deceptions,camp personal property seizure,perpetrator deceptions,camp resistance,prisoner functionaries
+3: prisoner tattoos (stills),prisoner tattoos,camp quarantines,prisoner identification numbers,camp prisoner marking,injuries (stills)
+4: camp adaptation methods,camp food acquisition,camp stealing,camp barter,health deceptions,occupation deceptions,camp food sharing,camp smuggling,camp hiding and evasion,camp covert activities
+5: mass murder awareness,camp crematoria,camp mass executions,gas chambers,camp corpse cremations,gassings,smell,camp-related psychological reactions,aborted killings,attitudes toward perpetrators
+6: extended family members,loved ones' fates,camp family interactions,sisters,brothers,grandmothers,loved ones' togetherness decisions,mothers,bereavement-related psychological reactions,survivor guilt
+7: politico-military event awareness,bombardments,camp rumors,camp liberation
+8: freight trains,transfers, means of transport,forced marches,transfer conditions,deportations, means of transport,forced march conditions,trains,deportation conditions,transfer routes,death marches
+9: camp-related aid giving,preferential treatment,sustenance provision,warnings,clothing provision,hiding (aid giving),medical care provision,employment assistance,transfer-related aid giving,civilian aid givers
+10: camp diseases,camp hospitals,camp medical care,camp medical experiments,prisoner doctors,typhus,camp doctors,camp prisoner physical conditions,dysentery,camp injuries
+11: prisoner external contact,loved ones' renewed contacts,loved ones' contacts,camp covert communications,male prisoners,tracing loved ones,forced correspondence
+12: camp food,camp sanitary conditions,camp hunger,camp latrines,food additives,camp menstruation,camp living conditions,camp procedures,camp thirst,camp time awareness
+13: camp social relations,female prisoners,friends,camp cultural activities,political prisoners,friendships,performing arts,musical recitals,camp populations,interviewee memory
+14: perpetrator liberator-approach responses,camp liquidations,escape decisions,adaptation methods,post-liberation camp/ghetto transition,concentration camps (stills),post-conflict adaptation
+15: deportation awareness,post-conflict persecution site visits,future message,interviewee photographs (stills),interviewee original works,literary recitals,loved ones' introductions,testimony-sharing motivations,rabbis,trauma-related dreams
+16: camp housing conditions,camp clothing,camp barracks,camp shoes,camp uniforms,camp showers,camp environmental conditions,shoe importance,human soap rumors,camp prisoner insignia
+17: camp children,camp deaths,camp suicides,lice,child killings,camp infestations,electrocutions,camp corpses,camp childbearing,loved ones' deaths

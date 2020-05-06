@@ -72,23 +72,29 @@ print (np.where(document_topic_matrix.sum(1)==0)[0].shape)
 
 
 
-np.where(counts>100)[0]
+
 
 new_topics = []
 for i,element in enumerate(unique):
     nonzeros = np.count_nonzero(element)
     if nonzeros >1:
-        if counts[i] >100:
+        if counts[i] >25:
+
             print (counts[i])
             new_topic = 'topic_'+'_'.join([str(num) for num in np.nonzero(element)[0].tolist()])
             print (new_topic)
             new_topics.append(new_topic)
 
 # Assign a topic to each segment
+#doc_indices = np.argsort(-topic_model.log_p_y_given_x.T[6],axis=0)
+#doc_indices = np.argsort(-topic_model.log_z.T[6],axis=0)
+
+#doc_indices = np.argsort(-topic_model.log_z.T[6],axis=0)
+
 count_segment_without_topic = 0
 
 segment_topics = []
-for element in document_topic_matrix:
+for i,element in enumerate(document_topic_matrix):
     nonzeros = np.count_nonzero(element)
     if nonzeros > 1:
         topic = 'topic_'+'_'.join([str(num) for num in np.nonzero(element)[0].tolist()])
@@ -101,9 +107,12 @@ for element in document_topic_matrix:
         topic = 'topic_'+str(np.nonzero(element)[0].tolist()[0])
         segment_topics.append(topic)
     else:
+        
         segment_topics.append("unknown_topic")
 
 segment_df['topic'] = segment_topics
 
 segment_df.to_csv('data/output/topic_sequencing/segment_topics.csv')
+
 pdb.set_trace()
+
