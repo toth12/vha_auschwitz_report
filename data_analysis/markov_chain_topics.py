@@ -78,7 +78,7 @@ new_topics = []
 for i,element in enumerate(unique):
     nonzeros = np.count_nonzero(element)
     if nonzeros >1:
-        if counts[i] >25:
+        if counts[i] >50:
 
             print (counts[i])
             new_topic = 'topic_'+'_'.join([str(num) for num in np.nonzero(element)[0].tolist()])
