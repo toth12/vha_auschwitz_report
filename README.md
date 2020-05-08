@@ -18,7 +18,7 @@ pip install -r requirements.txt
 3. Create the data directory (ignored by git) by running the following bash script:
 
 ```
-
+ 
 ```
 
 
@@ -27,6 +27,50 @@ pip install -r requirements.txt
 * Auschwitz_segments_03112020_1.csv
 * Auschwitz_segments_03112020_2.csv
 * biodata.xlsx
+
+## Workflows available in this repo:
+
+* Statistical analysis of the data set
+* Chi2 test of the data set
+* Topic modelling of the data set
+* Markov Chain analysis of topic sequences in the data set
+
+## Topic modelling of the data set:
+
+This workflow extracts the key topics underlying the segment data. For topic modelling, it uses the Corex topic modelling alghorithms. The workflow consists of the following sub-steps
+
+### Create a three segments - index terms matrix:
+
+Run the following code (takes a few minutes):
+```
+python feature_engineering/create_grouped_segment_keyword_matrix.py
+```
+
+Input data:
+
+* 'data/input/Auschwitz_segments_03112020_1.csv'
+* 'data/input/Auschwitz_segments_03112020_2.csv'
+* 'data/input/biodata.xlsx'
+
+Output data:
+
+* 'data/output/features/segment_index_merged.csv'
+* 'data/output/features/segment_keyword_matrix_merged.txt'
+* 'data/output/features/keyword_index_merged_segments.csv'
+
+
+
+This script contains the following key steps and resulting representations:
+* merges every three segments of an interview into one new segment unit
+* every new segment unit has an id that is the combination of the interview id plus the original three segment ids, for instance: 2_16_17_18 is from interview 2 and is the combination of segments 16, 17, and 18
+* every new segment unit is represented as the combination of index terms (only ids) attached to them, for instance 10006_47_48_49 is the list of the following index terms [10983, 12044, 14280]
+* eliminates those new segment units that consist of only 1 or 2 index terms
+* eliminates those interviews where no group of three segments could be identified
+* eliminates those index terms that occur in less than 50 interviews in total
+* creates a numpy segment - index matrix; every row represents a new segment unit, and every column represents an index term
+* creates a lookup index for the segment - index matrix; segment_index_merged.csv is a panda dataframe where every row has an "updated_id", which is the new segment id of the corresponding row in the segment - index matrix; keyword_index_merged_segments.csv is a panda dataframe, every row (with keyword id and keyword label) corresponds to the columns of segment - index matrix
+
+
 
 
 ### Prerequisites
