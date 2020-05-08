@@ -24,9 +24,9 @@ pip install -r requirements.txt
 
 4. Get the following input files and copy them to data/input:
 
-⋅⋅* Auschwitz_segments_03112020_1.csv
-⋅⋅* Auschwitz_segments_03112020_2.csv
-⋅⋅* biodata.xlsx
+* Auschwitz_segments_03112020_1.csv
+* Auschwitz_segments_03112020_2.csv
+* biodata.xlsx
 
 
 ### Prerequisites
