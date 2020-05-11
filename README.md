@@ -43,7 +43,7 @@ This workflow first transforms the segment data into a segment-index term matrix
 
 Run the following code (takes a few minutes) from the main project folder (use python3):
 ```
-python3 feature_engineering/create_grouped_segment_keyword_matrix.py
+python feature_engineering/create_grouped_segment_keyword_matrix.py
 ```
 
 Input data:
@@ -75,7 +75,7 @@ This script contains the following key steps and resulting representations:
 
 Run the following code from the main project folder (use python3):
 ```
-python3 data_analysis/add_topic_label_to_segments.py
+python data_analysis/add_topic_label_to_segments.py
 ```
 
 Input data:
@@ -100,7 +100,7 @@ This script contains the following key steps:
 
 Run the following code from the main project folder (use python3):
 ```
-python3 create_transition_matrix_and_train_markov_chain.py
+python data_analysis/create_transition_matrix_and_train_markov_chain.py
 ```
 
 
