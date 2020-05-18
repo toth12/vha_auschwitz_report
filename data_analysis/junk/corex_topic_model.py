@@ -28,7 +28,7 @@ for element in new_features:
             except:
                 pass
 
-mca = prince.MCA(n_components=2,    n_iter=3,copy=True,check_input=True,engine='auto',random_state=42)
+mca = prince.MCA(n_components=2,  n_iter=3,copy=True,check_input=True,engine='auto',random_state=42)
 pdb.set_trace()
 
 # Sparse matrices are also supported
