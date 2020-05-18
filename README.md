@@ -30,10 +30,31 @@ mkdir -p data/{output/{chi2test,features,filtered_nodes,reports_statistical_anal
 
 ## Workflows available in this repo:
 
-* Statistical analysis of the data set
+* Baisc Statistical analysis of the data set
 * Chi2 test of the data set
 * Topic modelling of the data set
 * Markov Chain analysis of topic sequences in the data set
+
+
+## Baisc Statistical analysis of the data set
+
+This workflow makes a basic descriptive statistical analysis of the biodata and the segment data; results of this is written to data/output/report_statistical_analaysis folder. The output is plots (in the plots folder), tables (in the tables folder), and a written report (report.txt)
+
+Run the following code from the main project folder (use python3):
+```
+python data_analysis/make_statistical_analysis.py
+```
+
+Input data:
+
+* 'data/input/Auschwitz_segments_03112020_1.csv'
+* 'data/input/Auschwitz_segments_03112020_2.csv'
+* 'data/input/biodata.xlsx'
+
+Output data: see the output folder
+
+
+
 
 ## Markov Chain analysis of topic sequences in the data set:
 

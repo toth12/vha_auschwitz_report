@@ -1,6 +1,6 @@
 """This prepares a descriptive statistical analysis of interview segments"""
 
-"""As input, it takes the interview segmenrs, and as output it creates a report
+"""As input, it takes the interview segments, and as output it creates a report
 """
 
 import constants
@@ -15,6 +15,7 @@ from sklearn.ensemble import IsolationForest
 import datetime
 from scipy import stats, integrate
 from scipy.stats import gaussian_kde
+from datetime import timedelta
 
 
 
@@ -34,7 +35,7 @@ for el in input_files:
     csvread = csv.reader(f,delimiter=',')
     csv_data_temp = list(csvread)
     columns = csv_data_temp[0]
-    #Drop the first line as that is the column
+    # Drop the first line as that is the column
     del csv_data_temp[0:1]
     csv_data.extend(csv_data_temp)
 
@@ -50,34 +51,26 @@ bio_data = constants.input_files_biodata
 df_biodata = pd.read_excel(input_directory+bio_data, sheet_name=None)['Sheet1']
 
 
-
-
 # Get the IntCode of Jewish survivors
 IntCode = df_biodata[df_biodata['ExperienceGroup']=='Jewish Survivor']['IntCode'].to_list()
 IntCode = [str(el) for el in IntCode]
 
 
-
 # Leave only Jewish survivors
 df = df[df['IntCode'].isin(IntCode)]
-
 df_biodata = df_biodata[df_biodata['IntCode'].isin(IntCode)]
-
-
-
 
 
 # Make time sequence from interview dates in the biodata
 
 df_biodata['InterviewDate'] = pd.to_datetime(df_biodata['InterviewDate'])
 
-# Initiate an empty string to hold the report data
+# Initiate a string variable to hold the report data
 report = 'This is a statistical description of Auschwitz segments (only Jewish survivors)\n\n'
 
 # Add basic information about the input data
 
 number_data_points = len(df)
-
 report += "Total number of datapoints in input data: "+str(number_data_points)+"\n\n" 
 report += "Total number of segments: "+str(len(df['SegmentID'].unique()))+"\n\n" 
 report += "Total number of interviewees (Jewish Survivors): "+str(len(IntCode))+"\n\n" 
@@ -101,7 +94,7 @@ df['OutTimeCode'] = pd.to_datetime(df['OutTimeCode'], format = "%H:%M:%S:%f")
 
 df_segment_length = df.drop_duplicates('SegmentID')
 
-# Eliminate those segments where the OutTapeNumber and the InTapenumber are not the same
+# Eliminate those segments where the OutTapeNumber and the InTapenumber are not the same (in these cases we cannot estimate the lenght)
 
 not_equal=len(df_segment_length[df_segment_length['OutTapenumber']!=df_segment_length['InTapenumber']])
 
@@ -113,7 +106,18 @@ df_segment_length = df_segment_length[df_segment_length['OutTapenumber']==df_seg
 
 
 # Calculate the segment length (not the ones above)
+
 df_segment_length['segment_lenght'] = df_segment_length['OutTimeCode'] - df_segment_length['InTimeCode']
+
+# Get those interview codes that contain segments longer than one minutes
+
+old_systemt_int_codes = df_segment_length[df_segment_length.segment_lenght>timedelta(minutes=1)]['IntCode'].unique().tolist()
+
+# Write them out to a filem
+old_systemt_int_codes =pd.DataFrame(old_systemt_int_codes,columns=['int_code'])
+old_systemt_int_codes.to_csv(output_directory+"int_code_old_segmentation_system.csv")
+
+
 
 
 # Calculate how much time an interview speaks about Auschwitzy
@@ -408,30 +412,5 @@ f.close()
 
 
 
-gender = df_biodata[['Gender','IntCode']]
-df["IntCode"] = df.IntCode.map(lambda x: int(x))
-df = df.merge(gender,how='left',on="IntCode")
-df = pd.concat([df, df.Gender.str.get_dummies()], axis=1)
-contingency = df.groupby(['KeywordLabel','IntCode']).agg({'F': 'sum', 'M': 'sum'}).reset_index()
 
-contingency['M'] = contingency['M'].apply(lambda x: 0 if x <1 else 1)
-contingency['F'] = contingency['F'].apply(lambda x: 0 if x <1 else 1)
-contingency = contingency.groupby("KeywordLabel").agg({'F': 'sum', 'M': 'sum'}).reset_index()
-
-total_f=len(df_biodata[df_biodata['Gender']=="F"])
-total_m=len(df_biodata[df_biodata['Gender']=="M"])
-
-
-
-#df.groupby(['KeywordLabel','Gender'])['IntCode'].count().to_frame("Count").reset_index()
-
-
-pdb.set_trace()
-df[df['KeywordID']=='12044']
-#df_keywords[df_keywords.KeywordLabel.str.contains(pat = 'suicide')][['KeywordLabel','YearKeywordCreated','TotalNumberIntervieweeUsing']]
-# df_interview_year.to_frame()['InterviewYear']
-
-df.groupby(['IntCode'])["KeywordID"].unique().to_frame(name="KeywordID").reset_index()
-
-#tye(df_biodata[['Gender','IntCode']].iloc[0]['IntCode'])
 
