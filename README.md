@@ -31,7 +31,7 @@ mkdir -p data/{output/{chi2test,features,filtered_nodes,reports_statistical_anal
 ## Workflows available in this repo:
 
 * Baisc Statistical analysis of the data set
-* Chi2 test of the data set
+* Chi2 significance test and strength of association (odds ration) of index terms for Gender and CountryOfOrigin
 * Topic modelling of the data set
 * Markov Chain analysis of topic sequences in the data set
 
@@ -53,6 +53,38 @@ Input data:
 
 Output data: see the output folder
 
+## Chi2 significance test and strength of association
+
+This workflow applies chi2test of significance and odds ratio analysis between two categorical variables (CountryOfOrigin and Gender) and index terms. As a first step, index terms belonging to a given common category (for instance, suicide with sub terms camp-suicide, deportation-suicide, etc) are merged and replaced with the common category (i.e camp suicide is becoming suicide). List of index terms (ids) belonging to a given category are in data/output/filtered_nodes/node_filter_1_output.json. As an output, the workflow produces plots and tables with results of chi2test and odds ratio analysis for every index term and every categorical variable.
+
+Input data:
+
+* 'data/input/Auschwitz_segments_03112020_1.csv'
+* 'data/input/Auschwitz_segments_03112020_2.csv'
+* 'data/input/biodata.xlsx'
+
+Run the following code from the main project folder (use python3) to do the chi2test and odds ratio analysis for gender:
+
+```
+python data_analysis/chi2test.py Gender
+```
+
+Output data:
+
+* 'data/output/chi2test/plots/Gender'
+* 'data/output/chi2test/plots/F.html'
+* 'data/output/chi2test/plots/M.html'
+* 'data/output/chi2test/chi_test_filtered_gender_with_strenght_of_assoc.csv'
+
+```
+python data_analysis/chi2test.py CountryOfOrigin
+```
+
+Output data:
+
+* 'data/output/chi2test/plots/CountryOfOrigin/'
+* 'data/output/chi2test/plots/{CountryName}.html'
+* 'data/output/chi2test/chi_test_filtered_country_of_birth_with_strenght_of_assoc.csv'
 
 
 

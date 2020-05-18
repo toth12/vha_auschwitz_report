@@ -18,7 +18,7 @@ import mpld3
 from plotly import express as px
 import plotly
 import plotly.figure_factory as ff
-import sys
+
 
 
 def random_with_N_digits(n):
@@ -197,8 +197,26 @@ def chi2test(df,df_biodata,category):
 
 
         filename = "_".join(element.split(' '))+'.html'
+        pdb.set_trace
         plotly.offline.plot(fig, filename=output_directory+'plots/'+filename,config=config,auto_open=False)
 
+
+
+    #Visualize a heatmap in plotly
+    '''
+    colorscale = [[0, 'navy'], [1, 'plum']]
+    font_colors = ['white', 'black']
+
+    selected_categories = result[result.columns[result.columns.to_series().str.contains('_assoc_strength')]].values.tolist()
+    ylabel = result['KeywordLabel'].tolist()
+    xlabel =selected_categories.columns.tolist()
+
+    fig = px.imshow(selected_categories)
+    plotly.offline.plot(fig, filename='cluster_heatmap.html')
+    '''
+
+
+        
 
 
     return (df_chi)
@@ -208,19 +226,9 @@ if __name__ == '__main__':
 
     # Read the data
 
-    #import sys
-
-    categories = sys.argv
-
-    if ("Gender" not in categories) and ("CountryOfBirth" not in categories):
-        print (categories[1]+ " is not in the categories (Gender or CountryOfBirth) accepted")
-        sys.exit()
-
-    category = categories[1]
-
     features_filter = constants.output_data +'filtered_nodes/'+'node_filter_1_output.json'
     category = "Gender"
-    category = "CountryOfBirth"
+    #category = "CountryOfBirth"
 
     input_directory = constants.input_data
     output_directory = constants.output_chi2_test
@@ -304,4 +312,8 @@ if __name__ == '__main__':
         result.to_csv(output_directory+'chi_test_filtered_gender_with_strenght_of_assoc.csv')
     
 
+# Read data finished
+
+
+    pdb.set_trace()
 
