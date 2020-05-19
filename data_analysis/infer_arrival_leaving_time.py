@@ -125,6 +125,14 @@ if __name__ == '__main__':
     len(df_biodata[df_biodata['Gender']=="F"])
     len(df_biodata[df_biodata['Gender']=="M"])
 
+    # Find the ones that contain at least five segments
+
+    df = df[df['IntCode'].isin(birkenau_survivors)]
+
+    number_of_segments = df.groupby('IntCode')['SegmentNumber'].unique().to_frame(name="Segments").reset_index()
+    number_of_segments['number_of_segments']=number_of_segments['Segments'].apply(lambda x: len(x))
+    number_of_segments[number_of_segments['number_of_segments']>5]
+
     # intcode_kwords[intcode_kwords['length_of_stay']==1]
 
     '''
