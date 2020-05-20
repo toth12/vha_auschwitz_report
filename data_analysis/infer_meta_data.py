@@ -163,6 +163,31 @@ def infer_total_length_of_segments(bio_data,segment_data):
 
 
 
+def was_in_Birkenau_helper(keywords):
+    number_of_times = 0
+    for element in keywords:
+        if any('Birkenau' in string for string in element):
+            number_of_times = number_of_times+1
+        
+    return number_of_times
+
+def was_in_Birkenau(bio_data,segment_data):
+    df = segment_data
+    ss = df.groupby(['IntCode','SegmentID'])['KeywordLabel'].apply(list).to_frame(name="Keywords").reset_index()
+    intcode_kwords = ss.groupby('IntCode')['Keywords'].apply(list).to_frame(name="Keywords").reset_index()
+
+    intcode_kwords['Birkenau_mentioned_times'] = intcode_kwords.Keywords.apply(was_in_Birkenau_helper)
+    del intcode_kwords["Keywords"]
+    intcode_kwords['IntCode'] = pd.to_numeric(intcode_kwords['IntCode'])
+    bio_data = bio_data.merge(intcode_kwords)
+    # Calculate whether Birkenau occurs at least 2/3 of all interview segments
+    bio_data['Birkenau_segment_percentage'] = bio_data['Birkenau_mentioned_times'] / bio_data['number_of_segments']
+
+    return bio_data
+    
+
+
+
 
 if __name__ == '__main__':
 
@@ -219,9 +244,15 @@ if __name__ == '__main__':
     df_biodata = infer_old_new_system(df_biodata,df)
 
     df_biodata = infer_total_length_of_segments(df_biodata,df)
+    df_biodata = was_in_Birkenau(df_biodata,df)
 
     #new_set = df_biodata[(((df_biodata['segmentation_system']=='new') & (df_biodata['number_of_segments']>5)) | ((df_biodata['segmentation_system']=='old') & (df_biodata['length']>timedelta(minutes=5))))& (df_biodata['earliest_year']>1942)]
 
+    
+    #new_set = df_biodata[(((df_biodata['segmentation_system']=='new') & (df_biodata['number_of_segments']>5)) | ((df_biodata['segmentation_system']=='old') & (df_biodata['length']>timedelta(minutes=5))))& (df_biodata['earliest_year']>1942) & (df_biodata['Birkenau_segment_percentage']>0.66)]
+
+
+    df_biodata['Birkenau_segment_percentage']>0.66
 
     pdb.set_trace()
 
