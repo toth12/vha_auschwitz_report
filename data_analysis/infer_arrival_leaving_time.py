@@ -133,6 +133,8 @@ if __name__ == '__main__':
     number_of_segments['number_of_segments']=number_of_segments['Segments'].apply(lambda x: len(x))
     number_of_segments[number_of_segments['number_of_segments']>5]
 
+    pdb.set_trace()
+
     # intcode_kwords[intcode_kwords['length_of_stay']==1]
 
     '''
