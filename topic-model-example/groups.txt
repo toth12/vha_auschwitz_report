@@ -1,0 +1,327 @@
+Group num: 0, TC(X;Y_j): 0.469
+transfer from Auschwitz II-Birkenau (Poland : Death Camp), 0.276, 1.000, 0.276
+freight trains, 0.176, 1.000, 0.176
+transfers, means of transport, 0.154, 1.000, 0.154
+forced marches, 0.065, 1.000, 0.065
+transfer conditions, 0.052, 1.000, 0.052
+deportations, means of transport, 0.050, 1.000, 0.050
+forced march conditions, 0.035, 1.000, 0.035
+transfer to Bergen-Belsen (Germany : Concentration Camp), 0.032, 1.000, 0.032
+death marches, 0.031, 1.000, 0.031
+transfer to Ravensbrück (Germany : Concentration Camp), 0.030, 1.000, 0.030
+trains, 0.027, 1.000, 0.027
+transfer routes, 0.019, 1.000, 0.019
+transfer to Mauthausen (Austria : Concentration Camp), 0.017, 1.000, 0.017
+transfer procedures, 0.014, 1.000, 0.014
+transfer food, 0.011, 1.000, 0.011
+transfer to Stutthof (Danzig (FC) : Concentration Camp), 0.011, 1.000, 0.011
+transfer guards, 0.010, 1.000, 0.010
+transfer to Auschwitz I (Poland : Concentration Camp), 0.010, 1.000, 0.010
+transfer from Auschwitz I (Poland : Concentration Camp), 0.009, 1.000, 0.009
+transfer to Auschwitz II-Birkenau (Poland : Death Camp), 0.009, 1.000, 0.009
+forced march killings, 0.009, 1.000, 0.009
+transfer to Buchenwald (Germany : Concentration Camp), 0.008, 1.000, 0.008
+trucks, 0.007, 1.000, 0.007
+transfer from Auschwitz (Poland : Concentration Camp)(generic), 0.007, 1.000, 0.007
+forced march environmental conditions, 0.007, 1.000, 0.007
+transfer to Dachau (Germany : Concentration Camp), 0.007, 1.000, 0.007
+transfer-related aid giving, 0.006, 1.000, 0.006
+passenger trains, 0.006, 1.000, 0.006
+transfer to Krakau-Plaszow (Poland : Concentration Camp), 0.006, 1.000, 0.006
+mass murder awareness, 0.006, 1.000, 0.006
+transfer to camps, 0.006, 1.000, 0.006
+transfer to Gross Rosen (Germany : Concentration Camp), 0.005, 1.000, 0.005
+forced march guards, 0.005, 1.000, 0.005
+forced march-related aid giving, 0.005, 1.000, 0.005
+transfer from camps, 0.005, 1.000, 0.005
+Jewish persecution bystander responses, 0.005, 1.000, 0.005
+camp family interactions, 0.005, 1.000, 0.005
+forced march food, 0.004, 1.000, 0.004
+transfer to Allendorf (Germany : Concentration Camp), 0.004, 1.000, 0.004
+forced march routes, 0.004, 1.000, 0.004
+forced march food acquisition, 0.004, 1.000, 0.004
+forced march physical condition, 0.004, 1.000, 0.004
+forced march corpses, 0.004, 1.000, 0.004
+forced march deaths, 0.004, 1.000, 0.004
+transfer from Krakau-Plaszow (Poland : Concentration Camp), 0.003, 1.000, 0.003
+forced march escapes, 0.003, 1.000, 0.003
+transfer preparations, 0.003, 1.000, 0.003
+forced march adaptation methods, 0.003, 1.000, 0.003
+transfer adaptation methods, 0.003, 1.000, 0.003
+bombardments, 0.003, 1.000, 0.003
+transfer deaths, 0.003, 1.000, 0.003
+camp liquidations, 0.003, 1.000, 0.003
+prisoner external contact, 0.002, 1.000, 0.002
+Belsen (Germany), 0.002, 1.000, 0.002
+deportation awareness, 0.002, 1.000, 0.002
+prisoners, 0.002, 1.000, 0.002
+camp humiliation, 0.002, 1.000, 0.002
+camp crematoria, 0.001, 1.000, 0.001
+loved ones' contacts, 0.001, 1.000, 0.001
+camp personal property seizure, 0.001, 1.000, 0.001
+Grese, Irma, 0.001, 1.000, 0.001
+camp covert communications, 0.001, 1.000, 0.001
+camp orchestras, 0.001, 1.000, 0.001
+Slovak prisoners, 0.001, 1.000, 0.001
+Czechoslovak prisoners, 0.001, 1.000, 0.001
+inter-Jewish relations, 0.001, 1.000, 0.001
+friendships, 0.001, 1.000, 0.001
+escape decisions, 0.000, 1.000, 0.000
+camp sexual assaults, 0.000, 1.000, 0.000
+post-conflict persecution site visits, 0.000, 1.000, 0.000
+suicide discussions, 0.000, 1.000, 0.000
+loved ones' introductions, 0.000, 1.000, 0.000
+Group num: 1, TC(X;Y_j): 0.223
+camp selections, 0.182, 1.000, 0.182
+loved ones' separations, 0.182, 1.000, 0.182
+camp first impressions, 0.093, 1.000, 0.093
+deportation to Auschwitz II-Birkenau (Poland : Death Camp), 0.082, 1.000, 0.082
+camp intake procedures, 0.067, 1.000, 0.067
+loved ones' final contacts, 0.052, 1.000, 0.052
+Mengele, Josef, 0.050, 1.000, 0.050
+deportation conditions, 0.024, 1.000, 0.024
+camp social relations, 0.015, 1.000, 0.015
+deportation from Lódz (Poland : Ghetto), 0.010, 1.000, 0.010
+camp diseases, 0.010, 1.000, 0.010
+camp hospitals, 0.008, 1.000, 0.008
+camp medical care, 0.006, 1.000, 0.006
+female prisoners, 0.006, 1.000, 0.006
+Romania 1944, 0.005, 1.000, 0.005
+politico-military event awareness, 0.005, 1.000, 0.005
+camp prisoner physical conditions, 0.004, 1.000, 0.004
+Roma prisoners, 0.004, 1.000, 0.004
+loved ones' fates, 0.004, 1.000, 0.004
+deportation to Auschwitz (Poland : Concentration Camp)(generic), 0.004, 1.000, 0.004
+camp populations, 0.003, 1.000, 0.003
+perpetrator deceptions, 0.003, 1.000, 0.003
+deportation routes, 0.003, 1.000, 0.003
+Hungarian prisoners, 0.003, 1.000, 0.003
+deportation family interactions, 0.003, 1.000, 0.003
+deportation from Mukacevo (Czechoslovakia: Ghetto), 0.003, 1.000, 0.003
+prisoner functionaries, 0.003, 1.000, 0.003
+survival explanations, 0.003, 1.000, 0.003
+deportation procedures, 0.002, 1.000, 0.002
+siblings, 0.002, 1.000, 0.002
+typhus, 0.002, 1.000, 0.002
+camp prisoner insignia, 0.002, 1.000, 0.002
+Greek prisoners, 0.002, 1.000, 0.002
+political prisoners, 0.002, 1.000, 0.002
+Czech prisoners, 0.001, 1.000, 0.001
+German prisoners, 0.001, 1.000, 0.001
+Holocaust-related psychological reactions, 0.001, 1.000, 0.001
+psychological distress prevention, 0.001, 1.000, 0.001
+French prisoners, 0.001, 1.000, 0.001
+non-Jewish prisoners, 0.001, 1.000, 0.001
+attitudes toward perpetrators, 0.001, 1.000, 0.001
+camp blood extraction, 0.001, 1.000, 0.001
+post-conflict medical problems, 0.001, 1.000, 0.001
+post-World War II reflections, 0.001, 1.000, 0.001
+camp epidemics, 0.001, 1.000, 0.001
+Romanian prisoners, 0.001, 1.000, 0.001
+danger misconceptions, 0.001, 1.000, 0.001
+Italian prisoners, 0.000, 1.000, 0.000
+criminal prisoners, 0.000, 1.000, 0.000
+Group num: 2, TC(X;Y_j): 0.199
+camp forced labor, 0.302, 1.000, 0.302
+beatings, 0.128, 1.000, 0.128
+camp brutal treatment, 0.085, 1.000, 0.085
+camp daily services forced labor, 0.050, 1.000, 0.050
+personal property sorting forced labor, 0.036, 1.000, 0.036
+camp punishments, 0.035, 1.000, 0.035
+forced labor conditions, 0.030, 1.000, 0.030
+quarry forced labor, 0.018, 1.000, 0.018
+armament forced labor, 0.015, 1.000, 0.015
+corpse disposal forced labor, 0.013, 1.000, 0.013
+Kanada (Auschwitz II-Birkenau), 0.012, 1.000, 0.012
+agricultural forced labor, 0.011, 1.000, 0.011
+construction forced labor, 0.010, 1.000, 0.010
+textiles and garment forced labor, 0.010, 1.000, 0.010
+factory forced labor, 0.010, 1.000, 0.010
+personal services forced labor, 0.008, 1.000, 0.008
+camp maintenance forced labor, 0.007, 1.000, 0.007
+platform forced labor, 0.007, 1.000, 0.007
+medical forced labor, 0.006, 1.000, 0.006
+military fortification forced labor, 0.005, 1.000, 0.005
+waterway maintenance forced labor, 0.005, 1.000, 0.005
+road construction forced labor, 0.005, 1.000, 0.005
+skilled forced labor, 0.004, 1.000, 0.004
+camp injuries, 0.003, 1.000, 0.003
+dog attacks, 0.003, 1.000, 0.003
+German camp guards, 0.003, 1.000, 0.003
+female camp guards, 0.003, 1.000, 0.003
+camp showers, 0.002, 1.000, 0.002
+female camp personnel, 0.002, 1.000, 0.002
+sabotage, 0.002, 1.000, 0.002
+German concentration camps (generic), 0.002, 1.000, 0.002
+German camp personnel, 0.002, 1.000, 0.002
+camp guards, 0.001, 1.000, 0.001
+forced correspondence, 0.001, 1.000, 0.001
+Holocaust testimony sharing reluctance, 0.000, 1.000, 0.000
+metaphysical experiences, 0.000, 1.000, 0.000
+Group num: 3, TC(X;Y_j): 0.188
+camp-related aid giving, 0.464, 1.000, 0.464
+preferential treatment, 0.105, 1.000, 0.105
+sustenance provision, 0.070, 1.000, 0.070
+warnings, 0.064, 1.000, 0.064
+clothing provision, 0.019, 1.000, 0.019
+hiding (aid giving), 0.016, 1.000, 0.016
+medical care provision, 0.015, 1.000, 0.015
+Jewish prisoners, 0.007, 1.000, 0.007
+prisoner doctors, 0.004, 1.000, 0.004
+Polish prisoners, 0.003, 1.000, 0.003
+male prisoners, 0.002, 1.000, 0.002
+German soldiers, 0.001, 1.000, 0.001
+survivor guilt, 0.000, 1.000, 0.000
+friends, 0.000, 1.000, 0.000
+Group num: 4, TC(X;Y_j): 0.071
+prisoner tattoos (stills), 0.192, 1.000, 0.192
+prisoner tattoos, 0.180, 1.000, 0.180
+German (language), 0.007, 1.000, 0.007
+prisoner identification numbers, 0.006, 1.000, 0.006
+language skills, 0.006, 1.000, 0.006
+camp prisoner marking, 0.004, 1.000, 0.004
+camp quarantines, 0.002, 1.000, 0.002
+Group num: 5, TC(X;Y_j): 0.046
+camp adaptation methods, 0.271, 1.000, 0.271
+camp food acquisition, 0.061, 1.000, 0.061
+camp barter, 0.025, 1.000, 0.025
+age deceptions, 0.019, 1.000, 0.019
+camp stealing, 0.016, 1.000, 0.016
+health deceptions, 0.013, 1.000, 0.013
+occupation deceptions, 0.010, 1.000, 0.010
+camp food sharing, 0.007, 1.000, 0.007
+camp hiding and evasion, 0.006, 1.000, 0.006
+camp covert activities, 0.003, 1.000, 0.003
+camp smuggling, 0.003, 1.000, 0.003
+camp bribery, 0.001, 1.000, 0.001
+Group num: 6, TC(X;Y_j): 0.044
+camp Jewish religious observances, 0.067, 1.000, 0.067
+Yom Kippur, 0.036, 1.000, 0.036
+Jewish holiday awareness, 0.015, 1.000, 0.015
+camp time awareness, 0.013, 1.000, 0.013
+camp Jewish prayers, 0.013, 1.000, 0.013
+Rosh Ha-Shana, 0.009, 1.000, 0.009
+Nazi Jewish holiday exploitation, 0.007, 1.000, 0.007
+camp cultural activities, 0.005, 1.000, 0.005
+performing arts, 0.005, 1.000, 0.005
+Holocaust faith issues, 0.005, 1.000, 0.005
+musical recitals, 0.004, 1.000, 0.004
+rabbis, 0.002, 1.000, 0.002
+Jewish identity, 0.002, 1.000, 0.002
+helplessness, 0.000, 1.000, 0.000
+bereavement-related psychological reactions, 0.000, 1.000, 0.000
+Group num: 7, TC(X;Y_j): 0.042
+Jewish prisoner functionaries, 0.083, 1.000, 0.083
+female prisoner functionaries, 0.037, 1.000, 0.037
+Polish prisoner functionaries, 0.032, 1.000, 0.032
+Slovak prisoner functionaries, 0.024, 1.000, 0.024
+Czech prisoner functionaries, 0.014, 1.000, 0.014
+Blockälteste, 0.014, 1.000, 0.014
+attitudes toward prisoner functionaries, 0.002, 1.000, 0.002
+German prisoner functionaries, 0.002, 1.000, 0.002
+Lagerälteste, 0.002, 1.000, 0.002
+Stubenälteste, 0.001, 1.000, 0.001
+Group num: 8, TC(X;Y_j): 0.037
+camp executions, 0.051, 1.000, 0.051
+camp killings, 0.036, 1.000, 0.036
+hangings, 0.032, 1.000, 0.032
+shootings, 0.028, 1.000, 0.028
+child killings, 0.022, 1.000, 0.022
+Sonderkommando Uprising (Auschwitz II-Birkenau, October 7, 1944), 0.020, 1.000, 0.020
+camp escape attempts, 0.008, 1.000, 0.008
+camp resistance, 0.007, 1.000, 0.007
+Sonderkommando prisoners, 0.006, 1.000, 0.006
+gassings, 0.003, 1.000, 0.003
+self-preservation acts, 0.002, 1.000, 0.002
+Dutch prisoners, 0.002, 1.000, 0.002
+camp escapes, 0.002, 1.000, 0.002
+Soviet prisoners, 0.002, 1.000, 0.002
+Russian prisoners, 0.001, 1.000, 0.001
+Group num: 9, TC(X;Y_j): 0.034
+camp food, 0.060, 1.000, 0.060
+camp sanitary conditions, 0.033, 1.000, 0.033
+camp latrines, 0.029, 1.000, 0.029
+food additives, 0.025, 1.000, 0.025
+camp menstruation, 0.022, 1.000, 0.022
+camp deaths, 0.016, 1.000, 0.016
+camp living conditions, 0.015, 1.000, 0.015
+camp procedures, 0.012, 1.000, 0.012
+camp hunger, 0.009, 1.000, 0.009
+camp suicides, 0.006, 1.000, 0.006
+camp rumors, 0.006, 1.000, 0.006
+electrocutions, 0.006, 1.000, 0.006
+camp corpses, 0.005, 1.000, 0.005
+child deaths, 0.005, 1.000, 0.005
+SS/SD personnel, 0.004, 1.000, 0.004
+camp corpse cremations, 0.003, 1.000, 0.003
+dysentery, 0.002, 1.000, 0.002
+camp corpse disposal, 0.002, 1.000, 0.002
+human soap rumors, 0.002, 1.000, 0.002
+suicide decisions, 0.002, 1.000, 0.002
+camp-related psychological reactions, 0.001, 1.000, 0.001
+hiding valuables, 0.001, 1.000, 0.001
+tracing loved ones, 0.000, 1.000, 0.000
+camp suicide attempts, 0.000, 1.000, 0.000
+Group num: 10, TC(X;Y_j): 0.034
+Jewish kapos, 0.075, 1.000, 0.075
+female kapos, 0.048, 1.000, 0.048
+Polish kapos, 0.042, 1.000, 0.042
+camp infestations, 0.014, 1.000, 0.014
+lice, 0.012, 1.000, 0.012
+Slovak kapos, 0.010, 1.000, 0.010
+criminal kapos, 0.007, 1.000, 0.007
+German kapos, 0.006, 1.000, 0.006
+camp sexual activities, 0.001, 1.000, 0.001
+interviewee memory, 0.000, 1.000, 0.000
+Jewish persecution awareness, 0.000, 1.000, 0.000
+Group num: 11, TC(X;Y_j): 0.034
+camp housing conditions, 0.123, 1.000, 0.123
+camp barracks, 0.057, 1.000, 0.057
+camp environmental conditions, 0.036, 1.000, 0.036
+camp Appell, 0.036, 1.000, 0.036
+camp shoes, 0.034, 1.000, 0.034
+camp clothing, 0.029, 1.000, 0.029
+camp uniforms, 0.015, 1.000, 0.015
+Zigeunerlager (Auschwitz II-Birkenau), 0.003, 1.000, 0.003
+shoe importance, 0.002, 1.000, 0.002
+camp personnel, 0.001, 1.000, 0.001
+camp thirst, 0.001, 1.000, 0.001
+testimony-sharing motivations, 0.000, 1.000, 0.000
+trauma-related dreams, 0.000, 1.000, 0.000
+Group num: 12, TC(X;Y_j): 0.032
+camp liberation, 0.033, 1.000, 0.033
+Soviet soldiers, 0.022, 1.000, 0.022
+Soviet armed forces, 0.020, 1.000, 0.020
+International Red Cross, 0.009, 1.000, 0.009
+post-liberation camp/ghetto transition, 0.008, 1.000, 0.008
+camp visitors, 0.008, 1.000, 0.008
+liberation, 0.005, 1.000, 0.005
+perpetrator liberator-approach responses, 0.004, 1.000, 0.004
+aid giving, 0.002, 1.000, 0.002
+interviewee photographs (stills), 0.001, 1.000, 0.001
+adaptation methods, 0.001, 1.000, 0.001
+future message, 0.000, 1.000, 0.000
+Group num: 13, TC(X;Y_j): 0.014
+camp children, 0.060, 1.000, 0.060
+twins in the camps, 0.027, 1.000, 0.027
+camp medical experiments, 0.026, 1.000, 0.026
+gas chambers, 0.021, 1.000, 0.021
+camp mass executions, 0.009, 1.000, 0.009
+aborted killings, 0.007, 1.000, 0.007
+camp childbearing, 0.007, 1.000, 0.007
+camp doctors, 0.005, 1.000, 0.005
+childhood perceptions, 0.005, 1.000, 0.005
+infanticide, 0.004, 1.000, 0.004
+eugenics policy awareness, 0.004, 1.000, 0.004
+Familienlager Theresienstadt (Auschwitz II-Birkenau), 0.004, 1.000, 0.004
+loved ones' deaths, 0.002, 1.000, 0.002
+body searches, 0.001, 1.000, 0.001
+Group num: 14, TC(X;Y_j): 0.006
+extended family members, 0.107, 1.000, 0.107
+sisters, 0.022, 1.000, 0.022
+loved ones' renewed contacts, 0.015, 1.000, 0.015
+brothers, 0.009, 1.000, 0.009
+loved ones' togetherness decisions, 0.008, 1.000, 0.008
+grandmothers, 0.004, 1.000, 0.004
+kapos, 0.003, 1.000, 0.003
+Soviet prisoners of war, 0.001, 1.000, 0.001

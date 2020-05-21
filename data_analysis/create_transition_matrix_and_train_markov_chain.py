@@ -129,6 +129,12 @@ for group in groups:
 
     transition_matrix_scaled = (transition_matrix.T/transition_matrix.sum(axis=1)).T
 
+
+    # Make sure that transition matrix is standard MSMs (reversibly connect), 
+    #i.e. that for every state in the transition matrix there must be at least one transition out of it and into it. 
+    #tim.hempel[at]fu-berlin.de
+
+
     # Check null columns
 
     null_columns = np.sort(np.where(transition_matrix_scaled.sum(0)==0)[0])[::-1]

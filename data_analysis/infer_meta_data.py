@@ -196,6 +196,7 @@ if __name__ == '__main__':
     input_directory = constants.input_data
     input_files = constants.input_files_segments
     input_files = [input_directory+i for i in input_files]
+    output_folder = constants.input_data_filtered
 
     # Read the input files into panda dataframe
 
@@ -250,9 +251,9 @@ if __name__ == '__main__':
 
     
     #new_set = df_biodata[(((df_biodata['segmentation_system']=='new') & (df_biodata['number_of_segments']>5)) | ((df_biodata['segmentation_system']=='old') & (df_biodata['length']>timedelta(minutes=5))))& (df_biodata['earliest_year']>1942) & (df_biodata['Birkenau_segment_percentage']>0.66)]
-
-
+    birkenau = df_biodata[(((df_biodata['segmentation_system']=='new') & (df_biodata['number_of_segments']>5)) | ((df_biodata['segmentation_system']=='old') & (df_biodata['length']>timedelta(minutes=5))))& (df_biodata['earliest_year']>1942) & (df_biodata['Birkenau_segment_percentage']>0.66)]
+    birkenau.to_csv(output_folder+'/biodata_birkenau.csv')
     df_biodata['Birkenau_segment_percentage']>0.66
 
-    pdb.set_trace()
+   
 

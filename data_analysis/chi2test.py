@@ -67,12 +67,14 @@ def chi2test(df,df_biodata,category):
             total_obs.append(obs)
         total_obs = np.vstack(total_obs)
 
-        if total_obs[:,0].sum() ==0:
+        if (~total_obs.any(axis=0)).any():
             continue
         if total_obs.min() <0:
             continue
+        
+        
         test_result = chi2_contingency(total_obs)
-
+        
         test_stat = test_result[0]
         p_value = test_result[1]
         
@@ -212,6 +214,7 @@ if __name__ == '__main__':
 
     categories = sys.argv
 
+
     if ("Gender" not in categories) and ("CountryOfBirth" not in categories):
         print (categories[1]+ " is not in the categories (Gender or CountryOfBirth) accepted")
         sys.exit()
@@ -219,14 +222,13 @@ if __name__ == '__main__':
     category = categories[1]
 
     features_filter = constants.output_data +'filtered_nodes/'+'node_filter_1_output.json'
-    category = "Gender"
-    category = "CountryOfBirth"
+    
 
-    input_directory = constants.input_data
-    output_directory = constants.output_chi2_test
+    input_directory_segments = constants.input_data
+    output_directory = constants.output_chi2_test_birkenau
     input_files = constants.input_files_segments
 
-    input_files = [input_directory+i for i in input_files]
+    input_files = [input_directory_segments+i for i in input_files]
 
     # Read the input files into panda dataframe
 
@@ -249,8 +251,13 @@ if __name__ == '__main__':
     # Filter out non Jewish survivors
 
     # Get the bio data
-    bio_data = constants.input_files_biodata
-    df_biodata = pd.read_excel(input_directory+bio_data, sheet_name=None)['Sheet1']
+
+    input_directory_biodata = constants.input_data_filtered
+    bio_data = constants.input_files_biodata_birkenau
+    df_biodata = pd.read_csv(input_directory_biodata+bio_data)
+
+    #df_biodata = pd.read_excel(input_directory_biodata+bio_data, sheet_name=None)['Sheet1']
+
 
     if category == "CountryOfBirth":
 
@@ -294,7 +301,7 @@ if __name__ == '__main__':
                     df.at[ind,'KeywordLabel'] = covering_term
     
     kws = df.groupby(['KeywordID'])['IntCode'].unique().map(lambda x: len(x)).to_frame(name="TotalNumberIntervieweeUsing").reset_index()
-    kws_needed = kws[kws.TotalNumberIntervieweeUsing>100]['KeywordID'].to_list()
+    kws_needed = kws[kws.TotalNumberIntervieweeUsing>50]['KeywordID'].to_list()
     df = df[df['KeywordID'].isin(kws_needed)] 
     result = chi2test(df,df_biodata,category)
     if category =="CountryOfBirth":

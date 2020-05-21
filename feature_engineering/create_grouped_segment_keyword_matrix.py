@@ -14,6 +14,8 @@ from scipy.stats import chi2_contingency
 from random import randint
 import json
 
+#pd.set_option('display.max_rows', None)
+
 
 
 
@@ -28,9 +30,16 @@ def group(lst, n):
     [(0, 1, 2), (3, 4, 5), (6, 7, 8)]
     """
     result = []
+    if lst['segmentation_system'] == "old":
+        n = 1
+    # Check if old or new system
+
+    lst = lst['SegmentID'].tolist()
     for element in zip(*[lst[i::n] for i in range(n)]):
         result.append(element)
     return result
+
+
 
 if __name__ == '__main__':
 
@@ -64,7 +73,10 @@ if __name__ == '__main__':
 
 
     # Get the bio data of each interviewee
-    df_biodata = pd.read_excel(input_directory+bio_data, sheet_name=None)['Sheet1']
+    #df_biodata = pd.read_excel(input_directory+bio_data, sheet_name=None)['Sheet1']
+    input_directory_biodata = constants.input_data_filtered
+    bio_data = constants.input_files_biodata_birkenau
+    df_biodata = pd.read_csv(input_directory_biodata+bio_data)
 
     # Get the IntCode of Jewish survivors
     IntCode = df_biodata[df_biodata['ExperienceGroup']=='Jewish Survivor']['IntCode'].to_list()
@@ -86,8 +98,14 @@ if __name__ == '__main__':
     0            2                          [16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 2...
 
     """
+    
+    # Find out what segmentation system was used
+    df_segmentation_system = df_biodata[['IntCode','segmentation_system']]
     df_intcode_segment = df.groupby("IntCode")['SegmentNumber'].unique().to_frame(name="SegmentID").reset_index()
 
+    # Merge with the segmentation system
+
+    df_intcode_segment = df_intcode_segment.merge(df_segmentation_system)
     
     # Make sure that segment ids are sorted
     df_intcode_segment.SegmentID.apply(lambda x: sorted(x,reverse=False))
@@ -99,19 +117,21 @@ if __name__ == '__main__':
    0            2  [(16, 17, 18), (19, 20, 21), (22, 23, 24), (25...
 
     """
-    df_intcode_segment ['SegmentID']= df_intcode_segment.SegmentID.apply(group,n=3)
+    df_intcode_segment ['SegmentID']= df_intcode_segment.apply(group,n=3,axis=1)
+
+
 
     
     # Find those IntCode where at least one group of three segments could be identified
 
-    int_codes_to_keep = df_intcode_segment[df_intcode_segment.astype(str)['SegmentID'] != '[]']['IntCode'].tolist()
+    #int_codes_to_keep = df_intcode_segment[df_intcode_segment.astype(str)['SegmentID'] != '[]']['IntCode'].tolist()
 
     # Keep only these intcode
-    df_intcode_segment = df_intcode_segment[df_intcode_segment['IntCode'].isin(int_codes_to_keep)]
+    #df_intcode_segment = df_intcode_segment[df_intcode_segment['IntCode'].isin(int_codes_to_keep)]
 
     # Keep only these intcodes in the original segment dataframe
 
-    df = df[df['IntCode'].isin(int_codes_to_keep)]
+   # df = df[df['IntCode'].isin(int_codes_to_keep)]
 
     """
     When merging every three segments, the resulting new segment has an id that is the combination of the original 
@@ -157,21 +177,27 @@ if __name__ == '__main__':
 
     """
 
-    # Eliminate those index terms that occur in less than 50 interviews
+    # Eliminate those index terms that occur in less than 25 interviews
 
+    kws = df.groupby(['KeywordID', 'KeywordLabel'])['IntCode'].unique().map(lambda x: len(x)).to_frame(name="TotalNumberIntervieweeUsing").reset_index()
+    
+    kws_needed = kws[kws.TotalNumberIntervieweeUsing>25][['KeywordID','KeywordLabel']]
+    # eliminate very generic keywords
 
-    kws = df.groupby(['KeywordID','KeywordLabel'])['updated_id'].unique().map(lambda x: len(x)).to_frame(name="TotalNumberIntervieweeUsing").reset_index()
-    kws =kws[kws['KeywordLabel'].str.islower()]
-    kws_needed = kws[kws.TotalNumberIntervieweeUsing>50][['KeywordID','KeywordLabel']]
+    keywords_ids_to_eliminate= ['12754','14049','14605','8057','7624','7531','10592','13214','12497','13215','13310','7601','14233','16192','14226','14232','13929','13930','7528','13018','13926','13931','12498','16285']
+
+    kws_needed = kws_needed[~kws_needed['KeywordID'].isin(keywords_ids_to_eliminate)]
+
     keywords = kws_needed.reset_index()[['KeywordID','KeywordLabel']]
     df = df[df['KeywordID'].isin(kws_needed['KeywordID'])]
+
     
 
 
 
     # Save the keywords that is used
 
-    keywords.to_csv(output_directory+'keyword_index_merged_segments.csv')
+    keywords.to_csv(output_directory+'keyword_index_merged_segments_birkenau.csv')
 
 
     # Create the segment_keyword table 
@@ -204,12 +230,11 @@ if __name__ == '__main__':
     for i,element in enumerate(segment_keyword.iterrows()):
         for keyword in element[1]['KeywordID']:
             keyword_index = keywords[keywords.KeywordID==keyword].index[0]
-            segment_keyword_matrix[i, keyword_index] = 1
-
+            segment_keyword_matrix[i, keyword_index] = 1   
     # Save the segment keyword matrix
 
-    np.savetxt(output_directory+'segment_keyword_matrix_merged.txt', segment_keyword_matrix, fmt='%d')
-    segment_keyword.to_csv(output_directory+'segment_index_merged.csv')
+    np.savetxt(output_directory+'segment_keyword_matrix_merged_birkenau.txt', segment_keyword_matrix, fmt='%d')
+    segment_keyword.to_csv(output_directory+'segment_index_merged_birkenau.csv')
 
 
 
