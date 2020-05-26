@@ -14,32 +14,41 @@ import prince
 input_directory = constants.output_data_features
 
 # Read the segment index term matrix
-data = np.loadtxt(input_directory+'segment_keyword_matrix_merged.txt', dtype=int)
+data = np.loadtxt(input_directory+'segment_keyword_matrix_merged_birkenau.txt', dtype=int)
 
 # Read the column index (index terms) of the matrix above
-features_df = pd.read_csv(input_directory+'keyword_index_merged_segments.csv')
+features_df = pd.read_csv(input_directory+'keyword_index_merged_segments_birkenau.csv')
 
 # Read the row index (groups of three segments) of the matrix above
-segment_df = pd.read_csv(input_directory+'segment_index_merged.csv')
+segment_df = pd.read_csv(input_directory+'segment_index_merged_birkenau.csv')
 
 # Get the index label
 features = features_df['KeywordLabel'].values.tolist()
 
 # Open the topics for the anchored topic modelling
-with codecs.open("data_analysis/topic_anchors.txt") as topics_file:
+with codecs.open("data_analysis/topic_anchors_birkenau.txt") as topics_file:
         topics = topics_file.read()
 
 topic_list = topics.split('\n\n')
 
 anchors = []
 
+
+
 # Check if topic word certainly exists
 for topic in topic_list:
     anchor = []
-    topic_words = topic.split('\n')
+
+    topic_words = ' '.join(topic.split("\n")[1].split(' ')[1:]).split(',')
     for topic_word in topic_words:
-        if not topic_word.strip() in features_df['KeywordLabel'].tolist():
+        if topic_word =='Mengele Josef':
+            anchor.append('Mengele, Josef')
+        elif len(topic_word.strip())==0:
+            pass
+        elif not topic_word.strip() in features_df['KeywordLabel'].tolist():
             pdb.set_trace()
+
+        
         else:
             anchor.append(topic_word.strip())
     anchors.append(anchor)
@@ -144,7 +153,7 @@ for i,element in enumerate(document_topic_matrix):
  #   0               3  10006_47_48_49                          ['10983' '12044' '14280']        topic_2
 segment_df['topic'] = segment_topics
 
-
+pdb.set_trace()
 
 # Save the dataframe 
-segment_df.to_csv('data/output/topic_sequencing/segment_topics.csv')
+segment_df.to_csv('data/output/topic_sequencing/segment_topics_birkenau.csv')

@@ -110,10 +110,17 @@ def infer_old_new_system(bio_data,segment_data):
 
 
 
+    df_segment_length[df_segment_length['IntCode']].isin(old_system_in_codes)
 
+    df = df[df['IntCode'].isin(IntCode)]
     
     old_system_in_codes = df_segment_length[df_segment_length.segment_lenght>timedelta(minutes=1)]['IntCode'].unique().tolist()
     
+    # Average segment length in the old system
+
+    #df_segment_length[df_segment_length['IntCode'].isin(old_system_in_codes)]['segment_lenght'].mean()
+
+
     segmentation_system = ['old' if str(x)  in old_system_in_codes else 'new' for x in bio_data['IntCode'].tolist()]
     bio_data['segmentation_system']=segmentation_system
     return bio_data

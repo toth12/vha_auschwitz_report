@@ -12,28 +12,31 @@ from scipy import sparse
 
 # Read the input data
 
-input_directory = constants.input_data
+input_directory = constants.input_data+'/filtered/'
 
 # Read the biodata
-bio_data = constants.input_files_biodata
+bio_data = constants.input_files_biodata_birkenau
 
 np.set_printoptions(suppress=True)
 
 # Read the topic labels
-topic_doc = open('data_analysis/topic_anchors_with_labels.txt').read()
+topic_doc = open('data_analysis/topic_anchors_Birkenau.txt').read()
 
 topic_labels = [element.split('\n')[0].strip() for element in topic_doc.split('\n\n')]
 
 
+
 # Read the segments dataframe
-data = pd.read_csv('data/output/topic_sequencing/segment_topics.csv')
+data = pd.read_csv('data/output/topic_sequencing/segment_topics_Birkenau.csv')
 
 # Compute the interview code of each segment (the unique id of each segment contains the interview code as prefix)
 data['interview_code'] = data['updated_id'].apply(lambda x: x.split('_')[0])
 
 # Read the biodata and identify the interview code of male and female survivors
 
-df_biodata = pd.read_excel(input_directory+bio_data, sheet_name=None)['Sheet1']
+df_biodata = pd.read_csv(input_directory+bio_data)
+
+#df_biodata = pd.read_excel(input_directory+bio_data, sheet_name=None)['Sheet1']
 
 IntCodeM = df_biodata[(df_biodata.ExperienceGroup=='Jewish Survivor')&(df_biodata.Gender=='M')]['IntCode'].to_list()
 IntCodeW = df_biodata[(df_biodata.ExperienceGroup=='Jewish Survivor')&(df_biodata.Gender=='F')]['IntCode'].to_list()
@@ -54,7 +57,9 @@ def window(seq, n=2):
 
 # Create the transition matrix for men and women
 
-for group in groups:
+women_topic_sequences = {}
+men_topic_sequences = {}
+for f,group in enumerate(groups):
 
     #Filter the segment data so that only men or women segments remain
 
@@ -68,6 +73,11 @@ for group in groups:
     #interview_code
     #110006                    [topic_2, unknown_topic, topic_1]
     document_topic_sequences  = data_filtered.groupby('interview_code')['topic'].apply(list)
+
+    if f ==0:
+        data_filtered.groupby('interview_code')['topic'].apply(list).to_frame(name="sequences").reset_index().to_csv('w_tpic_sequences.csv')
+    else:
+        data_filtered.groupby('interview_code')['topic'].apply(list).to_frame(name="sequences").reset_index().to_csv('m_tpic_sequences.csv')
 
 
 
@@ -88,6 +98,7 @@ for group in groups:
     topic_list=data.topic.unique().tolist()
     topic_list.remove('unknown_topic')
     topic_list = sorted(topic_list)
+
 
     # Create an empty transition matrix
 
@@ -150,7 +161,10 @@ for group in groups:
     topic_list_with_labels=[]
     for element in topic_list:
         topic_n = element.split('_')[1:]
-        labels = '_'.join([topic_labels[int(l)] for l in topic_n])
+        try:
+            labels = '_'.join([topic_labels[int(l)] for l in topic_n])
+        except:
+            pdb.set_trace()
         topic_list_with_labels.append(labels)
 
 
@@ -159,13 +173,15 @@ for group in groups:
     mm = msm.markov_model(transition_matrix_scaled)
 
     #Print the stationary distributions of the top states
-
+    results = []
     for i,element in enumerate(mm.pi.argsort()[::-1]):
         print (i)
         print (topic_list_with_labels[element])
         print (topic_list[element])
+        print (mm.pi[element])
         print ('\n')
-        if i ==10:
+        results.append({'topic_name':topic_list_with_labels[element],'stationary_prob':mm.pi[element]})
+        if i ==1:
             break
 
     # Print the eigenvalues of states
@@ -178,31 +194,45 @@ for group in groups:
     # Calculate the flux between two states (topic_2, selection and topic_8_14 camp liquidiation / camp transfer )
 
 
-    A = [topic_list.index('topic_2')]
-    B = [topic_list.index('topic_8_14')]
+    A = [topic_list.index('topic_8')]
+    B = [topic_list.index('topic_2')]
     tpt = msm.tpt(mm, A, B)
 
     nCut = 1
-    (bestpaths,bestpathfluxes) = tpt.pathways(fraction=0.95)
+    (bestpaths,bestpathfluxes) = tpt.pathways(fraction=0.99)
     cumflux = 0
 
     # Print the best path between the two states
 
     print("Path flux\t\t%path\t%of total\tpath")
+
+
     for i in range(len(bestpaths)):
         cumflux += bestpathfluxes[i]
 
         print(bestpathfluxes[i],'\t','%3.1f'%(100.0*bestpathfluxes[i]/tpt.total_flux),'%\t','%3.1f'%(100.0*cumflux/tpt.total_flux),'%\t\t',bestpaths[i])
         
+        topic_sequence = []
         for element in bestpaths[i]:
             print (topic_list_with_labels[element])
-        #get the path labels
+            topic_sequence.append(topic_list_with_labels[element])
+            print (topic_list[element])
+        topic_sequence = '-'.join(topic_sequence)
+        if (f==0):
+            women_topic_sequences[topic_sequence]=100.0*bestpathfluxes[i]/tpt.total_flux
+        else:
+            men_topic_sequences[topic_sequence]=100.0*bestpathfluxes[i]/tpt.total_flux        #get the path labels
 
+
+    if (f ==0):
+        pd.DataFrame(results).to_csv("women_topics_stationary_prob.csv")
+    else:
+        pd.DataFrame(results).to_csv("men_topics_stationary_prob.csv")
 
     # Additionaly calculate the mean time passage between social relations and adaptation
 
 
-    social_relations_indices = [topic_list_with_labels.index(element) for element in topic_list_with_labels if "socialrelations" == element]
+    '''social_relations_indices = [topic_list_with_labels.index(element) for element in topic_list_with_labels if "socialrelations" == element]
     adaptation_relations_indices = [topic_list_with_labels.index(element) for element in topic_list_with_labels if "adaptation" == element]
 
        
@@ -218,5 +248,27 @@ for group in groups:
 
     print('adaptation->socialrelations-> ', 1.0/tpt_adaptation.rate)
     print(tpt_adaptation.rate)
+    '''
+pathes = list(set(list(women_topic_sequences.keys())+list(men_topic_sequences.keys())))
+
+result = []
+for element in pathes:
+    try:
+        wflux = women_topic_sequences[element]
+    except:
+        wflux = 0
+    try:
+        mflux = men_topic_sequences[element]
+    except:
+        mflux = 0
+    result.append({'path':element,'wflux':wflux,'mflux':mflux})
+
+pd.DataFrame(result).to_csv('man_women_paths.csv')
+pdb.set_trace()
+
+
+
+
+
 
 

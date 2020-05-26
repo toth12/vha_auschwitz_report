@@ -1,15 +1,18 @@
-0:transfer from Auschwitz II-Birkenau (Poland : Death Camp),freight trains,transfers, means of transport,forced marches,transfer conditions,deportations, means of transport,forced march conditions,transfer to Bergen-Belsen (Germany : Concentration Camp),death marches,transfer to Ravensbrück (Germany : Concentration Camp)
-1:camp selections,loved ones' separations,camp first impressions,deportation to Auschwitz II-Birkenau (Poland : Death Camp),camp intake procedures,loved ones' final contacts,Mengele, Josef,deportation conditions,~camp social relations,deportation from Lódz (Poland : Ghetto)
-2:camp forced labor,beatings,camp brutal treatment,camp daily services forced labor,personal property sorting forced labor,camp punishments,forced labor conditions,quarry forced labor,armament forced labor,corpse disposal forced labor
-3:camp-related aid giving,preferential treatment,sustenance provision,warnings,clothing provision,hiding (aid giving),medical care provision,Jewish prisoners,prisoner doctors,Polish prisoners
-4:prisoner tattoos (stills),prisoner tattoos,German (language),prisoner identification numbers,language skills,camp prisoner marking,camp quarantines
-5:camp adaptation methods,camp food acquisition,camp barter,age deceptions,camp stealing,health deceptions,occupation deceptions,camp food sharing,camp hiding and evasion,camp covert activities
-6:camp Jewish religious observances,Yom Kippur,Jewish holiday awareness,camp time awareness,camp Jewish prayers,Rosh Ha-Shana,Nazi Jewish holiday exploitation,camp cultural activities,performing arts,Holocaust faith issues
-7:Jewish prisoner functionaries,female prisoner functionaries,Polish prisoner functionaries,Slovak prisoner functionaries,Czech prisoner functionaries,Blockälteste,attitudes toward prisoner functionaries,German prisoner functionaries,Lagerälteste,Stubenälteste
-8:camp executions,camp killings,hangings,shootings,child killings,Sonderkommando Uprising (Auschwitz II-Birkenau, October 7, 1944),camp escape attempts,camp resistance,Sonderkommando prisoners,gassings
-9:camp food,camp sanitary conditions,camp latrines,food additives,camp menstruation,camp deaths,camp living conditions,camp procedures,camp hunger,camp suicides
-10:Jewish kapos,female kapos,Polish kapos,camp infestations,lice,Slovak kapos,criminal kapos,German kapos,camp sexual activities,interviewee memory
-11:camp housing conditions,camp barracks,camp environmental conditions,camp Appell,camp shoes,camp clothing,camp uniforms,Zigeunerlager (Auschwitz II-Birkenau),shoe importance,~camp personnel
-12:camp liberation,Soviet soldiers,Soviet armed forces,International Red Cross,post-liberation camp/ghetto transition,camp visitors,liberation,perpetrator liberator-approach responses,aid giving,interviewee photographs (stills)
-13:camp children,twins in the camps,camp medical experiments,gas chambers,camp mass executions,aborted killings,camp childbearing,camp doctors,childhood perceptions,infanticide
-14:extended family members,sisters,loved ones' renewed contacts,brothers,loved ones' togetherness decisions,grandmothers,~kapos,~Soviet prisoners of war
+0:transfer from Auschwitz II-Birkenau (Poland : Death Camp),freight trains,transfers, means of transport,forced marches,transfer conditions,deportations, means of transport,transfer to Bergen-Belsen (Germany : Concentration Camp),transfer to Ravensbrück (Germany : Concentration Camp),trains,death marches
+1:camp forced labor,camp brutal treatment,beatings,camp punishments,camp daily services forced labor,personal property sorting forced labor,forced labor conditions,hangings,quarry forced labor,armament forced labor
+2:camp-related aid giving,preferential treatment,sustenance provision,warnings,Jewish prisoners,clothing provision,Polish prisoners,hiding (aid giving),medical care provision,Hungarian prisoners
+3:camp selections,loved ones' separations,Mengele, Josef,~camp living conditions,loved ones' final contacts,~camp food,~camp housing conditions,~camp social relations,age deceptions,~camp sanitary conditions
+4:prisoner tattoos (stills),prisoner tattoos,prisoner identification numbers,camp prisoner marking,~Lagerälteste
+5:camp adaptation methods,camp food acquisition,camp stealing,camp barter,~camp intake procedures,camp covert activities,camp hiding and evasion,health deceptions,~camp first impressions,hiding valuables
+6:camp diseases,camp hospitals,camp medical care,camp medical experiments,twins in the camps,camp doctors,typhus,camp injuries,camp prisoner physical conditions,loved ones' deaths
+7:mass murder awareness,camp crematoria,Roma prisoners,camp mass executions,gas chambers,camp corpse cremations,Sonderkommando prisoners,aborted killings,Zigeunerlager (Auschwitz II-Birkenau),camp corpse disposal
+8:prisoner external contact,loved ones' renewed contacts,loved ones' contacts,camp covert communications,~camp showers,friends
+9:camp Jewish religious observances,~extended family members,~loved ones' fates,Yom Kippur,camp Jewish prayers,camp time awareness,Jewish holiday awareness,~sisters,post-conflict medical problems
+10:camp liberation,Soviet soldiers,Soviet armed forces,Romania 1944
+11:SS/SD personnel,camp humiliation,German camp guards,shootings,Grese, Irma,~trauma-related dreams
+12:camp Appell,camp environmental conditions,~deportation awareness
+13:politico-military event awareness,camp rumors,bombardments,~camp family interactions,German concentration camps (generic),~tracing loved ones
+14:female prisoners,Slovak prisoners,inter-Jewish relations,~camp blood extraction
+15:deportation to Auschwitz II-Birkenau (Poland : Death Camp),~Blockälteste,~camp children,~camp food sharing,~camp childbearing,~psychological distress prevention
+16:perpetrator liberator-approach responses,camp liquidations,~forced correspondence
+17:child killings

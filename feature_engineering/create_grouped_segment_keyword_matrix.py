@@ -14,7 +14,7 @@ from scipy.stats import chi2_contingency
 from random import randint
 import json
 
-#pd.set_option('display.max_rows', None)
+pd.set_option('display.max_rows', None)
 
 
 
@@ -117,7 +117,7 @@ if __name__ == '__main__':
    0            2  [(16, 17, 18), (19, 20, 21), (22, 23, 24), (25...
 
     """
-    df_intcode_segment ['SegmentID']= df_intcode_segment.apply(group,n=3,axis=1)
+    df_intcode_segment ['SegmentID']= df_intcode_segment.apply(group,n=1,axis=1)
 
 
 
@@ -181,15 +181,30 @@ if __name__ == '__main__':
 
     kws = df.groupby(['KeywordID', 'KeywordLabel'])['IntCode'].unique().map(lambda x: len(x)).to_frame(name="TotalNumberIntervieweeUsing").reset_index()
     
-    kws_needed = kws[kws.TotalNumberIntervieweeUsing>25][['KeywordID','KeywordLabel']]
+    kws_needed = kws[kws.TotalNumberIntervieweeUsing>50][['KeywordID','KeywordLabel']]
     # eliminate very generic keywords
 
-    keywords_ids_to_eliminate= ['12754','14049','14605','8057','7624','7531','10592','13214','12497','13215','13310','7601','14233','16192','14226','14232','13929','13930','7528','13018','13926','13931','12498','16285']
+    keywords_ids_to_eliminate= ['16103','12754','14049','14605','8057','7624','7531','10592','13214','12497','13215','13310','7601','14233','16192','14226','14232','13929','13930','7528','13018','13926','13931','12498','16285']
+
+
+
+
+    
 
     kws_needed = kws_needed[~kws_needed['KeywordID'].isin(keywords_ids_to_eliminate)]
 
+     # Eliminate all prisoners keywords
+
+    #kws_needed = kws_needed[~kws_needed['KeywordLabel'].str.contains('prisoners')]
+
+
+    # Eliminate prisoner functionaries
+    kws_needed = kws_needed[~kws_needed['KeywordLabel'].str.contains('prisoner functionaries')]
+
+
     keywords = kws_needed.reset_index()[['KeywordID','KeywordLabel']]
     df = df[df['KeywordID'].isin(kws_needed['KeywordID'])]
+
 
     
 
@@ -218,7 +233,7 @@ if __name__ == '__main__':
     """
 
     #Eliminate those entries that have less than two keyword ids
-    segment_keyword = segment_keyword[segment_keyword['KeywordID'].str.len()>2]
+    #segment_keyword = segment_keyword[segment_keyword['KeywordID'].str.len()>2]
 
 
     # Create the segment keyword matrix, the position of every keyword is defined by its position in the keywords table above
@@ -236,6 +251,8 @@ if __name__ == '__main__':
     np.savetxt(output_directory+'segment_keyword_matrix_merged_birkenau.txt', segment_keyword_matrix, fmt='%d')
     segment_keyword.to_csv(output_directory+'segment_index_merged_birkenau.csv')
 
+    #27      12288                              camp social relations
+    #segment_keyword_matrix[:,27].sum()
 
 
     

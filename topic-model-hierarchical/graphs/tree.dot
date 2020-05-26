@@ -1,39 +1,36 @@
 strict digraph {
 	node [shape=point];
-	n1_0 -> n2_0 [penwidth=0.00];
-	n0_0 -> n1_1 [penwidth=0.84];
-	n0_1 -> n1_0 [penwidth=3.09];
-	n0_2 -> n1_1 [penwidth=0.72];
+	n1_0 -> n2_0 [penwidth=5.95];
+	n0_0 -> n1_0 [penwidth=5.27];
+	n0_2 -> n1_0 [penwidth=0.24];
 	n0_3 -> n1_0 [penwidth=0.30];
-	n0_4 -> n1_0 [penwidth=0.27];
-	n0_5 -> n1_1 [penwidth=0.80];
-	n0_6 -> n1_2 [penwidth=0.51];
-	n0_7 -> n1_0 [penwidth=0.09];
-	n0_8 -> n1_0 [penwidth=0.12];
-	n0_9 -> n1_2 [penwidth=0.14];
-	n0_10 -> n1_0 [penwidth=0.05];
-	n0_11 -> n1_0 [penwidth=0.11];
-	n0_12 -> n1_0 [penwidth=0.04];
-	n0_13 -> n1_2 [penwidth=0.03];
-	n0_14 -> n1_0 [penwidth=0.24];
-	n0_15 -> n1_0 [penwidth=0.22];
-	n0_16 -> n1_0 [penwidth=0.18];
-	n0_17 -> n1_1 [penwidth=0.06];
+	n0_5 -> n1_2 [penwidth=0.17];
+	n0_7 -> n1_0 [penwidth=0.17];
+	n0_9 -> n1_0 [penwidth=0.19];
+	n0_10 -> n1_3 [penwidth=0.03];
+	n0_11 -> n1_0 [penwidth=0.06];
+	n0_13 -> n1_0 [penwidth=0.32];
+	n0_19 -> n1_0 [penwidth=0.24];
+	n1_1 -> n2_0 [penwidth=0.33];
+	n0_1 -> n1_1 [penwidth=0.76];
+	n0_4 -> n1_1 [penwidth=0.28];
+	n0_6 -> n1_1 [penwidth=0.57];
+	n0_8 -> n1_1 [penwidth=1.00];
+	n0_12 -> n1_1 [penwidth=0.17];
+	n0_16 -> n1_1 [penwidth=0.07];
+	n1_2 -> n2_0 [penwidth=0.02];
+	n1_3 -> n2_0 [penwidth=0.03];
+	n1_4 -> n2_0 [penwidth=0.18];
 	n1_0 [shape=circle,margin="0,0",style=filled,fillcolor=black,fontcolor=white,height=0.60,label="0"]
 	n0_0 [label="0:transfer from Auschwitz
 II-Birkenau (Poland :
 Death Camp) transfers,
 means of transport
-freight trains forced
-marches transfer
-conditions forced march
-conditions",shape=none,fontcolor="black"]
-	n0_1 [label="1:camp selections loved
-ones' separations camp
-first impressions camp
-intake procedures ~camp
-forced labor Mengele,
-Josef",shape=none,fontcolor="black"]
+freight trains transfer
+conditions forced marches
+transfer to Ravensbrück
+(Germany : Concentration
+Camp)",shape=none,fontcolor="black"]
 	n0_2 [label="2:camp-related aid giving
 preferential treatment
 sustenance provision
@@ -42,96 +39,81 @@ provision hiding (aid
 giving)",shape=none,fontcolor="black"]
 	n0_3 [label="3:camp brutal treatment
 beatings camp punishments
-camp killings hangings
-camp executions",shape=none,fontcolor="black"]
-	n0_4 [label="4:deportations, means of
-transport deportation to
-Auschwitz II-Birkenau
-(Poland : Death Camp)
-deportation conditions
-deportation from Lódz
-(Poland : Ghetto) Romania
-1944 deportation from
-Mukacevo (Czechoslovakia:
-Ghetto)",shape=none,fontcolor="black"]
-	n0_5 [label="5:Jewish prisoners female
-prisoners Polish
-prisoners prisoner
-external contact
-Hungarian prisoners loved
-ones' contacts",shape=none,fontcolor="black"]
-	n0_6 [label="6:prisoner tattoos
-(stills) prisoner tattoos
+camp killings SS/SD
+personnel camp executions",shape=none,fontcolor="black"]
+	n0_5 [label="5:prisoner tattoos
+prisoner tattoos (stills)
+camp intake procedures
 prisoner identification
 numbers camp prisoner
-marking camp quarantines
-~camp sexual assaults",shape=none,fontcolor="black"]
-	n0_7 [label="7:camp diseases camp
-hospitals camp medical
-care typhus prisoner
-doctors lice",shape=none,fontcolor="black"]
-	n0_8 [label="8:camp Jewish religious
-observances Kanada
-(Auschwitz II-Birkenau)
-Yom Kippur personal
-property sorting forced
-labor Jewish holiday
-awareness camp time
-awareness",shape=none,fontcolor="black"]
+marking camp uniforms",shape=none,fontcolor="black"]
+	n0_7 [label="7:camp food camp living
+conditions camp barracks
+camp Appell camp housing
+conditions camp Jewish
+religious observances",shape=none,fontcolor="black"]
 	n0_9 [label="9:camp adaptation methods
 camp food acquisition
 camp barter camp stealing
 health deceptions
 occupation deceptions",shape=none,fontcolor="black"]
-	n0_10 [label="10:camp housing
-conditions camp barracks
-camp Appell camp clothing
-camp environmental
-conditions camp shoes",shape=none,fontcolor="black"]
-	n0_11 [label="11:camp liberation Soviet
-soldiers Soviet armed
-forces perpetrator
-liberator-approach
-responses International
-Red Cross camp visitors",shape=none,fontcolor="black"]
-	n0_12 [label="12:camp crematoria mass
-murder awareness camp
-mass executions gas
-chambers Roma prisoners
-corpse disposal forced
-labor",shape=none,fontcolor="black"]
-	n0_13 [label="13:Jewish kapos female
-kapos Polish kapos Slovak
-kapos camp sexual
-activities",shape=none,fontcolor="black"]
-	n0_14 [label="14:extended family
-members loved ones' fates
-sisters camp family
-interactions brothers
-loved ones' togetherness
-decisions",shape=none,fontcolor="black"]
-	n0_15 [label="15:Sonderkommando
-prisoners Sonderkommando
-Uprising (Auschwitz II-
-Birkenau, October 7,
-1944) camp resistance
-German kapos political
-prisoners French
-prisoners",shape=none,fontcolor="black"]
-	n0_16 [label="16:camp sanitary
-conditions camp latrines
-camp hunger camp thirst
-~Holocaust-related
-psychological reactions
-~perpetrator deceptions",shape=none,fontcolor="black"]
-	n0_17 [label="17:camp children camp-
-related psychological
-reactions twins in the
-camps psychological
-distress prevention child
-deaths camp blood
-extraction",shape=none,fontcolor="black"]
-	n1_1 [shape=circle,margin="0,0",style=filled,fillcolor=black,fontcolor=white,height=0.23,label="1"]
-	n1_2 [shape=circle,margin="0,0",style=filled,fillcolor=black,fontcolor=white,height=0.01,label="2"]
-	n2_0 [shape=point,height=0.00]
+	n0_10 [label="10:camp crematoria mass
+murder awareness gas
+chambers camp mass
+executions camp corpse
+cremations camp corpses",shape=none,fontcolor="black"]
+	n0_11 [label="11:perpetrator liberator-
+approach responses German
+concentration camps
+(generic) bombardments
+camp liquidations camp
+liberation Soviet armed
+forces",shape=none,fontcolor="black"]
+	n0_13 [label="13:transfer to Auschwitz
+II-Birkenau (Poland :
+Death Camp) transfer from
+Auschwitz (Poland :
+Concentration
+Camp)(generic) transfer
+from Auschwitz I (Poland
+: Concentration Camp)
+~camp personnel",shape=none,fontcolor="black"]
+	n0_19 [label="19:",shape=none,fontcolor="black"]
+	n1_1 [shape=circle,margin="0,0",style=filled,fillcolor=black,fontcolor=white,height=0.14,label="1"]
+	n0_1 [label="1:camp forced labor camp
+daily services forced
+labor personal property
+sorting forced labor
+forced labor conditions
+quarry forced labor
+Kanada (Auschwitz II-
+Birkenau)",shape=none,fontcolor="black"]
+	n0_4 [label="4:deportations, means of
+transport deportation to
+Auschwitz II-Birkenau
+(Poland : Death Camp)
+deportation conditions
+Romania 1944 deportation
+awareness post-conflict
+persecution site visits",shape=none,fontcolor="black"]
+	n0_6 [label="6:Mengele, Josef camp
+selections twins in the
+camps camp medical
+experiments age
+deceptions camp doctors",shape=none,fontcolor="black"]
+	n0_8 [label="8:loved ones' separations
+loved ones' final
+contacts loved ones'
+fates extended family
+members camp first
+impressions sisters",shape=none,fontcolor="black"]
+	n0_12 [label="12:camp clothing camp
+shoes",shape=none,fontcolor="black"]
+	n0_16 [label="16:politico-military
+event awareness transfer
+preparations",shape=none,fontcolor="black"]
+	n1_2 [shape=circle,margin="0,0",style=filled,fillcolor=black,fontcolor=white,height=0.00,label="2"]
+	n1_3 [shape=circle,margin="0,0",style=filled,fillcolor=black,fontcolor=white,height=0.00,label="3"]
+	n1_4 [shape=circle,margin="0,0",style=filled,fillcolor=black,fontcolor=white,height=-0.00,label="4"]
+	n2_0 [shape=point,height=0.13]
 }

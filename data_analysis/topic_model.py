@@ -28,7 +28,7 @@ X = ss.csr_matrix(data)
 
 #anchors=['camp adaptation methods']
 # Train the CorEx topic model
-topic_model = ct.Corex(n_hidden=15)  # Define the number of latent (hidden) topics to use.
+topic_model = ct.Corex(n_hidden=18)  # Define the number of latent (hidden) topics to use.
 
 
 topic_model.fit(X, docs=segment_df.updated_id.tolist(),words=features)
@@ -56,11 +56,11 @@ plt.savefig('topics.png')
 
 pdb.set_trace()
 # Train the first layer
-topic_model = ct.Corex(n_hidden=18)
+topic_model = ct.Corex(n_hidden=20)
 topic_model.fit(X)
 
 # Train successive layers
-tm_layer2 = ct.Corex(n_hidden=3)
+tm_layer2 = ct.Corex(n_hidden=5)
 tm_layer2.fit(topic_model.labels)
 
 tm_layer3 = ct.Corex(n_hidden=1)
