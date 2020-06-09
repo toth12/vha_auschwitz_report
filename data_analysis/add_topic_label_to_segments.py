@@ -22,6 +22,7 @@ features_df = pd.read_csv(input_directory+'keyword_index_merged_segments_birkena
 # Read the row index (groups of three segments) of the matrix above
 segment_df = pd.read_csv(input_directory+'segment_index_merged_birkenau.csv')
 
+
 # Get the index label
 features = features_df['KeywordLabel'].values.tolist()
 
@@ -112,7 +113,7 @@ for i,element in enumerate(unique):
     if nonzeros >1:
         # Count how many instances this topic combination has in the data
         # If occurs more than 50 times, add it to the list of new topics
-        if counts[i] >50:
+        if counts[i] >0:
             # Every topic is to be named with a prefix (topic_) followed by all topics that give the topic combination
             new_topic = 'topic_'+'_'.join([str(num) for num in np.nonzero(element)[0].tolist()])
             new_topics.append(new_topic)

@@ -8,6 +8,7 @@ from msmtools.flux import tpt,ReactiveFlux
 from pyemma import plots as mplt
 import constants
 from scipy import sparse
+from sklearn import preprocessing
 
 
 # Read the input data
@@ -102,6 +103,7 @@ for f,group in enumerate(groups):
     # First make a list of every transition pairs
 
     transitions = []
+
     for element in document_topic_sequences:
        # uncomment the line below if you want to add only those interviews where every topic is known
        #if "unknown_topic" not in element:
@@ -116,88 +118,71 @@ for f,group in enumerate(groups):
     topic_list = sorted(topic_list)
 
 
-    # Create an empty transition matrix
+    # Create an empty matrix for the fuzzy states
+
+
 
     transition_matrix = np.zeros([len(topic_list),len(topic_list)]).astype(int)
 
+    trajectories = []
 
     # Iterate through all transitions
     for element in transitions:
         if 'unknown_topic' not in element:
+            fuzzy_state=np.zeros([len(topic_labels)])
 
-            # Get the two states
-            state1 = element[0]
-            state2 = element[1]
+            # Count how many topics there are 
+            state_1_number_of_topics = len(element[0].split("_"))-1
+            prob_each_topic_state_1 = 1 / state_1_number_of_topics 
+            topic_indices = element[0].split("_")[1:]
+            for index in topic_indices:
+                np.put(fuzzy_state,int(index), prob_each_topic_state_1)
+
+
+            fuzzy_state=np.zeros([len(topic_labels)]).astype(np.float32)
+            trajectories.append(fuzzy_state)
+
+            # Count how many topics there are 
+            state_2_number_of_topics = len(element[1].split("_"))-1
+            prob_each_topic_state_1 = 1 / state_1_number_of_topics 
+            topic_indices = element[0].split("_")[1:]
+            for index in topic_indices:
+                np.put(fuzzy_state,int(index), prob_each_topic_state_1)
+                trajectories.append(fuzzy_state)
+
+
+
+    dtraj_fuzzy = np.vstack(trajectories)
+
+    dtraj_fuzzy = dtraj_fuzzy.astype(np.float64)
+
+    assert np.allclose(dtraj_fuzzy.sum(axis=1), 1)
+
+
+    #   we estimate a count matrix and transition matrix as we did before with the one-hot encoding
+    # in comparison, here the np.linalg.inv() term is not a diagonal matrix, which 
+    # is the reason why we have to do the inverse instead of the simpler operation here
+    count_matrix_fuzzy = dtraj_fuzzy[:-1].T @ dtraj_fuzzy[1:]
+    transition_matrix_fuzzy = np.linalg.inv(dtraj_fuzzy[:-1].T @ dtraj_fuzzy[:-1]) @ count_matrix_fuzzy
+
+    
 
             
-            # Get the indices of the two states
-            state1_index= topic_list.index(state1)
-            state2_index= topic_list.index(state2)
-
-            # Fill in the necessary row - column based on the transition
-            transition_matrix[state1_index,state2_index] = transition_matrix[state1_index,state2_index] + 1
     
-    topic_list.index('topic_9')
-    transition_matrix[topic_list.index('topic_9'),topic_list.index('topic_10')]
-    transition_matrix[topic_list.index('topic_9'),topic_list.index('topic_10')]/transition_matrix[topic_list.index('topic_9')].sum()
+    transition_matrix_fuzzy[transition_matrix_fuzzy<0]=0
+    transition_matrix_fuzzy = preprocessing.normalize(transition_matrix_fuzzy,axis=1,norm="l1")
     
-
-
-
-    
-    # Remove those states from which transitions begin but to which no transitions goes
-    # If this is not done, the transition matrix is singular 
-    to_be_removed=np.sort(np.where(np.all(transition_matrix == 0, axis=1)==True))[0][::-1]
-    for element in to_be_removed:
-        transition_matrix=np.delete(transition_matrix,element,axis=1)
-        transition_matrix=np.delete(transition_matrix,element,axis=0)
-        # Delete those transitions from the topic list
-        del topic_list[element]
+    #transition_matrix_fuzzy = transition_matrix_fuzzy / transition_matrix_fuzzy.sum(axis=1)
+    #transition_matrix_fuzzy = transition_matrix_fuzzy.astype(np.float16)
 
 
     
 
 
-
-
-    # Create the final transition matrix with probability values
-
-    transition_matrix_scaled = (transition_matrix.T/transition_matrix.sum(axis=1)).T
-
-
-    # Make sure that transition matrix is standard MSMs (reversibly connect), 
-    #i.e. that for every state in the transition matrix there must be at least one transition out of it and into it. 
-    #tim.hempel[at]fu-berlin.de
-
-
-    # Check null columns
-
-
-
-    null_columns = np.sort(np.where(transition_matrix_scaled.sum(0)==0)[0])[::-1]
-
-    # Remove null columns
-    for null in null_columns:
-        transition_matrix_scaled = np.delete(transition_matrix_scaled,null, 0)  
-        transition_matrix_scaled = np.delete(transition_matrix_scaled,null, 1)
-        del topic_list[null] 
+    assert np.allclose(transition_matrix_fuzzy.sum(axis=1), 1)
 
     
-    # Find the final topic labels (until now for instance, topic_1_2 was used,)
-    topic_list_with_labels=[]
-    for element in topic_list:
-        topic_n = element.split('_')[1:]
-        try:
-            labels = '_'.join([topic_labels[int(l)] for l in topic_n])
-        except:
-            pdb.set_trace()
-        topic_list_with_labels.append(labels)
-
-    transition_matrix_scaled[topic_list.index('topic_9'),topic_list.index('topic_10')]
-
-    # Train the markov chain
-
-    mm = msm.markov_model(transition_matrix_scaled)
+    mm = msm.markov_model(transition_matrix_fuzzy)
 
 
     mm.is_reversible
@@ -206,12 +191,12 @@ for f,group in enumerate(groups):
     results = []
     for i,element in enumerate(mm.pi.argsort()[::-1]):
         print (i)
-        print (topic_list_with_labels[element])
+        print (topic_labels[element])
         print (topic_list[element])
         print (mm.pi[element])
         print ('\n')
-        results.append({'topic_name':topic_list_with_labels[element],'stationary_prob':mm.pi[element]})
-        if i ==30:
+        results.append({'topic_name':topic_labels[element],'stationary_prob':mm.pi[element]})
+        if i ==12:
             break
 
     # Print the eigenvalues of states
@@ -224,8 +209,8 @@ for f,group in enumerate(groups):
     # Calculate the flux between two states (topic_2, selection and topic_8_14 camp liquidiation / camp transfer )
 
 
-    A = [topic_list.index('topic_8')]
-    B = [topic_list.index('topic_2')]
+    A = [8]
+    B = [2,13]
     tpt = msm.tpt(mm, A, B)
 
     nCut = 1
@@ -244,9 +229,9 @@ for f,group in enumerate(groups):
         
         topic_sequence = []
         for element in bestpaths[i]:
-            print (topic_list_with_labels[element])
-            topic_sequence.append(topic_list_with_labels[element])
-            print (topic_list[element])
+            print (topic_labels[element])
+            topic_sequence.append(topic_labels[element])
+           #print (topic_labels[element])
         topic_sequence = '-'.join(topic_sequence)
         if (f==0):
             women_topic_sequences[topic_sequence]=100.0*bestpathfluxes[i]/tpt.total_flux
@@ -258,6 +243,7 @@ for f,group in enumerate(groups):
         pd.DataFrame(results).to_csv("women_topics_stationary_prob.csv")
     else:
         pd.DataFrame(results).to_csv("men_topics_stationary_prob.csv")
+    pdb.set_trace()
 
     # Additionaly calculate the mean time passage between social relations and adaptation
 

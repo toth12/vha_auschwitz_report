@@ -14,10 +14,17 @@ from scipy.stats import chi2_contingency
 from random import randint
 import json
 
-pd.set_option('display.max_rows', None)
+pd.set_option('display.max_rows', 50)
 
 
-
+def check_if_empty(segments):
+    generic_terms = ['14231', '14223', '13930', '13929', '13214', '14230', '14229', '13926', '14049', '14605', '14307', '16285', '12498', '13215', '13931', '14241', '14235', '13310', '7601', '14233', '7528', '17206', '14232', '13018', '16192', '7624', '14226', '14225']
+    keyword_ids = segments['KeywordID'].tolist()
+    keyword_ids_filtered = [element for element in keyword_ids if element not in generic_terms]
+    if len(keyword_ids_filtered)>0:
+        return False
+    else:
+        return True
 
 
 def group(lst, n):
@@ -53,6 +60,7 @@ if __name__ == '__main__':
 
     # Add the full path to the input files
     input_files = [input_directory+i for i in input_files]
+    generic_terms = ['14231', '14223', '13930', '13929', '13214', '14230', '14229', '13926', '14049', '14605', '14307', '16285', '12498', '13215', '13931', '14241', '14235', '13310', '7601', '14233', '7528', '17206', '14232', '13018', '16192', '7624', '14226', '14225']
 
 
     # Read the segment input files into panda dataframe
@@ -89,6 +97,32 @@ if __name__ == '__main__':
 
 
 
+
+    # Update segments that are "empty" i.e. contain only generic terms
+
+    segments = df.groupby(["IntCode","SegmentID","SegmentNumber"])["KeywordID"].unique().to_frame(name="KeywordID").reset_index()
+    segments['empty'] = segments.apply(check_if_empty,axis=1)
+    print (len(segments[segments['empty']==True]))
+    for element in segments[segments['empty']==True].iterrows():
+        IntCode = element[1]["IntCode"]
+        PreviousSegmentNumber = int(element[1]["SegmentNumber"]) - 1
+        
+
+        #Find the previous segment id
+        previous_segment = df[(df["IntCode"]==IntCode) & (df['SegmentNumber'] ==str(PreviousSegmentNumber))]
+        if len(previous_segment)>0:
+
+            #iterate through all keywords in the previous segment and if a keyword is not a generic term update
+            for row in previous_segment.iterrows():
+                if row[1]["KeywordID"] not in generic_terms:
+                    new_row = row[1].copy()
+                    new_row['SegmentNumber'] = element[1]["SegmentNumber"]
+                    new_row['SegmentID'] = element[1]["SegmentID"]
+                    df = df.append(new_row)
+                    
+        
+    pdb.set_trace()
+
     # Change the IntCode from str to int in the segment data
     df["IntCode"] = df.IntCode.map(lambda x: int(x))
 
@@ -109,7 +143,7 @@ if __name__ == '__main__':
     
     # Make sure that segment ids are sorted
     df_intcode_segment.SegmentID.apply(lambda x: sorted(x,reverse=False))
-
+    pdb.set_trace()
 
     # Create groups of three segments from the list segments ids
     """
@@ -218,6 +252,7 @@ if __name__ == '__main__':
     # Create the segment_keyword table 
 
     segment_keyword = df.groupby(['updated_id'])["KeywordID"].unique().to_frame(name="KeywordID").reset_index()
+    pdb.set_trace()
 
     # Groupby the updated ids; this contains the new id of every three segments and the index ids in them
 
