@@ -89,7 +89,7 @@ if __name__ == '__main__':
     keywords.to_csv(output_directory+'feature_index.csv')
 
 
-    # Create the segment_keyword table  through Groupby the updated ids
+    # Create the segment_keyword table through the Groupby of the updated ids
 
     """
                    updated_id                                          KeywordID
@@ -113,7 +113,3 @@ if __name__ == '__main__':
     # Save the segment keyword matrix
     np.savetxt(output_directory+'segment_keyword_matrix.txt', segment_keyword_matrix, fmt='%d')
     segment_keyword.to_csv(output_directory+'document_index.csv')
-
-
-
-    

@@ -41,6 +41,7 @@ IntCodeW = df_biodata[(df_biodata.ExperienceGroup=='Jewish Survivor')&(df_biodat
 groups = [IntCodeW,IntCodeM]
 
 
+
 def window(seq, n=2):
     "Sliding window width n from seq.  From old itertools recipes."""
     it = iter(seq)
@@ -54,8 +55,10 @@ def window(seq, n=2):
 # Create the transition matrix for men and women
 women_topic_sequences = {}
 men_topic_sequences = {}
+joint_topic_sequences = {}
 women_topics_stationary_prob = {}
 men_topics_stationary_prob = {}
+joint_topics_stationary_prob = {}
 
 for f,group in enumerate(groups):
 
@@ -107,37 +110,40 @@ for f,group in enumerate(groups):
 
     # Iterate through all transitions
     for element in transitions:
-        if 'unknown_topic' not in element:
-            #create an empty matrix holding the fuzzy state for the first element of the transition pair
-            fuzzy_state=np.zeros([len(topic_labels)])
 
-            # Count how many topics there are 
-            state_1_number_of_topics = len(element[0].split("_"))-1
-            prob_each_topic_state_1 = 1 / state_1_number_of_topics 
-            topic_indices = element[0].split("_")[1:]
-            
-            for index in topic_indices:
-                np.put(fuzzy_state,int(index), prob_each_topic_state_1)
+        #create an empty matrix holding the fuzzy state for the first element of the transition pair
+        fuzzy_state=np.zeros([len(topic_labels)])
 
+        # Count how many topics there are 
+        state_1_number_of_topics = len(element[0].split("_"))-1
+        prob_each_topic_state_1 = 1 / state_1_number_of_topics 
+        topic_indices = element[0].split("_")[1:]
+        
+        for index in topic_indices:
+            np.put(fuzzy_state,int(index), prob_each_topic_state_1)
 
-            #create an empty matrix holding the fuzzy state for the second element of the transition pair
-            fuzzy_state=np.zeros([len(topic_labels)]).astype(np.float32)
-            trajectories.append(fuzzy_state)
+        trajectories.append(fuzzy_state)
+        
 
-            # Count how many topics there are 
-            state_2_number_of_topics = len(element[1].split("_"))-1
-            prob_each_topic_state_1 = 1 / state_1_number_of_topics 
-            topic_indices = element[0].split("_")[1:]
-            for index in topic_indices:
-                np.put(fuzzy_state,int(index), prob_each_topic_state_1)
-                trajectories.append(fuzzy_state)
-            pdb.set_trace()
+        #create an empty matrix holding the fuzzy state for the second element of the transition pair
+        fuzzy_state=np.zeros([len(topic_labels)]).astype(np.float32)
+        
 
-
-
+        # Count how many topics there are 
+        state_2_number_of_topics = len(element[1].split("_"))-1
+        prob_each_topic_state_2 = 1 / state_2_number_of_topics 
+        topic_indices = element[1].split("_")[1:]
+        for index in topic_indices:
+            np.put(fuzzy_state,int(index), prob_each_topic_state_2)
+        trajectories.append(fuzzy_state)
+       
+    print(len(transitions))        
+    print(len(trajectories))     
+    assert len(transitions)*2==len(trajectories)
     dtraj_fuzzy = np.vstack(trajectories)
 
     dtraj_fuzzy = dtraj_fuzzy.astype(np.float64)
+
 
     assert np.allclose(dtraj_fuzzy.sum(axis=1), 1)
 
@@ -154,12 +160,6 @@ for f,group in enumerate(groups):
     
     transition_matrix_fuzzy[transition_matrix_fuzzy<0]=0
     transition_matrix_fuzzy = preprocessing.normalize(transition_matrix_fuzzy,axis=1,norm="l1")
-    
-    #transition_matrix_fuzzy = transition_matrix_fuzzy / transition_matrix_fuzzy.sum(axis=1)
-    #transition_matrix_fuzzy = transition_matrix_fuzzy.astype(np.float16)
-
-
-    
 
 
     assert np.allclose(transition_matrix_fuzzy.sum(axis=1), 1)
@@ -178,8 +178,7 @@ for f,group in enumerate(groups):
         print (mm.pi[element])
         print ('\n')
         results.append({'topic_name':topic_labels[element],'stationary_prob':mm.pi[element]})
-        if i ==12:
-            break
+
 
     # Print the eigenvalues of states
 
@@ -188,7 +187,7 @@ for f,group in enumerate(groups):
     '''
 
 
-    # Calculate the flux between two states (topic_2, selection and topic_8_14 camp liquidiation / camp transfer )
+    # Calculate the flux between two states camp arrival and camp liquidiation / camp transfer )
 
 
     A = [8]
@@ -196,7 +195,7 @@ for f,group in enumerate(groups):
     tpt = msm.tpt(mm, A, B)
 
     nCut = 1
-    (bestpaths,bestpathfluxes) = tpt.pathways(fraction=0.5)
+    (bestpaths,bestpathfluxes) = tpt.pathways(fraction=0.8)
     cumflux = 0
 
     # Print the best path between the two states
@@ -213,19 +212,24 @@ for f,group in enumerate(groups):
         for element in bestpaths[i]:
             print (topic_labels[element])
             topic_sequence.append(topic_labels[element])
-           #print (topic_labels[element])
         topic_sequence = '-'.join(topic_sequence)
-        if (f==0):
-            women_topic_sequences[topic_sequence]=100.0*bestpathfluxes[i]/tpt.total_flux
+        if len(groups)>1:
+            if (f==0):
+                women_topic_sequences[topic_sequence]=100.0*bestpathfluxes[i]/tpt.total_flux
+            else:
+                men_topic_sequences[topic_sequence]=100.0*bestpathfluxes[i]/tpt.total_flux
         else:
-            men_topic_sequences[topic_sequence]=100.0*bestpathfluxes[i]/tpt.total_flux        #get the path labels
+            joint_topic_sequences[topic_sequence]=100.0*bestpathfluxes[i]/tpt.total_flux
 
 
-    if (f ==0):
-        pd.DataFrame(results).to_csv("women_topics_stationary_prob.csv")
+    if len(groups)>1:
+        if (f ==0):
+            pd.DataFrame(results).to_csv("women_topics_stationary_prob.csv")
+        else:
+            pd.DataFrame(results).to_csv("men_topics_stationary_prob.csv")
     else:
-        pd.DataFrame(results).to_csv("men_topics_stationary_prob.csv")
-
+        pd.DataFrame(results).to_csv("joint_topics_stationary_prob.csv")
+    
     # Additionaly calculate the mean time passage between social relations and adaptation
 
 
@@ -246,21 +250,33 @@ for f,group in enumerate(groups):
     print('adaptation->socialrelations-> ', 1.0/tpt_adaptation.rate)
     print(tpt_adaptation.rate)
     '''
-pathes = list(set(list(women_topic_sequences.keys())+list(men_topic_sequences.keys())))
 
-result = []
-for element in pathes:
-    try:
-        wflux = women_topic_sequences[element]
-    except:
-        wflux = 0
-    try:
-        mflux = men_topic_sequences[element]
-    except:
-        mflux = 0
-    result.append({'path':element,'wflux':wflux,'mflux':mflux})
+if len(groups)>1:
+    pathes = list(set(list(women_topic_sequences.keys())+list(men_topic_sequences.keys())))
 
-pd.DataFrame(result).to_csv('man_women_paths.csv')
+    result = []
+    for element in pathes:
+        try:
+            wflux = women_topic_sequences[element]
+        except:
+            wflux = 0
+        try:
+            mflux = men_topic_sequences[element]
+        except:
+            mflux = 0
+        result.append({'path':element,'wflux':wflux,'mflux':mflux})
+
+    pd.DataFrame(result).to_csv('man_women_paths.csv')
+else:
+    pathes = list(set(list(joint_topic_sequences.keys())))
+
+    result = []
+    for element in pathes:
+        flux = joint_topic_sequences[element]
+        result.append({'path':element,'flux':flux})
+
+    pd.DataFrame(result).to_csv('joint_paths.csv')
+
 pdb.set_trace()
 
 

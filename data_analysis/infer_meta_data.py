@@ -191,7 +191,19 @@ def was_in_Birkenau(bio_data,segment_data):
     bio_data['Birkenau_segment_percentage'] = bio_data['Birkenau_mentioned_times'] / bio_data['number_of_segments']
 
     return bio_data
-    
+
+def is_transfer_route_helper(keywords):
+    if '15803' in keywords:
+        return True
+    else:
+        return False
+
+def is_transfer_route(bio_data,segment_data):
+    df = segment_data
+    df = df.groupby(['IntCode'])['KeywordID'].apply(list).to_frame(name="KeywordID").reset_index()
+    df['is_transfer_route'] = df.KeywordID.apply(is_transfer_route_helper)
+    pdb.set_trace()
+
 
 
 
@@ -238,6 +250,11 @@ if __name__ == '__main__':
     df = df[df['IntCode'].isin(IntCode)]
 
     df_biodata = df_biodata[df_biodata['IntCode'].isin(IntCode)]
+
+    # Find transfer routes
+
+    df_biodata = is_transfer_route(df_biodata,df)
+
 
     # Eliminate those two interviews that are connected to two persons
     df_biodata = df_biodata[~df_biodata['IntCode'].duplicated(keep=False)]
