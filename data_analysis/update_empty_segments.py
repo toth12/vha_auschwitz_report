@@ -47,7 +47,7 @@ if __name__ == '__main__':
     # Read the segment input files into panda dataframe
 
     csv_data = []
-    for el in input_files[0:1]:
+    for el in input_files:
 
         f = codecs.open(el,"rb","utf-8")
         csvread = csv.reader(f,delimiter=',')
@@ -55,10 +55,14 @@ if __name__ == '__main__':
         columns = csv_data_temp[0]
         #Drop the first line as that is the column
         del csv_data_temp[0:1]
-        csv_data.extend(csv_data_temp[0:1000])
+        csv_data.extend(csv_data_temp)
 
     columns[0] = "IntCode"
+    f = None
+    csvread = None
+    csv_data_temp = None
     df = pd.DataFrame(csv_data,columns=columns)
+    csv_data = None
 
     # Update segments that are "empty" i.e. contain only generic terms
 
@@ -68,29 +72,32 @@ if __name__ == '__main__':
     number_of_empty_segments = 0
     total = len(segments[segments['empty']==True])
     n = 0
+    pdb.set_trace()
     for element in segments[segments['empty']==True].iterrows():
         IntCode = element[1]["IntCode"]
         PreviousSegmentNumber = int(element[1]["SegmentNumber"]) - 1
+        print ('\n')
         print (n)
         print (total)
+        print ('\n')
         n = n+1
 
         
 
         #Find the previous segment id
         previous_segment = df[(df["IntCode"]==IntCode) & (df['SegmentNumber'] ==str(PreviousSegmentNumber))]
-        if len(previous_segment)>0:
+
+
+        
 
             #iterate through all keywords in the previous segment and if a keyword is not a generic term update
-            for row in previous_segment.iterrows():
-                if row[1]["KeywordID"] not in generic_terms:
-                    new_row = row[1].copy()
-                    new_row['SegmentNumber'] = element[1]["SegmentNumber"]
-                    new_row['SegmentID'] = element[1]["SegmentID"]
-                    df = df.append(new_row)
-        else:
-
-
-            number_of_empty_segments = number_of_empty_segments +1
-    df.to_csv("segments_updated.csv")
+        for row in previous_segment.iterrows():
+            
+            new_row = row[1].copy()
+            new_row['SegmentNumber'] = element[1]["SegmentNumber"]
+            new_row['SegmentID'] = element[1]["SegmentID"]
+            df = df.append(new_row)
+    
+        
+    #df.to_csv("segments_updated.csv")
 
