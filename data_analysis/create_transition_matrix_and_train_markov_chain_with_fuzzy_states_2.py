@@ -271,7 +271,7 @@ if __name__ == '__main__':
     path = os.getcwd()
 
     # Read the biodata
-    bio_data = constants.input_files_biodata
+    bio_data = constants.input_files_biodata_with_inferred_fields
 
     # Read the topic labels
     topic_doc = open('data_analysis/topic_anchors_Birkenau.txt').read()
@@ -288,8 +288,10 @@ if __name__ == '__main__':
     data['interview_code'] = data['new_segment_id'].apply(lambda x: int(x.split('_')[0]))
 
     # Read the biodata and identify the interview code of male and female survivors
-    df_biodata = pd.read_excel(input_directory+bio_data, sheet_name=None)['Sheet1']
+    #df_biodata = pd.read_excel(input_directory+bio_data, sheet_name=None)['Sheet1']
+    df_biodata = pd.from_csv(input_directory+bio_data)
 
+    pdb.set_trace()
 
 
     country_of_origins = df_biodata.groupby('CountryOfBirth')['CountryOfBirth'].count().to_frame('Count').reset_index()
@@ -402,7 +404,7 @@ if __name__ == '__main__':
                 stationary_probs = pd.merge(stationary_probs,df_woman_stationary_probs,on="topic_name")
                 stationary_probs = pd.merge(stationary_probs,df_man_stationary_probs,on="topic_name")
 
-            stationary_probs.set_index('topic_name').T.to_csv(path+'/'+output_directory+element+'/stationary_probs.csv')
+    stationary_probs.set_index('topic_name').T.to_csv(path+'/'+output_directory+element+'/stationary_probs.csv')
            
 
 

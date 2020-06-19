@@ -15,6 +15,8 @@ input_files_term_hierarchy = 'termhierarchy_3.json'
 # Filtered input data
 
 input_files_biodata_birkenau='biodata_birkenau.csv'
+input_files_biodata_with_inferred_fields='biodata_with_inferred_fields.csv'
+
 
 # Output data
 

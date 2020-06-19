@@ -60,7 +60,8 @@ def infer_latest_earliest_year(bio_data,segment_data):
 
     del intcode_kwords['Keywords']
 
-    intcode_kwords['IntCode'] = pd.to_numeric(intcode_kwords['IntCode'])
+    intcode_kwords = intcode_kwords.astype({"IntCode":int})
+    
     bio_data = bio_data.merge(intcode_kwords)
 
     return bio_data
@@ -109,12 +110,11 @@ def infer_old_new_system(bio_data,segment_data):
     # Get those interview codes that contain segments longer than one minutes
 
 
-
-    df_segment_length[df_segment_length['IntCode']].isin(old_system_in_codes)
-
-    df = df[df['IntCode'].isin(IntCode)]
-    
     old_system_in_codes = df_segment_length[df_segment_length.segment_lenght>timedelta(minutes=1)]['IntCode'].unique().tolist()
+
+    segmentation_system = ['old' if str(x)  in old_system_in_codes else 'new' for x in bio_data['IntCode'].tolist()]
+    bio_data['segmentation_system']=segmentation_system
+    return bio_data
     
     # Average segment length in the old system
 
@@ -173,7 +173,7 @@ def infer_total_length_of_segments(bio_data,segment_data):
 def was_in_Birkenau_helper(keywords):
     number_of_times = 0
     for element in keywords:
-        if any('Birkenau' in string for string in element):
+        if any((('Birkenau' in string) or ('Auschwitz (Poland : Concentration Camp)(generic)' in string)) for string in element):
             number_of_times = number_of_times+1
         
     return number_of_times
@@ -202,11 +202,56 @@ def is_transfer_route(bio_data,segment_data):
     df = segment_data
     df = df.groupby(['IntCode'])['KeywordID'].apply(list).to_frame(name="KeywordID").reset_index()
     df['is_transfer_route'] = df.KeywordID.apply(is_transfer_route_helper)
-    pdb.set_trace()
+    df = df.astype({"IntCode":int})
+
+    bio_data=bio_data.merge(df)
+
+    return bio_data
 
 
+def infer_forced_labour(bio_data,segment_data):
+    df=segment_data.groupby("IntCode")['KeywordLabel'].apply(list).to_frame(name="Keywords").reset_index()
+    df['forced_labor'] = df.Keywords.apply(infer_forced_labour_helper)
+    df = df.astype({"IntCode":int})
+    del df["Keywords"]
+    #Check the number of people who did forced labour
+    #df[df.forced_labour_type.str.len().eq(0)]
+    
+    bio_data = bio_data.merge(df)
+    bio_data['forced_labour_type'] = bio_data.forced_labor.apply(infer_forced_labour_type_helper)
+    bio_data = bio_data.join(pd.get_dummies(bio_data['forced_labour_type'].apply(pd.Series).stack()).sum(level=0))
+    
+    #To find the women who did forced labour
+    #bio_data[(bio_data.forced_labor.str.len().eq(1))&(bio_data.Gender=="F")]
+    return bio_data
 
+def infer_forced_labour_helper(KeywordLabels):
+    result = []
 
+    for element in KeywordLabels:
+        #if len(forced_labour_typology[forced_labour_typology.forced_labor==element]) >0:
+        if element in forced_labour_typology.forced_labor.to_list():
+            result.append(element)
+    return result
+def infer_forced_labour_type_helper(KeywordLabels):
+    result = []
+
+    if len(KeywordLabels)>0:
+        for element in KeywordLabels:
+            if element in forced_labour_typology[forced_labour_typology['type']=='easy'].forced_labor.to_list():
+                result.append('easy')
+            elif element in forced_labour_typology[forced_labour_typology['type']=='medium'].forced_labor.to_list():
+                result.append('medium')
+            elif element in forced_labour_typology[forced_labour_typology['type']=='hard'].forced_labor.to_list():
+                result.append('hard')
+            
+        result = list(set(result))
+        return result
+    else:
+        return []
+
+#bio_data[bio_data.forced_labour_type.str.len().eq(0)]
+#bio_data[bio_data.forced_labor.str.len().eq(0)]
 
 if __name__ == '__main__':
 
@@ -215,7 +260,7 @@ if __name__ == '__main__':
     input_directory = constants.input_data
     input_files = constants.input_files_segments
     input_files = [input_directory+i for i in input_files]
-    output_folder = constants.input_data_filtered
+    output_folder = constants.input_data
 
     # Read the input files into panda dataframe
 
@@ -250,10 +295,20 @@ if __name__ == '__main__':
     df = df[df['IntCode'].isin(IntCode)]
 
     df_biodata = df_biodata[df_biodata['IntCode'].isin(IntCode)]
+    
+    forced_labour_typology=pd.read_csv("forced_labour_typology.csv")
+
+    # Identify the type of forced labour the person did
+
+    df_biodata = infer_forced_labour(df_biodata,df)
+
 
     # Find transfer routes
 
     df_biodata = is_transfer_route(df_biodata,df)
+
+
+
 
 
     # Eliminate those two interviews that are connected to two persons
@@ -271,13 +326,21 @@ if __name__ == '__main__':
     df_biodata = infer_total_length_of_segments(df_biodata,df)
     df_biodata = was_in_Birkenau(df_biodata,df)
 
+    df_biodata.to_csv(input_directory+"biodata_with_inferred_fields.csv")
+
+    #df_biodata[df_biodata.Birkenau_mentioned_times >0]
+
+    #df_biodata[((df_biodata.Birkenau_segment_percentage>0.7)&(df_biodata.earliest_year>1943)&(df_biodata.is_transfer_route==False)&(df_biodata.length_in_minutes>10)&(df_biodata.Gender=='M')&(df_biodata.forced_labour_type.str.len().eq(0)))]
+
+    pdb.set_trace()
+
     #new_set = df_biodata[(((df_biodata['segmentation_system']=='new') & (df_biodata['number_of_segments']>5)) | ((df_biodata['segmentation_system']=='old') & (df_biodata['length']>timedelta(minutes=5))))& (df_biodata['earliest_year']>1942)]
 
     
     #new_set = df_biodata[(((df_biodata['segmentation_system']=='new') & (df_biodata['number_of_segments']>5)) | ((df_biodata['segmentation_system']=='old') & (df_biodata['length']>timedelta(minutes=5))))& (df_biodata['earliest_year']>1942) & (df_biodata['Birkenau_segment_percentage']>0.66)]
-    birkenau = df_biodata[(((df_biodata['segmentation_system']=='new') & (df_biodata['number_of_segments']>5)) | ((df_biodata['segmentation_system']=='old') & (df_biodata['length']>timedelta(minutes=5))))& (df_biodata['earliest_year']>1942) & (df_biodata['Birkenau_segment_percentage']>0.66)]
-    birkenau.to_csv(output_folder+'/biodata_birkenau.csv')
-    df_biodata['Birkenau_segment_percentage']>0.66
+    #birkenau = df_biodata[(((df_biodata['segmentation_system']=='new') & (df_biodata['number_of_segments']>5)) | ((df_biodata['segmentation_system']=='old') & (df_biodata['length']>timedelta(minutes=5))))& (df_biodata['earliest_year']>1942) & (df_biodata['Birkenau_segment_percentage']>0.66)]
+    #birkenau.to_csv(output_folder+'/biodata_birkenau.csv')
+    #df_biodata['Birkenau_segment_percentage']>0.66
 
    
 
