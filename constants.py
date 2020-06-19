@@ -24,3 +24,4 @@ output_chi2_test = output_data+'chi2test/'
 output_chi2_test_birkenau = output_data+'chi2test_birkenau/'
 output_data_features = "data/output/features/"
 output_data_filtered_nodes = "data/output/filtered_nodes/"
+output_data_topic_sequences= output_data+'topic_sequencing/'

@@ -20,7 +20,7 @@ violence
 6: camp brutal treatment, beatings, camp punishments, camp killings, SS/SD personnel, camp executions, hangings, shootings, brutal treatment, camp killings,dog attacks
 
 aidgiving
-7: camp-related aid giving, preferential treatment, sustenance provision, clothing provision, hiding (aid giving), liberation-related aid giving,forced march-related aid giving,transfer-related aid giving,shelter provision,medical care provision,aid recipients,camp food sharing
+7: camp-related aid giving, preferential treatment, sustenance provision, warnings, clothing provision, hiding (aid giving), liberation-related aid giving,forced march-related aid giving,transfer-related aid giving,shelter provision,medical care provision,aid recipients,camp food sharing
 
 intransfere
 8: transfer to Auschwitz II-Birkenau (Poland : Death Camp), deportation to Auschwitz II-Birkenau (Poland : Death Camp), deportation conditions,deportation conditions,camp first impressions, transfer from Auschwitz (Poland : Concentration Camp)(generic),transfer from Mauthausen (Austria : Concentration Camp),transfer from Gleiwitz (Germany : Concentration Camp)(generic),transfer from Ravensbrück (Germany : Concentration Camp),transfer from Majdanek (Poland : Concentration Camp),transfer from Krakau-Plaszow (Poland : Concentration Camp),first impressions, camp first impressions
@@ -62,7 +62,7 @@ psychologicalreactions
 20: camp-related psychological reactions, psychological distress prevention, survivor guilt,bereavement-related psychological reactions,fear
 
 socialrelations
-21: Jewish prisoners,female prisoners,prisoner external contact,Polish prisoners,Hungarian prisoners, male prisoners,camp social relations, Greek prisoners, Dutch prisoners,Italian prisoners,non-Jewish prisoners, friends,friendships,transfer social relations
+21: camp social relations,friends,friendships,transfer social relations
 
 family
 22: family life, loved ones' togetherness decisions, loved ones' fates, extended family members, loved ones' contacts,grandparents,camp family interactions,deportation family interactions, siblings,brothers,grandmothers,sisters,mothers

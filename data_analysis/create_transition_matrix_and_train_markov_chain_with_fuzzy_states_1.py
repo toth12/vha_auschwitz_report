@@ -10,6 +10,8 @@ import constants
 from scipy import sparse
 from sklearn import preprocessing
 
+metadata_fields = ['complete','CountryOfBirth',]
+
 np.set_printoptions(suppress=True)
 
 # Read the input data
@@ -34,6 +36,15 @@ data['interview_code'] = data['new_segment_id'].apply(lambda x: x.split('_')[0])
 
 # Read the biodata and identify the interview code of male and female survivors
 df_biodata = pd.read_excel(input_directory+bio_data, sheet_name=None)['Sheet1']
+
+
+
+country_of_origins = df_biodata.groupby('CountryOfBirth')['CountryOfBirth'].count().to_frame('Count').reset_index()
+country_of_origins= country_of_origins[country_of_origins.Count>50]
+
+
+
+pdb.set_trace()
 IntCodeM = df_biodata[(df_biodata.ExperienceGroup=='Jewish Survivor')&(df_biodata.Gender=='M')]['IntCode'].to_list()
 IntCodeW = df_biodata[(df_biodata.ExperienceGroup=='Jewish Survivor')&(df_biodata.Gender=='F')]['IntCode'].to_list()
 
