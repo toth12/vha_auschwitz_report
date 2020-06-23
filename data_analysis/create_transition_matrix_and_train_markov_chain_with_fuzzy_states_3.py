@@ -253,7 +253,17 @@ def create_dataframe_with_paths(paths_w,paths_m,filter_stat=None):
         df = df[df.path.str.contains("social|aid")]
         return df
 
+def process_data(data_set):
 
+    transitions = create_transitions(data_set)
+    transition_matrix,topic_list_result = calculate_transition_matrix(transitions,topic_labels_originals[:])
+    mm= train_markov_chain(transition_matrix)
+    stationary_probs = print_stationary_distributions(mm,topic_list_result)
+    paths = calculate_flux(mm,topic_list_result)
+    df_stationary_probs=pd.DataFrame(stationary_probs)
+    mean_passage_time=calculate_mean_passage_time_between_states(mm,topic_list_result)
+
+    return {"stationary_probs":stationary_probs,"paths":paths,"mean_passage_time":mean_passage_time}
 
 if __name__ == '__main__':
     metadata_fields = ['complete','CountryOfBirth','easy','medium','hard']
@@ -265,7 +275,7 @@ if __name__ == '__main__':
     # Read the input data
     input_directory = constants.input_data
 
-    output_directory = constants.output_data_topic_sequences+'paths/test_2/'
+    main_output_directory = constants.output_data_topic_sequences+'paths/test/'
 
     # Current work directory
 
@@ -299,6 +309,7 @@ if __name__ == '__main__':
 
     country_of_origins = df_biodata.groupby('CountryOfBirth')['CountryOfBirth'].count().to_frame('Count').reset_index()
     country_of_origins= country_of_origins[country_of_origins.Count>50]
+    country_of_origins = country_of_origins.CountryOfBirth.tolist()
 
     df_biodata = df_biodata[(df_biodata.ExperienceGroup=='Jewish Survivor')]
 
@@ -307,7 +318,144 @@ if __name__ == '__main__':
 
 
     for element in metadata_fields:
+       
+        woman_data = []
+        man_data =[]
+        # Gather data
         if element == "complete":
+
+            woman_data.append(data[data.interview_code.isin(IntCodeW)])
+            man_data.append(data[data.interview_code.isin(IntCodeM)])
+
+        if element == 'CountryOfBirth':
+
+
+            for country in country_of_origins:
+                int_codes = df_biodata[df_biodata.CountryOfBirth==country].IntCode.tolist()
+                complete_data = data[data.interview_code.isin(int_codes)]
+                woman_data.append(complete_data[complete_data.interview_code.isin(IntCodeW)])
+                man_data.append(complete_data[complete_data.interview_code.isin(IntCodeM)])
+
+        if ((element == 'easy') or (element == 'medium') or (element == 'hard')):
+            int_codes = df_biodata[df_biodata[element]==1].IntCode.tolist()
+            complete_data = data[data.interview_code.isin(int_codes)]
+            woman_data.append(complete_data[complete_data.interview_code.isin(IntCodeW)])
+            man_data.append(complete_data[complete_data.interview_code.isin(IntCodeM)])
+
+        
+        # Process the data
+
+        # First the women data
+        women_output = []
+
+        for data_element in woman_data:
+            
+            women_output.append(process_data(data_element))
+
+            
+
+
+        # Second the men data
+        men_output = []
+        for data_element in man_data:
+            men_output.append(process_data(data_element))
+    
+        # Prepare a dataframe that will hold the dataset
+        '''
+        if element == "complete":
+            df_complete_paths = create_dataframe_with_paths(women_output[0]['paths'],men_output[0]['paths'],filter_stat=None)   
+            df_complete_filtered_paths = create_dataframe_with_paths(women_output[0]['paths'],men_output[0]['paths'],filter_stat=['social','aid'])
+            df_complete_stationary_probs = pd.merge(pd.DataFrame(women_output[0]['stationary_probs']),pd.DataFrame(men_output[0]['stationary_probs']),how="outer", on=['topic_name'],suffixes=("_complete_man", "_complete_woman"))
+        
+        '''
+        
+        for f in range(0,len(women_output)):
+
+            if element == "complete":
+                
+                df_complete_stationary_probs = pd.merge(pd.DataFrame(women_output[f]['stationary_probs']),pd.DataFrame(men_output[f]['stationary_probs']),how="outer", on=['topic_name'],suffixes=("_complete_man", "_complete_woman"))
+                df_complete_filtered_paths = create_dataframe_with_paths(women_output[f]['paths'],men_output[f]['paths'],filter_stat=['social','aid'])
+                df_complete_paths = create_dataframe_with_paths(women_output[f]['paths'],men_output[f]['paths'],filter_stat=None)   
+            else:
+
+                df_metadata_paths = create_dataframe_with_paths(women_output[f]['paths'],men_output[f]['paths'],filter_stat=None)   
+                df_metadata_filtered_paths = create_dataframe_with_paths(women_output[f]['paths'],men_output[f]['paths'],filter_stat=['social','aid'])
+                df_metadata_stationary_probs = pd.merge(pd.DataFrame(women_output[f]['stationary_probs']),pd.DataFrame(men_output[f]['stationary_probs']),how="outer", on=['topic_name'],suffixes=("_man", "_woman"))
+                df_metadata_filtered_paths_with_complete_paths =pd.merge(df_complete_filtered_paths,df_metadata_filtered_paths,how="outer", on=['path'],suffixes=("_complete", "_meta"))
+
+
+            # Print all data to files
+            output_directory = main_output_directory + element + '/'
+            try:
+                os.mkdir(path+'/'+output_directory)
+            except:
+                print("output folder exists")
+            if element == "CountryOfBirth":
+                filename = country_of_origins[f]+'_'
+
+            else:
+                filename = element+'_'
+
+            output_path = output_directory+filename
+            if element == "complete":
+                df_complete_paths.to_csv(output_path+'all_paths.csv')
+                df_complete_filtered_paths.to_csv(output_path+'filtered_paths.csv')
+                women_output[f]['mean_passage_time'].to_csv(output_path+'women_mean_passage_time.csv')
+                men_output[f]['mean_passage_time'].to_csv(output_path+'men_mean_passage_time.csv')
+
+            else:
+                df_metadata_filtered_paths_with_complete_paths.to_csv(output_path+'filtered_paths_with_complete_paths.csv')
+                df_metadata_filtered_paths.to_csv(output_path+'filtered_paths.csv')
+                df_metadata_paths.to_csv(output_path+'all_paths.csv')
+
+                women_output[f]['mean_passage_time'].to_csv(output_path+'women_mean_passage_time.csv')
+                men_output[f]['mean_passage_time'].to_csv(output_path+'men_mean_passage_time.csv')
+
+
+
+
+
+
+            # Merge it with the final dataframe holding all stationary probs
+            if element == "CountryOfBirth":
+                df_woman_stationary_probs = pd.DataFrame(women_output[f]['stationary_probs']).rename(columns={"stationary_prob":"stationary_prob_women_"+country_of_origins[f]})
+                df_man_stationary_probs = pd.DataFrame(men_output[f]['stationary_probs']).rename(columns={"stationary_prob":"stationary_prob_men_"+country_of_origins[f]})
+                df_complete_stationary_probs = pd.merge(df_complete_stationary_probs,df_woman_stationary_probs,on="topic_name")
+                df_complete_stationary_probs = pd.merge(df_complete_stationary_probs,df_man_stationary_probs,on="topic_name")
+
+            elif((element == 'easy') or (element == 'medium') or (element == 'hard')):
+                df_woman_stationary_probs = pd.DataFrame(women_output[f]['stationary_probs']).rename(columns={"stationary_prob":"stationary_prob_women_"+element})
+                df_man_stationary_probs = pd.DataFrame(men_output[f]['stationary_probs']).rename(columns={"stationary_prob":"stationary_prob_men_"+element})
+                df_complete_stationary_probs = pd.merge(df_complete_stationary_probs,df_woman_stationary_probs,on="topic_name")
+                df_complete_stationary_probs = pd.merge(df_complete_stationary_probs,df_man_stationary_probs,on="topic_name")
+
+    pdb.set_trace()
+        # Add metadata to the complete stationary probs
+    '''
+        if element =="country":
+            for i,country in enumerate(country_of_origins.CountryOfBirth.tolist()):
+                women_output[i]
+
+
+                df_woman_stationary_probs = df_woman_stationary_probs.rename(columns={"stationary_prob":"stationary_prob_women_"+country})
+        df_man_stationary_probs = df_man_stationary_probs.rename(columns={"stationary_prob":"stationary_prob_men_"+country})
+
+        stationary_probs = pd.merge(stationary_probs,df_woman_stationary_probs,on="topic_name")
+                stationary_probs = pd.merge(stationary_probs,df_man_stationary_probs,on="topic_name")
+    pdb.set_trace()
+    '''
+
+
+
+
+
+
+
+
+    '''
+
+        if element == "complete":
+            data = data
 
 
             transitions = create_transitions(data)
@@ -425,8 +573,6 @@ if __name__ == '__main__':
             woman_paths = calculate_flux(mm,topic_list)
             women_mean_passage_time=calculate_mean_passage_time_between_states(mm,topic_list)
 
-            if element =="easy":
-                pdb.set_trace()
 
             transitions = create_transitions(man_data)
             transition_matrix,topic_list = calculate_transition_matrix(transitions,topic_labels_originals[:])
@@ -462,9 +608,11 @@ if __name__ == '__main__':
             stationary_probs = pd.merge(stationary_probs,df_woman_stationary_probs,on="topic_name")
             stationary_probs = pd.merge(stationary_probs,df_man_stationary_probs,on="topic_name")
 
+            '''
+
 
             
-    stationary_probs.set_index('topic_name').T.to_csv(path+'/'+output_directory+'/stationary_probs.csv')
+   # stationary_probs.set_index('topic_name').T.to_csv(path+'/'+output_directory+'/stationary_probs.csv')
            
 
 
