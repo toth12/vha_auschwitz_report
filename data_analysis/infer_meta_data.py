@@ -296,7 +296,7 @@ if __name__ == '__main__':
 
     df_biodata = df_biodata[df_biodata['IntCode'].isin(IntCode)]
     
-    forced_labour_typology=pd.read_csv("forced_labour_typology.csv")
+    forced_labour_typology=pd.read_csv(input_directory+"forced_labour_typology.csv")
 
     # Identify the type of forced labour the person did
 
