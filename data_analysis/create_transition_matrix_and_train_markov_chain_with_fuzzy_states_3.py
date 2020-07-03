@@ -95,7 +95,6 @@ def calculate_transition_matrix(transitions,topic_labels):
 
     dtraj_fuzzy = dtraj_fuzzy.astype(np.float64)
 
-
     assert np.allclose(dtraj_fuzzy.sum(axis=1), 1)
 
     # Check for null columns
