@@ -1,8 +1,8 @@
 1. Data processing:
 - infer_further_biodata.py - x
 - infer_birkenau_survivors.py -x 
-- extract_features.py
-- create_segment_keyword_matrix.py
+- extract_features.py x
+- create_segment_keyword_matrix.py x
 - add_topic_label_to_segments.py
 
 2. Data analysis

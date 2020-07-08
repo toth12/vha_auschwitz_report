@@ -3,60 +3,56 @@ import scipy.sparse as ss
 from corextopic import corextopic as ct
 import pandas as pd
 import pdb
-from corextopic import vis_topic as vt
 import constants
 import codecs
-import json
-import prince
+
 
 # Read the input data
-input_directory = constants.output_data_features
+input_directory = constants.output_data_segment_keyword_matrix
 
 # Read the segment index term matrix
-data = np.loadtxt(input_directory+'segment_keyword_matrix.txt', dtype=int)
+data = np.loadtxt(input_directory+ constants.output_segment_keyword_matrix_data_file, dtype=int)
 
 # Read the column index (index terms) of the matrix above
-features_df = pd.read_csv(input_directory+'feature_index.csv')
+features_df = pd.read_csv(input_directory+constants.output_segment_keyword_matrix_feature_index)
 
 # Read the row index (groups of three segments) of the matrix above
-segment_df = pd.read_csv(input_directory+'document_index.csv')
+segment_df = pd.read_csv(input_directory+ constants.output_segment_keyword_matrix_document_index)
 
 # Get the index labels
 features = features_df['KeywordLabel'].values.tolist()
-
-# Open the index terms for the anchored topic modelling
-with codecs.open("data_analysis/topic_anchors_birkenau.txt") as topics_file:
-        topics = topics_file.read()
-
-topic_list = topics.split('\n\n')
+topic_labels=pd.read_csv('topic_labels_index.csv')
 
 anchors = []
 
-
-# Check if index term certainly exists
-for topic in topic_list:
-    anchor = []
-    topic_words = ' '.join(topic.split("\n")[1].split(' ')[1:]).split(',')
-    for topic_word in topic_words:
-        if topic_word =='Mengele Josef':
-            anchor.append('Mengele, Josef')
-        elif len(topic_word.strip())==0:
-            pass
-        elif not topic_word.strip() in features_df['KeywordLabel'].tolist():
-            pdb.set_trace()
+for i,element in enumerate(topic_labels.iterrows()):
+    topic_list = element[1]['KeywordLabels_text'].split(',')
+    final_topic_list = []
+    for el in topic_list:
+        if "|" in el:
+            el = ', '.join(el.split('|'))
+            final_topic_list.append(el)
         else:
-            anchor.append(topic_word.strip())
-    anchors.append(anchor)
+            final_topic_list.append(el)
+    anchors.append(final_topic_list)
+
+
+
+topic_words = topic_labels.topic.to_list()
+
+
+
+
 
 # Create a sparse matrix from the numpy segment index term matrix
 
 X = ss.csr_matrix(data)
-pdb.set_trace()
+
 # Train the CorEx topic model
 topic_model = ct.Corex(n_hidden=len(anchors))  # Define the number of latent (hidden) topics to use.
 
 
-topic_model.fit(X, docs=segment_df.new_segment_id.tolist(),words=features,anchors=anchors, anchor_strength=10)
+topic_model.fit(X,words=features,anchors=anchors, anchor_strength=10)
 
 topics = topic_model.get_topics()
 
@@ -148,7 +144,7 @@ for i,element in enumerate(document_topic_matrix):
  #   0               3  10006_47                         ['10983' '12044' '14280']        topic_2
 segment_df['topic'] = segment_topics
 
-
+pdb.set_trace()
 
 # Save the dataframe 
 segment_df.to_csv('data/output/topic_sequencing/document_index_with_topic_labels.csv')

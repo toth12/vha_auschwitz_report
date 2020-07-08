@@ -1,0 +1,401 @@
+,Unnamed: 0,KeywordID,KeywordLabel,topic
+0,0,2547,German armed forces,perpetrators
+1,1,2615,camp personnel,prisoner_functionaries
+2,2,2857,brothers,family
+3,3,3169,farms,forcedlabour
+5,5,3242,grandmothers,family
+6,6,3282,helplessness,psychologicalreactions
+7,7,3318,hunger,food
+8,8,3594,Passover,spirituality
+9,9,3661,Jewish religious holidays,spirituality
+10,10,3732,sisters,family
+13,13,3987,BlockÌ_lteste,prisoner_functionaries
+14,14,4008,dwarf prisoners,prisoners_descriptions
+15,15,4011,"Eichmann, Adolf",perpetrators
+16,16,4024,Roma prisoners,prisoners_descriptions
+17,17,4025,camp hospitals,medical
+18,18,4038,kapos,prisoner_functionaries
+19,19,4043,LagerÌ_lteste,prisoner_functionaries
+20,20,4047,"Mengele, Josef",selection
+21,21,4065,prisoner medical personnel,medical
+22,22,4066,prisoner doctors,medical
+23,23,4071,camp quarantines,medical
+24,24,4083,selections,selection
+25,25,4095,StubenÌ_lteste,prisoner_functionaries
+27,27,4138,camp commandants,perpetrators
+28,28,4145,LagerfÌ_hrer,perpetrators
+29,29,4218,male homosexual prisoners,prisoners_descriptions
+30,30,4227,Jewish prisoners,prisoners_descriptions
+31,31,4234,camp latrines,housing
+32,32,4289,camp food sharing,aidgiving
+33,33,4308,prisoner tattoos (stills),tattoo
+35,35,4484,resistance fighters,resistance
+36,36,4546,deportation experiences,intransfere
+37,37,4617,forced labor,forcedlabour
+38,38,4698,sabotage,resistance
+40,40,4840,executions,violence
+42,42,5617,forced labor companies,socialrelations
+43,43,6074,Soviet armed forces,liberation
+45,45,6777,Gestapo personnel,perpetrators
+46,46,6861,SS/SD personnel,violence
+48,48,8662,Shabbat,spirituality
+51,51,8988,camp barracks,housing
+52,52,8989,corpse disposal forced labor,forcedlabour
+53,53,8991,camp doctors,medical
+54,54,8998,arts-related forced labor,forcedlabour
+55,55,9004,camp uniforms,clothing
+56,56,9107,camp crematoria,massmurder
+57,57,9125,death marches,outtransfer
+58,58,9132,deportation procedures,intransfere
+59,59,9166,camp covert economic activities,adaptation
+60,60,9252,camp food,food
+61,61,9291,gas chambers,massmurder
+63,63,9468,Jewish identity,spirituality
+64,64,9542,living conditions,housing
+66,66,9566,mass executions,violence
+67,67,9582,medical care,medical
+68,68,9638,mothers,family
+70,70,9686,camp medical experiments,medicalexperiments
+71,71,9808,police and security forces,perpetrators
+72,72,9863,rabbis,spirituality
+73,73,9911,Jewish religious observances,spirituality
+75,75,10005,Slovak prisoners,prisoners_descriptions
+76,76,10061,adaptation methods,adaptation
+78,78,10309,escape attempts,escapes
+80,80,10468,Jewish life,spirituality
+81,81,10489,family life,family
+83,83,10632,forced marches,outtransfer
+84,84,10695,camp rumors,communication
+85,85,10698,mass murder awareness,massmurder
+86,86,10718,Jewish dietary laws,spirituality
+87,87,10724,tracing loved ones,family
+88,88,10752,French prisoners,prisoners_descriptions
+89,89,10755,food sharing,aidgiving
+93,93,10852,deportation conditions,intransfere
+94,94,10853,camp intake procedures,intakeprocedures
+96,96,10926,camp forced labor,forcedlabour
+98,98,10983,camp first impressions,intransfere
+99,99,11015,loved ones' renewed contacts,family
+101,101,11672,loved ones' final contacts,separation
+103,103,11713,hiding valuables,adaptation
+104,104,11717,Holocaust faith issues,spirituality
+105,105,11735,survivor guilt,psychologicalreactions
+108,108,11786,political prisoners,prisoners_descriptions
+109,109,11789,loved ones' togetherness decisions,family
+110,110,12040,deportation deaths,death
+111,111,12044,camp selections,selection
+112,112,12045,age deceptions,adaptation
+113,113,12053,camp liquidations,liberation
+114,114,12078,forced labor conditions,forcedlabour
+115,115,12081,Soviet prisoners,prisoners_descriptions
+116,116,12087,liberation physical condition,liberation
+117,117,12095,Ukrainian prisoners,prisoners_descriptions
+118,118,12101,loved ones' deaths,death
+119,119,12107,Hungarian prisoners,prisoners_descriptions
+120,120,12110,camp medical care,medical
+121,121,12126,loved ones' fates,family
+122,122,12127,German soldiers,perpetrators
+123,123,12142,Soviet soldiers,liberation
+124,124,12157,mass graves,massmurder
+125,125,12161,transfer conditions,outtransfer
+126,126,12285,camp guards,perpetrators
+127,127,12288,camp social relations,socialrelations
+128,128,12321,Greek prisoners,prisoners_descriptions
+129,129,12322,Dutch prisoners,prisoners_descriptions
+130,130,12323,Italian prisoners,prisoners_descriptions
+134,134,12377,camp cultural activities,spirituality
+135,135,12443,I. G. Farben,forcedlabour
+137,137,13307,working life,forcedlabour
+138,138,13379,female camp personnel,perpetrators
+139,139,13732,camp executions,violence
+140,140,13755,female camp guards,perpetrators
+141,141,13819,extended family members,family
+143,143,13864,camp Jewish religious observances,spirituality
+144,144,13868,camp education,spirituality
+145,145,13870,camp punishments,violence
+146,146,13871,camp procedures,intakeprocedures
+147,147,13872,camp suicides,death
+148,148,13875,camp hunger,food
+149,149,13880,camp escapes,escapes
+150,150,13887,non-Jewish prisoners,prisoners_descriptions
+151,151,13941,platform forced labor,forcedlabour
+152,152,13942,personal property sorting forced labor,forcedlabour
+153,153,13945,prisoner hair cutting forced labor,forcedlabour
+154,154,13946,forestry forced labor,forcedlabour
+155,155,13947,personal services forced labor,forcedlabour
+156,156,14067,family members,family
+157,157,14137,creative works,spirituality
+158,158,14262,camp daily services forced labor,forcedlabour
+159,159,14267,black market activities,adaptation
+161,161,14276,friends,socialrelations
+162,162,14280,loved ones' separations,separation
+163,163,14283,camp deaths,death
+164,164,14293,German camp guards,perpetrators
+165,165,14299,Ukrainian camp guards,perpetrators
+166,166,14303,Yom Kippur,spirituality
+167,167,14318,Rosh Ha-Shana,spirituality
+168,168,14326,inter-Jewish relations,socialrelations
+169,169,14330,prisoners,prisoners_descriptions
+170,170,14344,mass execution coverups,massmurder
+173,173,14362,non-violent resistance,resistance
+174,174,14370,camp prisoner insignia,tattoo
+175,175,14377,Jewish kapos,prisoner_functionaries
+177,177,14380,camp adaptation methods,adaptation
+178,178,14422,forced labor squads,forcedlabour
+179,179,14424,prisoner functionaries,prisoner_functionaries
+181,181,14635,United States armed forces,liberation
+183,183,14825,teeth extraction forced labor,forcedlabour
+185,185,14870,camp escape attempts,escapes
+186,186,14916,German prisoners,prisoners_descriptions
+187,187,14917,Polish prisoners,prisoners_descriptions
+188,188,14918,Czech prisoners,prisoners_descriptions
+189,189,14919,Romanian prisoners,prisoners_descriptions
+190,190,14921,prisoners of war,prisoners_descriptions
+191,191,14927,camp liberation,liberation
+192,192,14983,German kapos,prisoner_functionaries
+193,193,14984,Polish kapos,prisoner_functionaries
+194,194,14985,Hungarian kapos,prisoner_functionaries
+195,195,14986,Czech kapos,prisoner_functionaries
+196,196,14987,Slovak kapos,prisoner_functionaries
+197,197,14988,Czechoslovak kapos,prisoner_functionaries
+198,198,15068,food acquisition,adaptation
+199,199,15074,camp food acquisition,food
+200,200,15085,food and eating,food
+202,202,15087,camp bribery,adaptation
+203,203,15088,camp living conditions,housing
+204,204,15089,camp prisoner marking,tattoo
+205,205,15090,camp shoes,clothing
+206,206,15092,child killings,death
+207,207,15094,camp epidemics,medical
+208,208,15095,Czechoslovak prisoners,prisoners_descriptions
+209,209,15096,camp diseases,medical
+210,210,15098,camp housing conditions,housing
+211,211,15099,camp sanitary conditions,conditions
+213,213,15101,camp smuggling,adaptation
+214,214,15103,camp injuries,medical
+215,215,15104,camp environmental conditions,conditions
+216,216,15105,camp suicide attempts,death
+218,218,15107,camp abortions,medical
+219,219,15108,camp stealing,adaptation
+220,220,15110,perpetrator liberator-approach responses,liberation
+221,221,15114,Jewish prayers,spirituality
+222,222,15116,camp Jewish prayers,spirituality
+223,223,15120,camp Jewish religious texts,spirituality
+224,224,15122,Jewish religious objects,spirituality
+225,225,15124,camp Jewish religious objects,spirituality
+228,228,15144,grandparents,family
+230,230,15163,forced labor civilian supervisors,forcedlabour
+231,231,15164,factory forced labor,forcedlabour
+232,232,15165,agricultural forced labor,forcedlabour
+233,233,15166,armament forced labor,forcedlabour
+234,234,15167,camp maintenance forced labor,forcedlabour
+235,235,15168,secretarial forced labor,forcedlabour
+236,236,15169,construction forced labor,forcedlabour
+237,237,15170,mining forced labor,forcedlabour
+238,238,15172,quarry forced labor,forcedlabour
+239,239,15173,railroad forced labor,forcedlabour
+240,240,15174,textiles and garment forced labor,forcedlabour
+241,241,15175,military fortification forced labor,forcedlabour
+242,242,15177,air raid cleanup forced labor,forcedlabour
+243,243,15180,prisoner tattoos,tattoo
+244,244,15183,camp sterilization medical experiments,medicalexperiments
+246,246,15186,camp infestations,medical
+247,247,15187,camp family interactions,family
+248,248,15188,camp barter,adaptation
+249,249,15198,female prisoner functionaries,prisoner_functionaries
+250,250,15199,non-Jewish kapos,prisoner_functionaries
+252,252,15223,"deportations, means of transport",intransfere
+253,253,15226,camp malnutrition,food
+254,254,15230,typhus,medical
+255,255,15231,diseases,medical
+256,256,15232,"transfers, means of transport",outtransfer
+257,257,15233,deportation sanitary conditions,conditions
+258,258,15236,transfer deaths,death
+259,259,15237,transfer escapes,escapes
+260,260,15240,typhoid fever,medical
+261,261,15241,dysentery,medical
+262,262,15244,injuries,medical
+264,264,15252,lice,medical
+265,265,15293,camp mass executions,massmurder
+266,266,15303,bombardments,liberation
+270,270,15338,camp-related psychological reactions,psychologicalreactions
+271,271,15346,liberation,liberation
+272,272,15347,forced march liberation,liberation
+275,275,15364,resistance discussions,resistance
+278,278,15428,writing,spirituality
+279,279,15430,performing arts,spirituality
+280,280,15434,friendships,socialrelations
+281,281,15437,literary recitals,spirituality
+282,282,15445,forced march experiences,outtransfer
+283,283,15446,transfer experiences,outtransfer
+284,284,15449,deportation from cities,intransfere
+285,285,15450,deportation from ghettos,intransfere
+286,286,15455,deportation family interactions,family
+288,288,15459,forced march escapes,escapes
+289,289,15460,forced march deaths,death
+293,293,15468,transfer environmental conditions,outtransfer
+294,294,15470,transfer family interactions,outtransfer
+295,295,15471,transfer physical condition,outtransfer
+296,296,15472,transfer sanitary conditions,outtransfer
+297,297,15474,transfer from camps,outtransfer
+299,299,15576,loved ones' contacts,family
+300,300,15580,shoe importance,clothing
+302,302,15583,trauma-related dreams,psychologicalreactions
+307,307,15629,deportation food,food
+308,308,15639,transfer food,food
+309,309,15647,thirst,food
+310,310,15648,camp thirst,food
+311,311,15653,transfer thirst,food
+312,312,15696,forced march food,food
+314,314,15774,freight trains,outtransfer
+318,318,15780,games,spirituality
+319,319,15802,deportation routes,intransfere
+320,320,15803,transfer routes,outtransfer
+321,321,15804,forced march routes,outtransfer
+322,322,15808,body searches,intakeprocedures
+323,323,15815,humor,spirituality
+324,324,15832,transfer to camps,outtransfer
+325,325,15834,deportation to camps,intransfere
+333,333,16228,post-liberation deaths,death
+334,334,16277,siblings,family
+335,335,16362,food,food
+336,336,16363,physical condition,conditions
+337,337,16447,brutal treatment,violence
+338,338,16449,forced march brutal treatment,violence
+339,339,16450,transfer brutal treatment,violence
+340,340,16451,camp brutal treatment,violence
+341,341,16454,humiliation,violence
+342,342,16458,camp humiliation,violence
+343,343,16462,punishments,violence
+344,344,16466,killings,death
+345,345,16470,forced march killings,death
+346,346,16471,camp killings,violence
+347,347,16473,transfer killings,death
+348,348,16479,forced march executions,violence
+350,350,16486,beatings,violence
+351,351,16494,shootings,violence
+352,352,16495,hangings,violence
+353,353,16496,gassings,massmurder
+354,354,16498,aid giving,aidgiving
+355,355,16503,camp-related aid giving,aidgiving
+356,356,16504,liberation-related aid giving,aidgiving
+357,357,16507,forced march-related aid giving,aidgiving
+358,358,16508,transfer-related aid giving,aidgiving
+359,359,16511,escape assistance,escapes
+360,360,16517,clothing provision,aidgiving
+361,361,16519,sustenance provision,aidgiving
+362,362,16521,shelter provision,aidgiving
+363,363,16523,medical care provision,aidgiving
+364,364,16536,hiding (aid giving),aidgiving
+365,365,16542,escapee capture,escapes
+367,367,16564,criminal prisoners,prisoners_descriptions
+368,368,16570,Soviet prisoners of war,prisoners_descriptions
+369,369,16572,camp populations,prisoners_descriptions
+377,377,17143,camp construction forced labor,forcedlabour
+378,378,17144,camp site destruction forced labor,forcedlabour
+379,379,17146,waterway maintenance forced labor,forcedlabour
+380,380,17166,malaria,medical
+381,381,17199,bereavement-related psychological reactions,psychologicalreactions
+382,382,17201,forced march adaptation methods,adaptation
+383,383,17202,transfer adaptation methods,adaptation
+384,384,17207,preferential treatment,aidgiving
+385,385,17214,health deceptions,adaptation
+386,386,17215,physical hygiene maintenance,conditions
+387,387,17216,psychological distress prevention,psychologicalreactions
+388,388,17245,property seizure,intakeprocedures
+389,389,17246,camp personal property seizure,intakeprocedures
+392,392,17258,forced march guards,outtransfer
+393,393,17400,road construction forced labor,forcedlabour
+394,394,17792,"Grese, Irma",perpetrators
+395,395,18472,camp covert activities,adaptation
+396,396,18505,camp resistance,resistance
+397,397,19186,translation forced labor,forcedlabour
+401,401,19597,camp prisoner physical conditions,conditions
+402,402,19756,hospitals,medical
+403,403,20200,camp covert communications,communication
+404,404,20206,prisoner external contact,communication
+405,405,20374,aid recipients,aidgiving
+406,406,21330,camp corpses,death
+407,407,21333,transfer corpses,death
+408,408,21336,forced march corpses,death
+409,409,21430,transfer food acquisition,adaptation
+410,410,21859,forced march food acquisition,adaptation
+411,411,22243,corpses,death
+412,412,22254,female kapos,prisoner_functionaries
+413,413,22284,British prisoners of war,prisoners_descriptions
+414,414,22440,housing conditions,housing
+416,416,22647,transfer procedures,outtransfer
+417,417,22828,camp clothing,clothing
+418,418,23289,escape preparations,escapes
+419,419,24021,food additives,food
+420,420,24260,Belgian prisoners,prisoners_descriptions
+422,422,25285,interrogations,violence
+423,423,25359,escape decisions,escapes
+424,424,25392,forced march stealing,adaptation
+425,425,25452,warnings,aidgiving
+426,426,25537,escape discussions,escapes
+427,427,25539,transfer preparations,outtransfer
+428,428,25874,Jewish holiday awareness,spirituality
+433,433,26166,transfer guards,perpetrators
+434,434,26168,Roma kapos,prisoner_functionaries
+437,437,26469,German camp personnel,perpetrators
+438,438,26610,camp prayers,spirituality
+439,439,26611,Jewish prisoner functionaries,prisoner_functionaries
+441,441,26692,criminal kapos,prisoner_functionaries
+443,443,26826,female prisoners,prisoners_descriptions
+444,444,27374,suicide discussions,death
+445,445,27377,medical forced labor,forcedlabour
+446,446,27608,occupation deceptions,adaptation
+447,447,27610,criminal prisoner functionaries,prisoner_functionaries
+448,448,27611,political prisoner functionaries,prisoner_functionaries
+450,450,27929,camp corpse cremations,massmurder
+454,454,29283,German prisoner functionaries,prisoner_functionaries
+455,455,30447,male prisoners,prisoners_descriptions
+456,456,30863,Russian prisoners,prisoners_descriptions
+457,457,31040,infanticide,violence
+458,458,31128,injuries (stills),medical
+459,459,31400,Austrian kapos,prisoner_functionaries
+461,461,31596,camp barracks (stills),housing
+462,462,31870,Polish prisoner functionaries,prisoner_functionaries
+463,463,32362,clothing (stills),clothing
+464,464,32696,skilled forced labor,forcedlabour
+465,465,32953,camp showers,housing
+467,467,34415,self-preservation acts,adaptation
+468,468,34934,Czech prisoner functionaries,prisoner_functionaries
+470,470,35084,child deaths,death
+471,471,37072,metaphysical experiences,spirituality
+472,472,37608,transfer social relations,socialrelations
+474,474,37807,human soap rumors,communication
+475,475,37808,attitudes toward prisoner functionaries,prisoner_functionaries
+476,476,37865,Sonderkommando prisoners,prisoners_descriptions
+477,477,37873,twins in the camps,medicalexperiments
+478,478,38840,perpetrator deceptions,adaptation
+484,484,40151,aborted killings,medicalexperiments
+485,485,40156,camp corpse disposal,death
+486,486,40238,Slovak prisoner functionaries,prisoner_functionaries
+491,491,42091,dog attacks,violence
+492,492,42099,suicide decisions,death
+493,493,42103,sexual assault fears,psychologicalreactions
+494,494,42989,camp blood extraction,medicalexperiments
+495,495,42993,first impressions,intransfere
+496,496,43482,homosexual kapos,prisoner_functionaries
+497,497,44196,forced march shoes,clothing
+498,498,44892,Roma prisoner functionaries,prisoner_functionaries
+500,500,47594,political prisoner kapos,prisoner_functionaries
+501,501,55904,forced march clothing,clothing
+502,502,58291,male kapos,prisoner_functionaries
+506,506,78033,prisoner identification numbers,tattoo
+507,507,78768,attitudes,psychologicalreactions
+510,510,78775,psychological reactions,psychologicalreactions
+512,512,78805,famous SS (Schutzstaffel) personnel,perpetrators
+514,514,78810,famous Nazi medical personnel,perpetrators
+515,515,78817,family occupations,family
+517,517,78836,famous camp personnel,perpetrators
+518,518,78844,relationships,socialrelations
+524,524,78878,violent attacks,violence
+527,527,78886,aid giving activities,aidgiving
+528,528,79053,emotions,psychologicalreactions
+529,529,79196,forced labor activities,forcedlabour
+530,530,79197,resistance activities,resistance
+531,531,80246,social groups,prisoners_descriptions
+532,532,80250,fear,psychologicalreactions
