@@ -7,7 +7,7 @@
 
 2. Data analysis
 - make_descriptive_statistical_analysis.py
-- make_chi_2_test.py
+- make_chi_2_test.py x
 
 3. Markov modelling
 - create_fuzzy_transition_matrix.py

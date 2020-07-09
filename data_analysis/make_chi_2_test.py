@@ -245,6 +245,7 @@ if __name__ == '__main__':
     
     bio_data = constants.input_files_biodata_birkenau
     df_biodata = pd.read_csv(input_directory + bio_data)
+    pdb.set_trace()
 
     
 

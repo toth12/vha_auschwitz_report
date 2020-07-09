@@ -14,7 +14,7 @@ if __name__ == '__main__':
     input_directory = constants.input_data
     output_directory = constants.output_data_segment_keyword_matrix
     input_file = constants.input_segments_with_simplified_keywords
-    output_segment_keyword_matrix = constants.output_segment_keyword_matrix_data_file
+    output_segment_keyword_matrix = constants.output_segment_keyword_matrix_data_file_100
     output_document_index = constants.output_segment_keyword_matrix_document_index 
     output_feature_index = constants.output_segment_keyword_matrix_feature_index
 
@@ -22,7 +22,7 @@ if __name__ == '__main__':
 
     # Eliminate those index terms that occur in less than 100 interviews
     kws = df.groupby(['KeywordID', 'KeywordLabel'])['IntCode'].unique().map(lambda x: len(x)).to_frame(name="TotalNumberIntervieweeUsing").reset_index()
-    kws_needed = kws[kws.TotalNumberIntervieweeUsing > 25][['KeywordID' , 'KeywordLabel']]
+    kws_needed = kws[kws.TotalNumberIntervieweeUsing > 100][['KeywordID' , 'KeywordLabel']]
 
     keywords = kws_needed.reset_index()[['KeywordID', 'KeywordLabel']]
     df = df[df['KeywordID'].isin(kws_needed['KeywordID'])]

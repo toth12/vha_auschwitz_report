@@ -150,7 +150,7 @@ for i,element in enumerate(document_topic_matrix):
  #   0               3  10006_47                         ['10983' '12044' '14280']        topic_2
 segment_df['topic'] = segment_topics
 
-pdb.set_trace()
+
 
 # Save the dataframe 
 segment_df.to_csv('data/output/topic_sequencing/document_index_with_topic_labels.csv')

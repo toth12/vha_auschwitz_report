@@ -35,5 +35,6 @@ output_data_topic_sequence_preprocessed= output_data+'topic_sequences_preprocess
 # Output files
 
 output_segment_keyword_matrix_data_file = "segment_keyword_matrix.txt"
+output_segment_keyword_matrix_data_file_100 = "segment_keyword_matrix_100.txt"
 output_segment_keyword_matrix_document_index = "document_index.csv"
 output_segment_keyword_matrix_feature_index = "feature_index.csv"
