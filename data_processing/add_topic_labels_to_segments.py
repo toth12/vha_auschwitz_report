@@ -54,11 +54,13 @@ topic_words = topic_labels.topic.to_list()
 
 X = ss.csr_matrix(data)
 
+
+
 # Train the CorEx topic model
 topic_model = ct.Corex(n_hidden=len(anchors))  # Define the number of latent (hidden) topics to use.
 
 
-topic_model.fit(X,words=features,anchors=anchors, anchor_strength=10)
+topic_model.fit(X,words=features,anchors=anchors, anchor_strength=2)
 
 topics = topic_model.get_topics()
 

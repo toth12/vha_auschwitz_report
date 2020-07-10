@@ -93,9 +93,14 @@ if __name__ == '__main__':
         trajectories.append(trajectory)
 
     tr=[el for el in window(trajectories)]
-    count_matrix = np.zeros((unique.shape[0],unique.shape[0]))
+    count_matrix = np.zeros((unique.shape[0],unique.shape[0])).astype(float)
 
     for element in tr:
-        count_matrix[element[0],element[1]]=count_matrix[element[0],element[1]]+1
-    pdb.set_trace()
+        count_matrix[element[0],element[1]]=count_matrix[element[0],element[1]]+float(1)
+  
     transition_matrix = (count_matrix / count_matrix.sum(axis=1,keepdims=1))
+    transition_matrix = (transition_matrix / transition_matrix.sum(axis=1,keepdims=1))
+    transition_matrix = transition_matrix.astype(float)
+    pdb.set_trace()
+    assert np.allclose(transition_matrix.sum(axis=1), 1)
+    pdb.set_trace()
