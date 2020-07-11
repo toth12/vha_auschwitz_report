@@ -15,7 +15,7 @@ import itertools
 from msmtools.estimation import connected_sets,is_connected,largest_connected_submatrix
 from scipy.special import softmax
 
-from train_markov_model_on_labeled_segments import window
+from train_markov_model_on_labeled_segments import window,cg_transition_matrix,train_markov_chain,print_stationary_distributions
 
 
 
@@ -50,10 +50,10 @@ if __name__ == '__main__':
     data = np.loadtxt(input_directory+ constants.output_segment_keyword_matrix_data_file_100, dtype=int)
 
     # Read the column index (index terms) of the matrix above
-    features_df = pd.read_csv(input_directory+constants.output_segment_keyword_matrix_feature_index)
+    features_df = pd.read_csv(input_directory+constants.output_segment_keyword_matrix_feature_index_100)
 
     # Read the row index (groups of three segments) of the matrix above
-    segment_df = pd.read_csv(input_directory+ constants.output_segment_keyword_matrix_document_index)
+    segment_df = pd.read_csv(input_directory+ constants.output_segment_keyword_matrix_document_index_100)
 
     
 
@@ -81,26 +81,44 @@ if __name__ == '__main__':
     df_biodata = pd.read_csv(input_directory+bio_data)
     df_biodata = df_biodata.fillna(0)
 
-    segment_df = segment_df[segment_df.IntCode.isin(df_biodata.IntCode.to_list())]
-    index=segment_df.index.to_list()
-    data = np.take(data,index,axis=0)
-    (unique, counts) = np.unique(data,axis=0, return_counts=True)
-    trajectories = []
+    IntCodeM = df_biodata[df_biodata.Gender=='M']['IntCode'].to_list()
+    IntCodeW = df_biodata[df_biodata.Gender=='F']['IntCode'].to_list()
 
-    for i,element in enumerate(data):
-        print (i)
-        trajectory=np.where(np.all(unique==element,axis=1))[0][0]
-        trajectories.append(trajectory)
+    int_codes_list = IntCodeW+IntCodeM
 
-    tr=[el for el in window(trajectories)]
-    count_matrix = np.zeros((unique.shape[0],unique.shape[0])).astype(float)
+    for d,int_codes in enumerate(int_codes_list):
+        pdb.set_trace()
+        input_interviews = segment_df[segment_df.IntCode.isin(int_codes[0:10])]
+        index=input_interviews.index.to_list()
+        data = np.take(data,index,axis=0)
+        (unique, counts) = np.unique(data,axis=0, return_counts=True)
+        trajectories = []
 
-    for element in tr:
-        count_matrix[element[0],element[1]]=count_matrix[element[0],element[1]]+float(1)
-  
-    transition_matrix = (count_matrix / count_matrix.sum(axis=1,keepdims=1))
-    transition_matrix = (transition_matrix / transition_matrix.sum(axis=1,keepdims=1))
-    transition_matrix = transition_matrix.astype(float)
-    pdb.set_trace()
-    assert np.allclose(transition_matrix.sum(axis=1), 1)
-    pdb.set_trace()
+        for i,element in enumerate(data):
+            print (i)
+            trajectory=np.where(np.all(unique==element,axis=1))[0][0]
+            trajectories.append(trajectory)
+
+        tr=[el for el in window(trajectories)]
+        count_matrix = np.zeros((unique.shape[0],unique.shape[0])).astype(float)
+
+        for element in tr:
+            count_matrix[element[0],element[1]]=count_matrix[element[0],element[1]]+float(1)
+      
+        count_matrix = count_matrix +1e-12
+        transition_matrix = (count_matrix / count_matrix.sum(axis=1,keepdims=1))
+        transition_matrix = transition_matrix +1e-12
+        assert np.allclose(transition_matrix.sum(axis=1), 1)
+        assert msmtools.analysis.is_transition_matrix(transition_matrix)
+        assert is_connected(transition_matrix)
+        binary_map = (unique / unique.sum(axis=1,keepdims=1))
+        new_tra = cg_transition_matrix(transition_matrix,binary_map)
+        new_tra[np.isnan(new_tra)] = 0
+        new_tra = new_tra+1e-12
+        new_tra= (new_tra / new_tra.sum(axis=1,keepdims=1))
+        assert np.allclose(new_tra.sum(axis=1), 1)
+        mm = train_markov_chain(new_tra)
+        stationary_prob = print_stationary_distributions(mm,features_df.KeywordLabel.to_list())
+
+        pd.DataFrame(stationary_prob).to_csv('stat_'+str(d)+'.csv')
+        

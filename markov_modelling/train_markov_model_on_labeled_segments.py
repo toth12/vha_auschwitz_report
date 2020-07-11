@@ -95,7 +95,7 @@ def make_consecutive_segments(data):
     #110006                    [topic_2, topic_1]
     
 
-
+    '''
     segment_numbers = data.groupby('interview_code')['SegmentNumber'].apply(list).to_frame('SegmentNumbers').reset_index()
    #document_topic_sequences  = data.groupby(['interview_code','SegmentNumber'])['topic'].apply(list)
     
@@ -120,11 +120,13 @@ def make_consecutive_segments(data):
                 new_segment_series.append(new_segment_group)
             except:
                 pdb.set_trace()
-        flat_list = [item for sublist in new_segment_series for item in sublist]
-        segments_with_topics.append(flat_list)
+            
+        segments_with_topics.append(new_segment_group)
+    '''
+    result = data.groupby('interview_code')['topic'].apply(list).to_frame('segments_with_topic').reset_index()
+    result['count']=result.segments_with_topic.apply(lambda x: len(x))
     
-    segment_numbers['segments_with_topic']=segments_with_topics
-    return segment_numbers
+    return result
     
     '''transition = [i for i in window(element)]
         if len(transition)>1:
@@ -134,13 +136,21 @@ def make_consecutive_segments(data):
 
 def create_transitions(data):
     transitions = []
+    number_of_transitions = 0
     for element in data.iterrows():
         '''for segment_group in element[1]['segments_with_topic']:
             transition = [i for i in window(segment_group)]
             transitions.append(transition)
         '''
+        if len(element[1]['segments_with_topic']) <2:
+            continue
+        number_of_transitions = number_of_transitions + len(element[1]['segments_with_topic'])
         transition = [i for i in window(element[1]['segments_with_topic'])]
-        transitions.append(transition)
+        if len(transition)>1:
+            
+            transitions.append(transition)
+
+   
     return transitions
 
 
@@ -169,6 +179,7 @@ def transform_transition_matrix_connected(transition_matrix):
     connected_nodes = connected_sets(transition_matrix)[0]
     connected_matrix = np.take(transition_matrix,connected_nodes,axis=0)
     connected_matrix = np.take(connected_matrix,connected_nodes,axis=1)
+
     
     #removed_nodes = [element[0] for element in connected_sets(transition_matrix)[1:]]
     removed_nodes = [element for element in range(0,transition_matrix.shape[0]) if element not in connected_nodes]
@@ -230,13 +241,14 @@ def calculate_transition_matrix(transitions,topic_labels):
 
     # Create the final transition matrix with probability values
 
-
+    
     transition_matrix_scaled = (transition_matrix.T/transition_matrix.sum(axis=1)).T
     transition_matrix_scaled[np.isnan(transition_matrix_scaled)] = 0
 
     
 
     transition_matrix_scaled, removed_nodes = transform_transition_matrix_connected(transition_matrix_scaled)
+   
     for element in removed_nodes:
         del topic_list[element]
 
@@ -244,6 +256,7 @@ def calculate_transition_matrix(transitions,topic_labels):
         assert(len(topic_list)==transition_matrix_scaled.shape[0])
     except:
         pdb.set_trace()
+
 
     transition_matrix_scaled = transition_matrix_scaled.astype(float)
     #transition_matrix_scaled = np.around(transition_matrix_scaled, 3)
@@ -298,7 +311,7 @@ def calculate_transition_matrix(transitions,topic_labels):
         for element in removed_nodes:
             del topic_labels[element]
     
-    
+    #(transition+1e-12).sum(axis=1)
     transition = (transition / transition.sum(axis=1,keepdims=1))
     try:
         assert np.allclose(transition.sum(axis=1), 1)
@@ -308,7 +321,7 @@ def calculate_transition_matrix(transitions,topic_labels):
         assert msmtools.analysis.is_transition_matrix(transition)
     except:
         pdb.set_trace()
-   
+    
     return (transition,topic_labels)
     
 def calculate_transition_matrix_old(transitions,topic_labels):
@@ -434,17 +447,21 @@ def calculate_mean_passage_time_between_states(mm,topic_labels):
     df_passage_times = df_passage_times.rename(columns=column_names,index=column_names)
     return df_passage_times
 
-def calculate_flux(mm,topic_labels,A=[12],B=[17,13]):
+def calculate_flux(mm,topic_labels,source,target):
     #A=[8],B=[2,13],
     # Calculate the flux between two states camp arrival and camp liquidiation / camp transfer )
+    A = []
+    B = []
+    for element in source:
+        A.append(topic_labels.index(element))
 
-    A = [topic_labels.index('intakeprocedures')]
-    B = [topic_labels.index('survival')]
-    
+    for element in target:
+         B.append(topic_labels.index(element))
+   
     tpt = msm.tpt(mm, A, B)
 
     nCut = 1
-    (bestpaths,bestpathfluxes) = tpt.pathways(fraction=0.7)
+    (bestpaths,bestpathfluxes) = tpt.pathways(fraction=0.3)
     cumflux = 0
 
     # Print the best path between the two states
@@ -464,7 +481,7 @@ def calculate_flux(mm,topic_labels,A=[12],B=[17,13]):
                 topic_sequence.append(topic_labels[element])
             topic_sequence = '-'.join(topic_sequence)
             topic_sequences[topic_sequence]=100.0*bestpathfluxes[i]/tpt.total_flux
-        
+   
     return topic_sequences
     
   
@@ -498,9 +515,11 @@ def process_data(data_set):
 
     transitions = create_transitions(data_set)
     transition_matrix,topic_list_result = calculate_transition_matrix(transitions,topic_labels_originals[:])
+    
+ 
     mm= train_markov_chain(transition_matrix)
     stationary_probs = print_stationary_distributions(mm,topic_list_result)
-
+    
     try:
 
         paths = calculate_flux(mm,topic_list_result,path_start,path_end)
@@ -547,16 +566,16 @@ if __name__ == '__main__':
             if (value is not None):
                 path_start = value
             else:
-                path_start = ['12']
+                path_start = ['intransfere']
         if (key == "to"):
             if (value is not None):
                 path_end = value
             else:
-                path_end = ['17','13']
+                path_end = ['friendship']
 
 
-    metadata_fields = ['complete','easy','medium','hard',"not_work","work"]
-    #metadata_fields = ['complete']  
+    metadata_fields = ['complete','CountryOfBirth','easy','medium','hard',"not_work","work"]
+    metadata_fields = ['complete']
 
 
     np.set_printoptions(suppress=True)
@@ -572,8 +591,7 @@ if __name__ == '__main__':
     except:
         pass
 
-    path_start = [int(el) for el in path_start]
-    path_end = [int(el) for el in path_end]
+    
 
     # Current work directory
 
@@ -596,7 +614,10 @@ if __name__ == '__main__':
     # Eliminate those interview segments where the topic label is unknown_topic
     data = data[~data.SegmentID.isin(data[data.topic =="unknown_topic"].SegmentID.tolist())]
     data = data.rename(columns={'IntCode':'interview_code'})
+    
+    
     data = make_consecutive_segments(data)
+
     
 
     # Read the biodata and identify the interview code of male and female survivors
@@ -618,6 +639,14 @@ if __name__ == '__main__':
 
     IntCodeM = df_biodata[df_biodata.Gender=='M']['IntCode'].to_list()
     IntCodeW = df_biodata[df_biodata.Gender=='F']['IntCode'].to_list()
+
+    result=data[data.interview_code.isin(IntCodeW)]
+    result[result['count']>1]['count'].sum()
+    
+
+    
+   #IntCodeW = [12684]
+    #IntCodeM = [16]
     
 
     for element in metadata_fields:
@@ -626,7 +655,7 @@ if __name__ == '__main__':
         man_data =[]
         # Gather data
         if element == "complete":
-
+            
             woman_data.append(data[data.interview_code.isin(IntCodeW)])
             man_data.append(data[data.interview_code.isin(IntCodeM)])
             print_topic_sequences(data[data.interview_code.isin(IntCodeW)],element+'_woman.csv')
