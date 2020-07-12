@@ -5,13 +5,14 @@ import pdb
 import numpy as np
 import constants
 
-data = np.loadtxt(constants.output_data_features+'segment_keyword_matrix_from_preprocessed_data.txt')
+input_directory = constants.input_data
+data = np.loadtxt('transition_matrix.txt')
 your_matrix = data[:-1].T@data[:-1]
 del data
 vcount = max(your_matrix.shape)
 sources, targets = your_matrix.nonzero()
 
-nodes = pd.read_csv(constants.output_data_features+"feature_index_from_preprocessed_data.csv").KeywordLabel.tolist()
+nodes = pd.read_csv(input_directory+constants.output_segment_keyword_matrix_feature_index_100).KeywordLabel.tolist()
 edgelist = list(zip(sources.tolist(), targets.tolist()))
 g = igraph.Graph(vcount, edgelist,directed=False)
 #g = g.simplify(combine_edges='sum')

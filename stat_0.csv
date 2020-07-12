@@ -1,0 +1,856 @@
+,topic_name,stationary_prob
+0,camp selections,0.12147461892426946
+1,camp intake procedures,0.07167480149922818
+2,"Mengele, Josef",0.06868912710538212
+3,camp living conditions,0.0557548852784484
+4,camp first impressions,0.03446486356666045
+5,mass murder awareness,0.0325862831537697
+6,camp food,0.026612366613830096
+7,camp adaptation methods,0.026323492557412346
+8,loved ones' separations,0.025228980654849364
+9,camp family interactions,0.021213202593461003
+10,Blockälteste,0.019849716820361532
+11,camp Appell,0.01969351078346977
+12,camp hiding and evasion,0.019168035058497693
+13,camp forced labor,0.018719898091176603
+14,survival explanations,0.01851747220415419
+15,post-conflict adaptation,0.01807795560368741
+16,deportation to camps,0.017656884153620538
+17,camp-related aid giving,0.017367928414718885
+18,transfer from camps,0.016171276460562937
+19,transfer to camps,0.016171276460562888
+20,camp housing conditions,0.015775350795939336
+21,extended family members,0.015243844754917078
+22,loved ones' fates,0.015147916235664123
+23,perpetrator liberator-approach responses,0.013229150225119708
+24,camp sanitary conditions,0.012756680573071683
+25,forced correspondence,0.012656537545353038
+26,camp barracks,0.01265653754535301
+27,food additives,0.012520445746646684
+28,camp medical care,0.012484497001692126
+29,camp diseases,0.012012027333435156
+30,attitudes toward perpetrators,0.011834851195020516
+31,camp social relations,0.01177579249466827
+32,Holocaust faith issues,0.011413308980365569
+33,German concentration camps (generic),0.009122259141838838
+34,"transfers, means of transport",0.008364143455394076
+35,loved ones' contacts,0.008256235970604327
+36,loved ones' final contacts,0.006980482323086913
+37,deportation conditions,0.0063783402977566905
+38,camp prisoner marking,0.006378340295561002
+39,loved ones' renewed contacts,0.006328268778376492
+40,passenger trains,0.0062717778471832785
+41,sustenance provision,0.006091995103590816
+42,grandmothers,0.0060355430237810734
+43,health deceptions,0.005917425603210245
+44,grandparents,0.005887896253034122
+45,attitudes,0.004612570564192597
+46,camp food sharing,0.004601618652144867
+47,corpse disposal forced labor,0.004476478777525317
+48,camp covert activities,0.00439773382495906
+49,camp abortions,0.004397733824959054
+50,prisoner external contact,0.004330971809514926
+51,perpetrator deceptions,0.00423250173231827
+52,medical forced labor,0.004082754061042118
+53,hospitals,0.0040827540610421115
+54,camp covert communications,0.003925264172489405
+55,camp children,0.0036115294054300047
+56,freight trains,0.003462527605633815
+57,camp menstruation,0.003313065052043651
+58,camp clothing,0.0029439481322170538
+59,personal property sorting forced labor,0.002943948132217046
+60,housing conditions,0.0023229758053287825
+61,ghetto living conditions,0.002322975805328776
+62,camp punishments,0.0021693375643961005
+63,survivor reunions,0.002169337564396096
+64,trucks,0.001370161997423011
+65,deportation food,0.001370161997423009
+66,camp prisoner physical conditions,0.0013701619974230085
+67,"deportations, means of transport",0.0013701619974230085
+68,camp-related psychological reactions,0.0013701619974230076
+69,deportation from ghettos,0.0013701619974230063
+70,warnings,0.0012885536115012054
+71,hiding (aid giving),0.0012885536115012051
+72,shelter provision,0.0012885536115012051
+73,camp procedures,0.0012885536115012034
+74,Hungarian prisoners,0.0012885536115012015
+75,Rosh Ha-Shana,1.1399985726738635e-11
+76,forced march food,1.1399985726738635e-11
+77,camp shoes,1.1399985726738628e-11
+78,Czechoslovak prisoners,1.1399985726738628e-11
+79,Armia Krajowa,1.1399985726738628e-11
+80,rabbis,1.1399985726738624e-11
+81,religious beliefs,1.1399985726738624e-11
+82,medical care,1.1399985726738622e-11
+83,coerced sexual activities,1.1399985726738622e-11
+84,flight,1.1399985726738622e-11
+85,1920s photographs (stills),1.1399985726738619e-11
+86,deportation experiences,1.1399985726738619e-11
+87,identification papers,1.1399985726738619e-11
+88,games,1.1399985726738619e-11
+89,post-conflict persecution site visits,1.1399985726738617e-11
+90,captivity,1.1399985726738617e-11
+91,aid giving,1.1399985726738615e-11
+92,prisoner of war camps (generic),1.1399985726738615e-11
+93,"""Mischlinge""",1.1399985726738615e-11
+94,anti-Jewish economic measures,1.1399985726738615e-11
+95,Jewish schools,1.1399985726738615e-11
+96,friendships,1.1399985726738612e-11
+97,camp killings,1.1399985726738612e-11
+98,medical care provision,1.1399985726738612e-11
+99,Slovak prisoner functionaries,1.139998572673861e-11
+100,writing,1.139998572673861e-11
+101,Jewish resistance groups,1.139998572673861e-11
+102,attitudes toward Germany and/or Germans,1.139998572673861e-11
+103,post-World War II family photographs (stills),1.1399985726738609e-11
+104,forced march-related aid giving,1.1399985726738609e-11
+105,1910s photographs (stills),1.1399985726738609e-11
+106,aborted killings,1.1399985726738609e-11
+107,covert weapons procurement,1.1399985726738609e-11
+108,forced labor civilian supervisors,1.1399985726738606e-11
+109,gay male sexual activities,1.1399985726738606e-11
+110,forced march killings,1.1399985726738606e-11
+111,forced march corpses,1.1399985726738606e-11
+112,prisoner medical personnel,1.1399985726738606e-11
+113,camp deaths,1.1399985726738606e-11
+114,1960s documents and artifacts (stills),1.1399985726738606e-11
+115,Tisha be-Av,1.1399985726738606e-11
+116,Polish armed forces,1.1399985726738606e-11
+117,Judenräte,1.1399985726738604e-11
+118,media coverage,1.1399985726738604e-11
+119,camp quarantines,1.1399985726738604e-11
+120,"Hirsch, Fredy",1.1399985726738604e-11
+121,interviewee original works,1.1399985726738604e-11
+122,survivor organizations,1.1399985726738604e-11
+123,helplessness,1.1399985726738604e-11
+124,camp stealing,1.1399985726738604e-11
+125,forced march routes,1.1399985726738604e-11
+126,transfer routes,1.1399985726738604e-11
+127,German soldiers,1.1399985726738604e-11
+128,roundups,1.1399985726738604e-11
+129,1950s photographs (stills),1.1399985726738604e-11
+130,camp resistance,1.1399985726738604e-11
+131,Slovak prisoners,1.1399985726738604e-11
+132,military uniforms,1.1399985726738603e-11
+133,1990s documents and artifacts (stills),1.1399985726738603e-11
+134,resistance,1.1399985726738603e-11
+135,Soviet soldiers,1.1399985726738603e-11
+136,camp epidemics,1.1399985726738603e-11
+137,camp blood extraction,1.1399985726738603e-11
+138,camp injuries,1.13999857267386e-11
+139,Lagerführer,1.13999857267386e-11
+140,Nuremberg Trials (Germany)(generic),1.13999857267386e-11
+141,culture,1.13999857267386e-11
+142,Holocaust testimony sharing reluctance,1.13999857267386e-11
+143,sexual assault fears,1.13999857267386e-11
+144,camp childbearing,1.13999857267386e-11
+145,liberation physical condition,1.13999857267386e-11
+146,camp sexual assaults,1.13999857267386e-11
+147,camp sterilization medical experiments,1.13999857267386e-11
+148,wartime family interactions,1.13999857267386e-11
+149,camp time awareness,1.13999857267386e-11
+150,nationalist political parties,1.13999857267386e-11
+151,1990s photographs (stills),1.13999857267386e-11
+152,gassings,1.13999857267386e-11
+153,International Red Cross,1.13999857267386e-11
+154,camp construction forced labor,1.13999857267386e-11
+155,begging,1.13999857267386e-11
+156,forced labor battalion experiences,1.13999857267386e-11
+157,migration attempts,1.13999857267386e-11
+158,testimony-sharing motivations,1.13999857267386e-11
+159,non-violent resistance,1.13999857267386e-11
+160,aid recipients,1.13999857267386e-11
+161,migration from countries,1.13999857267386e-11
+162,refugees,1.13999857267386e-11
+163,ghetto deaths,1.13999857267386e-11
+164,escape assistance,1.1399985726738596e-11
+165,migration to countries,1.1399985726738596e-11
+166,migration from Poland,1.1399985726738596e-11
+167,Zionism,1.1399985726738596e-11
+168,transfer environmental conditions,1.1399985726738596e-11
+169,armed forces,1.1399985726738596e-11
+170,British prisoners of war,1.1399985726738596e-11
+171,suicides,1.1399985726738596e-11
+172,anti-Jewish measures,1.1399985726738596e-11
+173,U.S. prisoners of war,1.1399985726738596e-11
+174,prison inmate physical condition,1.1399985726738596e-11
+175,politico-military event awareness,1.1399985726738596e-11
+176,post-World War II photographs (stills),1.1399985726738596e-11
+177,Lagerälteste,1.1399985726738596e-11
+178,Holocaust education,1.1399985726738596e-11
+179,displaced persons camps (generic),1.1399985726738596e-11
+180,Greek prisoners,1.1399985726738596e-11
+181,political prisoners,1.1399985726738593e-11
+182,Jewish religious beliefs,1.1399985726738593e-11
+183,forced march stealing,1.1399985726738593e-11
+184,transfer preparations,1.1399985726738593e-11
+185,discrimination,1.1399985726738593e-11
+186,Jewish holiday awareness,1.1399985726738593e-11
+187,black market activities,1.1399985726738593e-11
+188,means of transport,1.1399985726738593e-11
+189,population categories,1.1399985726738593e-11
+190,civil defense,1.1399985726738593e-11
+191,fine arts (stills),1.1399985726738593e-11
+192,camp personnel,1.1399985726738593e-11
+193,post-conflict medical problems,1.1399985726738593e-11
+194,Yiddish (language),1.1399985726738593e-11
+195,commemoration,1.1399985726738593e-11
+196,forced march escapes,1.1399985726738593e-11
+197,German prisoner functionaries,1.1399985726738593e-11
+198,documents and artifacts (stills),1.1399985726738593e-11
+199,Shabbat,1.1399985726738593e-11
+200,post-conflict return journeys,1.1399985726738593e-11
+201,Austrian kapos,1.1399985726738593e-11
+202,post-liberation deaths,1.1399985726738593e-11
+203,camp site destruction forced labor,1.1399985726738593e-11
+204,liberation-related aid giving,1.1399985726738593e-11
+205,covert activities,1.1399985726738593e-11
+206,ghetto covert activities,1.1399985726738593e-11
+207,World War II-era photographs (stills),1.1399985726738593e-11
+208,Roma life,1.1399985726738593e-11
+209,refugee camp experiences,1.1399985726738593e-11
+210,Siemens (firm),1.1399985726738593e-11
+211,ghetto corpses,1.1399985726738593e-11
+212,camp cultural activities,1.1399985726738593e-11
+213,prison sanitary conditions,1.1399985726738593e-11
+214,corpses,1.1399985726738593e-11
+215,food,1.1399985726738593e-11
+216,schools,1.1399985726738593e-11
+217,escape preparations,1.1399985726738593e-11
+218,male prisoners,1.1399985726738593e-11
+219,Roma kapos,1.1399985726738593e-11
+220,secretarial forced labor,1.1399985726738593e-11
+221,camp suicide attempts,1.1399985726738593e-11
+222,aid organizations,1.1399985726738593e-11
+223,government officials,1.1399985726738593e-11
+224,camp Jewish religious objects,1.1399985726738593e-11
+225,camp environmental conditions,1.1399985726738593e-11
+226,factory forced labor,1.1399985726738593e-11
+227,danger misconceptions,1.1399985726738593e-11
+228,child killings,1.1399985726738593e-11
+229,photographs (stills),1.1399985726738593e-11
+230,textiles and garment forced labor,1.1399985726738593e-11
+231,camp visitors,1.1399985726738593e-11
+232,injuries,1.1399985726738593e-11
+233,camp liberation,1.139998572673859e-11
+234,Jewish religious texts,1.139998572673859e-11
+235,transfer guards,1.139998572673859e-11
+236,post-liberation camp/ghetto transition,1.139998572673859e-11
+237,transfer to ghettos,1.139998572673859e-11
+238,deportation deaths,1.139998572673859e-11
+239,World War II documents and artifacts (stills),1.139998572673859e-11
+240,"Eichmann, Adolf",1.139998572673859e-11
+241,languages,1.139998572673859e-11
+242,camp hospitals,1.139998572673859e-11
+243,prison covert activities,1.139998572673859e-11
+244,kapos,1.139998572673859e-11
+245,malaria,1.139998572673859e-11
+246,clothing provision,1.139998572673859e-11
+247,ghetto liquidations,1.139998572673859e-11
+248,mistreatment and death,1.139998572673859e-11
+249,ghetto suicides,1.139998572673859e-11
+250,Soviet prisoners of war,1.139998572673859e-11
+251,camp populations,1.139998572673859e-11
+252,vocational training,1.139998572673859e-11
+253,soldiers,1.139998572673859e-11
+254,ghetto prayers,1.139998572673859e-11
+255,forced march family interactions,1.139998572673859e-11
+256,migration policies,1.139998572673859e-11
+257,forced march deaths,1.139998572673859e-11
+258,criminal prisoner functionaries,1.139998572673859e-11
+259,national holidays and memorial days,1.139998572673859e-11
+260,clothing (stills),1.139998572673859e-11
+261,United States soldiers,1.139998572673859e-11
+262,United States armed forces,1.139998572673859e-11
+263,infanticide,1.139998572673859e-11
+264,prisons,1.139998572673859e-11
+265,Polish prisoner functionaries,1.139998572673859e-11
+266,betrayals,1.1399985726738586e-11
+267,"Grese, Irma",1.1399985726738586e-11
+268,relationships,1.1399985726738586e-11
+269,camp betrayals,1.1399985726738586e-11
+270,forced marches,1.1399985726738586e-11
+271,road construction forced labor,1.1399985726738586e-11
+272,interviewee memory,1.1399985726738586e-11
+273,child survivor organizations,1.1399985726738586e-11
+274,famous camp personnel,1.1399985726738586e-11
+275,youth organizations,1.1399985726738586e-11
+276,"Perl, Gisella",1.1399985726738586e-11
+277,Gestapo personnel,1.1399985726738586e-11
+278,Jewish organizations,1.1399985726738586e-11
+279,transfer conditions,1.1399985726738586e-11
+280,humiliation,1.1399985726738586e-11
+281,forced march conditions,1.1399985726738586e-11
+282,adaptation methods,1.1399985726738586e-11
+283,psychological distress prevention,1.1399985726738586e-11
+284,camp corpses,1.1399985726738586e-11
+285,flight from countries,1.1399985726738586e-11
+286,forced march experiences,1.1399985726738586e-11
+287,Jehovah's Witness religious observances,1.1399985726738586e-11
+288,Fascist organization members,1.1399985726738586e-11
+289,transfer to prisons,1.1399985726738586e-11
+290,resistance groups,1.1399985726738586e-11
+291,Polish civilian laborers,1.1399985726738586e-11
+292,German forced labor civilian supervisors,1.1399985726738586e-11
+293,famous Judenräte members,1.1399985726738586e-11
+294,military service,1.1399985726738586e-11
+295,communities,1.1399985726738586e-11
+296,Christianity,1.1399985726738586e-11
+297,internment camps (generic),1.1399985726738586e-11
+298,post-conflict family home returns,1.1399985726738586e-11
+299,transfer adaptation methods,1.1399985726738586e-11
+300,preferential treatment,1.1399985726738586e-11
+301,famous collaborators,1.1399985726738586e-11
+302,camp brutal treatment,1.1399985726738586e-11
+303,interviewee photographs (stills),1.1399985726738586e-11
+304,employment assistance,1.1399985726738586e-11
+305,survival,1.1399985726738586e-11
+306,1980s photographs (stills),1.1399985726738586e-11
+307,sanitary conditions,1.1399985726738586e-11
+308,Jewish persecution awareness,1.1399985726738586e-11
+309,creative works,1.1399985726738586e-11
+310,1970s documents and artifacts (stills),1.1399985726738586e-11
+311,Panstwowe Muzeum Auschwitz-Birkenau,1.1399985726738586e-11
+312,deportation to cities,1.1399985726738586e-11
+313,mass executions,1.1399985726738586e-11
+314,deportation to prisons,1.1399985726738586e-11
+315,survivor guilt,1.1399985726738586e-11
+316,camp malnutrition,1.1399985726738586e-11
+317,executions and killings,1.1399985726738586e-11
+318,transfer sanitary conditions,1.1399985726738586e-11
+319,ghetto guards,1.1399985726738586e-11
+320,Hungarian kapos,1.1399985726738586e-11
+321,activities (stills) ,1.1399985726738586e-11
+322,body searches,1.1399985726738586e-11
+323,future message,1.1399985726738586e-11
+324,prison executions,1.1399985726738586e-11
+325,prison food,1.1399985726738586e-11
+326,refugee children transports,1.1399985726738586e-11
+327,deportation to ghettos,1.1399985726738586e-11
+328,forced march food acquisition,1.1399985726738586e-11
+329,transfer deaths,1.1399985726738586e-11
+330,camp doctors,1.1399985726738586e-11
+331,camp corpse cremations,1.1399985726738586e-11
+332,transfer food,1.1399985726738586e-11
+333,suicide discussions,1.1399985726738586e-11
+334,loved ones' deaths,1.1399985726738583e-11
+335,famous Jewish religious leaders,1.1399985726738583e-11
+336,personal preparations,1.1399985726738583e-11
+337,deportation sanitary conditions,1.1399985726738583e-11
+338,typhoid fever,1.1399985726738583e-11
+339,famous Israeli politicians and diplomats,1.1399985726738583e-11
+340,releases,1.1399985726738583e-11
+341,camp infestations,1.1399985726738583e-11
+342,places (stills) ,1.1399985726738583e-11
+343,forced march physical condition,1.1399985726738583e-11
+344,famous Islamic religious leaders,1.1399985726738583e-11
+345,post-conflict,1.1399985726738583e-11
+346,siblings,1.1399985726738583e-11
+347,people (stills) ,1.1399985726738583e-11
+348,camp guards,1.1399985726738583e-11
+349,prison living conditions,1.1399985726738583e-11
+350,prison adaptation methods,1.1399985726738583e-11
+351,punishments,1.1399985726738583e-11
+352,religion and philosophy,1.1399985726738583e-11
+353,Holocaust testimony sharing willingness,1.1399985726738583e-11
+354,camp executions,1.1399985726738583e-11
+355,RELATIONSHIPS,1.1399985726738583e-11
+356,Yom Kippur,1.1399985726738583e-11
+357,Jewish prisoner functionaries,1.1399985726738583e-11
+358,identity concealment (aid giving),1.1399985726738583e-11
+359,famous Hungarian fascists,1.1399985726738583e-11
+360,Belgian prisoners,1.1399985726738583e-11
+361,occupation deceptions,1.1399985726738583e-11
+362,personal services forced labor,1.1399985726738583e-11
+363,Soviet resistance groups,1.1399985726738583e-11
+364,transfer social relations,1.1399985726738583e-11
+365,German (language),1.1399985726738583e-11
+366,human soap rumors,1.1399985726738583e-11
+367,working life,1.1399985726738583e-11
+368,Czech resistance groups,1.1399985726738583e-11
+369,child deaths,1.1399985726738583e-11
+370,Sabbatarians,1.1399985726738583e-11
+371,famous SS (Schutzstaffel) personnel,1.1399985726738583e-11
+372,brothers,1.1399985726738583e-11
+373,prayers,1.139998572673858e-11
+374,prisoner hair cutting forced labor,1.139998572673858e-11
+375,transfer experiences,1.139998572673858e-11
+376,smell,1.139998572673858e-11
+377,hiding valuables,1.139998572673858e-11
+378,family occupations,1.139998572673858e-11
+379,Jewish religious observances,1.139998572673858e-11
+380,food and eating,1.139998572673858e-11
+381,transfer from ghettos,1.139998572673858e-11
+382,Christian clergy and monastics,1.139998572673858e-11
+383,Jewish religious observances (stills),1.139998572673858e-11
+384,camp and prison artifacts (stills),1.139998572673858e-11
+385,intergenerational genocide impact,1.139998572673858e-11
+386,dwarf prisoners,1.139998572673858e-11
+387,identity,1.139998572673858e-11
+388,Czechoslovak kapos,1.139998572673858e-11
+389,language skills,1.139998572673858e-11
+390,famous Holocaust survivors,1.139998572673858e-11
+391,famous ghetto personnel,1.139998572673858e-11
+392,camp prayers,1.139998572673858e-11
+393,war veterans,1.139998572673858e-11
+394,German camp personnel,1.139998572673858e-11
+395,religions,1.139998572673858e-11
+396,religious conversions,1.139998572673858e-11
+397,childbearing,1.139998572673858e-11
+398,deportation to countries,1.139998572673858e-11
+399,family photographs (stills) ,1.139998572673858e-11
+400,ghetto religious observances,1.139998572673858e-11
+401,Jewish prayers,1.139998572673858e-11
+402,Czech prisoners,1.139998572673858e-11
+403,camp religious observances,1.139998572673858e-11
+404,currency (stills) ,1.139998572673858e-11
+405,camp religious objects,1.139998572673858e-11
+406,camp sexual activities,1.139998572673858e-11
+407,famous German Nazi politicians and diplomats,1.139998572673858e-11
+408,attitudes toward prisoner functionaries,1.139998572673858e-11
+409,forced labor activities,1.139998572673858e-11
+410,resistance activities,1.139998572673858e-11
+411,mining forced labor,1.139998572673858e-11
+412,railroad forced labor,1.139998572673858e-11
+413,original works,1.139998572673858e-11
+414,air raid cleanup forced labor,1.139998572673858e-11
+415,guilt,1.139998572673858e-11
+416,emotions,1.139998572673858e-11
+417,refugee nationals,1.139998572673858e-11
+418,captives,1.139998572673858e-11
+419,war crimes trials,1.139998572673858e-11
+420,non-Jewish kapos,1.139998572673858e-11
+421,famous Jewish ghetto police,1.139998572673858e-11
+422,judicial proceedings,1.139998572673858e-11
+423,famous prisoner medical personnel,1.139998572673858e-11
+424,deportation from countries,1.139998572673858e-11
+425,Romanian prisoners,1.139998572673858e-11
+426,Czech prisoner functionaries,1.139998572673858e-11
+427,self-preservation acts,1.139998572673858e-11
+428,dysentery,1.139998572673858e-11
+429,attitudes toward Allied and/or neutral nations,1.139998572673858e-11
+430,skilled forced labor,1.139998572673858e-11
+431,Nazi organizations,1.139998572673858e-11
+432,physical health,1.139998572673858e-11
+433,famous aid givers,1.139998572673858e-11
+434,study,1.139998572673858e-11
+435,prison procedures,1.139998572673858e-11
+436,transfer brutal treatment,1.139998572673858e-11
+437,movement,1.139998572673858e-11
+438,reunions (stills) ,1.139998572673858e-11
+439,prison experiences,1.139998572673858e-11
+440,educators,1.139998572673858e-11
+441,religious objects (stills) ,1.139998572673858e-11
+442,Jewish ritual leaders and functionaries,1.139998572673858e-11
+443,religious sites (stills) ,1.139998572673858e-11
+444,army chaplains,1.139998572673858e-11
+445,forced labor personnel,1.139998572673858e-11
+446,personal papers (stills) ,1.139998572673858e-11
+447,refugee camps (generic) ,1.139998572673858e-11
+448,military units,1.139998572673858e-11
+449,Jewish dietary laws,1.139998572673858e-11
+450,transfer-related aid giving,1.139998572673858e-11
+451,Passover,1.139998572673858e-11
+452,mass graves,1.139998572673858e-11
+453,escapes,1.139998572673858e-11
+454,Hasidic rebbes,1.139998572673858e-11
+455,evasion,1.139998572673858e-11
+456,Judaism,1.139998572673858e-11
+457,Austrian prisoners,1.139998572673858e-11
+458,violent attacks,1.139998572673858e-11
+459,refugee experiences,1.139998572673858e-11
+460,post-World War II documents and artifacts (stills),1.139998572673858e-11
+461,antisemitism,1.139998572673858e-11
+462,medical personnel,1.139998572673858e-11
+463,tracing loved ones,1.139998572673858e-11
+464,forced march guards,1.139998572673858e-11
+465,refugee organizations,1.139998572673858e-11
+466,Christian religious holidays,1.139998572673858e-11
+467,ghetto facilities,1.1399985726738577e-11
+468,ghettoization,1.1399985726738577e-11
+469,discrimination responses,1.1399985726738577e-11
+470,famous Hungarian politicians and diplomats,1.1399985726738577e-11
+471,social relations,1.1399985726738577e-11
+472,Polish prisoners,1.1399985726738577e-11
+473,famous French politicians and diplomats,1.1399985726738577e-11
+474,famous United States politicians and diplomats,1.1399985726738577e-11
+475,camp Jewish religious observances,1.1399985726738577e-11
+476,famous Polish politicians and diplomats,1.1399985726738577e-11
+477,ghetto escapes,1.1399985726738577e-11
+478,camp escapes,1.1399985726738577e-11
+479,twins in the camps,1.1399985726738577e-11
+480,famous forced labor factory managers,1.1399985726738577e-11
+481,quarry forced labor,1.1399985726738577e-11
+482,economics,1.1399985726738577e-11
+483,famous Jewish resistance fighters,1.1399985726738577e-11
+484,ghetto brutal treatment,1.1399985726738577e-11
+485,decisions,1.1399985726738577e-11
+486,sexual assaults,1.1399985726738577e-11
+487,camp personal property seizure,1.1399985726738577e-11
+488,ghetto diseases,1.1399985726738577e-11
+489,police and security forces,1.1399985726738577e-11
+490,events (stills) ,1.1399985726738577e-11
+491,typhus,1.1399985726738577e-11
+492,prison suicides,1.1399985726738577e-11
+493,property seizure,1.1399985726738577e-11
+494,military occupation conditions,1.1399985726738577e-11
+495,camp covert economic activities,1.1399985726738577e-11
+496,organizations (stills),1.1399985726738577e-11
+497,post-conflict trials,1.1399985726738577e-11
+498,dog attacks,1.1399985726738577e-11
+499,interrogations,1.1399985726738577e-11
+500,physical sensations,1.1399985726738577e-11
+501,Jews,1.1399985726738577e-11
+502,businesses,1.1399985726738577e-11
+503,environmental conditions,1.1399985726738577e-11
+504,Jewish kapos,1.1399985726738577e-11
+505,trauma-related dreams,1.1399985726738577e-11
+506,restitution,1.1399985726738577e-11
+507,political activities,1.1399985726738577e-11
+508,shoes,1.1399985726738577e-11
+509,discriminatory measures,1.1399985726738577e-11
+510,camp thirst,1.1399985726738577e-11
+511,moving image footage,1.1399985726738577e-11
+512,anti-Roma prejudice,1.1399985726738577e-11
+513,deportation routes,1.1399985726738577e-11
+514,contact,1.1399985726738577e-11
+515,Christian sites,1.1399985726738577e-11
+516,resistance fighters,1.1399985726738577e-11
+517,1980s documents and artifacts (stills),1.1399985726738577e-11
+518,famous Christian religious leaders,1.1399985726738577e-11
+519,social groups,1.1399985726738577e-11
+520,transfer procedures,1.1399985726738577e-11
+521,post-conflict searches,1.1399985726738577e-11
+522,fine arts,1.1399985726738577e-11
+523,injuries (stills),1.1399985726738577e-11
+524,camp suicides,1.1399985726738577e-11
+525,reflections,1.1399985726738577e-11
+526,denial,1.1399985726738577e-11
+527,forestry forced labor,1.1399985726738577e-11
+528,camp orchestras,1.1399985726738577e-11
+529,political prisoner kapos,1.1399985726738577e-11
+530,death marches,1.1399985726738577e-11
+531,United Nations,1.1399985726738577e-11
+532,fear,1.1399985726738577e-11
+533,children,1.1399985726738577e-11
+534,prisoner identification numbers,1.1399985726738577e-11
+535,agricultural forced labor,1.1399985726738577e-11
+536,World War II family photographs (stills),1.1399985726738575e-11
+537,famous Polish resistance fighters,1.1399985726738575e-11
+538,marriages,1.1399985726738575e-11
+539,2010s documents and artifacts (stills) ,1.1399985726738575e-11
+540,waterway maintenance forced labor,1.1399985726738575e-11
+541,ghetto personnel,1.1399985726738575e-11
+542,post-World War II reflections,1.1399985726738575e-11
+543,covert movement,1.1399985726738575e-11
+544,farms,1.1399985726738575e-11
+545,protected groups,1.1399985726738575e-11
+546,literary recitals,1.1399985726738575e-11
+547,forced labor conditions,1.1399985726738575e-11
+548,corpse disposal,1.1399985726738575e-11
+549,family members,1.1399985726738575e-11
+550,stealing,1.1399985726738575e-11
+551,camp uniforms,1.1399985726738575e-11
+552,escape decisions,1.1399985726738575e-11
+553,family homes (stills),1.1399985726738575e-11
+554,ghetto adaptation methods,1.1399985726738575e-11
+555,deaths,1.1399985726738575e-11
+556,time awareness,1.1399985726738575e-11
+557,mass execution survival,1.1399985726738575e-11
+558,protection,1.1399985726738575e-11
+559,1930s photographs (stills),1.1399985726738575e-11
+560,killing techniques,1.1399985726738575e-11
+561,Zionist youth organizations,1.1399985726738575e-11
+562,attitudes toward Poland and/or Poles,1.1399985726738575e-11
+563,famous camp escapees,1.1399985726738575e-11
+564,famous Austrian politicians and diplomats,1.1399985726738575e-11
+565,hiding,1.1399985726738575e-11
+566,camp hunger,1.1399985726738575e-11
+567,post-conflict encounters,1.1399985726738575e-11
+568,camp humiliation,1.1399985726738575e-11
+569,metaphysical experiences,1.1399985726738575e-11
+570,female prisoner functionaries,1.1399985726738575e-11
+571,famous Gestapo personnel,1.1399985726738575e-11
+572,Zionist organizations,1.1399985726738575e-11
+573,transfer escapes,1.1399985726738575e-11
+574,Allied military operations,1.1399985726738575e-11
+575,prison guards,1.1399985726738575e-11
+576,sisters,1.1399985726738575e-11
+577,migration experiences,1.1399985726738573e-11
+578,prisoners,1.1399985726738573e-11
+579,loved ones' togetherness decisions,1.1399985726738573e-11
+580,non-Jewish prisoners,1.1399985726738573e-11
+581,platform forced labor,1.1399985726738573e-11
+582,covert economic activities,1.1399985726738573e-11
+583,motivations,1.1399985726738573e-11
+584,transfer physical condition,1.1399985726738573e-11
+585,deportation procedures,1.1399985726738573e-11
+586,Stubenälteste,1.1399985726738573e-11
+587,shoe importance,1.1399985726738573e-11
+588,post-conflict relations,1.1399985726738573e-11
+589,Holocaust- and tolerance education centers,1.1399985726738573e-11
+590,quarantine,1.1399985726738573e-11
+591,Allied armed forces,1.1399985726738573e-11
+592,restricted housing,1.1399985726738573e-11
+593,physical condition,1.1399985726738573e-11
+594,Jewish youth organizations,1.1399985726738573e-11
+595,rescue,1.1399985726738573e-11
+596,German civilian laborers,1.1399985726738573e-11
+597,famous child care-givers,1.1399985726738573e-11
+598,miscellaneous famous people,1.1399985726738573e-11
+599,Jewish sites,1.1399985726738573e-11
+600,flight attempts,1.1399985726738573e-11
+601,forced march adaptation methods,1.1399985726738573e-11
+602,movement (stills) ,1.1399985726738573e-11
+603,awareness,1.1399985726738573e-11
+604,deceptions,1.1399985726738573e-11
+605,camp Jewish prayers,1.1399985726738573e-11
+606,famous Czech politicians and diplomats,1.1399985726738573e-11
+607,Sonderkommando prisoners,1.1399985726738573e-11
+608,pre-World War II family photographs (stills),1.1399985726738573e-11
+609,ghetto food,1.1399985726738573e-11
+610,hiding places,1.1399985726738573e-11
+611,camp barter,1.1399985726738573e-11
+612,trial procedures,1.1399985726738573e-11
+613,memorials and museums,1.1399985726738573e-11
+614,post-conflict recovery,1.1399985726738573e-11
+615,diseases,1.1399985726738573e-11
+616,discussions,1.139998572673857e-11
+617,famous Nazi exposers,1.139998572673857e-11
+618,German camp guards,1.139998572673857e-11
+619,political police,1.139998572673857e-11
+620,forced march shoes,1.139998572673857e-11
+621,psychological reactions,1.139998572673857e-11
+622,rumors,1.139998572673857e-11
+623,military buildings and installations,1.139998572673857e-11
+624,forced labor squads (stills),1.139998572673857e-11
+625,prisoner doctors,1.139998572673857e-11
+626,German armed forces,1.139998572673857e-11
+627,arts-related forced labor,1.139998572673857e-11
+628,scouting organizations,1.139998572673857e-11
+629,malnutrition,1.139998572673857e-11
+630,German prisoners,1.139998572673857e-11
+631,camp escape attempts,1.139998572673857e-11
+632,performing arts,1.139998572673857e-11
+633,barter,1.139998572673857e-11
+634,Jewish education,1.139998572673857e-11
+635,post-conflict return visits,1.139998572673857e-11
+636,funerals,1.139998572673857e-11
+637,transfer family interactions,1.139998572673857e-11
+638,Christian religious observances,1.139998572673857e-11
+639,ghetto executions,1.139998572673857e-11
+640,ghetto medical care,1.139998572673857e-11
+641,corpse cremations,1.139998572673857e-11
+642,famous war crimes trial participants,1.139998572673857e-11
+643,political ideologies,1.139998572673857e-11
+644,famous United States military personnel,1.139998572673857e-11
+645,brutal treatment,1.139998572673857e-11
+646,female camp guards,1.139998572673857e-11
+647,forced labor companies,1.139998572673857e-11
+648,famous Zionist leaders,1.1399985726738569e-11
+649,post-conflict reunions,1.1399985726738569e-11
+650,military personnel,1.1399985726738569e-11
+651,famous fine artists,1.1399985726738569e-11
+652,Jewish cultures,1.1399985726738569e-11
+653,Jewish religious holidays,1.1399985726738569e-11
+654,paramilitary organizations,1.1399985726738569e-11
+655,aid giving activities,1.1399985726738569e-11
+656,flight to countries,1.1399985726738569e-11
+657,correspondence (stills),1.1399985726738569e-11
+658,translation forced labor,1.1399985726738569e-11
+659,thirst,1.1399985726738569e-11
+660,1930s documents and artifacts (stills),1.1399985726738569e-11
+661,1940s documents and artifacts (stills),1.1399985726738569e-11
+662,prison escapes,1.1399985726738569e-11
+663,forced march brutal treatment,1.1399985726738569e-11
+664,Soviet armed forces,1.1399985726738569e-11
+665,physical hygiene maintenance,1.1399985726738569e-11
+666,female kapos,1.1399985726738569e-11
+667,camp corpse disposal,1.1399985726738569e-11
+668,camp showers,1.1399985726738567e-11
+669,childhood perceptions,1.1399985726738567e-11
+670,camp maintenance forced labor,1.1399985726738567e-11
+671,camp mass executions,1.1399985726738567e-11
+672,teeth extraction forced labor,1.1399985726738567e-11
+673,deportation from cities,1.1399985726738567e-11
+674,trains,1.1399985726738567e-11
+675,civilian aid givers,1.1399985726738567e-11
+676,politics,1.1399985726738567e-11
+677,Roma prisoner functionaries,1.1399985726738567e-11
+678,family life,1.1399985726738567e-11
+679,escapee capture,1.1399985726738567e-11
+680,bereavement-related psychological reactions,1.1399985726738567e-11
+681,burial sites (stills) ,1.1399985726738567e-11
+682,burnings,1.1399985726738567e-11
+683,rescue transports,1.1399985726738567e-11
+684,Jewish soldiers,1.1399985726738567e-11
+685,camp barracks (stills),1.1399985726738567e-11
+686,clothing,1.1399985726738567e-11
+687,camp brothels,1.1399985726738567e-11
+688,Slovak kapos,1.1399985726738567e-11
+689,female prisoners,1.1399985726738567e-11
+690,French prisoners,1.1399985726738567e-11
+691,Polish kapos,1.1399985726738567e-11
+692,famous Soviet military personnel,1.1399985726738567e-11
+693,escape discussions,1.1399985726738567e-11
+694,ghettos (stills),1.1399985726738567e-11
+695,ghetto experiences,1.1399985726738567e-11
+696,identity concealment,1.1399985726738564e-11
+697,Roma prisoners,1.1399985726738564e-11
+698,deportation awareness,1.1399985726738564e-11
+699,"Rumkowski, Chaim",1.1399985726738564e-11
+700,forced labor,1.1399985726738564e-11
+701,SS/SD personnel,1.1399985726738564e-11
+702,Italian armed forces,1.1399985726738564e-11
+703,suicide attempts,1.1399985726738564e-11
+704,camp education,1.1399985726738564e-11
+705,objects (stills) ,1.1399985726738564e-11
+706,famous musicians and composers,1.1399985726738564e-11
+707,sexual activities,1.1399985726738564e-11
+708,electrocutions,1.1399985726738564e-11
+709,homosexual kapos,1.1399985726738564e-11
+710,ghetto inhabitant physical condition,1.1399985726738564e-11
+711,civilian laborers,1.1399985726738564e-11
+712,beatings,1.1399985726738564e-11
+713,displaced persons camp experiences,1.1399985726738564e-11
+714,camp Jewish religious texts,1.1399985726738564e-11
+715,camp begging,1.1399985726738564e-11
+716,menstruation,1.1399985726738564e-11
+717,loved ones' introductions,1.1399985726738564e-11
+718,fascist political parties,1.1399985726738564e-11
+719,Ukrainian prisoners,1.1399985726738564e-11
+720,underground publications,1.1399985726738562e-11
+721,military fortification forced labor,1.1399985726738562e-11
+722,forced march clothing,1.1399985726738562e-11
+723,professional training,1.1399985726738562e-11
+724,selections,1.1399985726738562e-11
+725,camp smuggling,1.1399985726738562e-11
+726,cigarette importance,1.1399985726738562e-11
+727,camp food acquisition,1.1399985726738562e-11
+728,Czech kapos,1.1399985726738562e-11
+729,prisoner tattoo removal,1.1399985726738562e-11
+730,prisoners of war,1.1399985726738562e-11
+731,cultural activities,1.1399985726738562e-11
+732,persecuted group insignia,1.1399985726738562e-11
+733,transfer food acquisition,1.1399985726738562e-11
+734,ghetto procedures,1.1399985726738562e-11
+735,religious converts,1.1399985726738562e-11
+736,executions,1.1399985726738562e-11
+737,prison brutal treatment,1.1399985726738562e-11
+738,age deceptions,1.1399985726738562e-11
+739,Nazi Jewish holiday exploitation,1.1399985726738562e-11
+740,prisoner functionaries,1.1399985726738562e-11
+741,gas chambers,1.139998572673856e-11
+742,Polish resistance groups,1.139998572673856e-11
+743,religious identity,1.139998572673856e-11
+744,transfer corpses,1.139998572673856e-11
+745,French armed forces,1.139998572673856e-11
+746,early personal aspirations,1.139998572673856e-11
+747,camp crematoria,1.139998572673856e-11
+748,first impressions,1.139998572673856e-11
+749,censorship,1.139998572673856e-11
+750,political prisoner functionaries,1.139998572673856e-11
+751,1950s documents and artifacts (stills),1.139998572673856e-11
+752,Jewish prisoners,1.139998572673856e-11
+753,weddings (stills),1.139998572673856e-11
+754,Dutch prisoners,1.139998572673856e-11
+755,bombardments,1.139998572673856e-11
+756,trial participants,1.139998572673856e-11
+757,Christian religious texts,1.139998572673856e-11
+758,mothers,1.139998572673856e-11
+759,sports organizations,1.139998572673856e-11
+760,female camp personnel,1.139998572673856e-11
+761,famous Nazi medical personnel,1.139998572673856e-11
+762,camp medical experiments,1.139998572673856e-11
+763,Christmas,1.139998572673856e-11
+764,bystander responses,1.139998572673856e-11
+765,inter-Jewish relations,1.139998572673856e-11
+766,"famous film, theater, television, and radio personnel",1.139998572673856e-11
+767,bribery,1.139998572673856e-11
+768,hunger,1.139998572673856e-11
+769,camp liquidations,1.139998572673856e-11
+770,revenge acts,1.139998572673856e-11
+771,famous writers and publishers,1.139998572673856e-11
+772,Jewish life,1.1399985726738557e-11
+773,camp rumors,1.1399985726738557e-11
+774,military,1.1399985726738557e-11
+775,epidemics,1.1399985726738557e-11
+776,communist regime everyday life,1.1399985726738557e-11
+777,Russian prisoners,1.1399985726738557e-11
+778,concentration camps (stills),1.1399985726738557e-11
+779,male kapos,1.1399985726738557e-11
+780,Holocaust-related psychological reactions,1.1399985726738557e-11
+781,food acquisition,1.1399985726738557e-11
+782,resistance discussions,1.1399985726738557e-11
+783,Soviet concentration camps (generic),1.1399985726738556e-11
+784,sabotage,1.1399985726738556e-11
+785,medical experiments,1.1399985726738556e-11
+786,grandfathers,1.1399985726738556e-11
+787,deportation family interactions,1.1399985726738556e-11
+788,covert communications,1.1399985726738556e-11
+789,living conditions,1.1399985726738556e-11
+790,smuggling,1.1399985726738556e-11
+791,food sharing,1.1399985726738556e-11
+792,transfer killings,1.1399985726738556e-11
+793,forced march environmental conditions,1.1399985726738556e-11
+794,"Robota, Roza",1.1399985726738556e-11
+795,frostbite,1.1399985726738554e-11
+796,hangings,1.1399985726738554e-11
+797,1970s photographs (stills),1.1399985726738554e-11
+798,shootings,1.1399985726738554e-11
+799,construction forced labor,1.1399985726738554e-11
+800,mass execution coverups,1.1399985726738554e-11
+801,German kapos,1.1399985726738554e-11
+802,armament forced labor,1.1399985726738554e-11
+803,prisoner tattoos,1.1399985726738554e-11
+804,killings,1.1399985726738554e-11
+805,Italian prisoners,1.1399985726738551e-11
+806,education,1.1399985726738551e-11
+807,Ukrainian camp guards,1.1399985726738551e-11
+808,criminal kapos,1.1399985726738551e-11
+809,liberation,1.1399985726738551e-11
+810,I. G. Farben,1.1399985726738551e-11
+811,deportation from regions,1.1399985726738551e-11
+812,Jewish persecution bystander responses,1.1399985726738551e-11
+813,forced labor squads,1.1399985726738551e-11
+814,suicide decisions,1.1399985726738551e-11
+815,propaganda,1.1399985726738551e-11
+816,military operations,1.1399985726738551e-11
+817,transfer from prisons,1.139998572673855e-11
+818,eugenics policy awareness,1.139998572673855e-11
+819,"Zimetbaum, Mala",1.139998572673855e-11
+820,camp prisoner insignia,1.139998572673855e-11
+821,male homosexual prisoners,1.139998572673855e-11
+822,forced march liberation,1.139998572673855e-11
+823,criminal prisoners,1.1399985726738548e-11
+824,Hasidism,1.1399985726738548e-11
+825,collaborator treatment,1.1399985726738548e-11
+826,camp commandants,1.1399985726738548e-11
+827,infestations,1.1399985726738548e-11
+828,musical recitals,1.1399985726738548e-11
+829,lice,1.1399985726738548e-11
+830,looting,1.1399985726738548e-11
+831,friends,1.1399985726738548e-11
+832,eugenics measures,1.1399985726738548e-11
+833,Appell,1.1399985726738544e-11
+834,1940s photographs (stills),1.1399985726738544e-11
+835,escape attempts,1.1399985726738543e-11
+836,1960s photographs (stills),1.1399985726738543e-11
+837,camp experiences,1.1399985726738543e-11
+838,publications (stills),1.1399985726738543e-11
+839,inter-prisoner behavioral conduct,1.1399985726738543e-11
+840,forced march executions,1.1399985726738541e-11
+841,British armed forces,1.1399985726738541e-11
+842,Jewish religious objects,1.1399985726738541e-11
+843,ships,1.1399985726738538e-11
+844,temporary identity concealment,1.1399985726738538e-11
+845,Jewish identity,1.1399985726738538e-11
+846,post-liberation visits to sites of persecution (stills),1.1399985726738536e-11
+847,arrests,1.1399985726738536e-11
+848,humor,1.1399985726738536e-11
+849,transfer thirst,1.1399985726738535e-11
+850,camp daily services forced labor,1.1399985726738535e-11
+851,camp latrines,1.1399985726738535e-11
+852,prisoner tattoos (stills),1.1399985726738533e-11
+853,Soviet prisoners,1.139998572673853e-11
+854,camp bribery,1.1399985726738528e-11

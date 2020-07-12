@@ -17,7 +17,7 @@ from scipy.special import softmax
 
 from train_markov_model_on_labeled_segments import window,cg_transition_matrix,train_markov_chain,print_stationary_distributions
 
-
+stationary_probs = []
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
@@ -84,17 +84,17 @@ if __name__ == '__main__':
     IntCodeM = df_biodata[df_biodata.Gender=='M']['IntCode'].to_list()
     IntCodeW = df_biodata[df_biodata.Gender=='F']['IntCode'].to_list()
 
-    int_codes_list = IntCodeW+IntCodeM
+    int_codes_list = [IntCodeW+IntCodeM]
 
     for d,int_codes in enumerate(int_codes_list):
-        pdb.set_trace()
-        input_interviews = segment_df[segment_df.IntCode.isin(int_codes[0:10])]
+        
+        input_interviews = segment_df[segment_df.IntCode.isin(int_codes)]
         index=input_interviews.index.to_list()
-        data = np.take(data,index,axis=0)
-        (unique, counts) = np.unique(data,axis=0, return_counts=True)
+        input_matrix = np.take(data,index,axis=0)
+        (unique, counts) = np.unique(input_matrix,axis=0, return_counts=True)
         trajectories = []
 
-        for i,element in enumerate(data):
+        for i,element in enumerate(input_matrix):
             print (i)
             trajectory=np.where(np.all(unique==element,axis=1))[0][0]
             trajectories.append(trajectory)
@@ -107,18 +107,22 @@ if __name__ == '__main__':
       
         count_matrix = count_matrix +1e-12
         transition_matrix = (count_matrix / count_matrix.sum(axis=1,keepdims=1))
-        transition_matrix = transition_matrix +1e-12
         assert np.allclose(transition_matrix.sum(axis=1), 1)
         assert msmtools.analysis.is_transition_matrix(transition_matrix)
         assert is_connected(transition_matrix)
+
         binary_map = (unique / unique.sum(axis=1,keepdims=1))
         new_tra = cg_transition_matrix(transition_matrix,binary_map)
         new_tra[np.isnan(new_tra)] = 0
         new_tra = new_tra+1e-12
         new_tra= (new_tra / new_tra.sum(axis=1,keepdims=1))
+        #np.savetxt('transition_matrix', new_tra, fmt='%.8f')
+        pdb.set_trace()
         assert np.allclose(new_tra.sum(axis=1), 1)
         mm = train_markov_chain(new_tra)
         stationary_prob = print_stationary_distributions(mm,features_df.KeywordLabel.to_list())
+        stationary_probs.append(stationary_prob)
 
-        pd.DataFrame(stationary_prob).to_csv('stat_'+str(d)+'.csv')
+    pdb.set_trace()
+    pd.merge(pd.DataFrame(stationary_probs[0]),pd.DataFrame(stationary_probs[1]),on='topic_name',suffixes=['_woman','_man']).to_csv('stationary_probs.csv')
         
