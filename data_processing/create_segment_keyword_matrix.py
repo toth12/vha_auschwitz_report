@@ -45,7 +45,7 @@ if __name__ == '__main__':
 
     # Save the keywords that is used, this will be the feature index
     keywords.to_csv(output_directory + output_feature_index)
-    segment_keyword = df.groupby(['IntCode', 'SegmentID', 'SegmentNumber'])["KeywordID"].unique().to_frame(name="KeywordID").reset_index()
+    segment_keyword = df.groupby(['IntCode', 'SegmentID', 'SegmentNumber','KeywordLabel'])["KeywordID"].unique().to_frame(name="KeywordID").reset_index()
 
     # Create an empty np array that will hold this
     segment_keyword_matrix = np.zeros(shape=(len(segment_keyword),len(keywords)))

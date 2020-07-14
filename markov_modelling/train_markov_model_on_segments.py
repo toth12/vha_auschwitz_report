@@ -15,6 +15,7 @@ import itertools
 from msmtools.estimation import connected_sets,is_connected,largest_connected_submatrix
 from scipy.special import softmax
 
+
 from train_markov_model_on_labeled_segments import window,cg_transition_matrix,train_markov_chain,print_stationary_distributions
 
 stationary_probs = []
@@ -84,7 +85,7 @@ if __name__ == '__main__':
     IntCodeM = df_biodata[df_biodata.Gender=='M']['IntCode'].to_list()
     IntCodeW = df_biodata[df_biodata.Gender=='F']['IntCode'].to_list()
 
-    int_codes_list = [IntCodeW+IntCodeM]
+    int_codes_list = [IntCodeM]
 
     for d,int_codes in enumerate(int_codes_list):
         
@@ -116,8 +117,8 @@ if __name__ == '__main__':
         new_tra[np.isnan(new_tra)] = 0
         new_tra = new_tra+1e-12
         new_tra= (new_tra / new_tra.sum(axis=1,keepdims=1))
-        #np.savetxt('transition_matrix', new_tra, fmt='%.8f')
-        pdb.set_trace()
+        np.savetxt('transition_matrix'+str(d+1), new_tra, fmt='%.8f')
+
         assert np.allclose(new_tra.sum(axis=1), 1)
         mm = train_markov_chain(new_tra)
         stationary_prob = print_stationary_distributions(mm,features_df.KeywordLabel.to_list())

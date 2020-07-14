@@ -31,7 +31,7 @@ output_data_features = "data/output/features/"
 output_data_filtered_nodes = "data/output/filtered_nodes/"
 output_data_topic_sequences= output_data+'topic_sequencing/'
 output_data_topic_sequence_preprocessed= output_data+'topic_sequences_preprocessed/'
-
+output_data_markov_modelling= output_data+'markov_modelling/'
 # Output files
 
 

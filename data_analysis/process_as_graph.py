@@ -4,19 +4,24 @@ import pandas as pd
 import pdb
 import numpy as np
 import constants
+import markov_clustering as mc
 
-input_directory = constants.input_data
+
+input_directory = constants.output_data_segment_keyword_matrix
 data = np.loadtxt('transition_matrix.txt')
-your_matrix = data[:-1].T@data[:-1]
+#your_matrix = data[:-1].T@data[:-1]
+your_matrix = data
 del data
 vcount = max(your_matrix.shape)
+your_matrix[your_matrix>0] = 1
 sources, targets = your_matrix.nonzero()
 
 nodes = pd.read_csv(input_directory+constants.output_segment_keyword_matrix_feature_index_100).KeywordLabel.tolist()
 edgelist = list(zip(sources.tolist(), targets.tolist()))
-g = igraph.Graph(vcount, edgelist,directed=False)
+g = igraph.Graph(vcount, edgelist, directed=True)
 #g = g.simplify(combine_edges='sum')
 g.vs['label'] = nodes
+g.es['weight'] = your_matrix[your_matrix.nonzero()]
 print (g.clusters().membership)
 pdb.set_trace()
 g.es['weight'] = your_matrix[your_matrix.nonzero()]

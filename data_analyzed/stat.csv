@@ -1,0 +1,856 @@
+,topic_name,stationary_prob,
+0,camp selections,0.076689606,1
+1,camp intake procedures,0.060926464,1.258724069
+2,camp living conditions,0.040897169,1.875181304
+3,mass murder awareness,0.031131855,2.463380537
+4,camp food,0.030110784,2.546914957
+5,camp adaptation methods,0.023298341,3.291633749
+6,loved ones' separations,0.022468463,3.413210974
+7,camp Appell,0.021958566,3.492468771
+8,camp first impressions,0.021911774,3.499926799
+9,camp forced labor,0.020423985,3.754879643
+10,camp housing conditions,0.018935772,4.049985656
+11,transfer from camps,0.018888302,4.060164029
+12,"Mengele, Josef",0.016771246,4.572683855
+13,transfer to camps,0.015094645,5.08058374
+14,camp family interactions,0.014110216,5.435041349
+15,loved ones' fates,0.013825236,5.547073865
+16,camp-related aid giving,0.013645718,5.620049195
+17,prisoner tattoos (stills),0.013273333,5.777720388
+18,extended family members,0.012831975,5.976445806
+19,camp social relations,0.01164566,6.585252014
+20,prisoner tattoos,0.010415177,7.363255283
+21,camp brutal treatment,0.010143358,7.560573523
+22,BlockÌ_lteste,0.009408985,8.150677906
+23,loved ones' final contacts,0.009065754,8.459263977
+24,camp sanitary conditions,0.008888628,8.627834328
+25,SS/SD personnel,0.008800443,8.714288891
+26,camp procedures,0.008753011,8.761511752
+27,camp clothing,0.008444801,9.081279906
+28,camp barracks,0.007327578,10.46588764
+29,deportation to camps,0.007317561,10.48021425
+30,Jewish prisoners,0.006655963,11.52194051
+31,camp punishments,0.006643861,11.54292801
+32,camp-related psychological reactions,0.006599003,11.62139284
+33,beatings,0.006354744,12.06808764
+34,camp prisoner physical conditions,0.005743367,13.3527256
+35,camp diseases,0.00496953,15.43196289
+36,camp food acquisition,0.00494199,15.5179592
+37,transfer procedures,0.004920807,15.58476357
+38,camp crematoria,0.00487772,15.7224275
+39,camp children,0.004835904,15.85838159
+40,survival explanations,0.004739668,16.18037343
+41,"transfers, means of transport",0.004730619,16.21132608
+42,freight trains,0.004635838,16.54277011
+43,Roma prisoners,0.004601947,16.66459834
+44,politico-military event awareness,0.004227786,18.13942288
+45,loved ones' renewed contacts,0.004116074,18.63173752
+46,preferential treatment,0.004114781,18.63759045
+47,kapos,0.00401887,19.08238114
+48,camp hiding and evasion,0.003962652,19.35310327
+49,female prisoners,0.003772888,20.32649772
+50,camp shoes,0.003461922,22.15232321
+51,camp humiliation,0.003447703,22.24368039
+52,prisoner external contact,0.003399688,22.55783614
+53,forced marches,0.003320154,23.09820694
+54,camp environmental conditions,0.003306166,23.19593013
+55,camp corpses,0.003260668,23.51960266
+56,camp daily services forced labor,0.003235159,23.70504805
+57,sisters,0.003169596,24.19538682
+58,camp childbearing,0.003156154,24.29843499
+59,sustenance provision,0.003126076,24.53222723
+60,camp killings,0.003067391,25.00157107
+61,camp populations,0.003034889,25.26932677
+62,camp showers,0.003029736,25.31230938
+63,camp latrines,0.003006618,25.50693734
+64,camp hospitals,0.002992209,25.62976514
+65,transfer conditions,0.002952426,25.9751172
+66,camp medical care,0.002931981,26.15624233
+67,camp uniforms,0.002929278,26.18038173
+68,camp food sharing,0.002914798,26.31043615
+69,friends,0.00359044,21.35938981
+70,Holocaust-related psychological reactions,0.002835231,27.04880153
+71,camp medical experiments,0.002775237,27.63353076
+72,Jewish kapos,0.002751869,27.86819424
+73,camp menstruation,0.002740452,27.98429512
+74,warnings,0.002733794,28.05244349
+75,Polish prisoners,0.00269964,28.40734469
+76,camp suicides,0.002642095,29.026056
+77,food additives,0.002593536,29.56952059
+78,camp orchestras,0.002520949,30.42092963
+79,camp hunger,0.002513204,30.51467311
+80,camp deaths,0.002502108,30.6499972
+81,prisoners,0.002440909,31.41845726
+82,camp Jewish religious observances,0.00241429,31.76486384
+83,perpetrator deceptions,0.002399321,31.96304804
+84,loved ones' contacts,0.002388947,32.10183924
+85,camp personal property seizure,0.002365382,32.42165199
+86,personal property sorting forced labor,0.002347478,32.66892809
+87,Jewish prisoner functionaries,0.002293533,33.43731867
+88,camp executions,0.002239452,34.24480709
+89,forced march conditions,0.00220982,34.7039985
+90,camp stealing,0.002160459,35.49690236
+91,camp cultural activities,0.002118804,36.19476106
+92,Holocaust faith issues,0.002084373,36.79264733
+93,forced labor conditions,0.002079978,36.87039193
+94,perpetrator liberator-approach responses,0.002076438,36.93324524
+95,post-World War II reflections,0.00205017,37.40646837
+96,German concentration camps (generic),0.002041922,37.55756122
+97,twins in the camps,0.001998108,38.38110765
+98,camp barter,0.001943251,39.46458417
+99,camp quarantines,0.001936556,39.60102432
+100,prisoner functionaries,0.001870102,41.00823691
+101,camp rumors,0.001835372,41.78423755
+102,German soldiers,0.001823549,42.05514229
+103,Hungarian prisoners,0.001816708,42.2135117
+104,bombardments,0.001804764,42.49286271
+105,camp corpse cremations,0.001742602,44.00867541
+106,German camp guards,0.001715815,44.69572944
+107,gas chambers,0.001706438,44.9413384
+108,camp covert communications,0.001679316,45.66717782
+109,camp mass executions,0.001635794,46.88218553
+110,death marches,0.001625441,47.18080218
+111,female kapos,0.001611121,47.60014059
+112,camp covert activities,0.001584316,48.4054867
+113,camp prisoner marking,0.001529329,50.14592334
+114,camp injuries,0.001474005,52.02804065
+115,Sonderkommando prisoners,0.001473649,52.04060769
+116,deportation from ghettos,0.001448059,52.96026082
+117,deportation awareness,0.001439828,53.26302517
+118,camp thirst,0.001435318,53.43037818
+119,age deceptions,0.001402062,54.69773806
+120,German camp personnel,0.001393435,55.03635169
+121,camp liberation,0.001390276,55.16141359
+122,Polish kapos,0.001278399,59.98879169
+123,camp Jewish prayers,0.001271984,60.29132274
+124,camp prisoner insignia,0.001269055,60.43048064
+125,Soviet soldiers,0.001242323,61.73078712
+126,hangings,0.001195879,64.12820983
+127,post-conflict persecution site visits,0.001181315,64.91881966
+128,"Grese, Irma",0.00117267,65.3974574
+129,brothers,0.001158945,66.17193314
+130,bereavement-related psychological reactions,0.001158503,66.19715688
+131,tracing loved ones,0.001141174,67.20236223
+132,LagerÌ_lteste,0.001119338,68.51334708
+133,attitudes,0.001117762,68.60997771
+134,deportation conditions,0.001110743,69.04349716
+135,camp time awareness,0.001106662,69.29815184
+136,future message,0.001095762,69.98745721
+137,quarry forced labor,0.001089056,70.41839985
+138,hiding valuables,0.001035576,74.05501905
+139,transfer preparations,0.001031969,74.31383965
+140,human soap rumors,0.000999519,76.72653311
+141,armament forced labor,0.000995332,77.04926258
+142,prisoner doctors,0.000984808,77.87267258
+143,Yom Kippur,0.000980274,78.23284574
+144,male prisoners,0.000960967,79.80461598
+145,corpse disposal forced labor,0.000910132,84.26210327
+146,loved ones' deaths,0.000889638,86.20317512
+147,"deportations, means of transport",0.00087512,87.63328689
+148,German kapos,0.000862131,88.95357983
+149,Jewish persecution bystander responses,0.00085838,89.34227156
+150,camp resistance,0.000856913,89.49525486
+151,Greek prisoners,0.000853833,89.81799723
+152,StubenÌ_lteste,0.000822315,93.26066174
+153,shootings,0.000815993,93.98316789
+154,forced correspondence,0.000813326,94.29129286
+155,post-liberation camp/ghetto transition,0.000808338,94.87322567
+156,loved ones' togetherness decisions,0.000803974,95.38820347
+157,health deceptions,0.000803265,95.47234969
+158,female prisoner functionaries,0.000802102,95.61073975
+159,camp personnel,0.00080047,95.80568002
+160,trains,0.000795977,96.34644998
+161,Polish prisoner functionaries,0.0007949,96.47704983
+162,camp guards,0.000782102,98.05582262
+163,aborted killings,0.000761952,100.6488175
+164,musical recitals,0.00075689,101.3220091
+165,Czechoslovak prisoners,0.000752257,101.9460756
+166,clothing provision,0.000749289,102.3498814
+167,prisoner identification numbers,0.000748217,102.496496
+168,camp liquidations,0.000742008,103.3541752
+169,female camp guards,0.000733857,104.5020533
+170,factory forced labor,0.000728051,105.3354968
+171,child killings,0.000727734,105.3814147
+172,textiles and garment forced labor,0.000727326,105.4404557
+173,friendships,0.000709795,108.0447216
+174,French prisoners,0.00070121,109.367513
+175,loved ones' introductions,0.000697788,109.9039182
+176,trauma-related dreams,0.000697384,109.9675558
+177,camp maintenance forced labor,0.000676879,113.2988897
+178,Czech prisoners,0.000674825,113.6437453
+179,agricultural forced labor,0.000674224,113.744943
+180,transfer food,0.000672645,114.0120376
+181,forced labor activities,0.000667862,114.8284904
+182,camp doctors,0.000665594,115.2197134
+183,Slovak prisoners,0.000661459,115.9400406
+184,psychological distress prevention,0.000650716,117.8542399
+185,aid giving,0.00063808,120.1880847
+186,Soviet armed forces,0.000633787,121.0021493
+187,camp blood extraction,0.000628551,122.0102147
+188,deportation experiences,0.000622726,123.1514829
+189,famous SS (Schutzstaffel) personnel,0.000622009,123.2933371
+190,camp corpse disposal,0.000618512,123.9904685
+191,interviewee memory,0.000617239,124.2461685
+192,metaphysical experiences,0.000607877,126.1597371
+193,post-conflict medical problems,0.0006043,126.9065251
+194,attitudes toward prisoner functionaries,0.000593179,129.2858625
+195,construction forced labor,0.000591487,129.6555489
+196,hiding (aid giving),0.000557446,137.5732162
+197,Slovak prisoner functionaries,0.000552474,138.8111423
+198,helplessness,0.000551479,139.0617515
+199,survivor guilt,0.000546971,140.2077422
+200,forced march killings,0.000544352,140.8824591
+201,lice,0.000541236,141.693365
+202,typhus,0.000536852,142.8506168
+203,self-preservation acts,0.000531603,144.2610591
+204,dog attacks,0.000531349,144.3301232
+205,attitudes toward Germany and/or Germans,0.000523451,146.507744
+206,testimony-sharing motivations,0.000522701,146.7179872
+207,childhood perceptions,0.000519511,147.6187209
+208,medical care provision,0.000514011,149.1984553
+209,occupation deceptions,0.000508655,150.7692836
+210,political prisoners,0.000495811,154.6749309
+211,camp infestations,0.000491121,156.1523209
+212,language skills,0.000490109,156.474649
+213,camp escapes,0.000486963,157.4853941
+214,personal services forced labor,0.000465285,164.8229429
+215,post-conflict return journeys,0.000464596,165.0671853
+216,grandmothers,0.000464405,165.1350107
+217,female camp personnel,0.000456646,167.9412212
+218,post-conflict adaptation,0.000453745,169.0148157
+219,suicide discussions,0.000443022,173.1055074
+220,transfer experiences,0.000439658,174.4302988
+221,adaptation methods,0.000437954,175.1086744
+222,transfer guards,0.000436137,175.8383899
+223,liberation,0.00043439,176.5456567
+224,platform forced labor,0.000433394,176.9512796
+225,emotions,0.000425062,180.4197835
+226,forced march escapes,0.000420967,182.174904
+227,interviewee photographs (stills),0.000420474,182.3885462
+228,camp sexual activities,0.00041777,183.5687866
+229,criminal kapos,0.000414625,184.9615251
+230,Jewish identity,0.000407784,188.0642187
+231,International Red Cross,0.00039469,194.3032422
+232,camp escape attempts,0.000389962,196.6591921
+233,post-World War II photographs (stills),0.000388266,197.5181079
+234,camp smuggling,0.000385327,199.0247003
+235,identity concealment,0.000380444,201.5790071
+236,forced march food,0.000380396,201.6048647
+237,camp suicide attempts,0.000379982,201.8241463
+238,military fortification forced labor,0.000374171,204.9589589
+239,shoe importance,0.000370772,206.8375599
+240,"Hirsch, Fredy",0.000370579,206.9451691
+241,Holocaust testimony sharing reluctance,0.000369554,207.5192565
+242,Slovak kapos,0.000369312,207.6552809
+243,eugenics policy awareness,0.000367214,208.841775
+244,electrocutions,0.000361177,212.3324871
+245,escape decisions,0.000360236,212.8873239
+246,forced march-related aid giving,0.000356565,215.0786467
+247,pre-World War II family photographs (stills),0.000355647,215.633908
+248,camp sexual assaults,0.000354596,216.2734644
+249,danger misconceptions,0.000353413,216.9973957
+250,diseases,0.000352789,217.3811634
+251,inter-Jewish relations,0.0003482,220.2460902
+252,non-Jewish prisoners,0.000343982,222.9466621
+253,Jewish religious holidays,0.000342853,223.6807336
+254,Dutch prisoners,0.00034076,225.054308
+255,Jewish holiday awareness,0.00034073,225.0741127
+256,forced march adaptation methods,0.000340383,225.3039539
+257,forced march routes,0.000340259,225.3857559
+258,medical forced labor,0.000335591,228.521381
+259,Jewish persecution awareness,0.000334696,229.1322335
+260,forced march environmental conditions,0.000331557,231.3010941
+261,concentration camps (stills),0.000330755,231.8621893
+262,body searches,0.000328129,233.7179508
+263,family members,0.000327746,233.9910219
+264,decisions,0.000325915,235.3052651
+265,Soviet prisoners of war,0.000322625,237.7052451
+266,family life,0.000321409,238.6047461
+267,suicide decisions,0.000319731,239.8566243
+268,Jewish religious observances,0.000319496,240.0329139
+269,forced march food acquisition,0.000318683,240.6452214
+270,transfer-related aid giving,0.000317729,241.3676227
+271,German prisoners,0.000317257,241.7269818
+272,siblings,0.000314732,243.6662979
+273,performing arts,0.000314706,243.686315
+274,transfer adaptation methods,0.000308265,248.7783885
+275,intergenerational genocide impact,0.000305253,251.2326802
+276,camp epidemics,0.000304742,251.654608
+277,camp prayers,0.000303944,252.31495
+278,forced march corpses,0.000301487,254.3714052
+279,Italian prisoners,0.000296246,258.8710489
+280,migration to countries,0.000295484,259.5391523
+281,road construction forced labor,0.00029453,260.3798729
+282,sabotage,0.000293105,261.6453642
+283,prisoners of war,0.000291598,262.9977131
+284,1940s photographs (stills),0.000284807,269.2690963
+285,waterway maintenance forced labor,0.000284769,269.3047807
+286,transfer deaths,0.000283119,270.8741487
+287,forced march experiences,0.000282821,271.1596789
+288,attitudes toward perpetrators,0.000277267,276.5909569
+289,post-conflict family home returns,0.000273633,280.2643684
+290,forced labor companies,0.00027353,280.3696642
+291,liberation physical condition,0.000271832,282.1210843
+292,selections,0.000267024,287.2010764
+293,escape discussions,0.000265028,289.3646145
+294,"Rumkowski, Chaim",0.000262881,291.7271388
+295,post-World War II documents and artifacts (stills),0.000261436,293.3400246
+296,Soviet prisoners,0.000260586,294.2971172
+297,Rosh Ha-Shana,0.000259514,295.5119533
+298,camp visitors,0.000258953,296.1530594
+299,passenger trains,0.000257362,297.9831172
+300,hospitals,0.000255661,299.9656564
+301,injuries (stills),0.00025193,304.4081356
+302,ghetto experiences,0.000251538,304.8832228
+303,Czech prisoner functionaries,0.000251265,305.2143545
+304,literary recitals,0.000249211,307.729272
+305,first impressions,0.000245337,312.5890927
+306,skilled forced labor,0.000243775,314.5913698
+307,forced march deaths,0.000243141,315.411772
+308,hiding,0.000238181,321.9800252
+309,camp bribery,0.000237984,322.246387
+310,resistance activities,0.000237723,322.6012803
+311,protected groups,0.000234019,327.707049
+312,United States armed forces,0.000232081,330.4439513
+313,deportation family interactions,0.00023173,330.9434133
+314,forced march guards,0.000230429,332.8128586
+315,Holocaust testimony sharing willingness,0.000229583,334.0389067
+316,forced labor squads,0.000229452,334.2287715
+317,civilian aid givers,0.000228815,335.1594882
+318,Nazi Jewish holiday exploitation,0.000227685,336.8233977
+319,Tisha be-Av,0.000225856,339.5509443
+320,smell,0.000225345,340.3212336
+321,transfer food acquisition,0.000224226,342.0194612
+322,trucks,0.00022299,343.9143888
+323,gassings,0.000221586,346.0942475
+324,antisemitism,0.000219907,348.7370695
+325,physical hygiene maintenance,0.000219496,349.3898214
+326,dwarf prisoners,0.000219251,349.7806184
+327,forced march shoes,0.000216289,354.5695631
+328,Roma kapos,0.000215554,355.778363
+329,working life,0.000213834,358.6415245
+330,mass execution coverups,0.000213726,358.8225171
+331,infanticide,0.000213714,358.8425737
+332,criminal prisoners,0.000212796,360.3901175
+333,deportation from cities,0.000211201,363.1112996
+334,transfer social relations,0.000210879,363.6664376
+335,shelter provision,0.000210604,364.1411113
+336,relationships,0.000209443,366.1599584
+337,German prisoner functionaries,0.000208555,367.7193293
+338,camp construction forced labor,0.000208437,367.9263064
+339,prisoner tattoo removal,0.000207624,369.3678784
+340,transfer corpses,0.000206896,370.6670309
+341,non-Jewish kapos,0.000206393,371.570172
+342,rabbis,0.00020583,372.5869185
+343,photographs (stills),0.000205741,372.7478519
+344,post-World War II family photographs (stills),0.000202689,378.3609823
+345,humor,0.00020194,379.764491
+346,fear,0.000201847,379.9396583
+347,soldiers,0.000201608,380.3901319
+348,transfer environmental conditions,0.000200573,382.3524461
+349,migration experiences,0.000200405,382.672523
+350,"Perl, Gisella",0.000197679,387.9493971
+351,post-liberation deaths,0.0001955,392.2749236
+352,railroad forced labor,0.000195035,393.2093083
+353,camp site destruction forced labor,0.000192909,397.543462
+354,survivor reunions,0.000192388,398.6196499
+355,early personal aspirations,0.000191619,400.2199945
+356,camp and prison artifacts (stills),0.000190358,402.8704688
+357,forestry forced labor,0.00018904,405.6794399
+358,camp Jewish religious objects,0.00018899,405.7864799
+359,Jewish dietary laws,0.000186601,410.9825186
+360,sexual assault fears,0.000186084,412.1230818
+361,mining forced labor,0.000185976,412.3619374
+362,awareness,0.000185681,413.0184675
+363,transfer thirst,0.00018568,413.0199738
+364,forced march liberation,0.000185472,413.482711
+365,camp betrayals,0.000185211,414.0668632
+366,forced march physical condition,0.000184691,415.2318053
+367,Czechoslovak kapos,0.000184275,416.1695827
+368,mothers,0.000184056,416.6656574
+369,dysentery,0.0001832,418.6121765
+370,World War II documents and artifacts (stills),0.0001816,422.2985737
+371,camp commandants,0.000180063,425.9047459
+372,German (language),0.000179526,427.1773723
+373,Russian prisoners,0.00017877,428.9836585
+374,ghetto living conditions,0.000178351,429.9936967
+375,1990s photographs (stills),0.000178293,430.1332968
+376,1940s documents and artifacts (stills),0.000176781,433.8102488
+377,revenge acts,0.000175152,437.8466409
+378,corpses,0.000174126,440.4248589
+379,Roma prisoner functionaries,0.000170954,448.5988045
+380,housing conditions,0.000170495,449.8044831
+381,transfer family interactions,0.000170055,450.9699535
+382,evasion,0.000168605,454.8480187
+383,temporary identity concealment,0.000168382,455.4501172
+384,food acquisition,0.000167593,457.5933461
+385,arts-related forced labor,0.000167248,458.538204
+386,Czech kapos,0.000166278,461.2123308
+387,"Eichmann, Adolf",0.00016528,463.9994032
+388,mass execution survival,0.000164567,466.0080471
+389,transfer physical condition,0.00016438,466.5388852
+390,famous musicians and composers,0.000163983,467.6688451
+391,food,0.000163724,468.4084681
+392,medical care,0.00016244,472.1093934
+393,deportation sanitary conditions,0.000162168,472.903344
+394,LagerfÌ_hrer,0.000160372,478.1985566
+395,transfer sanitary conditions,0.000159774,479.9885918
+396,migration from countries,0.000158721,483.1721298
+397,prisoner medical personnel,0.000156927,488.695086
+398,forced march family interactions,0.000155879,491.9812131
+399,famous camp personnel,0.000155593,492.8856847
+400,World War II-era photographs (stills),0.00015462,495.9867123
+401,creative works,0.000154314,496.9709843
+402,police and security forces,0.000153392,499.9582642
+403,transfer escapes,0.000152883,501.6220655
+404,cultural activities,0.000152797,501.9064178
+405,food sharing,0.00015265,502.3891324
+406,interrogations,0.000152625,502.4692416
+407,roundups,0.000152616,502.500261
+408,fine arts (stills),0.000152544,502.7390956
+409,escapee capture,0.000152252,503.701448
+410,camp Jewish religious texts,0.000150924,508.1332043
+411,camp malnutrition,0.000150425,509.8179088
+412,prisoner hair cutting forced labor,0.000149782,512.0094404
+413,Panstwowe Muzeum Auschwitz-Birkenau,0.000148728,515.6353057
+414,attitudes toward Poland and/or Poles,0.000148494,516.4505861
+415,camp covert economic activities,0.000148101,517.8202274
+416,"Zimetbaum, Mala",0.000147713,519.1785683
+417,interviewee original works,0.000145962,525.4064275
+418,property seizure,0.000144285,531.5146521
+419,Gestapo personnel,0.000144146,532.0274241
+420,brutal treatment,0.000139931,548.0546676
+421,living conditions,0.000139458,549.9108665
+422,resistance discussions,0.000139452,549.9345603
+423,hunger,0.000138892,552.1522079
+424,deportation routes,0.00013848,553.794374
+425,United States soldiers,0.000137913,556.0734869
+426,camp abortions,0.00013739,558.1894179
+427,child deaths,0.000137346,558.3667004
+428,wartime family interactions,0.000136225,562.9648561
+429,secretarial forced labor,0.000135573,565.6711064
+430,liberation-related aid giving,0.000135328,566.695289
+431,Romanian prisoners,0.000135306,566.7871211
+432,survival,0.000135068,567.786376
+433,cigarette importance,0.000135061,567.8138411
+434,food and eating,0.000133381,574.9661808
+435,typhoid fever,0.000133009,576.5737452
+436,restitution,0.000132996,576.6316763
+437,farms,0.000132915,576.9830429
+438,German armed forces,0.000131706,582.278015
+439,Polish civilian laborers,0.000131448,583.4201094
+440,Shabbat,0.00013121,584.4792687
+441,camp sterilization medical experiments,0.000130228,588.885954
+442,Allied armed forces,0.000129624,591.6298843
+443,psychological reactions,0.000129297,593.129282
+444,writing,0.000128357,597.4712065
+445,forced march executions,0.000127233,602.7486115
+446,Holocaust education,0.000126545,606.025168
+447,famous writers and publishers,0.000125383,611.6405445
+448,Jewish prayers,0.000125047,613.2850749
+449,frostbite,0.000124624,615.3689416
+450,military service,0.00012448,616.0802681
+451,physical condition,0.000124135,617.7897203
+452,ghetto procedures,0.000123951,618.7107033
+453,deportation procedures,0.000121642,630.4524081
+454,family photographs (stills) ,0.000121387,631.7774862
+455,escape attempts,0.00011925,643.099731
+456,homosexual kapos,0.000118935,644.8024953
+457,games,0.000117243,654.1083409
+458,suicide attempts,0.000115951,661.396386
+459,criminal prisoner functionaries,0.000115064,666.494531
+460,teeth extraction forced labor,0.000114922,667.3181178
+461,burnings,0.000114409,670.3123006
+462,Ukrainian prisoners,0.000114277,671.0829249
+463,Hungarian kapos,0.000112997,678.6865515
+464,deportation deaths,0.000112193,683.5497854
+465,political prisoner kapos,0.00011162,687.0591351
+466,German forced labor civilian supervisors,0.000111195,689.6833237
+467,propaganda,0.000111046,690.6108075
+468,thirst,0.000111033,690.6911761
+469,killings,0.000110704,692.7427533
+470,war crimes trials,0.00011054,693.7711422
+471,publications (stills),0.000110185,696.0076791
+472,forced labor personnel,0.000108099,709.4396275
+473,camp brothels,0.000106805,718.0312429
+474,inter-prisoner behavioral conduct,0.000106397,720.7903963
+475,migration from Poland,0.000105774,725.0355147
+476,documents and artifacts (stills),0.000104232,735.7579481
+477,hiding places,0.000104124,736.522833
+478,1930s photographs (stills),0.000103205,743.0809008
+479,weddings (stills),0.000102928,745.0766225
+480,humiliation,0.000102844,745.6874448
+481,betrayals,0.000102336,749.3907404
+482,injuries,0.00010233,749.4365816
+483,forced labor civilian supervisors,0.000100332,764.3578449
+484,post-liberation visits to sites of persecution (stills),9.99E-05,767.8500196
+485,forced labor,9.94E-05,771.3402458
+486,"Robota, Roza",9.68E-05,791.8900915
+487,attitudes toward Allied and/or neutral nations,9.49E-05,808.1614761
+488,male kapos,9.45E-05,811.3609524
+489,social relations,9.22E-05,831.8266805
+490,post-conflict encounters,9.13E-05,839.8605284
+491,places (stills) ,9.12E-05,840.8310122
+492,rescue,9.09E-05,843.2860706
+493,forced march stealing,9.09E-05,843.621898
+494,employment assistance,9.07E-05,845.7111532
+495,childbearing,9.03E-05,849.6540581
+496,memorials and museums,9.00E-05,851.9502348
+497,male homosexual prisoners,8.99E-05,852.8388332
+498,coerced sexual activities,8.94E-05,858.2521132
+499,denial,8.83E-05,868.3380884
+500,Belgian prisoners,8.65E-05,886.4301524
+501,resistance fighters,8.63E-05,889.0547317
+502,clothing,8.63E-05,889.1410235
+503,commemoration,8.59E-05,892.8972132
+504,Christmas,8.50E-05,902.574165
+505,transfer to ghettos,8.44E-05,908.4077808
+506,deportation food,8.20E-05,935.3465472
+507,camp begging,8.12E-05,944.0160224
+508,Jewish religious objects,8.07E-05,950.7688074
+509,grandparents,7.99E-05,960.2968284
+510,forced march clothing,7.90E-05,971.2926882
+511,civilian laborers,7.89E-05,972.0421481
+512,non-violent resistance,7.78E-05,985.5535801
+513,famous French politicians and diplomats,7.75E-05,989.9570817
+514,black market activities,7.67E-05,999.8654441
+515,mass graves,7.59E-05,1010.006047
+516,economics,7.55E-05,1015.120824
+517,World War II family photographs (stills),7.50E-05,1021.915672
+518,post-conflict,7.49E-05,1023.988486
+519,escape preparations,7.49E-05,1024.031239
+520,Ukrainian camp guards,7.49E-05,1024.064728
+521,1980s photographs (stills),7.48E-05,1025.289418
+522,famous Nazi medical personnel,7.44E-05,1030.811033
+523,post-conflict recovery,7.30E-05,1051.143227
+524,Jewish soldiers,7.28E-05,1052.999749
+525,refugee camp experiences,7.28E-05,1053.038696
+526,Yiddish (language),7.27E-05,1054.557358
+527,punishments,7.23E-05,1060.638946
+528,grandfathers,7.20E-05,1065.786332
+529,physical health,7.17E-05,1069.915489
+530,camp education,7.10E-05,1079.876586
+531,aid giving activities,7.08E-05,1083.7645
+532,post-conflict return visits,7.02E-05,1091.719122
+533,menstruation,6.97E-05,1099.901665
+534,famous aid givers,6.95E-05,1103.264319
+535,people (stills) ,6.91E-05,1109.7265
+536,camp barracks (stills),6.90E-05,1112.130797
+537,aid recipients,6.88E-05,1113.950006
+538,medical experiments,6.81E-05,1126.70298
+539,clothing (stills),6.79E-05,1128.636359
+540,British prisoners of war,6.76E-05,1134.872755
+541,Jewish religious beliefs,6.76E-05,1135.077853
+542,"""Mischlinge""",6.71E-05,1142.180464
+543,executions and killings,6.71E-05,1142.195623
+544,mass executions,6.64E-05,1155.425241
+545,forced march brutal treatment,6.51E-05,1178.367723
+546,objects (stills) ,6.46E-05,1187.648352
+547,ghetto food,6.46E-05,1187.914045
+548,educators,6.39E-05,1199.770951
+549,air raid cleanup forced labor,6.39E-05,1200.034736
+550,famous forced labor factory managers,6.38E-05,1201.525818
+551,sexual activities,6.34E-05,1209.251168
+552,flight,6.20E-05,1237.34883
+553,transfer killings,6.18E-05,1241.226951
+554,violent attacks,6.08E-05,1260.558553
+555,physical sensations,6.04E-05,1269.009745
+556,rumors,5.95E-05,1289.569298
+557,Allied military operations,5.94E-05,1291.143747
+558,migration policies,5.94E-05,1291.143924
+559,armed forces,5.93E-05,1293.845422
+560,Passover,5.92E-05,1295.199745
+561,military,5.91E-05,1296.750737
+562,displaced persons camps (generic),5.81E-05,1319.782437
+563,identity,5.68E-05,1349.789266
+564,Nazi organizations,5.68E-05,1349.818674
+565,personal papers (stills) ,5.67E-05,1352.285132
+566,anti-Jewish measures,5.59E-05,1371.152101
+567,sanitary conditions,5.55E-05,1381.234615
+568,stealing,5.48E-05,1400.618287
+569,discussions,5.47E-05,1400.738613
+570,businesses,5.46E-05,1403.969724
+571,family occupations,5.40E-05,1420.777815
+572,executions,5.37E-05,1427.670258
+573,culture,5.35E-05,1434.30097
+574,Austrian kapos,5.29E-05,1448.530131
+575,escape assistance,5.19E-05,1477.369198
+576,refugee experiences,5.09E-05,1507.328113
+577,bystander responses,5.04E-05,1522.83395
+578,sexual assaults,5.01E-05,1530.430253
+579,prison experiences,5.01E-05,1530.631673
+580,languages,4.97E-05,1541.772567
+581,translation forced labor,4.92E-05,1559.253984
+582,transfer brutal treatment,4.82E-05,1591.575328
+583,famous Zionist leaders,4.78E-05,1605.255627
+584,contact,4.77E-05,1608.871078
+585,environmental conditions,4.76E-05,1611.38074
+586,camp experiences,4.74E-05,1617.706104
+587,vocational training,4.65E-05,1649.740652
+588,covert movement,4.55E-05,1684.852964
+589,mistreatment and death,4.43E-05,1731.584526
+590,Christian clergy and monastics,4.39E-05,1746.746241
+591,Austrian prisoners,4.35E-05,1761.517957
+592,ghetto liquidations,4.28E-05,1793.076028
+593,forced labor battalion experiences,4.22E-05,1815.35935
+594,famous prisoner medical personnel,4.18E-05,1833.141895
+595,identification papers,4.13E-05,1855.804915
+596,famous camp escapees,4.13E-05,1855.990378
+597,time awareness,4.11E-05,1866.770393
+598,moving image footage,4.01E-05,1911.665658
+599,personal preparations,3.99E-05,1923.816242
+600,military occupation conditions,3.93E-05,1953.675457
+601,fine arts,3.90E-05,1965.621252
+602,transfer from ghettos,3.90E-05,1966.688198
+603,children,3.87E-05,1979.610362
+604,military operations,3.87E-05,1979.663424
+605,ghetto personnel,3.87E-05,1979.736315
+606,media coverage,3.87E-05,1979.747097
+607,covert activities,3.84E-05,1998.636926
+608,1970s documents and artifacts (stills),3.80E-05,2019.451866
+609,resistance groups,3.80E-05,2020.070895
+610,ghetto adaptation methods,3.74E-05,2048.00625
+611,Fascist organization members,3.72E-05,2061.706157
+612,1950s photographs (stills),3.71E-05,2069.057948
+613,identity concealment (aid giving),3.68E-05,2082.48313
+614,trial participants,3.68E-05,2083.854479
+615,Jewish life,3.64E-05,2106.028054
+616,medical personnel,3.63E-05,2113.485168
+617,religious identity,3.62E-05,2120.734378
+618,schools,3.62E-05,2120.929656
+619,religious beliefs,3.62E-05,2121.026625
+620,barter,3.62E-05,2121.068832
+621,malaria,3.54E-05,2167.565221
+622,shoes,3.49E-05,2199.680602
+623,ships,3.44E-05,2231.271537
+624,social groups,3.44E-05,2232.575711
+625,killing techniques,3.42E-05,2241.050398
+626,arrests,3.41E-05,2249.56255
+627,original works,3.36E-05,2284.202112
+628,Appell,3.31E-05,2320.014539
+629,collaborator treatment,3.23E-05,2375.562205
+630,discriminatory measures,3.22E-05,2385.124502
+631,Jewish organizations,3.15E-05,2433.980155
+632,refugees,3.15E-05,2434.009349
+633,famous Jewish religious leaders,3.15E-05,2438.323415
+634,famous Jewish resistance fighters,3.14E-05,2440.583754
+635,political prisoner functionaries,3.12E-05,2454.148373
+636,post-conflict reunions,3.10E-05,2474.183659
+637,famous Czech politicians and diplomats,3.10E-05,2474.475413
+638,covert weapons procurement,3.10E-05,2474.514349
+639,ghetto covert activities,3.10E-05,2474.579643
+640,political ideologies,3.10E-05,2474.632482
+641,political activities,3.06E-05,2504.33081
+642,1910s photographs (stills),2.97E-05,2582.16642
+643,funerals,2.97E-05,2582.324387
+644,Siemens (firm),2.89E-05,2651.473578
+645,flight to countries,2.84E-05,2699.569944
+646,flight from countries,2.84E-05,2699.569944
+647,Jewish religious texts,2.84E-05,2699.621454
+648,means of transport,2.82E-05,2718.962641
+649,marriages,2.71E-05,2828.131192
+650,burial sites (stills) ,2.67E-05,2866.932099
+651,activities (stills) ,2.66E-05,2882.930565
+652,reunions (stills) ,2.63E-05,2910.771172
+653,refugee camps (generic) ,2.58E-05,2969.460079
+654,post-conflict relations,2.58E-05,2969.469308
+655,professional training,2.58E-05,2969.631562
+656,persecuted group insignia,2.58E-05,2969.76052
+657,escapes,2.51E-05,3061.205158
+658,German civilian laborers,2.49E-05,3077.154997
+659,military personnel,2.45E-05,3125.658269
+660,suicides,2.44E-05,3142.261893
+661,begging,2.39E-05,3210.25875
+662,Polish resistance groups,2.32E-05,3299.531729
+663,flight attempts,2.32E-05,3299.580052
+664,prison brutal treatment,2.32E-05,3301.020959
+665,population categories,2.24E-05,3430.1746
+666,ghetto brutal treatment,2.20E-05,3493.630092
+667,Hasidism,2.13E-05,3598.961148
+668,Hasidic rebbes,2.13E-05,3599.339043
+669,deaths,2.13E-05,3599.428923
+670,military units,2.12E-05,3621.194761
+671,transfer from prisons,2.08E-05,3685.628091
+672,family homes (stills),2.07E-05,3710.677411
+673,prisoner of war camps (generic),2.07E-05,3711.543223
+674,miscellaneous famous people,2.07E-05,3711.93032
+675,I. G. Farben,2.00E-05,3831.186366
+676,Jewish resistance groups,1.99E-05,3856.313069
+677,deportation to ghettos,1.95E-05,3924.599361
+678,trial procedures,1.94E-05,3958.890369
+679,famous Islamic religious leaders,1.94E-05,3959.469279
+680,camp religious observances,1.94E-05,3959.51358
+681,Christian religious observances,1.94E-05,3959.51358
+682,communist regime everyday life,1.94E-05,3959.558837
+683,resistance,1.91E-05,4012.826646
+684,covert communications,1.86E-05,4124.273562
+685,gay male sexual activities,1.86E-05,4124.321251
+686,Jews,1.86E-05,4124.447539
+687,famous Polish politicians and diplomats,1.81E-05,4241.628729
+688,Jewish ritual leaders and functionaries,1.81E-05,4243.464179
+689,currency (stills) ,1.68E-05,4567.877067
+690,British armed forces,1.68E-05,4568.45617
+691,looting,1.60E-05,4789.537574
+692,famous German Nazi politicians and diplomats,1.55E-05,4948.029572
+693,post-conflict searches,1.55E-05,4948.762963
+694,displaced persons camp experiences,1.55E-05,4948.864414
+695,communities,1.55E-05,4948.982393
+696,famous Gestapo personnel,1.55E-05,4949.038383
+697,famous Christian religious leaders,1.55E-05,4949.063512
+698,military uniforms,1.55E-05,4949.084489
+699,religion and philosophy,1.55E-05,4949.109813
+700,eugenics measures,1.55E-05,4949.140377
+701,education,1.55E-05,4949.141017
+702,prison living conditions,1.55E-05,4949.197084
+703,ghetto diseases,1.55E-05,4949.354413
+704,religious converts,1.55E-05,4949.362598
+705,Jehovah's Witness religious observances,1.55E-05,4949.428208
+706,paramilitary organizations,1.55E-05,4949.45357
+707,famous collaborators,1.55E-05,4949.4631
+708,survivor organizations,1.55E-05,4949.471851
+709,Zionism,1.55E-05,4949.733499
+710,ghetto deaths,1.47E-05,5209.6222
+711,Christian sites,1.29E-05,5939.004917
+712,correspondence (stills),1.29E-05,5939.214084
+713,captives,1.26E-05,6101.354993
+714,captivity,1.26E-05,6101.673409
+715,releases,1.25E-05,6114.163122
+716,infestations,1.20E-05,6385.796549
+717,discrimination responses,1.16E-05,6598.975579
+718,ghetto medical care,1.16E-05,6599.327219
+719,bribery,1.14E-05,6705.91633
+720,Jewish youth organizations,1.08E-05,7070.442021
+721,famous Jewish ghetto police,1.08E-05,7071.207732
+722,ghetto religious observances,1.08E-05,7126.953769
+723,prison procedures,1.01E-05,7614.240508
+724,1990s documents and artifacts (stills),9.96E-06,7698.310275
+725,ghetto prayers,9.47E-06,8098.840068
+726,Zionist organizations,9.19E-06,8348.080548
+727,1960s documents and artifacts (stills),9.04E-06,8481.258855
+728,discrimination,9.04E-06,8481.623582
+729,deportation from countries,9.04E-06,8484.072183
+730,protection,9.04E-06,8484.135878
+731,study,9.04E-06,8484.727677
+732,refugee nationals,8.26E-06,9279.428464
+733,religious sites (stills) ,8.26E-06,9279.542994
+734,Italian armed forces,8.26E-06,9279.69899
+735,religious objects (stills) ,7.75E-06,9897.791575
+736,religions,7.75E-06,9897.795731
+737,famous Israeli politicians and diplomats,7.75E-06,9898.073461
+738,Judaism,7.75E-06,9898.095177
+739,political police,7.75E-06,9898.237778
+740,judicial proceedings,7.75E-06,9898.301023
+741,prison guards,7.75E-06,9898.414251
+742,rescue transports,7.75E-06,9898.447067
+743,movement,7.75E-06,9898.447067
+744,deportation from regions,7.75E-06,9898.516993
+745,covert economic activities,7.75E-06,9898.547772
+746,deportation to cities,7.75E-06,9898.692698
+747,smuggling,7.75E-06,9898.76421
+748,government officials,7.75E-06,9898.78821
+749,anti-Roma prejudice,7.75E-06,9899.002595
+750,corpse cremations,7.75E-06,9899.005066
+751,ghetto corpses,7.75E-06,9899.005066
+752,Roma life,7.75E-06,9900.045095
+753,Christian religious holidays,7.74E-06,9903.032875
+754,Soviet concentration camps (generic),7.38E-06,10392.87578
+755,ghetto executions,7.10E-06,10797.72415
+756,JudenrÌ_te,6.89E-06,11134.95148
+757,corpse disposal,6.09E-06,12598.10733
+758,Zionist youth organizations,6.09E-06,12598.65806
+759,events (stills) ,5.81E-06,13195.19824
+760,famous ghetto personnel,5.31E-06,14434.86807
+761,Jewish schools,5.17E-06,14842.56355
+762,civil defense,5.17E-06,14846.71252
+763,aid organizations,5.17E-06,14847.07885
+764,quarantine,5.17E-06,14847.75472
+765,Czech resistance groups,5.17E-06,14847.78012
+766,1960s photographs (stills),5.16E-06,14847.95193
+767,prison covert activities,5.16E-06,14848.447
+768,ghetto guards,4.98E-06,15398.65685
+769,1980s documents and artifacts (stills),4.15E-06,18473.12136
+770,famous Hungarian politicians and diplomats,3.87E-06,19791.16464
+771,1930s documents and artifacts (stills),3.87E-06,19792.60458
+772,1970s photographs (stills),3.87E-06,19795.08845
+773,child survivor organizations,3.87E-06,19795.2642
+774,Jewish education,3.87E-06,19795.45186
+775,1920s photographs (stills),3.87E-06,19795.58169
+776,Christianity,3.87E-06,19796.18848
+777,famous Holocaust survivors,3.87E-06,19796.55075
+778,prayers,3.87E-06,19797.78127
+779,transfer to prisons,3.87E-06,19797.97045
+780,ghettoization,3.66E-06,20961.13778
+781,motivations,3.10E-06,24743.50739
+782,organizations (stills),3.10E-06,24743.58836
+783,sports organizations,3.10E-06,24743.58836
+784,famous Polish resistance fighters,3.10E-06,24746.39674
+785,guilt,3.10E-06,24746.55281
+786,forced labor squads (stills),3.10E-06,24747.85745
+787,scouting organizations,3.10E-06,24747.86163
+788,deceptions,3.10E-06,24748.43848
+789,army chaplains,2.58E-06,29682.01747
+790,RELATIONSHIPS,2.58E-06,29690.85917
+791,Nuremberg Trials (Germany)(generic),2.58E-06,29693.83034
+792,ghettos (stills),2.58E-06,29693.83034
+793,prisons,2.58E-06,29694.68536
+794,famous child care-givers,2.21E-06,34635.63419
+795,refugee organizations,2.21E-06,34636.23662
+796,malnutrition,2.21E-06,34637.35058
+797,prison inmate physical condition,2.21E-06,34637.35058
+798,prison adaptation methods,1.94E-06,39586.998
+799,ghetto inhabitant physical condition,1.72E-06,44534.51615
+800,epidemics,1.55E-06,49484.36743
+801,1950s documents and artifacts (stills),1.55E-06,49485.91086
+802,nationalist political parties,1.41E-06,54436.23152
+803,fascist political parties,1.41E-06,54436.23152
+804,Jewish sites,1.11E-06,69293.86996
+805,famous JudenrÌ_te members,2.12E-12,36102437451
+806,Holocaust- and tolerance education centers,2.12E-12,36102437451
+807,prison sanitary conditions,2.12E-12,36102437451
+808,migration attempts,2.12E-12,36102437451
+809,prison executions,2.12E-12,36102437451
+810,famous Nazi exposers,2.12E-12,36102437451
+811,military buildings and installations,2.12E-12,36102437451
+812,prison suicides,2.12E-12,36102437451
+813,prison escapes,2.12E-12,36102437451
+814,internment camps (generic),2.12E-12,36102437451
+815,Jewish cultures,2.12E-12,36102437451
+816,underground publications,2.12E-12,36102437451
+817,censorship,2.12E-12,36102437451
+818,prison food,2.12E-12,36102437451
+819,U.S. prisoners of war,2.12E-12,36102437451
+820,religious conversions,2.12E-12,36102437451
+821,Christian religious texts,2.12E-12,36102437451
+822,Soviet resistance groups,2.12E-12,36102437451
+823,deportation to prisons,2.12E-12,36102437451
+824,French armed forces,2.12E-12,36102437451
+825,famous United States politicians and diplomats,2.12E-12,36102437451
+826,famous Austrian politicians and diplomats,2.12E-12,36102437451
+827,camp religious objects,2.12E-12,36102437451
+828,ghetto facilities,2.12E-12,36102437451
+829,reflections,2.12E-12,36102437451
+830,post-conflict trials,2.12E-12,36102437451
+831,2010s documents and artifacts (stills) ,2.12E-12,36102437451
+832,famous United States military personnel,2.12E-12,36102437451
+833,"famous film, theater, television, and radio personnel",2.12E-12,36102437451
+834,war veterans,2.12E-12,36102437451
+835,movement (stills) ,2.12E-12,36102437451
+836,restricted housing,2.12E-12,36102437451
+837,deportation to countries,2.12E-12,36102437451
+838,national holidays and memorial days,2.12E-12,36102437451
+839,Polish armed forces,2.12E-12,36102437451
+840,ghetto suicides,2.12E-12,36102437451
+841,Jewish religious observances (stills),2.12E-12,36102437451
+842,ghetto escapes,2.12E-12,36102437451
+843,Sabbatarians,2.12E-12,36102437451
+844,famous Hungarian fascists,2.12E-12,36102437451
+845,refugee children transports,2.12E-12,36102437451
+846,transfer routes,2.12E-12,36102437451
+847,famous fine artists,2.12E-12,36102437451
+848,United Nations,2.12E-12,36102437451
+849,famous Soviet military personnel,2.12E-12,36102437451
+850,youth organizations,2.12E-12,36102437451
+851,famous war crimes trial participants,2.12E-12,36102437451
+852,politics,2.12E-12,36102437451
+853,anti-Jewish economic measures,2.12E-12,36102437451
+854,Armia Krajowa,2.12E-12,36102437451
