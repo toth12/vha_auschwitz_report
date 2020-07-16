@@ -56,6 +56,10 @@ def prepare_input_data(metadata_field):
             interview_codes_temp = df_biodata[df_biodata['CountryOfBirth']==el].IntCode.to_list()
             if len(interview_codes_to_filter)>1:
                 interview_codes_temp = [f for f in interview_codes_temp if f in interview_codes_to_filter]
+                if "_w" in metadata_field:
+                    el = el+'_w'
+                else:
+                    el = el+'_m'
             interview_codes.append(interview_codes_temp)
             metadata_field_names.append(el)
 
@@ -102,7 +106,7 @@ if __name__ == '__main__':
 
 
     metadata_fields = ['complete','complete_m','complete_w','CountryOfBirth','CountryOfBirth_m','CountryOfBirth_w','easy_w','easy_m','medium_m','medium_w','hard_m','hard_w',"notwork","notwork_m","notwork_w","work","work_m","work_w"]
-    
+    metadata_fields = ['CountryOfBirth','CountryOfBirth_w','CountryOfBirth_m']
     
 
     np.set_printoptions(suppress=True)
@@ -165,7 +169,7 @@ if __name__ == '__main__':
                 stationary_prob = print_stationary_distributions(mm,features_df.KeywordLabel.to_list())
                 pd.DataFrame(stationary_prob).to_csv(output_directory+metadata_field_names[f]+'/stationary_probs.csv')
                 mm.save(output_directory+metadata_field_names[f]+'/pyemma_model', 'simple',overwrite=True)
-
+                
                 document_index.to_csv(output_directory+metadata_field_names[f]+'/document_index.csv')
                 np.savetxt(output_directory+metadata_field_names[f]+'/transition_matrix.np', new_tra, fmt='%.8f')
            

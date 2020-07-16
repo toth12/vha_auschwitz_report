@@ -135,7 +135,7 @@ def calculate_flux(mm,topic_labels,source,target):
     tpt = msm.tpt(mm, A, B)
 
     nCut = 1
-    (bestpaths,bestpathfluxes) = tpt.pathways(fraction=0.3)
+    (bestpaths,bestpathfluxes) = tpt.pathways(fraction=0.9)
     cumflux = 0
 
     # Print the best path between the two states
