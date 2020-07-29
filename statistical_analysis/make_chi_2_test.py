@@ -10,6 +10,8 @@ from matplotlib.lines import Line2D
 from plotly import express as px
 import sys
 import scipy.stats as stats
+import plotly
+import plotly.figure_factory as ff
 
 
 
