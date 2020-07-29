@@ -9,6 +9,7 @@ from random import randint
 from matplotlib.lines import Line2D
 from plotly import express as px
 import sys
+import scipy.stats as stats
 
 
 
