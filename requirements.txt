@@ -10,3 +10,4 @@ seaborn==0.10.0
 pyEMMA==2.5.7
 plotly==4.6.0
 scikit_learn==0.23.1
+xlrd==1.2.0

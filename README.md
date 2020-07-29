@@ -117,7 +117,7 @@ Output:
 
 (todo:check if this is working and rewrite it then)
 
-This workflow makes a basic descriptive statistical analysis of the biodata and the segment data; results of this is written to data/output/report_statistical_analaysis folder. The output is plots (in the plots folder), tables (in the tables folder), and a written report (report.txt)
+This workflow makes a basic descriptive statistical analysis of the biodata and the segment data (entire data set); results of this is written to data/output/report_statistical_analaysis folder. The output is plots (in the plots folder), tables (in the tables folder), and a written report (report.txt)
 
 Run the following code from the main project folder (use python3):
 ```
