@@ -20,7 +20,7 @@ pip install -r requirements.txt
 3. Create the data directory (ignored by git) with the following command:
 
 ```
-mkdir -p data/{output/{chi2test,features,filtered_nodes,reports_statistical_analysis,topic_sequencing},input} 
+mkdir -p data/{output/{markov_modelling,reports_statistical_analysis,statistical_analysis,segment_keyword_matrix},input}
 ```
 (todo: update at the end)
 

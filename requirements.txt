@@ -10,3 +10,7 @@ seaborn==0.10.0
 pyEMMA==2.5.7
 plotly==4.6.0
 scikit_learn==0.23.1
+
+
+
+mkdir -p data/{output/{markov_modelling,reports_statistical_analysis,statistical_analysis,segment_keyword_matrix},input}

@@ -89,7 +89,7 @@ if __name__ == '__main__':
     input_files_term_hierarchy = constants.input_files_term_hierarchy
     output_file = constants.input_segments_with_simplified_keywords
 
-    with codecs.open(input_directory+input_files_term_hierarchy,encoding = "utf-8") as json_file:
+    with codecs.open(input_directory+input_files_term_hierarchy,encoding = "utf-8-sig") as json_file:
         treedict = json.load(json_file)
 
     input_files = constants.input_files_segments
