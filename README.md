@@ -91,8 +91,7 @@ Output:
 
 ### Create a segment-keyword matrix:
 
-Creates a segment-keyword matrix from the data pre-processed above; rows are the segments and columns are keywords. If a segment has been annotated with a given keyword, the script sets the corresponding column to one, otherwise it remains 0. This matrix is therefore a binary matrix. The scripts also creates a keyword index and a segment index in a csv file. Finally, the script eliminates those features that occur in less than 100 interviews.
-
+Creates a segment-keyword matrix from the data pre-processed above; rows are the segments and columns are keywords. If a segment has been annotated with a given keyword, the script sets the corresponding column to one, otherwise it remains 0. This matrix is therefore a binary matrix. The scripts also creates a keyword index and a segment index in a csv file. 
 ```
 python data_processing/create_segment_keyword_matrix.py
 ```
@@ -156,11 +155,13 @@ Output data:
 
 ## Markov Chain analysis of the data set:
 
-First, partitions the segment-keyword matrix into subsets based on the metadata. For instance, it creates a segment keyword matrix that contains segments only by women survivors of Birkenau (the new document index is saved). Next, it finds all unique topic word combinations (named higher level topic in the paper), which will be the states in the first Markov State model; it creates a null count matrix with the topic combinations as rows and columns. After this it creates a trajectory list, i.e. list of 'higher level topics' that follow each other. It iterates through the reshaped segment-keyword matrix, detects the corresponding topic combination, and appends it to the trajectory list. Next, each pair of topic combinations is identified, and the previously created null count matrix is updated accordingly. Following this step, the count matrix is transformed into a transition matrix, again higher level topics as rows and columns. With a technique of fuzzy markov chain, the transition matrix with higher level topics is transformed into a new transiton matrix with the original topic words. Finally, this is used to train the final Markov State Model. Also calculates the stationary probabilities of different topic words.
-
 ```
 python markov_modelling/train_markov_model.py
 ```
+
+First, partitions the segment-keyword matrix into subsets based on the metadata. For instance, it creates a segment keyword matrix that contains segments only by women survivors of Birkenau (the new document index is saved). Next, it finds all unique topic word combinations (named higher level topic in the paper), which will be the states in the first Markov State model; it creates a null count matrix with the topic combinations as rows and columns. After this it creates a trajectory list, i.e. list of 'higher level topics' that follow each other. It iterates through the reshaped segment-keyword matrix, detects the corresponding topic combination, and appends it to the trajectory list. Next, each pair of topic combinations is identified, and the previously created null count matrix is updated accordingly. Following this step, the count matrix is transformed into a transition matrix, again higher level topics as rows and columns. With a technique of fuzzy markov chain, the transition matrix with higher level topics is transformed into a new transiton matrix with the original topic words. Finally, this is used to train the final Markov State Model. Also calculates the stationary probabilities of different topic words.
+
+
 
 
 Input data:
