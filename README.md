@@ -24,6 +24,14 @@ mkdir -p data/{output/{markov_modelling,reports_statistical_analysis,statistical
 ```
 (todo: update at the end)
 
+```
+mkdir -p data/output/statistical_analysis/plots/{Gender,CountryOfBirth}
+```
+
+```
+mkdir -p data/output/reports_statistical_analysis/{plots,tables}
+```
+
 4. Get the following input files and copy them to data/input:
 
 * Auschwitz_segments_03112020_1.csv
@@ -113,7 +121,7 @@ This workflow makes a basic descriptive statistical analysis of the biodata and 
 
 Run the following code from the main project folder (use python3):
 ```
-python data_analysis/make_statistical_analysis.py
+python statistical_analysis/make_statistical_analysis.py
 ```
 
 Input data:
@@ -144,7 +152,7 @@ Output data:
 * data/output/statistical_analysis/plots/M.html
 
 ```
-python statistical_analysis/make_chi_2_test.py CountryOfOrigin
+python statistical_analysis/make_chi_2_test.py CountryOfBirth
 ```
 
 Output data:

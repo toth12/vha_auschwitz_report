@@ -10,10 +10,7 @@ import csv
 import pdb
 import seaborn as sns
 import numpy as np
-import matplotlib.pyplot as plt
-from sklearn.ensemble import IsolationForest
 import datetime
-from scipy import stats, integrate
 from scipy.stats import gaussian_kde
 from datetime import timedelta
 
