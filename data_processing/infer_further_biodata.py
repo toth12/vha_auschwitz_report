@@ -3,7 +3,7 @@
 The input is the original segment and biodata; this script infers each
 interviewee's arrival and leaving year, length of stay, type of force labour
 he / she did. The output is the panda datagframe, which is the copy of the
-original biodata with uopdate metadata
+original biodata with updated metadata fields
 
 """
 
