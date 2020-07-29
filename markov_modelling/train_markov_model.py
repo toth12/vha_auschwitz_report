@@ -82,13 +82,14 @@ if __name__ == '__main__':
     input_directory = constants.output_data_segment_keyword_matrix
 
     # Read the segment index term matrix
-    data = np.loadtxt(input_directory+ constants.output_segment_keyword_matrix_data_file_100, dtype=int)
+    data = np.loadtxt(input_directory+ constants.output_segment_keyword_matrix_data_file, dtype=int)
+
    
     # Read the column index (index terms) of the matrix above
-    features_df = pd.read_csv(input_directory+constants.output_segment_keyword_matrix_feature_index_100)
+    features_df = pd.read_csv(input_directory+constants.output_segment_keyword_matrix_feature_index)
 
     # Read the row index (groups of three segments) of the matrix above
-    segment_df = pd.read_csv(input_directory+ constants.output_segment_keyword_matrix_document_index_100)
+    segment_df = pd.read_csv(input_directory+ constants.output_segment_keyword_matrix_document_index)
 
     # Read the input data
     input_directory = constants.input_data

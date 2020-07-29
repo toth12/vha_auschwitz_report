@@ -15,7 +15,7 @@ if __name__ == '__main__':
             if (value is not None):
                 min_count = int(value[0])
             else:
-                min_count = 25
+                min_count = 0
     # Get the input file names and input directories
     # Input files are the segments data and the biodata about each interviewee
 
@@ -25,14 +25,14 @@ if __name__ == '__main__':
     output_directory = constants.output_data_segment_keyword_matrix
     input_file = constants.input_segments_with_simplified_keywords
 
-    if min_count ==25:
+    if min_count ==0:
         output_segment_keyword_matrix = constants.output_segment_keyword_matrix_data_file
         output_document_index = constants.output_segment_keyword_matrix_document_index 
         output_feature_index = constants.output_segment_keyword_matrix_feature_index
     else:
-        output_segment_keyword_matrix = constants.output_segment_keyword_matrix_data_file_100
-        output_document_index = constants.output_segment_keyword_matrix_document_index_100
-        output_feature_index = constants.output_segment_keyword_matrix_feature_index_100
+        output_segment_keyword_matrix = constants.output_segment_keyword_matrix_data_file+'_'+str(min_count)
+        output_document_index = constants.output_segment_keyword_matrix_document_index+'_'+str(min_count)
+        output_feature_index = constants.output_segment_keyword_matrix_feature_index+'_'+str(min_count)
    
     df = pd.read_csv(input_directory + input_file)
 
