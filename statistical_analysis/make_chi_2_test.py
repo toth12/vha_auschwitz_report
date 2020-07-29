@@ -269,21 +269,6 @@ if __name__ == '__main__':
     df = df[df['IntCode'].isin(IntCode)]
     df["IntCode"] = df.IntCode.map(lambda x: int(x))
 
-    '''
-    features_filter = constants.output_data +'filtered_nodes/'+'node_filter_2_output.json'
-
-    with codecs.open(features_filter ) as json_file:
-        new_features = json.load(json_file)
-    for element in new_features:
-        for covering_term in element:
-            new_id = random_with_N_digits(8)
-            for feature_id in element[covering_term]:
-                indices = df[df.KeywordID==int(feature_id)].index
-                for ind in indices:
-                    df.at[ind,'KeywordID'] = int(new_id)
-                    df.at[ind,'KeywordLabel'] = covering_term
-
-    '''
 
 
     result = chi2test(df,df_biodata,category)

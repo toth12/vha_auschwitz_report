@@ -125,7 +125,7 @@ if __name__ == '__main__':
                 document_index = segment_indices[f].groupby(['IntCode','SegmentNumber'])['KeywordLabel'].apply(list).to_frame('KeywordSequence').reset_index()
                 print (metadata_field_names[f])
 
-                pdb.set_trace()
+
                 
                 (unique, counts) = np.unique(input_data_set,axis=0, return_counts=True)
                 trajectories = []

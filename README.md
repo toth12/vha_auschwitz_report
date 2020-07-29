@@ -4,12 +4,14 @@ This repository contains python workflows to investigate testimonies by survivor
 
 ## Data set
 
-todo add a description of data set
+See the description of the data set in data_desc.md in this repository (todo: creat data desc)
+
+(todo:eliminate dead code)
 
 ## Getting Started
 
 1. Git clone this library
-2. Install python requirements
+2. Install python requirements (code compatible with Python 3 only and tested only on Macintosh):
 
 ```
 pip install -r requirements.txt
@@ -20,23 +22,92 @@ pip install -r requirements.txt
 ```
 mkdir -p data/{output/{chi2test,features,filtered_nodes,reports_statistical_analysis,topic_sequencing},input} 
 ```
-
+(todo: update at the end)
 
 4. Get the following input files and copy them to data/input:
 
 * Auschwitz_segments_03112020_1.csv
 * Auschwitz_segments_03112020_2.csv
 * biodata.xlsx
+* termhierarchy_3.json (todo: rename this)
 
 ## Workflows available in this repo:
 
+* Preprocessing of the data (prerequisit of running any workflow below)
 * Baisc Statistical analysis of the data set
 * Chi2 significance test and strength of association (odds ration) of index terms for Gender and CountryOfOrigin
-* Topic modelling of the data set
-* Markov Chain analysis of topic sequences in the data set
+* Markov State Modelling of the data set
 
+## Preprocessing of the data
+
+### Simplify keywords:
+
+The Shoah Foundation's keyword system is a hierarchical tree; with this script, those nodes (i.e. keywords) that are leaves and used in less then 25 interviews are replaced for their parent node (for instance, the parent node of "suicide attampt" is "suicide"). This script also eliminates testimony segments by non-Jewish survivors. Furthermore, those keywords that describe places, names, and historical events are also removed.
+
+```
+python data_processing/simplify_features.py
+```
+
+Input data:
+* complete input data as defined above
+
+Output data (saved to data/input folder):
+* all_segments_only_Jewish_survivors_generic_terms_deleted_below_25_replaced_for_parent_node.csv
+
+### Infer further biodata:
+
+This scripts infers further bio information about interviewees from the segment data: interviewee's arrival year to and leaving year from the Auschwitz  complex, his or her length of stay in the Auschwitz complex, type of force labour he / she did when staying in Auschwitz, whether he or she was on transfer route, whether she or he was in Birkenau, type (easy,medium,hard) of forced labour she or he did:
+
+```
+python data_processing/infer_further_metadata.py
+```
+
+Input:
+
+* complete input data as defined above
+
+Output:
+
+* biodata_with_inferred_fields.cvs (saved to data/input)
+
+This ia new biodata file with new columns
+
+### Identify Birkenau survivors:
+
+Identifies those survivors who stayed in Birkenau beween 1943 and 1945.
+
+```
+python data_processing/infer_birkenau_survivors.py
+```
+
+Input:
+
+* biodata_with_inferred_fields.cvs (saved to data/input)
+
+Output:
+
+* biodata_birkenau.csv (saved to data/input)
+
+### Create a segment-keyword matrix:
+
+Creates a segment-keyword matrix from the data pre-processed above; rows are the segments and columns are keywords. If a segment has been annotated with a given keyword, the script sets the corresponding column to one, otherwise it remains 0. This matrix is therefore a binary matrix. The scripts also creates a keyword index and a segment index in a csv file. Finally, the script eliminates those features that occur in less than 100 interviews.
+
+```
+python data_processing/create_segment_keyword_matrix.py --min_count 100
+```
+(todo: reconsider this and set it up for 100 as a basic script)
+
+Input:
+* all_segments_only_Jewish_survivors_generic_terms_deleted_below_25_replaced_for_parent_node.csv
+
+Output:
+* data/output/segment_keyword_matrix/segment_keyword_matrix_100.txt
+* data/output/segment_keyword_matrix/feature_index_100.csv
+* data/output/segment_keyword_matrix/document_index_100.csv
 
 ## Baisc Statistical analysis of the data set
+
+(todo:check if this is working and rewrite it then)
 
 This workflow makes a basic descriptive statistical analysis of the biodata and the segment data; results of this is written to data/output/report_statistical_analaysis folder. The output is plots (in the plots folder), tables (in the tables folder), and a written report (report.txt)
 
@@ -55,40 +126,55 @@ Output data: see the output folder
 
 ## Chi2 significance test and strength of association
 
-This workflow applies chi2test of significance and odds ratio analysis between two categorical variables (CountryOfOrigin and Gender) and index terms. As a first step, index terms belonging to a given common category (for instance, suicide with sub terms camp-suicide, deportation-suicide, etc) are merged and replaced with the common category (i.e camp suicide is becoming suicide). List of index terms (ids) belonging to a given category are in data/output/filtered_nodes/node_filter_1_output.json. As an output, the workflow produces plots and tables with results of chi2test and odds ratio analysis for every index term and every categorical variable.
+This workflow applies chi2test of significance and odds ratio analysis between two categorical variables (CountryOfOrigin and Gender) and index terms for survivors who stayed in Birkenau between 1943 and 1945:
 
 Input data:
 
-* 'data/input/Auschwitz_segments_03112020_1.csv'
-* 'data/input/Auschwitz_segments_03112020_2.csv'
-* 'data/input/biodata.xlsx'
-
-Run the following code from the main project folder (use python3) to do the chi2test and odds ratio analysis for gender:
+* all_segments_only_Jewish_survivors_generic_terms_deleted_below_25_replaced_for_parent_node.csv (saved to data/input)
+* biodata_birkenau.csv (saved to data/input)
 
 ```
-python data_analysis/chi2test.py Gender
+python statistical_analysis/make_chi_2_test.py Gender
 ```
 
 Output data:
-
-* 'data/output/chi2test/plots/Gender'
-* 'data/output/chi2test/plots/F.html'
-* 'data/output/chi2test/plots/M.html'
-* 'data/output/chi2test/chi_test_filtered_gender_with_strenght_of_assoc.csv'
+* data/output/statistical_analysis/chi_test_filtered_gender_with_strenght_of_assoc.csv
+* data/output/statistical_analysis/plots/Gender
+* data/output/statistical_analysis/plots/F.html'
+* data/output/statistical_analysis/plots/M.html
 
 ```
-python data_analysis/chi2test.py CountryOfOrigin
+python statistical_analysis/make_chi_2_test.py CountryOfOrigin
 ```
 
 Output data:
-
-* 'data/output/chi2test/plots/CountryOfOrigin/'
-* 'data/output/chi2test/plots/{CountryName}.html'
-* 'data/output/chi2test/chi_test_filtered_country_of_birth_with_strenght_of_assoc.csv'
-
+* data/output/statistical_analysis/chi_test_filtered_country_of_birth_with_strenght_of_assoc.csv
+* data/output/statistical_analysis/plots/{CountryName}.html
+* data/output/statistical_analysis/plots/CountryOfOrigin/'
 
 
-## Markov Chain analysis of topic sequences in the data set:
+## Markov Chain analysis of the data set:
+
+First, partitions the segment-keyword matrix into subsets based on the metadata. For instance, it creates a segment keyword matrix that contains segments only by women survivors of Birkenau (the new document index is saved). Next, it finds all unique topic word combinations (named higher level topic in the paper), which will be the states in the first Markov State model; it creates a null count matrix with the topic combinations as rows and columns. After this it creates a trajectory list, i.e. list of 'higher level topics' that follow each other. It iterates through the reshaped segment-keyword matrix, detects the corresponding topic combination, and appends it to the trajectory list. Next, each pair of topic combinations is identified, and the previously created null count matrix is updated accordingly. Following this step, the count matrix is transformed into a transition matrix, again higher level topics as rows and columns. With a technique of fuzzy markov chain, the transition matrix with higher level topics is transformed into a new transiton matrix with the original topic words. Finally, this is used to train the final Markov State Model. Also calculates the stationary probabilities of different topic words.
+
+Input data:
+* data/output/segment_keyword_matrix/segment_keyword_matrix_100.txt
+* data/output/segment_keyword_matrix/feature_index_100.csv
+* data/output/segment_keyword_matrix/document_index_100.csv
+* data/input/biodata_birkenau.csv
+
+Output data:
+* data/output/markov_modelling/{metadata_field_name}/document_index.csv
+* data/output/markov_modelling/{metadata_field_name}/pyemma_model
+* data/output/markov_modelling/{metadata_field_name}/stationary_probs.csv
+* data/output/markov_modelling/{metadata_field_name}/transition_matrix.np
+
+
+
+
+This reshaped segment-keyword matrix is viewed as one complete trajectory. 
+
+
 
 This workflow first transforms the segment data into a segment-index term matrix. Next it accomplishes an anchored topic modelling over the segment-index term matrix and gives a topic label to each segment. As a result, each interview is represented not only as a sequence of segments, but as a sequence of topics. As a last step, the workflow creates a transition matrix from the topic sequences (each topic is a state in the transition matrix), and trains a Markov model from the transition matrix.
 
