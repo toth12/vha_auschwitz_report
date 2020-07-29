@@ -112,6 +112,8 @@ if __name__ == '__main__':
 
         mm = train_markov_chain(new_data)
 
+       
+
         flux = calculate_flux(mm,state_index,sources,targets)
 
         for tr in flux:

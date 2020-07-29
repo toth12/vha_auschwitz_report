@@ -124,6 +124,7 @@ def calculate_mean_passage_time_between_states(mm,topic_labels):
 def calculate_flux(mm,topic_labels,source,target):
     #A=[8],B=[2,13],
     # Calculate the flux between two states camp arrival and camp liquidiation / camp transfer )
+    np.set_printoptions(suppress=True) 
     A = []
     B = []
     for element in source:
@@ -135,7 +136,7 @@ def calculate_flux(mm,topic_labels,source,target):
     tpt = msm.tpt(mm, A, B)
 
     nCut = 1
-    (bestpaths,bestpathfluxes) = tpt.pathways(fraction=0.9)
+    (bestpaths,bestpathfluxes) = tpt.pathways(fraction=0.3)
     cumflux = 0
 
     # Print the best path between the two states

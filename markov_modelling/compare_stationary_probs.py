@@ -49,7 +49,8 @@ if __name__ == '__main__':
                 if (field not in metadata_fields):
                     print ("The following metadata_field is not valid")
                     print (field)
-                    pdb.set_trace()
+                    
+                    metadata_fields_to_agregate.append(field)
                 else:
        
                     metadata_fields_to_agregate.append(field)

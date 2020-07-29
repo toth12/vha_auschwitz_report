@@ -106,7 +106,7 @@ if __name__ == '__main__':
 
 
     metadata_fields = ['complete','complete_m','complete_w','CountryOfBirth','CountryOfBirth_m','CountryOfBirth_w','easy_w','easy_m','medium_m','medium_w','hard_m','hard_w',"notwork","notwork_m","notwork_w","work","work_m","work_w"]
-    metadata_fields = ['CountryOfBirth','CountryOfBirth_w','CountryOfBirth_m']
+   
     
 
     np.set_printoptions(suppress=True)
@@ -125,6 +125,7 @@ if __name__ == '__main__':
                 document_index = segment_indices[f].groupby(['IntCode','SegmentNumber'])['KeywordLabel'].apply(list).to_frame('KeywordSequence').reset_index()
                 print (metadata_field_names[f])
 
+                pdb.set_trace()
                 
                 (unique, counts) = np.unique(input_data_set,axis=0, return_counts=True)
                 trajectories = []
@@ -168,6 +169,10 @@ if __name__ == '__main__':
 
                 stationary_prob = print_stationary_distributions(mm,features_df.KeywordLabel.to_list())
                 pd.DataFrame(stationary_prob).to_csv(output_directory+metadata_field_names[f]+'/stationary_probs.csv')
+
+                if os.path.exists(output_directory+metadata_field_names[f]+'/pyemma_model'):
+                    os.remove(output_directory+metadata_field_names[f]+'/pyemma_model')
+               
                 mm.save(output_directory+metadata_field_names[f]+'/pyemma_model', 'simple',overwrite=True)
                 
                 document_index.to_csv(output_directory+metadata_field_names[f]+'/document_index.csv')

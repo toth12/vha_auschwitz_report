@@ -38,7 +38,7 @@ if __name__ == '__main__':
 
     # Eliminate those index terms that occur in less than 100 interviews
     kws = df.groupby(['KeywordID', 'KeywordLabel'])['IntCode'].unique().map(lambda x: len(x)).to_frame(name="TotalNumberIntervieweeUsing").reset_index()
-    kws_needed = kws[kws.TotalNumberIntervieweeUsing > 0][['KeywordID' , 'KeywordLabel']]
+    kws_needed = kws[kws.TotalNumberIntervieweeUsing > min_count][['KeywordID' , 'KeywordLabel']]
 
     keywords = kws_needed.reset_index()[['KeywordID', 'KeywordLabel']]
     df = df[df['KeywordID'].isin(kws_needed['KeywordID'])]

@@ -30,6 +30,13 @@ if __name__ == '__main__':
     df_biodata = df_biodata.fillna(0)
     country_of_origins = df_biodata.groupby('CountryOfBirth')['CountryOfBirth'].count().to_frame('Count').reset_index()
     country_of_origins= country_of_origins[country_of_origins.Count>50]
+    countries = []
+    for element in country_of_origins.CountryOfBirth.to_list():
+        metadata_fields.append(element+'_w')
+        metadata_fields.append(element+'_m')
+
+
+
     metadata_fields = metadata_fields + country_of_origins.CountryOfBirth.to_list()
     
     # Read the input data

@@ -32,6 +32,8 @@ if __name__ == '__main__':
     keywords = []
     metadata_fields = ['complete','complete_m','complete_w','CountryOfBirth','CountryOfBirth_m','CountryOfBirth_w','easy_w','easy_m','medium_m','medium_w','hard_m','hard_w',"notwork","notwork_m","notwork_w","work","work_m","work_w"]
     
+
+
     metadata_fields_to_agregate = []
     parser = argparse.ArgumentParser()
     parser.add_argument('--metadata_fields', nargs='+')
@@ -71,10 +73,16 @@ if __name__ == '__main__':
     for keyword in keywords:
         print (keyword)
         for element in metadata_fields_to_agregate:
-            pdb.set_trace()
+          
             mean_p = pd.read_csv(input_directory+'/'+element+'/'+'mean_passage.csv')
             mean_p = mean_p.set_index('Unnamed: 0')
-            print (mean_p[keyword].sort_values()[0:40])
+
+            
+            for el in mean_p[keyword].sort_values()[0:100].to_frame('time').reset_index().iterrows():
+                print (el[0])
+                print (el[1]['Unnamed: 0']+': '+str(el[1]['time']))
+              
+            #print (mean_p[keyword].sort_values()[0:50])
             
             
 
