@@ -263,25 +263,25 @@ Prints the closest topics to 'camp food sharing' in all testimonies (complete). 
 
 ## Metadata fields:
 
--complete: all Birkenau testimonies
--complete_m: Birkenau testimonies of men
-*complete_w: Birkenau testimonies of women
-*easy_w: Birkenau testimonies of women who did easy forced labour
-*easy_m: Birkenau testimonies of men who did easy forced labour
-*medium_m: Birkenau testimonies of men who did medium hard forced labour
-*medium_w: Birkenau testimonies of women who did medium hard forced labour
-*medium_w: Birkenau testimonies of women who did medium hard forced labour
-*medium_w: Birkenau testimonies of women who did medium hard forced labour
-*hard_m: Birkenau testimonies of men who did  hard forced labour
-*hard_w: Birkenau testimonies of women who did  hard forced labo
-*notwork: Birkenau testimonies of those who did not work
-*notwork_m: Birkenau testimonies of men who did not work
-*notwork_w: Birkenau testimonies of women who did not work
-*work: Birkenau testimonies of those who worked
-*work_m: Birkenau testimonies of those who worked
-*work_w: Birkenau testimonies of those women who worked
-*{country}: Birkenau testimonies of victims from this country
-*{country_w}: Birkenau testimonies of women from this country
-*{country_m}: Birkenau testimonies of men from this country
+* complete: all Birkenau testimonies
+* complete_m: Birkenau testimonies of men
+* complete_w: Birkenau testimonies of women
+* easy_w: Birkenau testimonies of women who did easy forced labour
+* easy_m: Birkenau testimonies of men who did easy forced labour
+* medium_m: Birkenau testimonies of men who did medium hard forced labour
+* medium_w: Birkenau testimonies of women who did medium hard forced labour
+* medium_w: Birkenau testimonies of women who did medium hard forced labour
+* medium_w: Birkenau testimonies of women who did medium hard forced labour
+* hard_m: Birkenau testimonies of men who did  hard forced labour
+* hard_w: Birkenau testimonies of women who did  hard forced labo
+* notwork: Birkenau testimonies of those who did not work
+* notwork_m: Birkenau testimonies of men who did not work
+* notwork_w: Birkenau testimonies of women who did not work
+* work: Birkenau testimonies of those who worked
+* work_m: Birkenau testimonies of those who worked
+* work_w: Birkenau testimonies of those women who worked
+* {country}: Birkenau testimonies of victims from this country
+* {country_w}: Birkenau testimonies of women from this country
+* {country_m}: Birkenau testimonies of men from this country
 
 
