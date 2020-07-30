@@ -36,7 +36,7 @@ The Shoah Foundation's topic word system is a hierarchical tree; this file conta
 ## Getting Started
 
 1. Git clone this library
-2. Install python requirements (code compatible with Python 3 only and tested only on Macintosh):
+2. Install python requirements (code compatible with Python 3 only and tested only on Mac OS Sierra 10.12.6):
 
 ```
 pip install -r requirements.txt
@@ -69,7 +69,7 @@ mkdir -p data/output/reports_statistical_analysis/{plots,tables}
 
 * Preprocessing of the data (prerequisit of running any workflow below)
 * Baisc Statistical analysis of the data set
-* Chi2 significance test and strength of association (odds ration) of index terms for Gender and CountryOfOrigin
+* Chi2 significance test and strength of association (odds ratio) of index terms for Gender and CountryOfOrigin
 * Markov State Modelling of the data set
 
 ## Preprocessing of the data
@@ -138,7 +138,7 @@ Output:
 * data/output/segment_keyword_matrix/feature_index.csv
 * data/output/segment_keyword_matrix/document_index.csv
 
-## Baisc Statistical analysis of the data set
+## Baisc statistical analysis of the data set
 
 This workflow makes a basic descriptive statistical analysis of the biodata and the segment data (entire data set); results of this is written to data/output/report_statistical_analaysis folder. The output is plots (in the plots folder), tables (in the tables folder), and a written report (report.txt)
 
@@ -153,7 +153,11 @@ Input data:
 * 'data/input/Auschwitz_segments_03112020_2.csv'
 * 'data/input/biodata.xlsx'
 
-Output data: see the output folder
+Output data:
+
+* data/output/report_statistical_analaysis/plots
+* data/output/report_statistical_analaysis/tables
+* data/output/report_statistical_analaysis/report.txt
 
 ## Chi2 significance test and strength of association
 
@@ -259,23 +263,25 @@ Prints the closest topics to 'camp food sharing' in all testimonies (complete). 
 
 ## Metadata fields:
 
-complete: all Birkenau testimonies
-complete_m: Birkenau testimonies of men
-complete_w: Birkenau testimonies of women
-easy_w: Birkenau testimonies of women who did easy forced labour
-easy_m: Birkenau testimonies of men who did easy forced labour
-medium_m: Birkenau testimonies of men who did medium hard forced labour
-medium_w: Birkenau testimonies of women who did medium hard forced labour
-hard_m: Birkenau testimonies of men who did  hard forced labour
-hard_w: Birkenau testimonies of women who did  hard forced labo
-notwork: Birkenau testimonies of those who did not work
-notwork_m: Birkenau testimonies of men who did not work
-notwork_w: Birkenau testimonies of women who did not work
-work: Birkenau testimonies of those who worked
-work_m: Birkenau testimonies of those who worked
-work_w: Birkenau testimonies of those women who worked
-{country}: Birkenau testimonies of victims from this country
-{country_w}: Birkenau testimonies of women from this country
-{country_m}: Birkenau testimonies of men from this country
+*complete: all Birkenau testimonies
+*complete_m: Birkenau testimonies of men
+*complete_w: Birkenau testimonies of women
+*easy_w: Birkenau testimonies of women who did easy forced labour
+*easy_m: Birkenau testimonies of men who did easy forced labour
+*medium_m: Birkenau testimonies of men who did medium hard forced labour
+*medium_w: Birkenau testimonies of women who did medium hard forced labour
+*medium_w: Birkenau testimonies of women who did medium hard forced labour
+*medium_w: Birkenau testimonies of women who did medium hard forced labour
+*hard_m: Birkenau testimonies of men who did  hard forced labour
+*hard_w: Birkenau testimonies of women who did  hard forced labo
+*notwork: Birkenau testimonies of those who did not work
+*notwork_m: Birkenau testimonies of men who did not work
+*notwork_w: Birkenau testimonies of women who did not work
+*work: Birkenau testimonies of those who worked
+*work_m: Birkenau testimonies of those who worked
+*work_w: Birkenau testimonies of those women who worked
+*{country}: Birkenau testimonies of victims from this country
+*{country_w}: Birkenau testimonies of women from this country
+*{country_m}: Birkenau testimonies of men from this country
 
 
