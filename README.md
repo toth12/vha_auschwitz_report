@@ -4,9 +4,34 @@ This repository contains python workflows to investigate testimonies by survivor
 
 ## Data set
 
-See the description of the data set in data_desc.md in this repository (todo: creat data desc)
+The dataset that Shoah Foundation gave consists of three elements:
+1. Segment data (Auschwitz_segments_03112020_1.csv,Auschwitz_segments_03112020_2.csv)
 
-(todo:eliminate dead code)
+This contains all testimony segments in which survivors address their stay in Auschwitz. It is a table in which every row corresponds to a testimony segment and the topic words attached to it. Since multiple topics words (sometimes refered as keywords here) are typically attached to a segment, multiple rows can represent a given segment. For instance, the following three rows represent the segment 16 (SegmentID: 514929) of interview 2 (IntCode 2) with interviewee named Rosalie Greenfield :
+
+
+
+2   Rosalie Greenfield  514929  16  1   00:15:00:00 1   00:16:00:00 7601    Auschwitz II-Birkenau (Poland : Death Camp)
+
+2   Rosalie Greenfield  514929  16  1   00:15:00:00 1   00:16:00:00 13310   Oświęcim (Kraków, Poland)
+
+2   Rosalie Greenfield  514929  16  1   00:15:00:00 1   00:16:00:00 14226   Poland 1944 (July 22) - 1945 (January 16)
+
+This interview segment has been annotated with three topic words:Auschwitz II-Birkenau (Poland : Death Camp),Oświęcim (Kraków, Poland),Poland 1944 (July 22) - 1945 (January 16). The unique ids (KeywordID) of these topic words: 7601,13310,14226.
+
+The record also tells the beginning and the end of the segment:00:15:00:00 and 00:16:00:00
+
+The segment data has been further processed (see below), most importantly, a segment-keyword matrix was constructed.
+
+2. Biodata (biodata.xlsx)
+
+This contains basic bio data about each interviewee and metadata about the interview: gender, country of birth, place where the interview was recorded, interview language, etc.
+
+The biodata is connected with the segment data through the IntCode column.
+
+3. The topic word hiearchy (termhierarchy_3.json):
+
+The Shoah Foundation's topic word system is a hierarchical tree; this file contains this tree. The topic words in this file are connected with the segment data through the KeywordID.
 
 ## Getting Started
 
@@ -22,7 +47,7 @@ pip install -r requirements.txt
 ```
 mkdir -p data/{output/{markov_modelling,reports_statistical_analysis,statistical_analysis,segment_keyword_matrix},input}
 ```
-(todo: update at the end)
+
 
 ```
 mkdir -p data/output/statistical_analysis/plots/{Gender,CountryOfBirth}
@@ -103,7 +128,7 @@ Creates a segment-keyword matrix from the data pre-processed above; rows are the
 ```
 python data_processing/create_segment_keyword_matrix.py
 ```
-(todo: reconsider this and set it up for 100 as a basic script)
+
 
 Input:
 * all_segments_only_Jewish_survivors_generic_terms_deleted_below_25_replaced_for_parent_node.csv
@@ -114,8 +139,6 @@ Output:
 * data/output/segment_keyword_matrix/document_index.csv
 
 ## Baisc Statistical analysis of the data set
-
-(todo:check if this is working and rewrite it then)
 
 This workflow makes a basic descriptive statistical analysis of the biodata and the segment data (entire data set); results of this is written to data/output/report_statistical_analaysis folder. The output is plots (in the plots folder), tables (in the tables folder), and a written report (report.txt)
 
@@ -167,15 +190,17 @@ Output data:
 python markov_modelling/train_markov_model.py
 ```
 
-First, partitions the segment-keyword matrix into subsets based on the metadata. For instance, it creates a segment keyword matrix that contains segments only by women survivors of Birkenau (the new document index is saved). Next, it finds all unique topic word combinations (named higher level topic in the paper), which will be the states in the first Markov State model; it creates a null count matrix with the topic combinations as rows and columns. After this it creates a trajectory list, i.e. list of 'higher level topics' that follow each other. It iterates through the reshaped segment-keyword matrix, detects the corresponding topic combination, and appends it to the trajectory list. Next, each pair of topic combinations is identified, and the previously created null count matrix is updated accordingly. Following this step, the count matrix is transformed into a transition matrix, again higher level topics as rows and columns. With a technique of fuzzy markov chain, the transition matrix with higher level topics is transformed into a new transiton matrix with the original topic words. Finally, this is used to train the final Markov State Model. Also calculates the stationary probabilities of different topic words.
+First, partitions the segment-keyword matrix into subsets based on the metadata. For instance, it creates a segment keyword matrix that contains segments only by women survivors of Birkenau (the new document index is saved). Next, it finds all unique topic word combinations (named higher level topic in the paper), which will be the states in the first Markov State model; it creates a null count matrix with the topic combinations as rows and columns. After this it creates a trajectory list, i.e. list of 'higher level topics' that follow each other. It iterates through the reshaped segment-keyword matrix, detects the corresponding topic combination, and appends it to the trajectory list. Next, each pair of topic combinations is identified, and the previously created null count matrix is updated accordingly. Following this step, the count matrix is transformed into a transition matrix, again higher level topics as rows and columns. With a technique of fuzzy markov chain, the transition matrix with higher level topics is transformed into a new transiton matrix with the original topic words. Finally, this is used to train the final Markov State Model. It also calculates the stationary probabilities of different topic words.
+
+See the metadata field in the Appendix here
 
 
 
 
 Input data:
-* data/output/segment_keyword_matrix/segment_keyword_matrix_100.txt
-* data/output/segment_keyword_matrix/feature_index_100.csv
-* data/output/segment_keyword_matrix/document_index_100.csv
+* data/output/segment_keyword_matrix/segment_keyword_matrix.txt
+* data/output/segment_keyword_matrix/feature_index.csv
+* data/output/segment_keyword_matrix/document_index.csv
 * data/input/biodata_birkenau.csv
 
 Output data:
@@ -186,87 +211,71 @@ Output data:
 
 
 
-
 This reshaped segment-keyword matrix is viewed as one complete trajectory. 
 
 
+### Calculate mean passage time for every metadat fields (i.e women, men, work, not_work)
 
-This workflow first transforms the segment data into a segment-index term matrix. Next it accomplishes an anchored topic modelling over the segment-index term matrix and gives a topic label to each segment. As a result, each interview is represented not only as a sequence of segments, but as a sequence of topics. As a last step, the workflow creates a transition matrix from the topic sequences (each topic is a state in the transition matrix), and trains a Markov model from the transition matrix.
-
-### Create a three segments - index terms matrix:
-
-Run the following code (takes a few minutes) from the main project folder (use python3):
 ```
-python feature_engineering/create_grouped_segment_keyword_matrix.py
+python markov_modelling/calculate_mean_passage_time.py
 ```
 
-Input data:
+Calculates mean passage time between each state (i.e topic) that are in the list of the first 100 most probable states (the probability of each state is its stationary probability) in the complete data and saves the result in a csv file.
 
-* 'data/input/Auschwitz_segments_03112020_1.csv'
-* 'data/input/Auschwitz_segments_03112020_2.csv'
-* 'data/input/biodata.xlsx'
+Input:
+* data/output/markov_modelling/complete/stationary_probs.csv
+* data/output/markov_modelling/{metadata_field_name}/pyemma_model
+* data/output/segment_keyword_matrix/feature_index.csv
 
-Output data:
+Output:
+* data/output/markov_modelling/{metadata_field_name}/mean_passage.csv
 
-* 'data/output/features/segment_index_merged.csv'
-* 'data/output/features/segment_keyword_matrix_merged.txt'
-* 'data/output/features/keyword_index_merged_segments.csv'
+### Utility functions for data analysis
 
+1. Print stationary probability of a given topic in a given sub-data
 
-
-This script contains the following key steps and resulting representations:
-* merges every three segments of an interview into one new segment unit
-* every new segment unit has an id that is the combination of the interview id plus the original three segment ids, for instance: 2_16_17_18 is from interview 2 and is the combination of segments 16, 17, and 18
-* every new segment unit is represented as the combination of index terms (only ids) attached to them, for instance 10006_47_48_49 is the list of the following index terms [10983, 12044, 14280]
-* eliminates those new segment units that consist of only 1 or 2 index terms
-* eliminates those interviews where no group of three segments could be identified
-* eliminates those index terms that occur in less than 50 interviews in total
-* creates a numpy segment - index matrix; every row represents a new segment unit, and every column represents an index term
-* creates a lookup index for the segment - index matrix; segment_index_merged.csv is a panda dataframe where every row has an "updated_id", which is the new segment id (see above) of the corresponding row in the segment - index matrix; keyword_index_merged_segments.csv is a panda dataframe, every row (with keyword id and keyword label) corresponds to the columns of segment - index matrix
-
-### Give a topic label to each group of three segments:
-
-
-Run the following code from the main project folder (use python3):
 ```
-python data_analysis/add_topic_label_to_segments.py
+python markov_modelling/compare_stationary_probs.py --metadata_fields work_w --keywords 'camp food sharing'
 ```
 
-Input data:
+This prints the stationary probability of 'camp food sharing' in the work_w subdata, i.e the stationary probability of 'camp food sharing' in testimonies of women who worked (work_w).
 
-* 'data/output/features/segment_keyword_matrix_merged.txt'
-* 'data/output/features/keyword_index_merged_segments.csv'
-* 'data/output/features/segment_index_merged.csv'
-* 'data_analysis/topic_anchors.txt'
-
-Output data:
-
-* 'data/output/topic_sequencing/segment_topics.csv'
-
-This script contains the following key steps:
-* accomplishes the anchored (sometimes called seeded) topic modelling with Corex over the previously constructed segment-topic matrix; topic seeds were identified earlier and they are in data_analysis/topic_anchors.txt
-* produces a segment topic matrix (each topic is one of topic seeds above);
-* adds a topic label to each segment; since each segment can have multiple topics, topic labels can be also the combinations of single topics or if no topic can be identified, their topic label is "unknown topic"
-* saves the topic label of each segment in a panda dataframe (segment_topics.csv)
-
-
-### Create a transition matrix between each topics and train a markov chain:
-
-Run the following code from the main project folder (use python3):
+2. Print trajectories between topics:
 ```
-python data_analysis/create_transition_matrix_and_train_markov_chain.py
+python markov_modelling/print_trajectory.py --metadata_field complete_m --source 'camp social relations' --target 'food sharing'
 ```
 
+This prints the possible trajectories between 'camp social relations' and 'food sharing', including the flux of a given trajectory, in testimonies of all men (complete_m).
 
-Input data:
-* 'data/output/topic_sequencing/segment_topics.csv'
-* 'data/input/biodata.xlsx'
+3. Get closest topic to a given topic through the mean passage time
 
-This script contains the following key steps:
-* creates a transition matrix between topics for men and women but ignores transition from unknown_topic or to unknown_topic
-* removes those topics to which or from which no transition takes place
-* prints the best path between two key topics: selection and camp_liquidation / transfer
+```
+python markov_modelling/get_mean_passage_time.py --metadata_field complete --keywords 'camp food sharing'
+```
 
+Prints the closest topics to 'camp food sharing' in all testimonies (complete). Proximity defined through the mean passage time.
 
+# Appendix
+
+## Metadata fields:
+
+complete: all Birkenau testimonies
+complete_m: Birkenau testimonies of men
+complete_w: Birkenau testimonies of women
+easy_w: Birkenau testimonies of women who did easy forced labour
+easy_m: Birkenau testimonies of men who did easy forced labour
+medium_m: Birkenau testimonies of men who did medium hard forced labour
+medium_w: Birkenau testimonies of women who did medium hard forced labour
+hard_m: Birkenau testimonies of men who did  hard forced labour
+hard_w: Birkenau testimonies of women who did  hard forced labo
+notwork: Birkenau testimonies of those who did not work
+notwork_m: Birkenau testimonies of men who did not work
+notwork_w: Birkenau testimonies of women who did not work
+work: Birkenau testimonies of those who worked
+work_m: Birkenau testimonies of those who worked
+work_w: Birkenau testimonies of those women who worked
+{country}: Birkenau testimonies of victims from this country
+{country_w}: Birkenau testimonies of women from this country
+{country_m}: Birkenau testimonies of men from this country
 
 
