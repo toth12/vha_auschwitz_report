@@ -263,8 +263,8 @@ Prints the closest topics to 'camp food sharing' in all testimonies (complete). 
 
 ## Metadata fields:
 
-*complete: all Birkenau testimonies
-*complete_m: Birkenau testimonies of men
+-complete: all Birkenau testimonies
+-complete_m: Birkenau testimonies of men
 *complete_w: Birkenau testimonies of women
 *easy_w: Birkenau testimonies of women who did easy forced labour
 *easy_m: Birkenau testimonies of men who did easy forced labour
