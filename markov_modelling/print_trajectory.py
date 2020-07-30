@@ -39,7 +39,7 @@ if __name__ == '__main__':
 
     output_directory = constants.output_data_markov_modelling_aggregated_reports
     # Read the column index (index terms) of the matrix above
-    features_df = pd.read_csv(input_directory+constants.output_segment_keyword_matrix_feature_index_100)
+    features_df = pd.read_csv(input_directory+constants.output_segment_keyword_matrix_feature_index)
 
     metadata_fields_to_agregate = []
     sources = []
