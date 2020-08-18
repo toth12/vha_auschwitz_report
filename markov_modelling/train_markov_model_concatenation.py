@@ -26,28 +26,31 @@ def prepare_input_data(metadata_field):
 
         if len(interview_codes_to_filter)>1:
             interview_codes_temp = [f for f in interview_codes_temp if f in interview_codes_to_filter]
-        interview_codes.append(interview_codes_temp)
-        metadata_field_names.append(metadata_field)
+        interview_codes += interview_codes_temp
+        metadata_field_names +=  [metadata_field]
+
+        # This does not work with text:  metadata_field_names+= metadata_field
+        # It results: ['c', 'o', 'm', 'p', 'l', 'e', 't', 'e']
 
     elif (('easy' in metadata_field) or ('medium' in metadata_field) or ('hard' in metadata_field)):
         interview_codes_temp = df_biodata[df_biodata[metadata_field.split('_')[0]]==1].IntCode.tolist()
 
         if len(interview_codes_to_filter)>1:
             interview_codes_temp = [f for f in interview_codes_temp if f in interview_codes_to_filter]
-        interview_codes.append(interview_codes_temp)
-        metadata_field_names.append(metadata_field)
+        interview_codes +=  interview_codes_temp
+        metadata_field_names+= [metadata_field]
     elif "notwork" in metadata_field:
         interview_codes_temp = df_biodata[(df_biodata['easy']==0)&(df_biodata['hard']==0)&(df_biodata['medium']==0)].IntCode.tolist()
         if len(interview_codes_to_filter)>1:
             interview_codes_temp = [f for f in interview_codes_temp if f in interview_codes_to_filter]
-        interview_codes.append(interview_codes_temp)
-        metadata_field_names.append(metadata_field)
+        interview_codes+= interview_codes_temp
+        metadata_field_names += [metadata_field]
     elif "work" in metadata_field:
         interview_codes_temp = df_biodata[(df_biodata['easy']==1)|(df_biodata['hard']==1)|(df_biodata['medium']==1)].IntCode.tolist()
         if len(interview_codes_to_filter)>1:
             interview_codes_temp = [f for f in interview_codes_temp if f in interview_codes_to_filter]
-        interview_codes.append(interview_codes_temp)
-        metadata_field_names.append(metadata_field)
+        interview_codes+= interview_codes_temp
+        metadata_field_names +=  [metadata_field]
     elif "CountryOfBirth" in metadata_field:
         country_of_origins = df_biodata.groupby('CountryOfBirth')['CountryOfBirth'].count().to_frame('Count').reset_index()
         country_of_origins= country_of_origins[country_of_origins.Count>50]
@@ -60,17 +63,17 @@ def prepare_input_data(metadata_field):
                     el = el+'_w'
                 else:
                     el = el+'_m'
-            interview_codes.append(interview_codes_temp)
-            metadata_field_names.append(el)
+            interview_codes+= interview_codes_temp
+            metadata_field_names +=  [el]
 
     output_data = []
     segment_indices = []
 
     for element in interview_codes:
-        segment_index= segment_df[segment_df.IntCode.isin(element)].index.to_list()
+        segment_index= segment_df[segment_df.IntCode.isin([element])].index.to_list()
         input_matrix = np.take(data,segment_index,axis=0)
         output_data.append(input_matrix)
-        segment_indices.append(segment_df[segment_df.IntCode.isin(element)])
+        segment_indices.append(segment_df[segment_df.IntCode.isin([element])])
 
 
     print ("Number of input matrices")
