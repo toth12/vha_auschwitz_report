@@ -1,5 +1,4 @@
 import pandas as pd
-import pdb
 import numpy as np
 import msmtools
 import constants
@@ -7,7 +6,6 @@ import os
 from msmtools.estimation import is_connected
 from markov_utils import train_markov_chain,window,cg_transition_matrix,train_markov_chain,print_stationary_distributions,post_process_topic_sequences
 import sys
-
 
 
 def prepare_input_data(metadata_field):
@@ -26,28 +24,28 @@ def prepare_input_data(metadata_field):
 
         if len(interview_codes_to_filter)>1:
             interview_codes_temp = [f for f in interview_codes_temp if f in interview_codes_to_filter]
-        interview_codes.append(interview_codes_temp)
-        metadata_field_names.append(metadata_field)
+        interview_codes += interview_codes_temp
+        metadata_field_names += metadata_field
 
     elif (('easy' in metadata_field) or ('medium' in metadata_field) or ('hard' in metadata_field)):
         interview_codes_temp = df_biodata[df_biodata[metadata_field.split('_')[0]]==1].IntCode.tolist()
 
         if len(interview_codes_to_filter)>1:
             interview_codes_temp = [f for f in interview_codes_temp if f in interview_codes_to_filter]
-        interview_codes.append(interview_codes_temp)
-        metadata_field_names.append(metadata_field)
+        interview_codes += interview_codes_temp
+        metadata_field_names += metadata_field
     elif "notwork" in metadata_field:
         interview_codes_temp = df_biodata[(df_biodata['easy']==0)&(df_biodata['hard']==0)&(df_biodata['medium']==0)].IntCode.tolist()
         if len(interview_codes_to_filter)>1:
             interview_codes_temp = [f for f in interview_codes_temp if f in interview_codes_to_filter]
-        interview_codes.append(interview_codes_temp)
-        metadata_field_names.append(metadata_field)
+        interview_codes += interview_codes_temp
+        metadata_field_names += metadata_field
     elif "work" in metadata_field:
         interview_codes_temp = df_biodata[(df_biodata['easy']==1)|(df_biodata['hard']==1)|(df_biodata['medium']==1)].IntCode.tolist()
         if len(interview_codes_to_filter)>1:
             interview_codes_temp = [f for f in interview_codes_temp if f in interview_codes_to_filter]
-        interview_codes.append(interview_codes_temp)
-        metadata_field_names.append(metadata_field)
+        interview_codes += interview_codes_temp
+        metadata_field_names += metadata_field
     elif "CountryOfBirth" in metadata_field:
         country_of_origins = df_biodata.groupby('CountryOfBirth')['CountryOfBirth'].count().to_frame('Count').reset_index()
         country_of_origins= country_of_origins[country_of_origins.Count>50]
@@ -60,20 +58,23 @@ def prepare_input_data(metadata_field):
                     el = el+'_w'
                 else:
                     el = el+'_m'
-            interview_codes.append(interview_codes_temp)
-            metadata_field_names.append(el)
+            interview_codes += interview_codes_temp
+            metadata_field_names += el
 
     output_data = []
     segment_indices = []
 
+    assert len(interview_codes) > 1
+
     for element in interview_codes:
-        segment_index= segment_df[segment_df.IntCode.isin(element)].index.to_list()
-        input_matrix = np.take(data,segment_index,axis=0)
+        segment_index = segment_df[segment_df.IntCode.isin([element])].index.to_list()
+        input_matrix = np.take(data, segment_index, axis=0)
+        if input_matrix.size == 0:
+            continue
         output_data.append(input_matrix)
-        segment_indices.append(segment_df[segment_df.IntCode.isin(element)])
+        segment_indices.append(segment_df[segment_df.IntCode.isin([element])])
 
-    return output_data,metadata_field_names,segment_indices
-
+    return output_data, metadata_field_names, segment_indices
 
 if __name__ == '__main__':
 
@@ -128,7 +129,7 @@ if __name__ == '__main__':
 
 
                 
-                (unique, counts) = np.unique(input_data_set,axis=0, return_counts=True)
+                unique = np.unique(input_data_set,axis=0)
                 trajectories = []
                 for i,element in enumerate(input_data_set):
 
@@ -154,9 +155,9 @@ if __name__ == '__main__':
 
                 binary_map = (unique / unique.sum(axis=1,keepdims=1))
                 new_tra = cg_transition_matrix(transition_matrix,binary_map)
-                new_tra[np.isnan(new_tra)] = 0
+                new_tra[np.isnan(new_tra)] = 0 # TODO: why nans?
                 new_tra = new_tra+1e-12
-                new_tra= (new_tra / new_tra.sum(axis=1,keepdims=1))
+                new_tra= (new_tra / new_tra.sum(axis=1,keepdims=1)) #TODO: not clear why -> only valid to compensate machine error
                 assert np.allclose(new_tra.sum(axis=1), 1)
                 assert msmtools.analysis.is_transition_matrix(new_tra)
                 assert is_connected(new_tra)
