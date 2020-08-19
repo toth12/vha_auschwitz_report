@@ -27,10 +27,12 @@ if __name__ == '__main__':
 
     if min_count ==0:
         output_segment_keyword_matrix = constants.output_segment_keyword_matrix_data_file
+        output_segment_keyword_matrix_txtfmt = constants.output_segment_keyword_matrix_data_file_txtfmt
         output_document_index = constants.output_segment_keyword_matrix_document_index 
         output_feature_index = constants.output_segment_keyword_matrix_feature_index
     else:
         output_segment_keyword_matrix = constants.output_segment_keyword_matrix_data_file+'_'+str(min_count)
+        output_segment_keyword_matrix_txtfmt = constants.output_segment_keyword_matrix_data_file_txtfmt + '_' + str(min_count)
         output_document_index = constants.output_segment_keyword_matrix_document_index+'_'+str(min_count)
         output_feature_index = constants.output_segment_keyword_matrix_feature_index+'_'+str(min_count)
    
@@ -58,5 +60,9 @@ if __name__ == '__main__':
 
     # Save the segment keyword matrix
 
-    np.savetxt(output_directory + output_segment_keyword_matrix, segment_keyword_matrix, fmt='%d')
+    np.savetxt(output_directory + output_segment_keyword_matrix_txtfmt, segment_keyword_matrix, fmt='%d')
+
+    # loading huge text files is very slow, also saving in binary format
+    np.save(output_directory + output_segment_keyword_matrix, segment_keyword_matrix)
+
     segment_keyword.to_csv(output_directory + output_document_index)
