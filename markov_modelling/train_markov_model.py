@@ -151,7 +151,11 @@ if __name__ == '__main__':
 
 
                 more_than_one_topic = np.where(unique.sum(1)>1)
+                print ("Those rows that contain more than one topics")
                 print (more_than_one_topic)
+
+                
+
                 pdb.set_trace()
 
                 for element in tr:
