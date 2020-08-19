@@ -82,22 +82,7 @@ if __name__ == '__main__':
         for element in metadata_fields_to_agregate:
             stationary_probs = pd.read_csv(input_directory+'/'+element+'/'+'stationary_probs.csv')
             del stationary_probs['Unnamed: 0']
-            friends_index = stationary_probs[stationary_probs['topic_name']=="friends"]['stationary_prob'].index
-            friendship_stationary_prob = stationary_probs[stationary_probs['topic_name']=="friendships"]['stationary_prob'].values[0]
             
-            friends_stationary_prob=stationary_probs.iloc[friends_index,stationary_probs.columns.get_loc("stationary_prob")].values[0]
-            stationary_probs.iloc[friends_index,stationary_probs.columns.get_loc("stationary_prob")] =friendship_stationary_prob+friends_stationary_prob
-            
-
-            camp_food_sharing_index = stationary_probs[stationary_probs['topic_name']=="camp food sharing"]['stationary_prob'].index
-            camp_food_sharing_stationary_prob=stationary_probs.iloc[camp_food_sharing_index,stationary_probs.columns.get_loc("stationary_prob")].values[0]
-
-            food_sharing_stationary_prob = stationary_probs[stationary_probs['topic_name']=="food sharing"]['stationary_prob'].values[0]
-            
-            
-            stationary_probs.iloc[camp_food_sharing_index,stationary_probs.columns.get_loc("stationary_prob")] =food_sharing_stationary_prob+camp_food_sharing_stationary_prob
-
-
             stationary_probs = stationary_probs.rename(columns={'topic_name':'KeywordLabel'})
             stationary_probs = stationary_probs.rename(columns={'stationary_prob':'stationary_prob_'+element})
             stationary_probs['stationary_prob_norm_'+element] = statrionary_prob_selection / stationary_probs['stationary_prob_'+element] 

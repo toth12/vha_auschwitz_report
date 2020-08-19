@@ -116,19 +116,24 @@ if __name__ == '__main__':
 
     for metadata_field in metadata_fields:
 
+        # document_index.shape === input_data_set.shape
+        # len(set(segment_df.SegmentID.to_list())) == data.shape
+        
         # Prepare the input data (trajectories)
+        
         input_data_sets,metadata_field_names,segment_indices=prepare_input_data(metadata_field)
-
+        #data = None
         for f,input_data_set in enumerate(input_data_sets):
 
             try:
                 
-                document_index = segment_indices[f].groupby(['IntCode','SegmentNumber'])['KeywordLabel'].apply(list).to_frame('KeywordSequence').reset_index()
+                document_index = segment_indices[f].groupby(['IntCode','SegmentNumber'])['KeywordID'].apply(list).to_frame('KeywordSequence').reset_index()
                 print (metadata_field_names[f])
 
 
                 
-                (unique, counts) = np.unique(input_data_set,axis=0, return_counts=True)
+                #(unique, counts) = np.unique(input_data_set,axis=0, return_counts=True)
+                unique = np.unique(input_data_set,axis=0)
                 trajectories = []
                 for i,element in enumerate(input_data_set):
 
@@ -136,6 +141,12 @@ if __name__ == '__main__':
                     trajectories.append(trajectory)
             
                 tr = [el for el in window(trajectories)]
+
+                # Clean memory
+                trajectories = None
+                input_data_set = None
+                input_data_sets[f] = None
+                # data = None
                 count_matrix = np.zeros((unique.shape[0],unique.shape[0])).astype(float)
 
                 

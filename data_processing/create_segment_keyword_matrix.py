@@ -25,7 +25,7 @@ if __name__ == '__main__':
     output_directory = constants.output_data_segment_keyword_matrix
     input_file = constants.input_segments_with_simplified_keywords
 
-    if min_count ==0:
+    if min_count ==25:
         output_segment_keyword_matrix = constants.output_segment_keyword_matrix_data_file
         output_document_index = constants.output_segment_keyword_matrix_document_index 
         output_feature_index = constants.output_segment_keyword_matrix_feature_index
@@ -45,7 +45,12 @@ if __name__ == '__main__':
 
     # Save the keywords that is used, this will be the feature index
     keywords.to_csv(output_directory + output_feature_index)
-    segment_keyword = df.groupby(['IntCode', 'SegmentID', 'SegmentNumber','KeywordLabel'])["KeywordID"].unique().to_frame(name="KeywordID").reset_index()
+    #error introduced: https://github.com/toth12/vha_auschwitz_report/commit/80ccd72f3af82566e50a12f6ba5ebdc3e5f111b3#diff-50e843ca76aa2b9fa111c59a2d8d19ef
+    # old version: segment_keyword = df.groupby(['IntCode', 'SegmentID', 'SegmentNumber','KeywordLabel'])["KeywordID"].unique().to_frame(name="KeywordID").reset_index()
+    
+    # version 1 segment_keyword = df.groupby(['SegmentID'])["KeywordID"].unique().to_frame(name="KeywordID").reset_index()
+    # version 2
+    segment_keyword = df.groupby(['IntCode', 'SegmentID', 'SegmentNumber'])["KeywordID"].unique().to_frame(name="KeywordID").reset_index()
 
     # Create an empty np array that will hold this
     segment_keyword_matrix = np.zeros(shape=(len(segment_keyword),len(keywords)))
@@ -53,6 +58,7 @@ if __name__ == '__main__':
     # Iterate through the segment_keyword table
     for i, element in enumerate(segment_keyword.iterrows()):
         for keyword in element[1]['KeywordID']:
+            
             keyword_index = keywords[keywords.KeywordID == keyword].index[0]
             segment_keyword_matrix[i, keyword_index] = 1
 
