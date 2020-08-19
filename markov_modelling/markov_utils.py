@@ -2,19 +2,9 @@ import pandas as pd
 import pdb
 from itertools import islice
 import numpy as np
-from pyemma import msm,plots
+from pyemma import msm
 import msmtools
-from msmtools.flux import tpt,ReactiveFlux
-from pyemma import plots as mplt
-import constants
-from scipy import sparse
-from sklearn import preprocessing
-import os
-import argparse
-import itertools 
-from msmtools.estimation import connected_sets,is_connected,largest_connected_submatrix
-from scipy.special import softmax
-from statistics import stdev
+from msmtools.estimation import connected_sets
 
 
 def window(seq, n=2):
@@ -82,21 +72,22 @@ def train_markov_chain(transition_matrix):
     #https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6910584/
 
     # Use this to check if reversible
+    # TODO: not sure if this attribute is updated internally; if so: assert
     mm.is_reversible
 
     
 
     return mm
 
-def print_stationary_distributions(mm,topic_labels):
+def print_stationary_distributions(mm, topic_labels):
     #Print the stationary distributions of the top states
     results = []
-    for i,element in enumerate(mm.pi.argsort()[::-1]):
+    for i, element in enumerate(mm.pi.argsort()[::-1]):
         #print (i)
         #print (topic_labels[element])
         #print (mm.pi[element])
         #print ('\n')
-        results.append({'topic_name':topic_labels[element],'stationary_prob':mm.pi[element]})
+        results.append({'topic_name':topic_labels[mm.active_set[element]],'stationary_prob':mm.pi[element]})
     return results
 
 

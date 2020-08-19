@@ -1,11 +1,8 @@
 import pandas as pd
 import numpy as np
-import msmtools
 import constants
 import os
-from msmtools.estimation import is_connected
-from markov_utils import train_markov_chain,window,cg_transition_matrix,train_markov_chain,print_stationary_distributions,post_process_topic_sequences
-import sys
+from markov_utils import print_stationary_distributions
 import pyemma
 from tqdm.auto import tqdm
 
@@ -73,7 +70,10 @@ def prepare_input_data(metadata_field):
 
     for sublist, fieldname in zip(interview_codes, metadata_field_names):
         output_data[fieldname] = []
-        segment_indices[fieldname] = []
+
+        #TODO: assuming that segment_indices can be concatenated. validate.
+        segment_indices[fieldname] =  segment_df[segment_df.IntCode.isin(sublist)]
+
         for element in tqdm(sublist):
             # print(type(element), element)
             segment_index = segment_df[segment_df.IntCode.isin([element])].index.to_list()
@@ -82,7 +82,7 @@ def prepare_input_data(metadata_field):
                 continue
 
             output_data[fieldname].append(input_matrix)
-            segment_indices[fieldname].append(segment_df[segment_df.IntCode.isin([element])])
+
 
     return output_data, metadata_field_names, segment_indices
 
@@ -94,7 +94,7 @@ if __name__ == '__main__':
     input_directory = constants.output_data_segment_keyword_matrix
 
     # Read the segment index term matrix
-    data = np.loadtxt(input_directory+ constants.output_segment_keyword_matrix_data_file, dtype=int)
+    data = np.load(input_directory+ constants.output_segment_keyword_matrix_data_file)
 
    
     # Read the column index (index terms) of the matrix above
@@ -133,7 +133,6 @@ if __name__ == '__main__':
 
         for metadata_field_name in metadata_field_names:
 
-
             document_index = segment_indices_dict[metadata_field_name].groupby(['IntCode','SegmentNumber'])['KeywordLabel'].apply(list).to_frame('KeywordSequence').reset_index()
             print(metadata_field_name)
 
@@ -152,8 +151,6 @@ if __name__ == '__main__':
             transition_matrix = mm.transition_matrix
 
             print('active set fraction: ', mm.active_state_fraction)
-
-            #TODO: re-write to take care of active set < full set
             stationary_prob = print_stationary_distributions(mm, features_df.KeywordLabel.to_list())
             pd.DataFrame(stationary_prob).to_csv(output_directory+metadata_field_name+'/stationary_probs.csv')
 
