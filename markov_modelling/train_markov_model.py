@@ -120,7 +120,7 @@ if __name__ == '__main__':
         # len(set(segment_df.SegmentID.to_list())) == data.shape
         
         # Prepare the input data (trajectories)
-        
+
         input_data_sets,metadata_field_names,segment_indices=prepare_input_data(metadata_field)
         #data = None
         for f,input_data_set in enumerate(input_data_sets):
@@ -149,7 +149,10 @@ if __name__ == '__main__':
                 # data = None
                 count_matrix = np.zeros((unique.shape[0],unique.shape[0])).astype(float)
 
-                
+
+                more_than_one_topic = np.where(unique.sum(1)>1)
+                print (more_than_one_topic)
+                pdb.set_trace()
 
                 for element in tr:
 
