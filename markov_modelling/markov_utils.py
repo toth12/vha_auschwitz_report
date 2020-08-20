@@ -42,6 +42,7 @@ def cg_transition_matrix(T, chi):
     assert msmtools.analysis.is_connected(T)
 
     pi = msmtools.analysis.stationary_distribution(T)
+    pdb.set_trace()
     D2 = np.diag(pi)
     D_c2_inv = np.diag(1/np.dot(chi.T, pi))
     return D_c2_inv @ chi.T @ D2 @ T @ chi

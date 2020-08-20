@@ -107,7 +107,7 @@ if __name__ == '__main__':
 
 
     metadata_fields = ['complete','complete_m','complete_w','CountryOfBirth','CountryOfBirth_m','CountryOfBirth_w','easy_w','easy_m','medium_m','medium_w','hard_m','hard_w',"notwork","notwork_m","notwork_w","work","work_m","work_w"]
-   
+    metadata_fields = ['easy_w']
     
 
     np.set_printoptions(suppress=True)
