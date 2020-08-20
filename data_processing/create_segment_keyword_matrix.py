@@ -6,6 +6,7 @@ import pandas as pd
 import pdb
 import numpy as np
 import argparse
+from tqdm.auto import tqdm
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
@@ -49,20 +50,44 @@ if __name__ == '__main__':
     keywords.to_csv(output_directory + output_feature_index)
     segment_keyword = df.groupby(['IntCode', 'SegmentID', 'SegmentNumber','KeywordLabel'])["KeywordID"].unique().to_frame(name="KeywordID").reset_index()
 
-    # Create an empty np array that will hold this
-    segment_keyword_matrix = np.zeros(shape=(len(segment_keyword),len(keywords)))
+    intcodes = segment_keyword['IntCode'].to_numpy()
+    segnums = segment_keyword['SegmentNumber'].to_numpy()
+    kw_ids = segment_keyword['KeywordID'].to_numpy().astype(int)
 
-    # Iterate through the segment_keyword table
-    for i, element in enumerate(segment_keyword.iterrows()):
-        for keyword in element[1]['KeywordID']:
+
+    interview_lengths = []
+    segment_keyword_matrices = []
+    for intcode in tqdm(np.unique(intcodes)):
+        kw_in_segm = kw_ids[intcodes == intcode]
+        segnums_in_segm = segnums[intcodes == intcode]
+
+        l = segnums_in_segm.max() - segnums_in_segm.min()
+        interview_lengths.append(l)
+
+        segment_keyword_matrix_single = np.zeros((l+1, len(keywords)))
+
+        for keyword, segnum in zip(kw_in_segm, segnums_in_segm):
             keyword_index = keywords[keywords.KeywordID == keyword].index[0]
-            segment_keyword_matrix[i, keyword_index] = 1
 
-    # Save the segment keyword matrix
+            # add one, don't overwrite -> enable multiple keywords per segment
+            segment_keyword_matrix_single[segnum - segnums_in_segm.min(), keyword_index] += 1
 
-    np.savetxt(output_directory + output_segment_keyword_matrix_txtfmt, segment_keyword_matrix, fmt='%d')
+        segment_keyword_matrices.append(segment_keyword_matrix_single)
+
+    segment_keyword_matrix = np.array(segment_keyword_matrices)
+
+    n_interviews = len(interview_lengths)
+    total_minutes = sum(interview_lengths)
+    print(f'total interviews: {n_interviews}')
+    print(f'total minutes: {total_minutes}')
+
 
     # loading huge text files is very slow, also saving in binary format
     np.save(output_directory + output_segment_keyword_matrix, segment_keyword_matrix)
+
+    # Save the segment keyword matrix
+    np.savetxt(output_directory + output_segment_keyword_matrix_txtfmt, np.vstack(segment_keyword_matrix), fmt='%d')
+
+
 
     segment_keyword.to_csv(output_directory + output_document_index)
