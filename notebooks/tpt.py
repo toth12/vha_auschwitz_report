@@ -6,7 +6,7 @@
 
 # In[6]:
 
-
+import pdb
 import numpy as np
 import pandas as pd
 import os
@@ -20,6 +20,8 @@ import sys
 #print(sys.path)
 #sys.path.remove("/Users/gmt28/Documents/Workspace/Docker_Engine/varad")
 import constants
+import random
+import msmtools
 print (constants.output_data_segment_keyword_matrix)
 
 
@@ -39,8 +41,8 @@ print (constants.output_data_segment_keyword_matrix)
 input_directory = constants.output_data_segment_keyword_matrix
 
 # Read the segment index term matrix
-data = np.load(input_directory + constants.output_segment_keyword_matrix_data_file.replace('.txt', '.npy'), 
-                  )
+
+data = np.load(input_directory + constants.output_segment_keyword_matrix_data_file.replace('.txt', '.npy'),allow_pickle=True )
 
 
 # In[5]:
@@ -87,6 +89,10 @@ input_directory = constants.output_data_segment_keyword_matrix
 # Read the segment index term matrix
 data = np.load(input_directory + constants.output_segment_keyword_matrix_data_file.replace('.txt', '.npy'), 
                   allow_pickle=True)
+
+random_sample=random.sample(range(0,len(data)),1000)
+random_sample.sort()
+data=np.take(data,random_sample)
 
 
 # TODO: fix data loader to account for new structure
@@ -141,7 +147,8 @@ its = pyemma.msm.timescales_msm(trajs, lags=np.arange(1, 50, 5), reversible=Fals
 
 
 pyemma.plots.plot_implied_timescales(its, marker='.', xlog=False)
-
+plt.savefig('implied_timescales.png')
+plt.close()
 
 # #### MSM
 # choose MSM lag time at which it is converged;
@@ -178,6 +185,10 @@ msm.active_state_fraction
 
 plt.plot(msm.pi)
 plt.plot(hist[msm.active_set]/ hist.sum(), alpha=.5)
+
+
+plt.savefig('histogram.png')
+plt.close()
 
 
 # Most likely states
@@ -235,6 +246,7 @@ import networkx as nx
 
 #thres = 0.000001
 fl = tpt.major_flux()
+
 g = nx.from_numpy_array(fl, create_using=nx.DiGraph)
 
 _m = np.zeros_like(msm.transition_matrix)
@@ -275,8 +287,8 @@ edge_cmap = plt.matplotlib.colors.LinearSegmentedColormap.from_list("uwe",
 # In[1761]:
 
 
-# paths = tpt.pathways(fraction=.66)
-# important_nodes = np.unique(np.concatenate(paths[0]))
+paths = tpt.pathways(fraction=.66)
+important_nodes = np.unique(np.concatenate(paths[0]))
 
 
 # In[1804]:
@@ -326,6 +338,7 @@ nx.draw_networkx_nodes(g_tmat, pos, node_size=msm.pi*1000, ax=ax, )
 nx.draw_networkx_edges(g_tmat, pos, edge_cmap=edge_cmap, node_size=msm.pi*1000,
                     edge_color=weights, width=2, ax=ax);
 
+fig.savefig("MSM_graph.png")
 
 # ### TPT major flux
 # this is the major flux of the TPT, accounting for 90% of the net flux
@@ -361,7 +374,7 @@ nx.draw_networkx_labels(g, pos, labels=labels, font_size=9)
 nx.draw_networkx_edges(g, pos, edge_cmap=edge_cmap, node_size=msm.pi*1000,
                     edge_color=weights, width=2, ax=ax);
 
-
+fig.savefig("TPT_major_flux.png")
 # # most important paths
 # next, only the top N paths are shown, accounting for 25% of the flux
 
@@ -432,7 +445,7 @@ print(f'{sum([l != "" for l in labels.values()])} labels to show')
 # In[1834]:
 
 
-import msmtools
+
 # this is the unsorted committor function. the other one is inplace sorted (pyemma bug??)
 _c = msmtools.analysis.committor(msm.transition_matrix, msm._full2active[A], msm._full2active[B])
 
@@ -465,4 +478,6 @@ nx.draw_networkx_labels(pathgraph, pos, labels=labels, font_size=9)
 nx.draw_networkx_edges(pathgraph, pos, node_size=msm.pi[pathg_nodes]*10000,
                        edge_cmap=edge_cmap, 
                     edge_color=weights, width=2, ax=ax);
+
+fig.savefig("most_important_paths.png")
 

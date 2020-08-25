@@ -7,6 +7,7 @@ import pdb
 import numpy as np
 import argparse
 from tqdm.auto import tqdm
+import pdb
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
@@ -61,10 +62,12 @@ if __name__ == '__main__':
         kw_in_segm = kw_ids[intcodes == intcode]
         segnums_in_segm = segnums[intcodes == intcode]
 
+
         l = segnums_in_segm.max() - segnums_in_segm.min()
         interview_lengths.append(l)
 
         segment_keyword_matrix_single = np.zeros((l+1, len(keywords)))
+
 
         for keyword, segnum in zip(kw_in_segm, segnums_in_segm):
             keyword_index = keywords[keywords.KeywordID == keyword].index[0]
@@ -88,6 +91,8 @@ if __name__ == '__main__':
     # Save the segment keyword matrix
     np.savetxt(output_directory + output_segment_keyword_matrix_txtfmt, np.vstack(segment_keyword_matrix), fmt='%d')
 
+    # Save the IntCode index
 
+    pd.DataFrame(np.unique(intcodes),columns=['IntCode']).to_csv(output_directory + output_document_index)
 
-    segment_keyword.to_csv(output_directory + output_document_index)
+    #segment_keyword.to_csv(output_directory + output_document_index)
