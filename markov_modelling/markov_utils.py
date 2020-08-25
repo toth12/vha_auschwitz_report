@@ -44,7 +44,16 @@ def cg_transition_matrix(T, chi):
     pi = msmtools.analysis.stationary_distribution(T)
     pdb.set_trace()
     D2 = np.diag(pi)
-    D_c2_inv = np.diag(1/np.dot(chi.T, pi))
+    #old version: D_c2_inv = np.diag(1/np.dot(chi.T, pi))
+    dot_product = np.dot(chi.T, pi)
+    divided = np.divide(1, dot_product, where=dot_product!=0)
+    D_c2_inv = np.diag(divided)
+
+    res = D_c2_inv @ chi.T @ D2 @ T @ chi
+    np.count_nonzero(~np.isnan(res))
+
+    pdb.set_trace()
+    
     return D_c2_inv @ chi.T @ D2 @ T @ chi
 
 def transform_transition_matrix_connected(transition_matrix):

@@ -25,7 +25,7 @@ if __name__ == '__main__':
     output_directory = constants.output_data_segment_keyword_matrix
     input_file = constants.input_segments_with_simplified_keywords
 
-    if min_count ==25:
+    if min_count ==200:
         output_segment_keyword_matrix = constants.output_segment_keyword_matrix_data_file
         output_document_index = constants.output_segment_keyword_matrix_document_index 
         output_feature_index = constants.output_segment_keyword_matrix_feature_index
