@@ -138,7 +138,7 @@ IntCodeW = df_biodata[df_biodata.Gender=='F']['IntCode'].to_numpy().astype(int)
 
 
 metadata_fields = ['complete','complete_m','complete_w','CountryOfBirth','CountryOfBirth_m','CountryOfBirth_w','easy_w','easy_m','medium_m','medium_w','hard_m','hard_w',"notwork","notwork_m","notwork_w","work","work_m","work_w"]
-metadata_fields =['work_w']
+metadata_fields =['complete_w']
 
 input_indices = prepare_input_data(metadata_fields)
 
@@ -277,9 +277,9 @@ for metadata_field in input_indices:
 
 
     A = features_df[features_df['KeywordLabel'].isin([
-                                                      'deportation to camps'])].index.to_numpy()
+                                                      'deportations to camps'])].index.to_numpy()
 
-    B = features_df[features_df['KeywordLabel'] == 'camp liberation'].index.to_numpy()
+    B = features_df[features_df['KeywordLabel'] == 'survival explanations'].index.to_numpy()
 
 
     # these states have to be mapped to the active set again!
@@ -498,7 +498,7 @@ for metadata_field in input_indices:
             continue
         
             
-        if node in features_df.iloc[A].KeywordLabel.to_list() +         features_df.iloc[B].KeywordLabel.to_list():
+        if node in features_df.iloc[A].KeywordLabel.to_list() + features_df.iloc[B].KeywordLabel.to_list():
             labels[node] = node.replace(' ', '\n').upper()
         elif msm.pi[msm._full2active[idx]] > labelthres:
             labels[node] = node.replace(' ', '\n')
