@@ -6,7 +6,9 @@ from pyemma import msm
 import msmtools
 from msmtools.estimation import connected_sets
 import networkx as nx
-
+import pyemma
+import matplotlib.pyplot as plt
+from tqdm.notebook import tqdm
 
 def window(seq, n=2):
     "Sliding window width n from seq.  From old itertools recipes."""
@@ -80,7 +82,7 @@ def train_markov_chain(transition_matrix):
 
     return mm
 
-def print_stationary_distributions(mm, topic_labels,active_set=False):
+def print_stationary_distributions(mm, topic_labels):
     #Print the stationary distributions of the top states
     results = []
     for i, element in enumerate(mm.pi.argsort()[::-1]):
@@ -189,7 +191,7 @@ def calculate_flux_2(mm,topic_labels,source,target):
    
     return topic_sequences
 
-def visualize_major_paths:(mm,topic_labels,source,target):
+
     
   
 
@@ -235,6 +237,7 @@ def estimate_fuzzy_trajectories(step_state_matrix):
     
     this cell also assigns the last visited state if a frame is empty (row.sum() == 0)
     '''
+    input_data_set = step_state_matrix
     n_realizations = 50
     trajs = []
     for _ in tqdm(range(n_realizations)):
@@ -257,7 +260,7 @@ def estimate_fuzzy_trajectories(step_state_matrix):
             trajs.append(np.argmax(_t, axis=1) )
     return trajs
 
-def visualize_implied_time_scale(trajectories,output_file);
+def visualize_implied_time_scale(trajectories,output_file):
     its = pyemma.msm.timescales_msm(trajectories, lags=np.arange(1, 50, 5), reversible=False)
     pyemma.plots.plot_implied_timescales(its, marker='.', xlog=False)
     plt.savefig(output_file)
@@ -281,6 +284,7 @@ def visualize_msm_graph(msm,features_df,KeywordLabel_A,KeywordLabel_B,output_fil
     tpt = pyemma.msm.tpt(msm, msm._full2active[A], msm._full2active[B])
     fl = tpt.major_flux()
     g = nx.from_numpy_array(fl, create_using=nx.DiGraph)
+
     _m = np.zeros_like(msm.transition_matrix)
     tmat_thresh = 2e-2
     _m[msm.transition_matrix > tmat_thresh] = msm.transition_matrix[msm.transition_matrix > tmat_thresh]
@@ -310,7 +314,7 @@ def visualize_msm_graph(msm,features_df,KeywordLabel_A,KeywordLabel_B,output_fil
     pos = nx.fruchterman_reingold_layout(g_tmat, k=1e-1)# fixed=keep)
     fig, ax = plt.subplots(figsize=(10, 10))
     nx.draw_networkx_nodes(g_tmat, pos, node_size=msm.pi*1000, ax=ax, )
-    x.draw_networkx_edges(g_tmat, pos, edge_cmap=edge_cmap, node_size=msm.pi*1000,
+    nx.draw_networkx_edges(g_tmat, pos, edge_cmap=edge_cmap, node_size=msm.pi*1000,
                         edge_color=weights, width=2, ax=ax);
 
     fig.savefig(output_file)
@@ -320,7 +324,38 @@ def visualize_tpt_major_flux(msm,features_df,KeywordLabel_A,KeywordLabel_B,outpu
     B = features_df[features_df['KeywordLabel'] == KeywordLabel_B].index.to_numpy()
     tpt = pyemma.msm.tpt(msm, msm._full2active[A], msm._full2active[B])
     fl = tpt.major_flux()
+
+    # Draw the graph
     g = nx.from_numpy_array(fl, create_using=nx.DiGraph)
+    _m = np.zeros_like(msm.transition_matrix)
+    tmat_thresh = 2e-2
+    _m[msm.transition_matrix > tmat_thresh] = msm.transition_matrix[msm.transition_matrix > tmat_thresh]
+    g_tmat = nx.from_numpy_array(_m, create_using=nx.DiGraph)
+    nodename_dict = {i:features_df.iloc[j].KeywordLabel for i, j in enumerate(msm.active_set)}
+    g = nx.relabel_nodes(g, nodename_dict)
+    g_tmat = nx.relabel_nodes(g_tmat, nodename_dict)
+    edge_cmap = plt.matplotlib.colors.LinearSegmentedColormap.from_list("uwe",[(0, 0, 0, .1), (0, 0, 0, 1)])
+    paths = tpt.pathways(fraction=.66)
+    important_nodes = np.unique(np.concatenate(paths[0]))
+    node_list = [list(g.nodes())[i] for i in important_nodes]
+
+    labelthres = .01
+    labels = {}
+
+    for ind, (node, prob) in enumerate(zip(g.nodes, msm.pi)):
+        if prob > labelthres:# or ind in most_important_nodes:
+            labels[node] = node.replace(' ', '\n')
+            
+        elif node in features_df.iloc[A].KeywordLabel.to_list() +         features_df.iloc[B].KeywordLabel.to_list():
+            labels[node] = node.replace(' ', '\n').upper()
+            
+        else:
+            labels[node] = ''
+    print(f'{sum([l != "" for l in labels.values()])} labels to show')
+
+
+
+
     _c = msmtools.analysis.committor(msm.transition_matrix, msm._full2active[A], msm._full2active[B])
 
     init_pos = np.random.rand(g.number_of_nodes(), 2)
@@ -342,6 +377,7 @@ def visualize_tpt_major_flux(msm,features_df,KeywordLabel_A,KeywordLabel_B,outpu
 def visualize_most_important_paths(msm,features_df,KeywordLabel_A,KeywordLabel_B,output_file):
     A = features_df[features_df['KeywordLabel'].isin([KeywordLabel_A])].index.to_numpy()
     B = features_df[features_df['KeywordLabel'] == KeywordLabel_B].index.to_numpy()
+    nodename_dict = {i:features_df.iloc[j].KeywordLabel for i, j in enumerate(msm.active_set)}
     tpt = pyemma.msm.tpt(msm, msm._full2active[A], msm._full2active[B])
     paths, capacities = tpt.pathways(fraction=.25)
     pathgraph = nx.DiGraph()
