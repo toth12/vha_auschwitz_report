@@ -114,6 +114,7 @@ def calculate_mean_passage_time_between_states(mm,topic_labels):
     df_passage_times = df_passage_times.rename(columns=column_names,index=column_names)
     return df_passage_times
 
+
 def calculate_flux(mm,topic_labels,source,target):
     #A=[8],B=[2,13],
     # Calculate the flux between two states camp arrival and camp liquidiation / camp transfer )
@@ -125,46 +126,7 @@ def calculate_flux(mm,topic_labels,source,target):
 
     for element in target:
          B.append(topic_labels.index(element))
-   
-    tpt = msm.tpt(mm, A, B)
-
-    nCut = 1
-    (bestpaths,bestpathfluxes) = tpt.pathways(fraction=0.3)
-    cumflux = 0
-
-    # Print the best path between the two states
-
-    print("Path flux\t\t%path\t%of total\tpath")
-
-    topic_sequences = {}
-    for i in range(len(bestpaths)):
-        cumflux += bestpathfluxes[i]
-        flux = 100.0*bestpathfluxes[i]/tpt.total_flux
-        if flux > 0:
-            #print(bestpathfluxes[i],'\t','%3.1f'%(100.0*bestpathfluxes[i]/tpt.total_flux),'%\t','%3.1f'%(100.0*cumflux/tpt.total_flux),'%\t\t',bestpaths[i])
-            
-            topic_sequence = []
-            for element in bestpaths[i]:
-                #print (topic_labels[element])
-                topic_sequence.append(topic_labels[element])
-            topic_sequence = '-'.join(topic_sequence)
-            topic_sequences[topic_sequence]=100.0*bestpathfluxes[i]/tpt.total_flux
-   
-    return topic_sequences
-
-
-def calculate_flux_2(mm,topic_labels,source,target):
-    #A=[8],B=[2,13],
-    # Calculate the flux between two states camp arrival and camp liquidiation / camp transfer )
-    np.set_printoptions(suppress=True) 
-    A = []
-    B = []
-    for element in source:
-        A.append(topic_labels.index(element))
-
-    for element in target:
-         B.append(topic_labels.index(element))
-   
+    topic_labels = {i:topic_labels[j] for i, j in enumerate(mm.active_set)}
     tpt = pyemma.msm.tpt(mm, mm._full2active[A], mm._full2active[B])
 
     nCut = 1

@@ -4,8 +4,9 @@ import numpy as np
 import constants
 import argparse
 import pyemma
+from tables import *
 
-from markov_utils import window,cg_transition_matrix,train_markov_chain,print_stationary_distributions,calculate_flux, calculate_mean_passage_time_between_states
+from markov_utils import window,cg_transition_matrix,train_markov_chain,print_stationary_distributions,calculate_flux,calculate_mean_passage_time_between_states
 
 stationary_probs = []
 
@@ -68,14 +69,19 @@ if __name__ == '__main__':
                     targets.append(keyword)
     
     
+    state_index = features_df.KeywordLabel.to_list()
 
     input_directory = constants.output_data_markov_modelling
     stationary_probs_complete = pd.read_csv(input_directory+'/'+'complete'+'/'+'stationary_probs.csv')
 
     for element in metadata_fields_to_agregate:
         print (element)
-     
-        mm = pyemma.load(input_directory+'/'+element+'/'+'pyemma_model','simple')
+      
+        mm = pyemma.load(input_directory+element+'_temp/'+'pyemma_model','simple')
+
+        
+        
+        '''
         data = mm.P
         stats = stationary_probs_complete[0:100]
         stats  =stats.rename(columns={'topic_name':'KeywordLabel'})
@@ -100,9 +106,10 @@ if __name__ == '__main__':
         new_data = (new_data /new_data.sum(axis=1,keepdims=1))
 
         mm = train_markov_chain(new_data)
+        
 
-       
-
+       '''
+        pdb.set_trace()
         flux = calculate_flux(mm,state_index,sources,targets)
 
         for tr in flux:
