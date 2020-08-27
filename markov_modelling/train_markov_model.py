@@ -48,16 +48,6 @@ if __name__ == '__main__':
         try:
             indices = metadata_partitions[key]
             input_data_set = np.take(data,indices)
-
-            #### This is temporary code
-
-            random_sample=random.sample(range(0,len(data)),100)
-            random_sample.sort()
-            input_data_set=np.take(data,random_sample)
-
-
-            #### End of temporary code
-
             output_directory = output_directory_temp+key+'_temp'
 
             # Make the output directory
