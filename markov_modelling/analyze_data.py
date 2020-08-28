@@ -34,13 +34,13 @@ if __name__ == '__main__':
     
     state_index = features_df.KeywordLabel.to_list()
     input_directory = constants.output_data_markov_modelling
-    stationary_probs_complete = pd.read_csv(input_directory+'/'+'complete_temp'+'/'+'stationary_probs.csv')
+    stationary_probs_complete = pd.read_csv(input_directory+'/'+'complete'+'/'+'stationary_probs.csv')
 
     # Load the input data
     print ('Loading of the input dataset began; be patient this can take up to 10 - 15 mins')  
-    mm = pyemma.load(input_directory+metadata_partition+'_temp/'+'pyemma_model','simple')
+    mm = pyemma.load(input_directory+metadata_partition+'/'+'pyemma_model','simple')
     print ("Input data loaded; use the functions as described in the README")
-    output_directory = input_directory+metadata_partition+'_temp/'
-    calculate_flux(mm,state_index,['friends'],['camp food sharing'],0.1)
-    print_mean_passage_time(mm,state_index,'friends',20)
+    output_directory = input_directory+metadata_partition+'/'
+    #calculate_flux(mm,state_index,['friends'],['camp food sharing'],0.1)
+    #print_mean_passage_time(mm,state_index,'friends',20)
     pdb.set_trace()

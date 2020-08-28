@@ -48,7 +48,7 @@ if __name__ == '__main__':
         try:
             indices = metadata_partitions[key]
             input_data_set = np.take(data,indices)
-            output_directory = output_directory_temp+key+'_temp'
+            output_directory = output_directory_temp+key
 
             # Make the output directory
             try:
