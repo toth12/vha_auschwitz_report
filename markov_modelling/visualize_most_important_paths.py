@@ -6,7 +6,7 @@ import argparse
 import pyemma
 from tables import *
 
-from markov_utils import window,cg_transition_matrix,train_markov_chain,print_stationary_distributions,calculate_flux,calculate_mean_passage_time_between_states
+from markov_utils import *
 
 stationary_probs = []
 
@@ -84,6 +84,9 @@ if __name__ == '__main__':
         print (element)
       
         mm = pyemma.load(input_directory+element+'_temp/'+'pyemma_model','simple')
+        output_file_name = 'most_imp_path_'+sources[0]+'_'+targets[0]
+        pdb.set_trace()
+        visualize_most_important_paths(mm,features_df,sources[0],targets[0],input_directory+element+'_temp/'+output_file_name)
 
         
         
@@ -115,7 +118,7 @@ if __name__ == '__main__':
         
 
        '''
-        pdb.set_trace()
+        
         flux = calculate_flux(mm,state_index,sources,targets)
 
         

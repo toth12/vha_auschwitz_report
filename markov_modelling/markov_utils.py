@@ -100,14 +100,15 @@ def print_stationary_distributions(mm, topic_labels):
     '''
 def calculate_mean_passage_time_between_states(mm,topic_labels):
     #Create a matrix that will hold the data
-
+    #topic_labels = {i:topic_labels[j] for i, j in enumerate(mm.active_set)}
     passage_times = np.zeros(shape=(len(topic_labels),len(topic_labels)))
     df_passage_times = pd.DataFrame(passage_times)  
     for f,row in enumerate(topic_labels):
 
         for l,column in enumerate(topic_labels):
             try:
-                df_passage_times.iloc()[f][l]=msm.tpt(mm,[f],[l]).mfpt
+                #df_passage_times.iloc()[f][l]=msm.tpt(mm,[mm._full2active[f]],[mm._full2active[l]]).mfpt
+                df_passage_times.iloc()[f][l] = msm.tpt(mm,[f],[l]).mfpt
             except:
                 df_passage_times.iloc()[f][l]=0
     column_names = {v: k for v, k in enumerate(topic_labels)}
@@ -336,12 +337,12 @@ def visualize_tpt_major_flux(msm,features_df,KeywordLabel_A,KeywordLabel_B,outpu
     fig.savefig(output_file)
 
 
-def visualize_most_important_paths(msm,features_df,KeywordLabel_A,KeywordLabel_B,output_file):
+def visualize_most_important_paths(msm,fraction,features_df,KeywordLabel_A,KeywordLabel_B,output_file):
     A = features_df[features_df['KeywordLabel'].isin([KeywordLabel_A])].index.to_numpy()
     B = features_df[features_df['KeywordLabel'] == KeywordLabel_B].index.to_numpy()
     nodename_dict = {i:features_df.iloc[j].KeywordLabel for i, j in enumerate(msm.active_set)}
     tpt = pyemma.msm.tpt(msm, msm._full2active[A], msm._full2active[B])
-    paths, capacities = tpt.pathways(fraction=.25)
+    paths, capacities = tpt.pathways(fraction=fraction)
     pathgraph = nx.DiGraph()
     pathg_node_names = []
     pathg_nodes = []
