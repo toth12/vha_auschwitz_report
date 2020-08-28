@@ -236,6 +236,9 @@ Output:
 
 ### Utility functions for data analysis
 
+visualize_most_important_paths(mm,0.1,features_df,'friends','camp food sharing',output_directory)
+
+
 1. Print stationary probability of a given topic in a given sub-data
 
 ```
@@ -245,19 +248,50 @@ python markov_modelling/compare_stationary_probs.py --metadata_fields work_w --k
 This prints the stationary probability of 'camp food sharing' in the work_w subdata, i.e the stationary probability of 'camp food sharing' in testimonies of women who worked (work_w).
 
 2. Print trajectories between topics:
-```
-python markov_modelling/print_trajectory.py --metadata_field complete_m --source 'camp social relations' --target 'food sharing'
-```
 
-This prints the possible trajectories between 'camp social relations' and 'food sharing', including the flux of a given trajectory, in testimonies of all men (complete_m).
-
-3. Get closest topic to a given topic through the mean passage time
-
+First, load the dataset:
 ```
-python markov_modelling/get_mean_passage_time.py --metadata_field complete --keywords 'camp food sharing'
+python markov_modelling/analyze_data.py --metadata_partition complete_w
 ```
 
-Prints the closest topics to 'camp food sharing' in all testimonies (complete). Proximity defined through the mean passage time.
+then run once the code stops:
+
+```
+calculate_flux(mm,state_index,['friends'],['camp food sharing'],0.1)
+```
+
+
+This prints the possible trajectories between 'friends' and 'camp food sharing', including the flux of a given trajectory, in testimonies of all women (complete_w).
+
+3. Get closest topic to a given topic through the firsrt mean passage time:
+
+First, load the dataset:
+```
+python markov_modelling/analyze_data.py --metadata_partition complete_w
+```
+
+then run once the code stops:
+
+```
+print_mean_passage_time(mm,state_index,'friends',30)
+```
+
+Prints the 30 closest topics to 'friends' in all testimonies by women (complete_w). Proximity defined through the mean passage time.
+
+4. Visualize most important paths between topics:
+
+First, load the dataset:
+```
+python markov_modelling/analyze_data.py --metadata_partition complete_w
+```
+
+then run once the code stops:
+
+```
+visualize_most_important_paths(mm,0.1,features_df,'friends','camp food sharing',output_directory)
+```
+
+Prints the most important paths between "friends" and "camp foodd sharing" in all testimonies by women (complete_w) and save the output - automatically- to data/output/markov_modelling/complete_w/most_imp_path_{topic_1}_{topic_2}_0.1.png
 
 # Appendix
 
