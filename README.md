@@ -217,23 +217,6 @@ Output data:
 
 This reshaped segment-keyword matrix is viewed as one complete trajectory. 
 
-
-### Calculate mean passage time for every metadat fields (i.e women, men, work, not_work)
-
-```
-python markov_modelling/calculate_mean_passage_time.py
-```
-
-Calculates mean passage time between each state (i.e topic) that are in the list of the first 100 most probable states (the probability of each state is its stationary probability) in the complete data and saves the result in a csv file.
-
-Input:
-* data/output/markov_modelling/complete/stationary_probs.csv
-* data/output/markov_modelling/{metadata_field_name}/pyemma_model
-* data/output/segment_keyword_matrix/feature_index.csv
-
-Output:
-* data/output/markov_modelling/{metadata_field_name}/mean_passage.csv
-
 ### Utility functions for data analysis
 
 visualize_most_important_paths(mm,0.1,features_df,'friends','camp food sharing',output_directory)
