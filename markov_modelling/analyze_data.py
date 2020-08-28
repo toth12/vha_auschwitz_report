@@ -6,11 +6,13 @@ import argparse
 import pyemma
 from tables import *
 
-from markov_utils import *
+
 
 stationary_probs = []
 
-from markov_utils import visualize_most_important_paths,calculate_flux
+from markov_utils import visualize_most_important_paths,calculate_flux,print_mean_passage_time
+
+
 def print_flux(flux):
     for tr in flux:
         print (tr)
@@ -40,5 +42,5 @@ if __name__ == '__main__':
     print ("Input data loaded; use the functions as described in the README")
     output_directory = input_directory+metadata_partition+'_temp/'
     calculate_flux(mm,state_index,['friends'],['camp food sharing'],0.1)
-    print_mean_passage_time(mm,state_index,'friends')
+    print_mean_passage_time(mm,state_index,'friends',20)
     pdb.set_trace()
