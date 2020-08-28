@@ -115,15 +115,38 @@ def calculate_mean_passage_time_between_states(mm,topic_labels):
     df_passage_times = df_passage_times.rename(columns=column_names,index=column_names)
     return df_passage_times
 
+def print_mean_passage_time(mm,topic_labels,source,limit = 10):
+    source_index = topic_labels.index(source)
+    #topic_labels = {i:topic_labels[j] for i, j in enumerate(mm.active_set)}
+    df_passage_times = pd.DataFrame(topic_labels,columns=['topic_labels'])  
+    mean_ps = []
+    for f,row in enumerate(topic_labels):
+        try:
+            
+            #df_passage_times.iloc()[f][l]=msm.tpt(mm,[mm._full2active[f]],[mm._full2active[l]]).mfpt
+            mean_ps.append(msm.tpt(mm,[source_index],[f]).mfpt)
 
-def calculate_flux(mm,topic_labels,source,target):
+        except:
+            mean_ps.append(np.nan)
+    df_passage_times['mfpt'] =mean_ps
+    df_passage_times = df_passage_times.sort_values('mfpt',ascending=True)
+
+    for row in df_passage_times[0:limit].iterrows():
+        print (row[1]['topic_labels'])
+        print (row[1]['mfpt'])
+
+    
+
+
+
+def calculate_flux(mm,topic_labels,source,target,fraction=0.3):
     #A=[8],B=[2,13],
     # Calculate the flux between two states camp arrival and camp liquidiation / camp transfer )
     np.set_printoptions(suppress=True) 
     A = []
     B = []
     for element in source:
-        A.append(topic_labels.index(element))
+        A.append(topic_labels.index (element))
 
     for element in target:
          B.append(topic_labels.index(element))
@@ -131,7 +154,7 @@ def calculate_flux(mm,topic_labels,source,target):
     tpt = pyemma.msm.tpt(mm, mm._full2active[A], mm._full2active[B])
 
     nCut = 1
-    (bestpaths,bestpathfluxes) = tpt.pathways(fraction=0.3)
+    (bestpaths,bestpathfluxes) = tpt.pathways(fraction=fraction)
     cumflux = 0
 
     # Print the best path between the two states
@@ -152,6 +175,10 @@ def calculate_flux(mm,topic_labels,source,target):
             topic_sequence = '-'.join(topic_sequence)
             topic_sequences[topic_sequence]=100.0*bestpathfluxes[i]/tpt.total_flux
    
+    
+    for tr in topic_sequences:
+        print (tr)
+        print (topic_sequences[tr])
     return topic_sequences
 
 
@@ -337,7 +364,7 @@ def visualize_tpt_major_flux(msm,features_df,KeywordLabel_A,KeywordLabel_B,outpu
     fig.savefig(output_file)
 
 
-def visualize_most_important_paths(msm,fraction,features_df,KeywordLabel_A,KeywordLabel_B,output_file):
+def visualize_most_important_paths(msm,fraction,features_df,KeywordLabel_A,KeywordLabel_B,output_directory):
     A = features_df[features_df['KeywordLabel'].isin([KeywordLabel_A])].index.to_numpy()
     B = features_df[features_df['KeywordLabel'] == KeywordLabel_B].index.to_numpy()
     nodename_dict = {i:features_df.iloc[j].KeywordLabel for i, j in enumerate(msm.active_set)}
@@ -397,7 +424,9 @@ def visualize_most_important_paths(msm,fraction,features_df,KeywordLabel_A,Keywo
                            edge_cmap=edge_cmap, 
                         edge_color=weights, width=2, ax=ax);
 
-    fig.savefig(output_file)
+    output_file_name = 'most_imp_path_'+KeywordLabel_A+'_'+KeywordLabel_B + '_'+str(fraction)+'.png'
+    output = output_directory + '/' + output_file_name
+    fig.savefig(output)
 
 
 
