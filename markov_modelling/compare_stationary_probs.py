@@ -73,17 +73,41 @@ if __name__ == '__main__':
     del features_df['Unnamed: 0']
 
     input_directory = constants.output_data_markov_modelling
+
     stationary_probs_complete = pd.read_csv(input_directory+'/'+'complete'+'/'+'stationary_probs.csv')
     statrionary_prob_selection = stationary_probs_complete[stationary_probs_complete['topic_name']=='camp selections']['stationary_prob'].values[0]
-
+    statrionary_prob_escape = stationary_probs_complete[stationary_probs_complete['topic_name']=='camp escapes']['stationary_prob'].values[0]
     for keyword in keywords:
         print (keyword)
         for element in metadata_fields_to_agregate:
             stationary_probs = pd.read_csv(input_directory+'/'+element+'/'+'stationary_probs.csv')
             del stationary_probs['Unnamed: 0']
 
+            if keyword == "friends":
+                new_value = stationary_probs[stationary_probs['topic_name']==keyword]['stationary_prob'].values[0] + stationary_probs[stationary_probs['topic_name']=="friendships"]['stationary_prob'].values[0]
+
+            try:
+                if keyword == "camp food sharing":
+                    new_value = stationary_probs[stationary_probs['topic_name']==keyword]['stationary_prob'].values[0] + stationary_probs[stationary_probs['topic_name']=="food sharing"]['stationary_prob'].values[0]
+                
+            except: 
+                new_value = np.nan 
             stationary_probs = stationary_probs.rename(columns={'topic_name':'KeywordLabel'})
             stationary_probs = stationary_probs.rename(columns={'stationary_prob':'stationary_prob_'+element})
-            stationary_probs['stationary_prob_norm_'+element] = statrionary_prob_selection / stationary_probs['stationary_prob_'+element] 
+            stationary_probs['stationary_prob_norm_sel_'+element] = statrionary_prob_selection / stationary_probs['stationary_prob_'+element]
+            stationary_probs['stationary_prob_norm_esca_'+element] =  stationary_probs['stationary_prob_'+element]  / statrionary_prob_escape
+           
+            
+
             print (element)
-            print(stationary_probs[stationary_probs['KeywordLabel']==keyword])
+      
+            print ('Stationary prob:')
+            print (stationary_probs[stationary_probs['KeywordLabel']==keyword]['stationary_prob_'+element].values[0])
+            print ('Escape:')
+            print (stationary_probs[stationary_probs['KeywordLabel']==keyword]['stationary_prob_norm_esca_'+element].values[0])
+            print ("Selection:")
+            print (stationary_probs[stationary_probs['KeywordLabel']==keyword]['stationary_prob_norm_sel_'+element].values[0])
+           
+
+
+
