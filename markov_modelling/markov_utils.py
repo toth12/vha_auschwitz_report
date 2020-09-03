@@ -235,11 +235,11 @@ def estimate_markov_model_from_trajectories(trajectories, msmlag=10):
                                            core_set=np.sort(np.unique(np.concatenate(trajectories)))[1:])
     return msm
 
-def prepare_histogram_to_compare_stationary_distribution_with_plausi_measure(msm,trajectories,output_file):
+def prepare_histogram_to_compare_stationary_distribution_with_plausi_measure(msm, output_file):
     # histogram to compare stationary distribution with (plausibility measure)
-    hist = np.bincount(np.concatenate(trajectories))
+    hist = np.bincount(np.concatenate(msm.dtrajs_full))
     plt.plot(msm.pi)
-    plt.plot(hist[msm.active_set]/ hist.sum(), alpha=.5)
+    plt.plot(hist[msm.active_set]/ hist[msm.active_set].sum(), alpha=.5)
     plt.savefig(output_file)
     plt.close()
 

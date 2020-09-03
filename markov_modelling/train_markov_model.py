@@ -61,6 +61,9 @@ if __name__ == '__main__':
             # Estimate the Markov model from the trajectories
             msm = mu.estimate_markov_model_from_trajectories(trajs)
 
+            # Create histogram to compare stationary distribution with plausibility measure
+            mu.prepare_histogram_to_compare_stationary_distribution_with_plausi_measure(msm, output_directory + '/histogram.png')
+
             # delete discrete trajectories from msm object (severe speedup with saving/loading)
             msm._dtrajs_active = None
             msm._dtrajs_full = None
@@ -69,9 +72,7 @@ if __name__ == '__main__':
             # Save the markov model
             msm.save(output_directory+'/pyemma_model', 'simple',overwrite=True)
 
-            # Create histogram to compare stationary distribution with plausibility measure
 
-            mu.prepare_histogram_to_compare_stationary_distribution_with_plausi_measure(msm,trajs, output_directory + '/histogram.png')
 
             # Get the stationary distributions
             stationary_probs = mu.print_stationary_distributions(msm,features_df.KeywordLabel.to_list())
@@ -81,6 +82,6 @@ if __name__ == '__main__':
             import sys
             sys.exit()
 
-        except:
-            print ("Training the Markov model with the following metadata field was not possible")
-            print (key)
+        #except:
+        #    print ("Training the Markov model with the following metadata field was not possible")
+        #    print (key)
