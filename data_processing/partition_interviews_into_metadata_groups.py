@@ -46,7 +46,7 @@ def prepare_input_data(metadata_fields):
                 interview_codes_temp = df_biodata.IntCode.to_list()
                 if len(interview_codes_to_filter) > 1:
                     interview_codes_temp = [f for f in interview_codes_temp if f in interview_codes_to_filter]
-        
+                    
             elif (('easy' in metadata_field) or ('medium' in metadata_field) or ('hard' in metadata_field)):
                 interview_codes_temp = df_biodata[df_biodata[metadata_field.split('_')[0]] == 1].IntCode.tolist()
 
@@ -93,7 +93,7 @@ if __name__ == '__main__':
 
 
     input_indices = prepare_input_data(metadata_fields)
-
+    pdb.set_trace()
     with open(input_directory+'metadata_partitions.json', 'w') as outfile:
         json.dump(input_indices, outfile)
 

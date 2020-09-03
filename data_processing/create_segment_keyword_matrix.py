@@ -82,14 +82,17 @@ if __name__ == '__main__':
     intcode_index = []
     interview_lengths = []
     segment_keyword_matrices = []
-    
+    number_of_deleted  = 0
+    deleted_int_codes = []
     for intcode in tqdm(np.unique(intcodes)):
+    #for intcode in np.unique(intcodes):
         kw_in_segm = kw_ids[intcodes == intcode]
         segnums_in_segm = segnums[intcodes == intcode]
         group_num = 0
+        
         segnums_in_segm_grouped = group_segments(segnums_in_segm)
         for f,group in enumerate(segnums_in_segm_grouped):
-            if len(group) >1:
+            if len(set(group)) >1:
                 intcode_index.append(str(intcode)+'_'+str(f))
                 kw_in_segm_group = kw_in_segm[group_num:group_num+len(group)]
                 group_num = group_num + len(group)
@@ -105,7 +108,9 @@ if __name__ == '__main__':
                 
                 segment_keyword_matrices.append(segment_keyword_matrix_single)
             else:
-                continue
+                number_of_deleted +=1
+                deleted_int_codes.append(intcode)
+                
         
 
 
@@ -124,13 +129,13 @@ if __name__ == '__main__':
     segment_index = pd.DataFrame(intcode_index,columns=['segment_index'])
     segment_index['IntCode'] = segment_index.segment_index.apply((lambda x: x.split('_')[0]))
 
-
+    pdb.set_trace()
 
     # loading huge text files is very slow, also saving in binary format
     np.save(output_directory + output_segment_keyword_matrix, segment_keyword_matrix)
 
     # Save the segment keyword matrix
-    np.savetxt(output_directory + output_segment_keyword_matrix_txtfmt, np.vstack(segment_keyword_matrix), fmt='%d')
+    #np.savetxt(output_directory + output_segment_keyword_matrix_txtfmt, np.vstack(segment_keyword_matrix), fmt='%d')
 
     # Save the Segment Index index
 
