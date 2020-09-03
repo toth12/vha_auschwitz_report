@@ -8,7 +8,7 @@ from msmtools.estimation import connected_sets
 import networkx as nx
 import pyemma
 import matplotlib.pyplot as plt
-from tqdm.notebook import tqdm
+from tqdm.auto import tqdm
 
 def window(seq, n=2):
     "Sliding window width n from seq.  From old itertools recipes."""
@@ -40,12 +40,14 @@ def cg_transition_matrix(T, chi):
     return D_c2_inv @ chi.T @ D2 @ T @ chi
 
 def transform_transition_matrix_connected(transition_matrix):
-    
+    #TODO: I would prefer to use msmtools because the functions there are unit-tested...
+    raise NotImplementedError('consider using msmtools or remove this line.')
+
     connected_nodes = connected_sets(transition_matrix)[0]
     connected_matrix = np.take(transition_matrix,connected_nodes,axis=0)
     connected_matrix = np.take(connected_matrix,connected_nodes,axis=1)
 
-    
+
     #removed_nodes = [element[0] for element in connected_sets(transition_matrix)[1:]]
     removed_nodes = [element for element in range(0,transition_matrix.shape[0]) if element not in connected_nodes]
     removed_nodes.sort()
@@ -69,19 +71,6 @@ def round_to_one(m):
     return m
 
 
-def train_markov_chain(transition_matrix):
-    mm = msm.markov_model(transition_matrix)
-    #mm = msm.MSM(transition_matrix,neig=13)
-    #https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6910584/
-
-    # Use this to check if reversible
-    # TODO: not sure if this attribute is updated internally; if so: assert
-    mm.is_reversible
-
-    
-
-    return mm
-
 def print_stationary_distributions(mm, topic_labels):
     #Print the stationary distributions of the top states
     results = []
@@ -93,12 +82,8 @@ def print_stationary_distributions(mm, topic_labels):
         results.append({'topic_name':topic_labels[mm.active_set[element]],'stationary_prob':mm.pi[element]})
     return results
 
-    # Print the eigenvalues of states
 
-    '''for element in mm.eigenvalues().argsort()[::-1]:
-        print (topic_list[element])
-    '''
-def calculate_mean_passage_time_between_states(mm,topic_labels):
+def calculate_mean_passage_time_between_states(mm, topic_labels):
     #Create a matrix that will hold the data
     #topic_labels = {i:topic_labels[j] for i, j in enumerate(mm.active_set)}
     passage_times = np.zeros(shape=(len(topic_labels),len(topic_labels)))
@@ -107,6 +92,7 @@ def calculate_mean_passage_time_between_states(mm,topic_labels):
 
         for l,column in enumerate(topic_labels):
             try:
+                #TODO: why no active set?
                 #df_passage_times.iloc()[f][l]=msm.tpt(mm,[mm._full2active[f]],[mm._full2active[l]]).mfpt
                 df_passage_times.iloc()[f][l] = msm.tpt(mm,[f],[l]).mfpt
             except:
@@ -115,8 +101,7 @@ def calculate_mean_passage_time_between_states(mm,topic_labels):
     df_passage_times = df_passage_times.rename(columns=column_names,index=column_names)
     return df_passage_times
 
-def print_mean_passage_time(mm,topic_labels,source,limit = 10):
-    
+def print_mean_passage_time(mm, topic_labels, source,limit = 10):
     source_index = topic_labels.index(source)
     topic_labels_active_set = {i:topic_labels[j] for i, j in enumerate(mm.active_set)}
     
@@ -124,7 +109,8 @@ def print_mean_passage_time(mm,topic_labels,source,limit = 10):
     mean_ps = []
     for key in topic_labels_active_set:
         try:
-            mfpt = pyemma.msm.tpt(mm, [mm._full2active[source_index]],[mm._full2active[mm.active_set[key]]]).mfpt
+            assert mm._full2active[source_index] != -1 and mm._full2active[key] != -1
+            mfpt = pyemma.msm.tpt(mm, [mm._full2active[source_index]],[mm._full2active[key]]).mfpt
             mean_ps.append(mfpt)
 
         except:
@@ -153,9 +139,12 @@ def calculate_flux(mm,topic_labels,source,target,fraction=0.3):
     for element in target:
          B.append(topic_labels.index(element))
     topic_labels = {i:topic_labels[j] for i, j in enumerate(mm.active_set)}
+
+    assert (-1 not in mm._full2active[A]), 'source states not in active set'
+    assert (-1 not in mm._full2active[B]), 'target states not in active set'
+
     tpt = pyemma.msm.tpt(mm, mm._full2active[A], mm._full2active[B])
 
-    nCut = 1
     (bestpaths,bestpathfluxes) = tpt.pathways(fraction=fraction)
     cumflux = 0
 
@@ -191,6 +180,7 @@ def create_dataframe_with_paths(paths_w,paths_m,filter_stat=None):
     women_topic_sequences = paths_w
     men_topic_sequences = paths_m
 
+    #TODO: should it be ... + list(set(list(men_to...keys())))?
     pathes = list(set(list(women_topic_sequences.keys())+list(men_topic_sequences.keys())))
 
     result = []
@@ -209,57 +199,40 @@ def create_dataframe_with_paths(paths_w,paths_m,filter_stat=None):
     else:
         filter = "|".join(filter_stat)
         df = pd.DataFrame(result)
+        #TODO: should this be ...contains(filter)?
         df = df[df.path.str.contains("social|aid")]
         return df
 
-def post_process_topic_sequences(sequences,features_df):
-    final_result = []
-    for element in sequences:
-        pdb.set_trace()
-
-    return final_result
-
-
-def estimate_fuzzy_trajectories(step_state_matrix):
+def estimate_fuzzy_trajectories(step_state_matrix, n_realizations=50):
     '''
     Convert trajectories using the following approach:
     for each segment with multiple topics, randomly select one topic
     do this for n_realization times and build the MSM on everything
     the error that comes with each random pick should average out this way
     
-    this cell also assigns the last visited state if a frame is empty (row.sum() == 0)
+    returns a trajectory with unassigned -1 states (handled by pyemma)
     '''
     input_data_set = step_state_matrix
-    n_realizations = 50
+
     trajs = []
     for _ in tqdm(range(n_realizations)):
         for t in input_data_set:
+            _t = (t.cumsum(1) > (np.random.rand(t.shape[0]) * t.sum(1))[:, None]).argmax(1)
+            _t[t.sum(1) == 0] = -1
+            trajs.append(_t)
 
-            _t = np.zeros_like(t)
-            for n, row in enumerate(t):
-                if row.sum() > 1:
-                    rindx = np.random.choice(row.shape[0], size=1, p=row/row.sum())
-                    _t[n, rindx] = 1
-                elif row.sum() == 0:
-                    _t[n] = _t[n-1]
-                else:
-                    _t[n] = row
-
-            # make sure this is binary assignment
-            assert np.unique(np.sum(_t, axis=1)) == np.array([1]), 'failed binary assignment'
-
-            # convert one-hot encoding to state definitions
-            trajs.append(np.argmax(_t, axis=1) )
     return trajs
 
 def visualize_implied_time_scale(trajectories,output_file):
-    its = pyemma.msm.timescales_msm(trajectories, lags=np.arange(1, 50, 5), reversible=False)
+    its = pyemma.msm.timescales_msm(trajectories, lags=np.arange(1, 31, 5), reversible=False,
+                                    core_set=np.sort(np.unique(np.concatenate(trajectories)))[1:])
     pyemma.plots.plot_implied_timescales(its, marker='.', xlog=False)
     plt.savefig(output_file)
     plt.close()
 
-def estimate_markov_model_from_trajectories(trajectories):
-    msm = pyemma.msm.estimate_markov_model(trajectories, 10, reversible=False)
+def estimate_markov_model_from_trajectories(trajectories, msmlag=10):
+    msm = pyemma.msm.estimate_markov_model(trajectories, msmlag, reversible=False,
+                                           core_set=np.sort(np.unique(np.concatenate(trajectories)))[1:])
     return msm
 
 def prepare_histogram_to_compare_stationary_distribution_with_plausi_measure(msm,trajectories,output_file):
@@ -270,38 +243,19 @@ def prepare_histogram_to_compare_stationary_distribution_with_plausi_measure(msm
     plt.savefig(output_file)
     plt.close()
 
-def visualize_msm_graph(msm,features_df,KeywordLabel_A,KeywordLabel_B,output_file):
-    A = features_df[features_df['KeywordLabel'].isin([KeywordLabel_A])].index.to_numpy()
-    B = features_df[features_df['KeywordLabel'] == KeywordLabel_B].index.to_numpy()
-    tpt = pyemma.msm.tpt(msm, msm._full2active[A], msm._full2active[B])
-    fl = tpt.major_flux()
-    g = nx.from_numpy_array(fl, create_using=nx.DiGraph)
+def visualize_msm_graph(msm,features_df,output_file,
+                        tmat_thresh=2e-2):
 
     _m = np.zeros_like(msm.transition_matrix)
-    tmat_thresh = 2e-2
+
     _m[msm.transition_matrix > tmat_thresh] = msm.transition_matrix[msm.transition_matrix > tmat_thresh]
     g_tmat = nx.from_numpy_array(_m, create_using=nx.DiGraph)
     nodename_dict = {i:features_df.iloc[j].KeywordLabel for i, j in enumerate(msm.active_set)}
-    g = nx.relabel_nodes(g, nodename_dict)
+
     g_tmat = nx.relabel_nodes(g_tmat, nodename_dict)
+
     edge_cmap = plt.matplotlib.colors.LinearSegmentedColormap.from_list("uwe",[(0, 0, 0, .1), (0, 0, 0, 1)])
-    paths = tpt.pathways(fraction=.66)
-    important_nodes = np.unique(np.concatenate(paths[0]))
-    node_list = [list(g.nodes())[i] for i in important_nodes]
 
-    labelthres = .01
-    labels = {}
-
-    for ind, (node, prob) in enumerate(zip(g.nodes, msm.pi)):
-        if prob > labelthres:# or ind in most_important_nodes:
-            labels[node] = node.replace(' ', '\n')
-            
-        elif node in features_df.iloc[A].KeywordLabel.to_list() +         features_df.iloc[B].KeywordLabel.to_list():
-            labels[node] = node.replace(' ', '\n').upper()
-            
-        else:
-            labels[node] = ''
-    print(f'{sum([l != "" for l in labels.values()])} labels to show')
     weights = np.array(list(nx.get_edge_attributes(g_tmat, 'weight').values()))
     pos = nx.fruchterman_reingold_layout(g_tmat, k=1e-1)# fixed=keep)
     fig, ax = plt.subplots(figsize=(10, 10))
@@ -314,22 +268,17 @@ def visualize_msm_graph(msm,features_df,KeywordLabel_A,KeywordLabel_B,output_fil
 def visualize_tpt_major_flux(msm,features_df,KeywordLabel_A,KeywordLabel_B,output_file):
     A = features_df[features_df['KeywordLabel'].isin([KeywordLabel_A])].index.to_numpy()
     B = features_df[features_df['KeywordLabel'] == KeywordLabel_B].index.to_numpy()
+    assert -1 not in msm._full2active[A] and -1 not in msm._full2active[B]
+
     tpt = pyemma.msm.tpt(msm, msm._full2active[A], msm._full2active[B])
     fl = tpt.major_flux()
 
     # Draw the graph
     g = nx.from_numpy_array(fl, create_using=nx.DiGraph)
-    _m = np.zeros_like(msm.transition_matrix)
-    tmat_thresh = 2e-2
-    _m[msm.transition_matrix > tmat_thresh] = msm.transition_matrix[msm.transition_matrix > tmat_thresh]
-    g_tmat = nx.from_numpy_array(_m, create_using=nx.DiGraph)
     nodename_dict = {i:features_df.iloc[j].KeywordLabel for i, j in enumerate(msm.active_set)}
     g = nx.relabel_nodes(g, nodename_dict)
-    g_tmat = nx.relabel_nodes(g_tmat, nodename_dict)
+
     edge_cmap = plt.matplotlib.colors.LinearSegmentedColormap.from_list("uwe",[(0, 0, 0, .1), (0, 0, 0, 1)])
-    paths = tpt.pathways(fraction=.66)
-    important_nodes = np.unique(np.concatenate(paths[0]))
-    node_list = [list(g.nodes())[i] for i in important_nodes]
 
     labelthres = .01
     labels = {}
@@ -338,14 +287,11 @@ def visualize_tpt_major_flux(msm,features_df,KeywordLabel_A,KeywordLabel_B,outpu
         if prob > labelthres:# or ind in most_important_nodes:
             labels[node] = node.replace(' ', '\n')
             
-        elif node in features_df.iloc[A].KeywordLabel.to_list() +         features_df.iloc[B].KeywordLabel.to_list():
+        elif node in features_df.iloc[A].KeywordLabel.to_list() + features_df.iloc[B].KeywordLabel.to_list():
             labels[node] = node.replace(' ', '\n').upper()
             
         else:
             labels[node] = ''
-    print(f'{sum([l != "" for l in labels.values()])} labels to show')
-
-
 
 
     _c = msmtools.analysis.committor(msm.transition_matrix, msm._full2active[A], msm._full2active[B])
@@ -367,6 +313,8 @@ def visualize_tpt_major_flux(msm,features_df,KeywordLabel_A,KeywordLabel_B,outpu
 
 
 def visualize_most_important_paths(msm,fraction,features_df,KeywordLabel_A,KeywordLabel_B,output_directory):
+    #TODO: use isin instead of direct mask
+
     A = features_df[features_df['KeywordLabel'].isin([KeywordLabel_A])].index.to_numpy()
     B = features_df[features_df['KeywordLabel'] == KeywordLabel_B].index.to_numpy()
     nodename_dict = {i:features_df.iloc[j].KeywordLabel for i, j in enumerate(msm.active_set)}
@@ -414,7 +362,7 @@ def visualize_most_important_paths(msm,fraction,features_df,KeywordLabel_A,Keywo
     init_pos[:, 0] = _c[pathg_nodes]
     init_pos_dict = {node:[_c[idx], np.random.rand()] for node, idx in zip(pathg_node_names, pathg_nodes)}
     weights = np.array(list(nx.get_edge_attributes(pathgraph, 'weight').values())).astype(float)
-    pos = init_pos_dict
+
     pos = nx.fruchterman_reingold_layout(pathgraph,iterations=20, k=1.8e-2, pos=init_pos_dict, )#fixed=keep)
 
 
@@ -424,7 +372,7 @@ def visualize_most_important_paths(msm,fraction,features_df,KeywordLabel_A,Keywo
     nx.draw_networkx_labels(pathgraph, pos, labels=labels, font_size=9)
     nx.draw_networkx_edges(pathgraph, pos, node_size=msm.pi[pathg_nodes]*10000,
                            edge_cmap=edge_cmap, 
-                        edge_color=weights, width=2, ax=ax);
+                        edge_color=weights, width=2, ax=ax)
 
     output_file_name = 'most_imp_path_'+KeywordLabel_A+'_'+KeywordLabel_B + '_'+str(fraction)+'.png'
     output = output_directory + '/' + output_file_name

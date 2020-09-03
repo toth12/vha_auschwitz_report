@@ -5,14 +5,10 @@ import pdb
 import numpy as np
 import pandas as pd
 import os
-import matplotlib.pyplot as plt
-import pyemma
-from tqdm.notebook import tqdm
-import sys
 import constants
-import random
-import msmtools
-from markov_modelling import markov_utils as mu
+#from markov_modelling import markov_utils as mu
+import markov_utils as mu
+
 import json
 
 
@@ -65,11 +61,12 @@ if __name__ == '__main__':
             # Estimate the Markov model from the trajectories
             msm = mu.estimate_markov_model_from_trajectories(trajs)
 
-            # Save the markov model
+            # delete discrete trajectories from msm object (severe speedup with saving/loading)
+            msm._dtrajs_active = None
+            msm._dtrajs_full = None
+            msm._dtrajs_original = None
 
-            if os.path.exists(output_directory+'/pyemma_model'):
-                os.remove(output_directory+'/pyemma_model')
-                   
+            # Save the markov model
             msm.save(output_directory+'/pyemma_model', 'simple',overwrite=True)
 
             # Create histogram to compare stationary distribution with plausibility measure
@@ -79,6 +76,11 @@ if __name__ == '__main__':
             # Get the stationary distributions
             stationary_probs = mu.print_stationary_distributions(msm,features_df.KeywordLabel.to_list())
             pd.DataFrame(stationary_probs).to_csv(output_directory+'/stationary_probs.csv')
+        except KeyboardInterrupt:
+            print('Keyboard interrupt, quitting.')
+            import sys
+            sys.exit()
+
         except:
             print ("Training the Markov model with the following metadata field was not possible")
             print (key)

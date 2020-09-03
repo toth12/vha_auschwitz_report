@@ -7,13 +7,11 @@ import pdb
 import numpy as np
 import argparse
 from tqdm.auto import tqdm
-import pdb
-from statistics import stdev
 import more_itertools as mit
 
 
 
-def group_segments(data,max_gap=2):
+def group_segments(data,max_gap=5):
     result = [list(group) for group in mit.consecutive_groups(data)]
     #check if merge is possible
     if len(result)>1:
@@ -33,7 +31,6 @@ def group_segments(data,max_gap=2):
 
     else:    
         return result
-
 
 
 if __name__ == '__main__':
@@ -118,7 +115,7 @@ if __name__ == '__main__':
     #indices_53029 = [intcode_index.index(element) for element in intcode_index if element.split('_')[0]=='53029']
     #lenghts_53029 = np.array([len(element) for element in segment_keyword_matrices[indices_53029[0]:indices_53029[-1]]]).sum()
  
-    assert len(segment_index) == len(segment_keyword_matrices)
+    #assert len(segment_index) == len(segment_keyword_matrices)
     n_interviews = len(interview_lengths)
     total_minutes = sum(interview_lengths)
     print(f'total interviews: {n_interviews}')
