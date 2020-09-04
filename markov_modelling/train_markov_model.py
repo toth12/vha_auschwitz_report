@@ -8,7 +8,7 @@ import os
 import constants
 #from markov_modelling import markov_utils as mu
 import markov_utils as mu
-
+from tables import *
 import json
 
 
@@ -42,10 +42,12 @@ if __name__ == '__main__':
 
     for key in metadata_partitions:
         try:
+
             indices = metadata_partitions[key]
             input_data_set = np.take(data,indices)
             output_directory = output_directory_temp+key
-
+            
+            
             # Make the output directory
             try:
                 os.mkdir(output_directory)
