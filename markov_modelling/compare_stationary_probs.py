@@ -16,7 +16,7 @@ from msmtools.estimation import connected_sets,is_connected,largest_connected_su
 from scipy.special import softmax
 
 
-from markov_utils import window,cg_transition_matrix,train_markov_chain,print_stationary_distributions
+#from markov_utils import window,cg_transition_matrix,train_markov_chain,print_stationary_distributions
 
 stationary_probs = []
 

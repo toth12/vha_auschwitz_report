@@ -42,21 +42,25 @@ if __name__ == '__main__':
 
     for key in metadata_partitions:
         try:
-
+            
+            print (key)
+            
             indices = metadata_partitions[key]
+
             input_data_set = np.take(data,indices)
             output_directory = output_directory_temp+key
             
-            
+            print (np.vstack(input_data_set)[:,39].sum())
+           
             # Make the output directory
             try:
                 os.mkdir(output_directory)
             except:
                 pass
-
+            
             # Estimate fuzzy trajectories
             trajs = mu.estimate_fuzzy_trajectories(input_data_set)
-
+            
             # Visualize implied timescale and save it
             mu.visualize_implied_time_scale(trajs,output_directory+'/implied_time_scale.png')
 

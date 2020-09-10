@@ -43,6 +43,7 @@ def prepare_input_data(metadata_fields):
                     result[el]=interview_indices
         else:
             if "complete" in metadata_field:
+
                 interview_codes_temp = df_biodata.IntCode.to_list()
                 if len(interview_codes_to_filter) > 1:
                     interview_codes_temp = [f for f in interview_codes_temp if f in interview_codes_to_filter]
@@ -82,7 +83,7 @@ if __name__ == '__main__':
     IntCodeW = df_biodata[df_biodata.Gender=='F']['IntCode'].to_list()
     metadata_fields = ['complete','complete_m','complete_w','CountryOfBirth','CountryOfBirth_m','CountryOfBirth_w','easy_w','easy_m','medium_m','medium_w','hard_m','hard_w',"notwork","notwork_m","notwork_w","work","work_m","work_w"]
     
-
+    
     # Read the data index
     input_directory = constants.output_data_segment_keyword_matrix
     # Read the row index (groups of three segments) of the matrix above
@@ -90,10 +91,10 @@ if __name__ == '__main__':
                          constants.output_segment_keyword_matrix_document_index)
 
     int_codes = segment_df['IntCode'].to_list()
-
+    
 
     input_indices = prepare_input_data(metadata_fields)
-    pdb.set_trace()
+    
     with open(input_directory+'metadata_partitions.json', 'w') as outfile:
         json.dump(input_indices, outfile)
 
