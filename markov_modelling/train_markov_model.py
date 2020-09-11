@@ -57,8 +57,9 @@ if __name__ == '__main__':
                 os.mkdir(output_directory)
             except:
                 pass
-            
+           
             # Estimate fuzzy trajectories
+            #empyt = [element[0] for element in input_data_set if element[0].sum()==0]
             trajs = mu.estimate_fuzzy_trajectories(input_data_set)
             
             # Visualize implied timescale and save it
@@ -66,7 +67,7 @@ if __name__ == '__main__':
 
             # Estimate the Markov model from the trajectories
             msm = mu.estimate_markov_model_from_trajectories(trajs)
-
+            
             # Create histogram to compare stationary distribution with plausibility measure
             mu.prepare_histogram_to_compare_stationary_distribution_with_plausi_measure(msm, output_directory + '/histogram.png')
 
