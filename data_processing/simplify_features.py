@@ -101,21 +101,7 @@ if __name__ == '__main__':
     root = importer.import_(treedict)
 
     # Read the segments data
-    csv_data = []
-    for el in input_files:
-
-        f = codecs.open(el,"rb","utf-8")
-        csvread = csv.reader(f,delimiter=',')
-        csv_data_temp = list(csvread)
-        columns = csv_data_temp[0]
-        #Drop the first line as that is the column
-        del csv_data_temp[0:1]
-        csv_data.extend(csv_data_temp)
-
-
-    # Rename the column field
-    columns[0] = "IntCode"
-    df = pd.DataFrame(csv_data,columns=columns)
+    df = pd.concat([pd.read_csv(el) for el in input_files])
 
     # Get the bio data
     bio_data = constants.input_files_biodata

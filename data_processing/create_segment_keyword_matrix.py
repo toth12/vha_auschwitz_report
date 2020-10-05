@@ -52,7 +52,7 @@ if __name__ == '__main__':
     
     # version 1 segment_keyword = df.groupby(['SegmentID'])["KeywordID"].unique().to_frame(name="KeywordID").reset_index()
     # version 2
-    segment_keyword = df.groupby(['IntCode', 'SegmentID', 'SegmentNumber','KeywordLabel'])["KeywordID"].unique().to_frame(name="KeywordID").reset_index()
+    segment_keyword = df.groupby(['IntCode', 'SegmentNumber','KeywordLabel'])["KeywordID"].unique().to_frame(name="KeywordID").reset_index()
 
     # Create an empty np array that will hold this
     segment_keyword_matrix = np.zeros(shape=(len(segment_keyword),len(keywords)))
@@ -70,7 +70,9 @@ if __name__ == '__main__':
         kw_in_segm = kw_ids[intcodes == intcode]
         segnums_in_segm = segnums[intcodes == intcode]
         number_of_segments = len(set(segnums_in_segm.tolist()))
-      
+
+        if number_of_segments == 1:
+            continue
         
         intcodes_final.append(intcode)
         unique_segments = list(set(segnums_in_segm.tolist()))
@@ -93,4 +95,3 @@ if __name__ == '__main__':
     #np.savetxt(output_directory + output_segment_keyword_matrix, segment_keyword_matrix, fmt='%d')
     segment_keyword = pd.DataFrame(intcodes_final,columns=["IntCode"])
     segment_keyword.to_csv(output_directory + output_document_index)
-    pdb.set_trace()
