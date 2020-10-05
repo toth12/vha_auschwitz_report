@@ -215,7 +215,7 @@ def estimate_fuzzy_trajectories(step_state_matrix, n_realizations=50):
     input_data_set = step_state_matrix
 
     trajs = []
-    for _ in tqdm(range(n_realizations)):
+    for _ in range(n_realizations):
         for t in input_data_set:
             _t = (t.cumsum(1) > (np.random.rand(t.shape[0]) * t.sum(1))[:, None]).argmax(1)
             _t[t.sum(1) == 0] = -1
@@ -224,14 +224,13 @@ def estimate_fuzzy_trajectories(step_state_matrix, n_realizations=50):
     return trajs
 
 def visualize_implied_time_scale(trajectories,output_file):
-    its = pyemma.msm.timescales_msm(trajectories, lags=np.arange(1, 31, 5), reversible=False,
+    its = pyemma.msm.timescales_msm(trajectories, lags=[1, 2, 3, 4, 5, 7, 10], reversible=False,
                                     core_set=np.sort(np.unique(np.concatenate(trajectories)))[1:])
     pyemma.plots.plot_implied_timescales(its, marker='.', xlog=False)
     plt.savefig(output_file)
     plt.close()
 
-def estimate_markov_model_from_trajectories(trajectories, msmlag=6):
-    
+def estimate_markov_model_from_trajectories(trajectories, msmlag=10):
     msm = pyemma.msm.estimate_markov_model(trajectories, msmlag, reversible=False,
                                            core_set=np.sort(np.unique(np.concatenate(trajectories)))[1:])
     return msm
