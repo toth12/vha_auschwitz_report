@@ -71,8 +71,8 @@ if __name__ == '__main__':
         segnums_in_segm = segnums[intcodes == intcode]
         number_of_segments = len(set(segnums_in_segm.tolist()))
 
-        if number_of_segments == 1:
-            continue
+        #if number_of_segments == 1:
+            #continue
         
         intcodes_final.append(intcode)
         unique_segments = list(set(segnums_in_segm.tolist()))
