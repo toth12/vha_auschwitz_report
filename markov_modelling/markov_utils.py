@@ -230,7 +230,7 @@ def visualize_implied_time_scale(trajectories,output_file):
     plt.savefig(output_file)
     plt.close()
 
-def estimate_markov_model_from_trajectories(trajectories, msmlag=10):
+def estimate_markov_model_from_trajectories(trajectories, msmlag=1):
     msm = pyemma.msm.estimate_markov_model(trajectories, msmlag, reversible=False,
                                            core_set=np.sort(np.unique(np.concatenate(trajectories)))[1:])
     return msm
