@@ -53,10 +53,12 @@ def chi2test(df,df_biodata,category):
 
     
     contingency = df.groupby(['KeywordID','KeywordLabel','IntCode']).agg(agg_pipeline).reset_index()
-
+    pdb.set_trace()
+    '''
     for key in agg_pipeline:
 
         contingency[key] = contingency[key].apply(lambda x: 0 if x <1 else 1)
+    '''
 
     
     contingency = contingency.groupby(['KeywordID',"KeywordLabel"]).agg(agg_pipeline).reset_index()
