@@ -98,8 +98,6 @@ if __name__ == '__main__':
         interview_lengths.append(l)
         
         intcodes_final.append(intcode)
-        unique_segments = list(set(segnums_in_segm.tolist()))
-        unique_segments.sort()
         segment_keyword_matrix_single = np.zeros((l+1, len(keywords)))
 
         for keyword, segnum in zip(kw_in_segm, segnums_in_segm):

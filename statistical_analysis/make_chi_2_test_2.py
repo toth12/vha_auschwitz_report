@@ -12,8 +12,6 @@ import sys
 import scipy.stats as stats
 import plotly
 import plotly.figure_factory as ff
-from statsmodels.stats.multicomp import MultiComparison
-from statsmodels.sandbox.stats.multicomp import multipletests
 
 
 
@@ -26,12 +24,6 @@ def random_with_N_digits(n):
 
 def chi2test(df,df_biodata,category):
 
-    df.loc[(df.KeywordLabel == 'food sharing','KeywordID')] = 4289
-    df.loc[(df.KeywordLabel == 'food sharing','KeywordLabel')]="camp food sharing"
-
-    df.loc[(df.KeywordLabel == 'friendships','KeywordID')]=14276
-    df.loc[(df.KeywordLabel == 'friendships','KeywordLabel')]="friends"
-    pdb.set_trace()
     df_category = df_biodata[[category,'IntCode']]
     df = df.merge(df_category,how='left',on="IntCode")
     # Get only categories interested
@@ -42,25 +34,26 @@ def chi2test(df,df_biodata,category):
     #ff = df.groupby('Gender')["KeywordLabel"].unique().to_frame(name="KeywordLabel").reset_index()
     #cccc = pd.get_dummies(ff.KeywordLabel.apply(pd.Series).stack()).sum(level=0)
     
-   
+    
     df = pd.concat([df, df[category].str.get_dummies()], axis=1)
 
     agg_pipeline = {}
     for element in df[category].unique():
+
         if pd.isna(element):
             continue
         agg_pipeline[element]='sum'
+    df[df['KeywordLabel']=='camp food sharing'].IntCode.unique()
+    df[df['KeywordLabel']=='camp food sharing'].IntCode.unique().shape
 
     
     contingency = df.groupby(['KeywordID','KeywordLabel','IntCode']).agg(agg_pipeline).reset_index()
-    pdb.set_trace()
-    '''
+
     for key in agg_pipeline:
 
         contingency[key] = contingency[key].apply(lambda x: 0 if x <1 else 1)
-    '''
 
-    
+    pdb.set_trace()
     contingency = contingency.groupby(['KeywordID',"KeywordLabel"]).agg(agg_pipeline).reset_index()
 
 
@@ -70,7 +63,7 @@ def chi2test(df,df_biodata,category):
 
 
     #set up the visualization for the markers 
-    #contingency = contingency[contingency['KeywordLabel']=="camp food sharing"]
+
     result = []
     for element in contingency.iterrows():
         total_obs = []
@@ -92,7 +85,6 @@ def chi2test(df,df_biodata,category):
         test_stat = test_result[0]
         p_value = test_result[1]
         
-
         #Visualize it
         
         plt.figure(figsize=(9, 9))
@@ -152,9 +144,6 @@ def chi2test(df,df_biodata,category):
         partial_result.extend(test_result[3][:,0].tolist())
 
         result.append(partial_result)
-        if element[1]['KeywordLabel']=="camp food sharing":
-            print (p_value)
-            
         
 
     column_labels_observed_expected_ratio = [element+'_observed_expected_ratio' for element in agg_pipeline]
@@ -168,7 +157,7 @@ def chi2test(df,df_biodata,category):
     columns.extend(column_labels_count_expected)
     df_chi = pd.DataFrame(result,columns=columns)
     df_chi = df_chi.sort_values('test_stat',ascending=False)
-    #df_chi['p_value'] = df_chi['p_value']*len(df_chi)
+    df_chi['p_value'] = df_chi['p_value']*len(df_chi)
     df_chi['significance'] = df_chi['p_value']<0.05
     
 
@@ -219,9 +208,8 @@ def chi2test(df,df_biodata,category):
         filename = "_".join(element.split(' '))+'.html'
         plotly.offline.plot(fig, filename=output_directory+'plots/'+filename,config=config,auto_open=False)
 
-    pdb.set_trace()
-    df_chi['corrected'] =  multipletests(df_chi['p_value'], method='bonferroni')[0]
-    print (df_chi)
+
+
     return (df_chi)
 
 
