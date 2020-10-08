@@ -62,18 +62,10 @@ if __name__ == '__main__':
     segment_keyword_matrices = []
     intcodes = segment_keyword['IntCode'].to_numpy()
     segnums = segment_keyword['SegmentNumber'].to_numpy()
-
-    # get actual segment length infos from original dataframe
-    seg_lengths = pd.to_datetime(df['OutTimeCode'].str[:8]) - pd.to_datetime(df['InTimeCode'].str[:8])
-    seg_lengths_sec = (seg_lengths / np.timedelta64(1, 's'))
-
-    time_info = pd.concat([df[['IntCode', 'SegmentNumber']], seg_lengths_sec.rename('Duration')], axis=1, )
    
     kw_ids = segment_keyword['KeywordID'].to_numpy().astype(int)
     intcodes_final = []
 
-    one_segment_ints = 0
-    bad_spacing_ints = 0
     interview_lengths = []
     
     for intcode in tqdm(np.unique(intcodes)):
@@ -81,17 +73,6 @@ if __name__ == '__main__':
         kw_in_segm = kw_ids[intcodes == intcode]
         segnums_in_segm = segnums[intcodes == intcode]
         number_of_segments = len(set(segnums_in_segm.tolist()))
-
-        # discard 1 segment interviews
-        if number_of_segments == 1:
-            one_segment_ints += 1
-            continue
-
-        # discard interviews that have non-unit time length
-        ds = np.unique(time_info[time_info.IntCode == intcode]['Duration'])
-        if ds.shape[0] != 1 or ds[0] != 60.:
-            bad_spacing_ints += 1
-            continue
 
         # interview length as computed from segment numbers
         l = segnums_in_segm.max() - segnums_in_segm.min()
@@ -113,9 +94,6 @@ if __name__ == '__main__':
 
     print(f'total interviews: {len(interview_lengths)}')
     print(f'total minutes: {sum(interview_lengths)}')
-    print(f'total of {one_segment_ints} one segment interviews')
-    print(f'total of {bad_spacing_ints} interviews with bad time spacing')
-    print(f'-> discarded {np.round(100*(one_segment_ints+bad_spacing_ints)/np.unique(intcodes).shape[0], 1)} %')
 
     segment_keyword_matrix = np.array(segment_keyword_matrices)
     assert len(segment_keyword_matrix) ==len(intcodes_final)
