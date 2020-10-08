@@ -58,12 +58,23 @@ if __name__ == '__main__':
     segment_keyword_matrix = np.zeros(shape=(len(segment_keyword),len(keywords)))
 
     # Iterate through the segment_keyword table
+    # (this could be done with pandas as well (TH's fault))
     segment_keyword_matrices = []
     intcodes = segment_keyword['IntCode'].to_numpy()
     segnums = segment_keyword['SegmentNumber'].to_numpy()
+
+    # get actual segment length infos from original dataframe
+    seg_lengths = pd.to_datetime(df['OutTimeCode'].str[:8]) - pd.to_datetime(df['InTimeCode'].str[:8])
+    seg_lengths_sec = (seg_lengths / np.timedelta64(1, 's'))
+
+    time_info = pd.concat([df[['IntCode', 'SegmentNumber']], seg_lengths_sec.rename('Duration')], axis=1, )
    
     kw_ids = segment_keyword['KeywordID'].to_numpy().astype(int)
     intcodes_final = []
+
+    one_segment_ints = 0
+    bad_spacing_ints = 0
+    interview_lengths = []
     
     for intcode in tqdm(np.unique(intcodes)):
     #for intcode in np.unique(intcodes):
@@ -71,21 +82,42 @@ if __name__ == '__main__':
         segnums_in_segm = segnums[intcodes == intcode]
         number_of_segments = len(set(segnums_in_segm.tolist()))
 
+        # discard 1 segment interviews
         if number_of_segments == 1:
+            one_segment_ints += 1
             continue
+
+        # discard interviews that have non-unit time length
+        ds = np.unique(time_info[time_info.IntCode == intcode]['Duration'])
+        if ds.shape[0] != 1 or ds[0] != 60.:
+            bad_spacing_ints += 1
+            continue
+
+        # interview length as computed from segment numbers
+        l = segnums_in_segm.max() - segnums_in_segm.min()
+        interview_lengths.append(l)
         
         intcodes_final.append(intcode)
         unique_segments = list(set(segnums_in_segm.tolist()))
         unique_segments.sort()
-        segment_keyword_matrix_single = np.zeros((number_of_segments, len(keywords)))
-        
+        segment_keyword_matrix_single = np.zeros((l+1, len(keywords)))
+
         for keyword, segnum in zip(kw_in_segm, segnums_in_segm):
             keyword_index = keywords[keywords.KeywordID == keyword].index[0]
-            segment_index = unique_segments.index(segnum)
-            segment_keyword_matrix_single[segment_index, keyword_index] += 1
+
+            # a) add one, don't overwrite -> enable multiple keywords per segment
+            # b) take into account time information that is encoded in segment number, i.e.
+            #    segments that are not in data create an empty line
+            segment_keyword_matrix_single[segnum - segnums_in_segm.min(), keyword_index] += 1
     
         segment_keyword_matrices.append(segment_keyword_matrix_single)
-    
+
+
+    print(f'total interviews: {len(interview_lengths)}')
+    print(f'total minutes: {sum(interview_lengths)}')
+    print(f'total of {one_segment_ints} one segment interviews')
+    print(f'total of {bad_spacing_ints} interviews with bad time spacing')
+    print(f'-> discarded {np.round(100*(one_segment_ints+bad_spacing_ints)/np.unique(intcodes).shape[0], 1)} %')
 
     segment_keyword_matrix = np.array(segment_keyword_matrices)
     assert len(segment_keyword_matrix) ==len(intcodes_final)

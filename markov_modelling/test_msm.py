@@ -47,23 +47,25 @@ class TestDiscreteTrajectories(unittest.TestCase):
         # Estimate fuzzy trajectories
         cls.trajs = mu.estimate_fuzzy_trajectories(input_data_set, n_realizations=1)
 
+
+        # load raw data for comparison
+        rawdat = pd.read_csv('../data/input/all_segments_only_Jewish_survivors_generic_terms_deleted_below_25_replaced_for_parent_node.csv')
+
+        # only keep keepwords that are in main data.
+        cls.cleaned_dat = rawdat[rawdat.KeywordID.isin(cls.features_df.KeywordID.unique())]
+
+
     def test_lengths(self):
         self.assertEqual(len(self.trajs), len(self.segment_index))
 
 
     def test_state_assignment(self):
-        rawdat = pd.read_csv('../data/input/all_segments_only_Jewish_survivors_generic_terms_deleted_below_25_replaced_for_parent_node.csv')
-
-
-        # only keep keepwords that are in main data.
-        cleaned_dat = rawdat[rawdat.KeywordID.isin(self.features_df.KeywordID.unique())]
-
         check_trajs = {}
-        for intcode in tqdm(np.unique(cleaned_dat['IntCode'])):
+        for intcode in tqdm(np.unique(self.cleaned_dat['IntCode'])):
             check_trajs[intcode] = []
             last_segnum = -1
-            for segnum, kwid in zip(cleaned_dat[cleaned_dat.IntCode == intcode]['SegmentNumber'],
-                                    cleaned_dat[cleaned_dat.IntCode == intcode]['KeywordID']):
+            for segnum, kwid in zip(self.cleaned_dat[self.cleaned_dat.IntCode == intcode]['SegmentNumber'],
+                                    self.cleaned_dat[self.cleaned_dat.IntCode == intcode]['KeywordID']):
                 if segnum == last_segnum:
                     check_trajs[intcode][-1].append(kwid)
                 else:
@@ -91,4 +93,20 @@ class TestDiscreteTrajectories(unittest.TestCase):
                 # multiple trajectories in this int-code
             else:
                 raise RuntimeError(f'Interview with IntCode {intcode} appears longer than in original dataset.')
+
+    def test_has_emptysegments(self):
+        self.assertTrue(-1 in np.unique(np.concatenate(self.trajs)), msg='Trajectories have no empty states.')
+
+    def test_emptysegments(self):
+        for traj, intcode in zip(self.trajs, self.segment_index['IntCode']):
+            is_empty_traj = traj == -1
+
+            segnums = self.cleaned_dat[self.cleaned_dat.IntCode == intcode]['SegmentNumber']
+            segnums = segnums - segnums.min()
+            is_empty_raw = np.ones(segnums.max()+1, dtype=bool)
+            is_empty_raw[np.unique(segnums)] = False
+
+            np.testing.assert_array_equal(is_empty_raw, is_empty_traj,
+                                          err_msg='Empty state positions don`t match')
+
 
