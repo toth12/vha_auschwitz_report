@@ -48,28 +48,11 @@ if __name__ == '__main__':
             indices = metadata_partitions[key]
 
             input_data_set = np.take(data,indices)
-            
-            ##### Problem beginning
-            
-            # Interview 25 case
-            
-            problematic_interviews = []
-            
-            
-            
-            try:
-                ind = segment_df[segment_df.IntCode==25].index[0]
-                assert (data[13].shape[0]>1)
-            except:
-                pass
-
+           
+            # Make sure that interviews with only one segment are not included
             for i in range(0,input_data_set.shape[0]):
-                try:
-                    assert (input_data_set[i].shape[0]>1)
-                except:
-                    segment_df.iloc()[indices[i]]
-                    intcode = segment_df.iloc()[indices[i]].IntCode
-                    problematic_interviews.append(intcode)
+                assert (input_data_set[i].shape[0]>1)
+                
             
 
 
