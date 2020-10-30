@@ -48,6 +48,32 @@ if __name__ == '__main__':
             indices = metadata_partitions[key]
 
             input_data_set = np.take(data,indices)
+            
+            ##### Problem beginning
+            
+            # Interview 25 case
+            
+            problematic_interviews = []
+            segment_df[segment_df.IntCode==25]
+            ind = segment_df[segment_df.IntCode==25].index[0]
+            try:
+                assert (data[13].shape[0]>1)
+            except:
+                pass
+
+            for i in range(0,input_data_set.shape[0]):
+                try:
+                    assert (input_data_set[i].shape[0]>1)
+                except:
+                    segment_df.iloc()[indices[i]]
+                    intcode =  segment_df.iloc()[indices[i]].IntCode
+                    problematic_interviews.append(intcode)
+            pdb.set_trace()
+
+
+
+            #### Problem end
+            
             output_directory = output_directory_temp+key
             
             print (np.vstack(input_data_set)[:,39].sum())
