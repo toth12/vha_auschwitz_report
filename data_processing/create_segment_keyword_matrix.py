@@ -67,13 +67,19 @@ if __name__ == '__main__':
     intcodes_final = []
 
     interview_lengths = []
-    
+    one_segment_ints = 0
     for intcode in tqdm(np.unique(intcodes)):
     #for intcode in np.unique(intcodes):
         kw_in_segm = kw_ids[intcodes == intcode]
         segnums_in_segm = segnums[intcodes == intcode]
         number_of_segments = len(set(segnums_in_segm.tolist()))
 
+        ###Original fix by Tim beginning
+        if number_of_segments == 1:
+            one_segment_ints += 1
+            continue
+        ###Original fix by Tim end
+        
         # interview length as computed from segment numbers
         l = segnums_in_segm.max() - segnums_in_segm.min()
         interview_lengths.append(l)

@@ -15,6 +15,8 @@ import csv
 import numpy as np
 import re
 from datetime import timedelta
+import pdb
+
 
 
 def find_year(keywords,type):
@@ -317,5 +319,7 @@ if __name__ == '__main__':
 
     df_biodata = infer_total_length_of_segments(df_biodata,df)
     df_biodata = was_in_Birkenau(df_biodata,df)
+
+  
 
     df_biodata.to_csv(input_directory+output_file)

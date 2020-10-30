@@ -54,9 +54,11 @@ if __name__ == '__main__':
             # Interview 25 case
             
             problematic_interviews = []
-            segment_df[segment_df.IntCode==25]
-            ind = segment_df[segment_df.IntCode==25].index[0]
+            
+            
+            
             try:
+                ind = segment_df[segment_df.IntCode==25].index[0]
                 assert (data[13].shape[0]>1)
             except:
                 pass
@@ -66,9 +68,9 @@ if __name__ == '__main__':
                     assert (input_data_set[i].shape[0]>1)
                 except:
                     segment_df.iloc()[indices[i]]
-                    intcode =  segment_df.iloc()[indices[i]].IntCode
+                    intcode = segment_df.iloc()[indices[i]].IntCode
                     problematic_interviews.append(intcode)
-            pdb.set_trace()
+            
 
 
 
