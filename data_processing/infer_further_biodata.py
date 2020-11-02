@@ -285,6 +285,9 @@ if __name__ == '__main__':
     df_al = pd.concat([pd.read_csv(el) for el in input_files])
     print (df_al['KeywordLabel'])
 
+    print (df_al.IntCode)
+    print (df.IntCode)
+
     pdb.set_trace()
 
     #### Problem solving ends
