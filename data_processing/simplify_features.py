@@ -309,5 +309,4 @@ if __name__ == '__main__':
 
     final_df = updated_new_df.append(temporary_df)
     final_df = final_df.sort_values(by=['IntCode','SegmentNumber'])
-    pdb.set_trace()
     final_df.to_csv(output_directory + output_file)

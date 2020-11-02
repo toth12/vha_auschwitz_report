@@ -103,7 +103,7 @@ if __name__ == '__main__':
 
     segment_keyword_matrix = np.array(segment_keyword_matrices)
     assert len(segment_keyword_matrix) ==len(intcodes_final)
-    
+ 
     # Save the segment keyword matrix
     np.save(output_directory + output_segment_keyword_matrix, segment_keyword_matrix)
     #np.savetxt(output_directory + output_segment_keyword_matrix, segment_keyword_matrix, fmt='%d')

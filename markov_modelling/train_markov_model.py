@@ -21,7 +21,7 @@ if __name__ == '__main__':
     # Read the segment index term matrix
     data = np.load(input_directory + constants.output_segment_keyword_matrix_data_file.replace('.txt', '.npy'), 
                   allow_pickle=True)
-
+    pdb.set_trace()
     # Read the column index (index terms) of the matrix above
     features_df = pd.read_csv(input_directory + 
                           constants.output_segment_keyword_matrix_feature_index)
