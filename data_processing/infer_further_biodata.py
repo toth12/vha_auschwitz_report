@@ -278,6 +278,17 @@ if __name__ == '__main__':
     columns[0] = "IntCode"
     df = pd.DataFrame(csv_data,columns=columns)
 
+    #### Problem solving starts
+    print (df['KeywordLabel'])
+    
+
+    df_al = pd.concat([pd.read_csv(el) for el in input_files])
+    print (df_al['KeywordLabel'])
+
+    pdb.set_trace()
+
+    #### Problem solving ends
+    
     # Read the biodata
 
     # Get the bio data
