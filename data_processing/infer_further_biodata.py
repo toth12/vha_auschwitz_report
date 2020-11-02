@@ -78,14 +78,7 @@ def infer_number_of_segments(bio_data,segment_data):
 def infer_old_new_system(bio_data,segment_data):
 
     df = segment_data
-    # Transform InTimeCode OutTimeCode into temporal data
-
-    df['InTimeCode'] = pd.to_datetime(df['InTimeCode'], format = "%H:%M:%S:%f")
-
-
-
-    df['OutTimeCode'] = pd.to_datetime(df['OutTimeCode'], format = "%H:%M:%S:%f")
-
+    
     # Drop duplicated segments
 
     df_segment_length = df.drop_duplicates('SegmentID')
@@ -124,13 +117,6 @@ def infer_old_new_system(bio_data,segment_data):
 def infer_total_length_of_segments(bio_data,segment_data):
 
     df = segment_data
-    # Transform InTimeCode OutTimeCode into temporal data
-
-    df['InTimeCode'] = pd.to_datetime(df['InTimeCode'], format = "%H:%M:%S:%f")
-
-
-
-    df['OutTimeCode'] = pd.to_datetime(df['OutTimeCode'], format = "%H:%M:%S:%f")
 
     # Drop duplicated segments
 
@@ -262,41 +248,47 @@ if __name__ == '__main__':
     # Read the input files into panda dataframe
 
     # Read the segments data
-    csv_data = []
-    for el in input_files:
-
-        f = codecs.open(el,"rb","utf-8")
-        csvread = csv.reader(f,delimiter=',')
-        csv_data_temp = list(csvread)
-        columns = csv_data_temp[0]
-        #Drop the first line as that is the column
-        del csv_data_temp[0:1]
-        csv_data.extend(csv_data_temp)
-
-
-
-    columns[0] = "IntCode"
-    df = pd.DataFrame(csv_data,columns=columns)
-
-    #### Problem solving starts
-    print (df['KeywordLabel'])
     
-
-    df_al = pd.concat([pd.read_csv(el) for el in input_files])
-    print (df_al['KeywordLabel'])
-
-    print (df_al.IntCode)
-    print (df.IntCode)
-
-    pdb.set_trace()
-
-    #### Problem solving ends
+    df = pd.concat([pd.read_csv(el) for el in input_files])
+    
     
     # Read the biodata
 
     # Get the bio data
     bio_data = constants.input_files_biodata
     df_biodata = pd.read_excel(input_directory+bio_data, sheet_name=None)['Sheet1']
+
+
+    ### Cast datatypes
+
+    ## Start with segments data
+
+    df_numeric = ['IntCode','SegmentID','InTapenumber','OutTapenumber','KeywordID']
+    df_string = ['IntervieweeName','KeywordLabel']
+    df_time = ['InTimeCode','OutTimeCode']
+
+
+    # Cast to numeric
+    for col in df_numeric:
+        df[col] = pd.to_numeric(df[col])
+
+    # Cast to string
+    for col in df_string:
+        df[col] = df[col].astype('string')
+
+    # Cast to temporal
+
+    for col in df_time:
+        df[col] = pd.to_datetime(df[col], format="%H:%M:%S:%f")
+
+
+    
+    
+
+
+    # Test data types before preprocessing begins
+
+    
 
     # Get the IntCode of Jewish survivors
     IntCode = df_biodata[df_biodata['ExperienceGroup']=='Jewish Survivor']['IntCode'].to_list()
@@ -334,6 +326,7 @@ if __name__ == '__main__':
     df_biodata = infer_total_length_of_segments(df_biodata,df)
     df_biodata = was_in_Birkenau(df_biodata,df)
 
-  
+    # Make sure that the inferred fields are in the correct datatypes
+
 
     df_biodata.to_csv(input_directory+output_file)
