@@ -106,7 +106,8 @@ def infer_old_new_system(bio_data,segment_data):
 
     old_system_in_codes = df_segment_length[df_segment_length.segment_lenght>timedelta(minutes=1)]['IntCode'].unique().tolist()
 
-    segmentation_system = ['old' if x  in old_system_in_codes else 'new' for x in bio_data['IntCode'].tolist()]
+    segmentation_system = ['old' if x in old_system_in_codes else 'new' for x in bio_data['IntCode'].tolist()]
+
     bio_data['segmentation_system']=segmentation_system
     return bio_data
     
@@ -114,10 +115,6 @@ def infer_old_new_system(bio_data,segment_data):
 
     #df_segment_length[df_segment_length['IntCode'].isin(old_system_in_codes)]['segment_lenght'].mean()
 
-
-    segmentation_system = ['old' if str(x)  in old_system_in_codes else 'new' for x in bio_data['IntCode'].tolist()]
-    bio_data['segmentation_system']=segmentation_system
-    return bio_data
 
 def infer_total_length_of_segments(bio_data,segment_data):
 
@@ -172,7 +169,6 @@ def was_in_Birkenau(bio_data,segment_data):
 
     intcode_kwords['Birkenau_mentioned_times'] = intcode_kwords.Keywords.apply(was_in_Birkenau_helper)
     del intcode_kwords["Keywords"]
-    intcode_kwords['IntCode'] = pd.to_numeric(intcode_kwords['IntCode'])
     bio_data = bio_data.merge(intcode_kwords)
     # Calculate whether Birkenau occurs at least 2/3 of all interview segments
     bio_data['Birkenau_segment_percentage'] = bio_data['Birkenau_mentioned_times'] / bio_data['number_of_segments']
@@ -189,8 +185,6 @@ def is_transfer_route(bio_data,segment_data):
     df = segment_data
     df = df.groupby(['IntCode'])['KeywordID'].apply(list).to_frame(name="KeywordID").reset_index()
     df['is_transfer_route'] = df.KeywordID.apply(is_transfer_route_helper)
-    df = df.astype({"IntCode":int})
-
     bio_data=bio_data.merge(df)
 
     return bio_data
@@ -199,7 +193,6 @@ def is_transfer_route(bio_data,segment_data):
 def infer_forced_labour(bio_data,segment_data):
     df=segment_data.groupby("IntCode")['KeywordLabel'].apply(list).to_frame(name="Keywords").reset_index()
     df['forced_labor'] = df.Keywords.apply(infer_forced_labour_helper)
-    df = df.astype({"IntCode":int})
     del df["Keywords"]
     #Check the number of people who did forced labour
     #df[df.forced_labour_type.str.len().eq(0)]
