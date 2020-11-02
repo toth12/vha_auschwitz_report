@@ -16,6 +16,11 @@ import numpy as np
 import re
 from datetime import timedelta
 import pdb
+from pandas.api.types import is_string_dtype
+from pandas.api.types import is_numeric_dtype
+from pandas.api.types import is_datetime64_any_dtype as is_datetime
+from pandas.api.types import is_datetime64_any_dtype as is_timedelta64_ns_dtype
+
 
 
 
@@ -175,7 +180,7 @@ def was_in_Birkenau(bio_data,segment_data):
     return bio_data
 
 def is_transfer_route_helper(keywords):
-    if '15803' in keywords:
+    if 15803 in keywords:
         return True
     else:
         return False
@@ -282,8 +287,25 @@ if __name__ == '__main__':
         df[col] = pd.to_datetime(df[col], format="%H:%M:%S:%f")
 
 
-    
-    
+    ## Type cast on biodata
+    df_biodata_string = ['InterviewTitle','IntervieweeName','Gender','ExperienceGroup','CityOfBirth','CountryOfBirth','InterviewCity','InterviewCountry','InterviewLanguage','HistoricEvent','OrganizationName']
+    df_biodata_numeric = ['IntCode']
+    df_biodata_time = ['DateOfBirth','InterviewDate']
+
+    # Cast to numeric
+    for col in df_biodata_numeric:
+        df_biodata[col] = pd.to_numeric(df_biodata[col])
+
+    # Cast to string
+    for col in df_biodata_string:
+        df_biodata[col] = df_biodata[col].astype('string')
+
+    # Cast to temporal
+
+    for col in df_biodata_time:
+        df_biodata[col] = pd.to_datetime(df_biodata[col],errors='coerce')
+
+
 
 
     # Test data types before preprocessing begins
@@ -327,6 +349,32 @@ if __name__ == '__main__':
     df_biodata = was_in_Birkenau(df_biodata,df)
 
     # Make sure that the inferred fields are in the correct datatypes
+    
 
+    df_biodata_list = ['forced_labor','forced_labour_type','KeywordID']
+    df_biodata_bool = ['is_transfer_route']
+    df_biodata_string.extend(['segmentation_system'])
+    df_biodata_numeric.extend(['earliest_year', 'latest_year','length_of_stay', 'number_of_segments','Birkenau_mentioned_times','Birkenau_segment_percentage','easy', 'hard','medium','length_in_minutes'])
+    df_biodata_delta_time = ['length']
 
+    # Check lists
+    for col in df_biodata_list:
+        assert isinstance(df_biodata[col].iloc()[2], list)
+
+    # Check boolean
+    for col in df_biodata_bool:
+        assert df_biodata[col].dtypes.name == 'bool'
+
+    # Check string
+    for col in df_biodata_string:
+        assert is_string_dtype(df_biodata[col])
+
+    # Check numeric
+    for col in df_biodata_numeric:
+        assert is_numeric_dtype(df_biodata[col])
+
+    # Check temporal length
+    for col in df_biodata_delta_time:
+        df_biodata[col].dtype == 'timedelta64[ns]'
+    
     df_biodata.to_csv(input_directory+output_file)
