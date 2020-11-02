@@ -307,6 +307,7 @@ if __name__ == '__main__':
 
     # Get the IntCode of Jewish survivors
     IntCode = df_biodata[df_biodata['ExperienceGroup']=='Jewish Survivor']['IntCode'].to_list()
+    pdb.set_trace()
     IntCode = [str(el) for el in IntCode]
 
     # Leave only Jewish survivors
@@ -370,6 +371,4 @@ if __name__ == '__main__':
     for col in df_biodata_delta_time:
         df_biodata[col].dtype == 'timedelta64[ns]'
 
-
-    
     df_biodata.to_csv(input_directory+output_file)
