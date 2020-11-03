@@ -42,7 +42,7 @@ if __name__ == '__main__':
     # Read the metadata partitions
     with open(input_directory + "metadata_partitions.json") as read_file:
         metadata_partitions = json.load(read_file)
-    pdb.set_trace()
+
     # First check for women and then men
     metadata_fields = ['complete_w','complete_m']
     partial_results = []
