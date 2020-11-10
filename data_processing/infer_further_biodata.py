@@ -74,7 +74,6 @@ def infer_length_of_stay(bio_data):
 def infer_number_of_segments(bio_data,segment_data):
     number_of_segments = segment_data.groupby('IntCode')['SegmentNumber'].unique().to_frame(name="Segments").reset_index()
     number_of_segments['number_of_segments']=number_of_segments['Segments'].apply(lambda x: len(x))
-    number_of_segments['IntCode'] = pd.to_numeric(number_of_segments['IntCode'])
     del number_of_segments["Segments"]
     bio_data = bio_data.merge(number_of_segments)
     return bio_data
@@ -148,7 +147,6 @@ def infer_total_length_of_segments(bio_data,segment_data):
 
     df_interview_segment_length['length_in_minutes']= np.round(df_interview_segment_length['length'] / np.timedelta64(1, 'm'))
 
-    df_interview_segment_length['IntCode'] = pd.to_numeric(df_interview_segment_length['IntCode'])
     bio_data = bio_data.merge(df_interview_segment_length)
     return bio_data
 
@@ -298,17 +296,11 @@ if __name__ == '__main__':
     for col in df_biodata_time:
         df_biodata[col] = pd.to_datetime(df_biodata[col],errors='coerce')
 
-
-
-
-    # Test data types before preprocessing begins
-
     
 
     # Get the IntCode of Jewish survivors
     IntCode = df_biodata[df_biodata['ExperienceGroup']=='Jewish Survivor']['IntCode'].to_list()
-    pdb.set_trace()
-    IntCode = [str(el) for el in IntCode]
+    
 
     # Leave only Jewish survivors
     df = df[df['IntCode'].isin(IntCode)]

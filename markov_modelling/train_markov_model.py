@@ -21,7 +21,6 @@ if __name__ == '__main__':
     # Read the segment index term matrix
     data = np.load(input_directory + constants.output_segment_keyword_matrix_data_file.replace('.txt', '.npy'), 
                   allow_pickle=True)
-
     # Read the column index (index terms) of the matrix above
     features_df = pd.read_csv(input_directory + 
                           constants.output_segment_keyword_matrix_feature_index)
@@ -53,11 +52,6 @@ if __name__ == '__main__':
             for i in range(0,input_data_set.shape[0]):
                 assert (input_data_set[i].shape[0]>1)
                 
-            
-
-
-
-            #### Problem end
             
             output_directory = output_directory_temp+key
            
