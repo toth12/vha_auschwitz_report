@@ -29,21 +29,7 @@ input_files = [input_directory+i for i in input_files]
 
 # Read the input files into panda dataframe
 
-csv_data = []
-for el in input_files:
-
-    f = codecs.open(el,"rb","utf-8")
-    csvread = csv.reader(f,delimiter=',')
-    csv_data_temp = list(csvread)
-    columns = csv_data_temp[0]
-    # Drop the first line as that is the column
-    del csv_data_temp[0:1]
-    csv_data.extend(csv_data_temp)
-
-
-
-columns[0] = "IntCode"
-df = pd.DataFrame(csv_data,columns=columns)
+df = pd.concat([pd.read_csv(el) for el in input_files])
 
 # Filter out non Jewish survivors
 

@@ -51,7 +51,7 @@ if __name__ == '__main__':
     for el in input_files[0:1]:
 
         f = codecs.open(el,"rb","utf-8")
-        csvread = csv.reader(f,delimiter=',')
+        csvread = trajectories(f,delimiter=',')
         csv_data_temp = list(csvread)
         columns = csv_data_temp[0]
         #Drop the first line as that is the column

@@ -97,6 +97,9 @@ if __name__ == '__main__':
     # Read the segment input files into panda dataframe
 
     csv_data = []
+    raise RuntimeError('Fix csv loading pandas df; will not load data types correctly')
+    # TODO: replace by something like this: df = pd.concat([pd.read_csv(el) for el in input_files])
+
     for el in input_files[0:1]:
 
         f = codecs.open(el,"rb","utf-8")

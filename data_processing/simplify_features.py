@@ -12,7 +12,7 @@ from anytree.importer import DictImporter
 from anytree import search
 import csv
 import pandas as pd
-
+from tqdm.auto import tqdm
 
 
 def find_container_subnodes(container_node_names):
@@ -237,7 +237,7 @@ if __name__ == '__main__':
 
     # Update the group 2 with parent node name and id
 
-    for row in df_leafes_to_change.iterrows():
+    for row in tqdm(df_leafes_to_change.iterrows(), total=len(df_leafes_to_change)):
         parents = row[1]['parent_labels']
         parent_ids = row[1]['parent_ids']
         parents = parents
@@ -283,7 +283,7 @@ if __name__ == '__main__':
     # Loop over and include only parents nodes in case of group 1 from above
    
     int_codes=new_df.IntCode.unique().tolist()
-    for f,int_code in enumerate(int_codes):
+    for f,int_code in tqdm(enumerate(int_codes), total=len(int_codes)):
         #print (f)
         #print (len(int_codes))
         temp_df = new_df[new_df.IntCode.isin([int_code])]

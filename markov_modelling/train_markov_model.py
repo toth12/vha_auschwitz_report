@@ -60,8 +60,6 @@ if __name__ == '__main__':
             #### Problem end
             
             output_directory = output_directory_temp+key
-            
-            print (np.vstack(input_data_set)[:,39].sum())
            
             # Make the output directory
             try:
@@ -75,6 +73,7 @@ if __name__ == '__main__':
             
             # Visualize implied timescale and save it
             mu.visualize_implied_time_scale(trajs,output_directory+'/implied_time_scale.png')
+            mu.visualize_implied_time_scale_bayes(trajs, output_directory+'/implied_time_scales_bay.png')
 
             # Estimate the Markov model from the trajectories
             msm = mu.estimate_markov_model_from_trajectories(trajs)
@@ -90,6 +89,11 @@ if __name__ == '__main__':
             # Save the markov model
             msm.save(output_directory+'/pyemma_model', 'simple',overwrite=True)
 
+            bmsm = mu.estimate_bayesian_markov_model_from_trajectories(trajs)
+            bmsm._dtrajs_active = None
+            bmsm._dtrajs_full = None
+            bmsm._dtrajs_original = None
+            bmsm.save(output_directory+'/pyemma_model_bayes', 'simple', overwrite=True)
 
 
             # Get the stationary distributions

@@ -10,6 +10,9 @@ import pyemma
 import matplotlib.pyplot as plt
 from tqdm.auto import tqdm
 
+
+trajectory_replicates = 25
+
 def window(seq, n=2):
     "Sliding window width n from seq.  From old itertools recipes."""
     it = iter(seq)
@@ -203,7 +206,7 @@ def create_dataframe_with_paths(paths_w,paths_m,filter_stat=None):
         df = df[df.path.str.contains("social|aid")]
         return df
 
-def estimate_fuzzy_trajectories(step_state_matrix, n_realizations=50):
+def estimate_fuzzy_trajectories(step_state_matrix, n_realizations=trajectory_replicates):
     '''
     Convert trajectories using the following approach:
     for each segment with multiple topics, randomly select one topic
@@ -226,13 +229,63 @@ def estimate_fuzzy_trajectories(step_state_matrix, n_realizations=50):
 def visualize_implied_time_scale(trajectories,output_file):
     its = pyemma.msm.timescales_msm(trajectories, lags=[1, 2, 3, 4, 5, 7, 10], reversible=False,
                                     core_set=np.sort(np.unique(np.concatenate(trajectories)))[1:])
-    pyemma.plots.plot_implied_timescales(its, marker='.', xlog=False)
+    ax = pyemma.plots.plot_implied_timescales(its, marker='.', xlog=False)
+    ax.set_title(output_file.split('/')[-2])
     plt.savefig(output_file)
     plt.close()
 
+def dtraj_assign_to_last_visited_core(trajectories):
+    core_set = np.sort(np.unique(np.concatenate(trajectories)))[1:]
+    from pyemma.util.discrete_trajectories import rewrite_dtrajs_to_core_sets
+    _dtrajs, _, _ = rewrite_dtrajs_to_core_sets(trajectories, core_set=core_set, in_place=False)
+
+    for d in _dtrajs:
+        assert d[0] != -1
+        while -1 in d:
+            mask = (d == -1)
+            d[mask] = d[np.roll(mask, -1)]
+
+    assert -1 not in np.unique(np.concatenate(_dtrajs))
+
+    return _dtrajs
+
+def visualize_implied_time_scale_bayes(trajectories, output_file, n_realizations=trajectory_replicates):
+    """
+    THIS IS EXPERIMENTAL!
+    Estimating errors from core set MSM with multiple realizations per observed
+    trajectory as we did it here is not an established method. Use with caution and
+    only for error estimate.
+    """
+
+    _dtrajs = dtraj_assign_to_last_visited_core(trajectories)
+
+    # error estimation needs decorallated samples, i.e.
+    # cannot use multiple copies per interview. take a random one instead.
+    # this is experimental
+    its = pyemma.msm.timescales_msm(_dtrajs[::n_realizations],
+                                    lags=[1, 2, 3, 4, 5, 7, 10], reversible=False,
+                                    errors='bayes', nsamples=10)
+    ax = pyemma.plots.plot_implied_timescales(its, marker='.', xlog=False)
+    ax.set_title(output_file.split('/')[-2])
+    plt.savefig(output_file)
+    plt.close()
+
+
 def estimate_markov_model_from_trajectories(trajectories, msmlag=2):
+
     msm = pyemma.msm.estimate_markov_model(trajectories, msmlag, reversible=False,
                                            core_set=np.sort(np.unique(np.concatenate(trajectories)))[1:])
+    return msm
+
+def estimate_bayesian_markov_model_from_trajectories(trajectories, msmlag=2, n_realizations=trajectory_replicates):
+    """
+    THIS IS EXPERIMENTAL!
+    Estimating errors from core set MSM with multiple realizations per observed
+    trajectory as we did it here is not an established method. Use with caution and
+    only for error estimate.
+    """
+    _dtrajs = dtraj_assign_to_last_visited_core(trajectories)
+    msm = pyemma.msm.bayesian_markov_model(_dtrajs[::n_realizations], msmlag, reversible=False)
     return msm
 
 def prepare_histogram_to_compare_stationary_distribution_with_plausi_measure(msm, output_file):
