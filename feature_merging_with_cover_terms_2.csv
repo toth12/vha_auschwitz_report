@@ -393,111 +393,111 @@
 78,571,food additives,food additives,30.79564866,0.03247212,263,4,267,TRUE,6.32E-37,267
 86,329,food additives,food additives,121.8731257,0.008205254,260,1,261,TRUE,4.96E-41,261
 95,560,female kapos,kapos,24.53502167,0.040758065,212,4,216,TRUE,7.39E-29,216
-118,388,German concentration camps (generic),,1.35865117,0.736024096,125,41,166,FALSE,0.10498359,166
+118,388,German concentration camps (generic),German concentration camps,1.35865117,0.736024096,125,41,166,FALSE,0.10498359,166
 142,327,female prisoner functionaries,kapos,25.60274431,0.039058313,113,2,115,TRUE,6.02E-16,115
 144,534,"Grese, Irma",perpetrators,inf,0,113,0,113,TRUE,8.63E-19,113
 151,197,female camp guards,kapos,11.63106634,0.08597664,103,4,107,TRUE,3.14E-12,107
 173,667,Slovak prisoner functionaries,kapos,39.67517195,0.02520468,88,1,89,TRUE,3.72E-13,89
 186,193,female camp personnel,kapos,36.46256092,0.027425391,81,1,82,TRUE,4.68E-12,82
-212,307,interviewee photographs (stills),,0.488256055,2.048105683,30,27,57,FALSE,0.008822492,57
+212,307,interviewee photographs (stills),photographs,0.488256055,2.048105683,30,27,57,FALSE,0.008822492,57
 219,646,Czech prisoner functionaries,kapos,5.580308031,0.179201577,50,4,54,FALSE,7.46E-05,54
 233,273,Slovak kapos,kapos,inf,0,47,0,47,TRUE,5.62E-08,47
-242,401,interviewee memory,,1.552741228,0.644022315,35,10,45,FALSE,0.257664879,45
-243,669,danger misconceptions,,0.727057278,1.375407455,28,17,45,FALSE,0.330577881,45
-245,624,concentration camps (stills),,0.439755084,2.273993038,22,22,44,FALSE,0.007971742,44
-248,647,childhood perceptions,,0.648732141,1.541468254,25,17,42,FALSE,0.180173085,42
-249,652,Jewish persecution awareness,,0.717361567,1.393997178,26,16,42,FALSE,0.314894423,42
-261,447,post-World War II photographs (stills),,0.376790786,2.65399271,18,21,39,FALSE,0.002690849,39
-264,445,post-conflict return journeys,,1.477911647,0.676630435,30,9,39,FALSE,0.38438929,39
-269,444,Nazi Jewish holiday exploitation,,0.393621669,2.540510544,17,19,36,FALSE,0.005960963,36
-271,89,Jewish identity,,0.492389963,2.03091061,19,17,36,FALSE,0.044254886,36
+242,401,interviewee memory,interviewee memory,1.552741228,0.644022315,35,10,45,FALSE,0.257664879,45
+243,669,danger misconceptions,awareness,0.727057278,1.375407455,28,17,45,FALSE,0.330577881,45
+245,624,concentration camps (stills),photographs,0.439755084,2.273993038,22,22,44,FALSE,0.007971742,44
+248,647,childhood perceptions,awareness,0.648732141,1.541468254,25,17,42,FALSE,0.180173085,42
+249,652,Jewish persecution awareness,awareness,0.717361567,1.393997178,26,16,42,FALSE,0.314894423,42
+261,447,post-World War II photographs (stills),photographs,0.376790786,2.65399271,18,21,39,FALSE,0.002690849,39
+264,445,post-conflict return journeys,post-conflict activity,1.477911647,0.676630435,30,9,39,FALSE,0.38438929,39
+269,444,Nazi Jewish holiday exploitation,religious_observances,0.393621669,2.540510544,17,19,36,FALSE,0.005960963,36
+271,89,Jewish identity,Jewish identity,0.492389963,2.03091061,19,17,36,FALSE,0.044254886,36
 275,121,Tisha be-Av,religious_observances,15.14755536,0.066017253,34,1,35,FALSE,6.26E-05,35
-280,505,migration to countries,,0.662111937,1.51031864,21,14,35,FALSE,0.269493813,35
-285,663,post-World War II family photographs (stills),,0.965135936,1.036123475,24,11,35,FALSE,1,35
-289,671,eugenics policy awareness,,0.810226693,1.234222482,22,12,34,FALSE,0.577648446,34
-295,745,soldiers,,0.567152533,1.7631941,18,14,32,FALSE,0.12403791,32
-296,585,evasion,,0.645172136,1.549973945,19,13,32,FALSE,0.24902137,32
-300,431,1940s photographs (stills),,0.736247723,1.358238496,20,12,32,FALSE,0.442616617,32
-301,109,camp visitors,,1.131330806,0.883914762,23,9,32,FALSE,0.849299789,32
+280,505,migration to countries,post-conflict activity,0.662111937,1.51031864,21,14,35,FALSE,0.269493813,35
+285,663,post-World War II family photographs (stills),photographs,0.965135936,1.036123475,24,11,35,FALSE,1,35
+289,671,eugenics policy awareness,awareness,0.810226693,1.234222482,22,12,34,FALSE,0.577648446,34
+295,745,soldiers,military,0.567152533,1.7631941,18,14,32,FALSE,0.12403791,32
+296,585,evasion,self-preservation acts,0.645172136,1.549973945,19,13,32,FALSE,0.24902137,32
+300,431,1940s photographs (stills),photographs,0.736247723,1.358238496,20,12,32,FALSE,0.442616617,32
+301,109,camp visitors,camp visitors,1.131330806,0.883914762,23,9,32,FALSE,0.849299789,32
 302,632,infanticide,deaths,inf,0,31,0,31,TRUE,1.57E-05,31
-306,727,decisions,,1.273375984,0.78531401,23,8,31,FALSE,0.697073324,31
-307,848,smell,,1.081905873,0.924294826,22,9,31,FALSE,1,31
-308,234,revenge acts,,0.188025668,5.318422797,9,21,30,TRUE,1.02E-05,30
-309,342,dysentery,,1.773791293,0.563764184,24,6,30,FALSE,0.238254794,30
+306,727,decisions,self-preservation acts,1.273375984,0.78531401,23,8,31,FALSE,0.697073324,31
+307,848,smell,physical condition,1.081905873,0.924294826,22,9,31,FALSE,1,31
+308,234,revenge acts,revenge acts,0.188025668,5.318422797,9,21,30,TRUE,1.02E-05,30
+309,342,dysentery,camp diseases,1.773791293,0.563764184,24,6,30,FALSE,0.238254794,30
 313,668,civilian aid givers,aid giving,6.002298599,0.166602841,27,2,29,FALSE,0.003871432,29
-327,530,camp betrayals,,0.551582969,1.812963879,15,12,27,FALSE,0.142447007,27
-331,133,"Rumkowski, Chaim",,0.131597298,7.598940222,6,20,26,TRUE,1.51E-06,26
-333,757,relationships,,0.602024613,1.661061655,15,11,26,FALSE,0.204980187,26
-334,661,pre-World War II family photographs (stills),,0.602024613,1.661061655,15,11,26,FALSE,0.204980187,26
-336,398,intergenerational genocide impact,,1.476867031,0.677109028,20,6,26,FALSE,0.524014959,26
-340,524,physical hygiene maintenance,,5.108595801,0.195748507,23,2,25,FALSE,0.014720257,25
-344,672,post-liberation visits to sites of persecution (stills),,0.939957405,1.063877996,17,8,25,FALSE,0.831684502,25
-354,68,antisemitism,,0.404141216,2.474382619,11,12,23,FALSE,0.038527175,23
-355,725,awareness,,0.573963335,1.742271569,13,10,23,FALSE,0.181545717,23
-358,144,post-conflict family home returns,,1.011324993,0.988801826,16,7,23,FALSE,1,23
+327,530,camp betrayals,betrayals,0.551582969,1.812963879,15,12,27,FALSE,0.142447007,27
+331,133,"Rumkowski, Chaim",famous Jewish  leaders,0.131597298,7.598940222,6,20,26,TRUE,1.51E-06,26
+333,757,relationships,social bonds,0.602024613,1.661061655,15,11,26,FALSE,0.204980187,26
+334,661,pre-World War II family photographs (stills),photographs,0.602024613,1.661061655,15,11,26,FALSE,0.204980187,26
+336,398,intergenerational genocide impact,post-conflict impact,1.476867031,0.677109028,20,6,26,FALSE,0.524014959,26
+340,524,physical hygiene maintenance,self-preservation acts,5.108595801,0.195748507,23,2,25,FALSE,0.014720257,25
+344,672,post-liberation visits to sites of persecution (stills),photographs,0.939957405,1.063877996,17,8,25,FALSE,0.831684502,25
+354,68,antisemitism,antisemitism,0.404141216,2.474382619,11,12,23,FALSE,0.038527175,23
+355,725,awareness,awareness,0.573963335,1.742271569,13,10,23,FALSE,0.181545717,23
+358,144,post-conflict family home returns,post-conflict activity,1.011324993,0.988801826,16,7,23,FALSE,1,23
 361,588,Roma kapos,kapos,0.02085536,47.94930417,1,21,22,TRUE,2.42E-10,22
 365,272,Czech kapos,kapos,2.809586247,0.355924293,19,3,22,FALSE,0.104489961,22
-368,135,photographs (stills),,0.529696705,1.887872796,12,10,22,FALSE,0.163148719,22
+368,135,photographs (stills),photographs,0.529696705,1.887872796,12,10,22,FALSE,0.163148719,22
 377,315,mining forced labor,camp forced labor,0.046157196,21.66509434,2,19,21,TRUE,1.77E-08,21
 380,680,sexual assault fears,camp sexual activities,4.21645542,0.237166032,19,2,21,FALSE,0.033747877,21
-381,759,protected groups,,2.661131746,0.375779967,18,3,21,FALSE,0.152574176,21
-382,615,"Hirsch, Fredy",,0.588842825,1.698246047,12,9,21,FALSE,0.239611191,21
+381,759,protected groups,protected groups,2.661131746,0.375779967,18,3,21,FALSE,0.152574176,21
+382,615,"Hirsch, Fredy",famous Jewish  leaders,0.588842825,1.698246047,12,9,21,FALSE,0.239611191,21
 383,343,injuries,camp diseases,1.883628222,0.530890326,17,4,21,FALSE,0.344097014,21
 391,499,frostbite,camp diseases,3.993663972,0.25039663,18,2,20,FALSE,0.050917518,20
-394,184,migration experiences,,0.662775475,1.508806584,12,8,20,FALSE,0.343934552,20
+394,184,migration experiences,post-conflict experience,0.662775475,1.508806584,12,8,20,FALSE,0.343934552,20
 395,549,aid recipients,aid giving,1.772439397,0.564194184,16,4,20,FALSE,0.465998211,20
-398,436,1990s photographs (stills),,0.821163559,1.21778419,13,7,20,FALSE,0.635443407,20
+398,436,1990s photographs (stills),photographs,0.821163559,1.21778419,13,7,20,FALSE,0.635443407,20
 400,689,Roma prisoner functionaries,kapos,0.051638683,19.36532738,2,17,19,TRUE,1.56E-07,19
 401,274,Czechoslovak kapos,kapos,inf,0,19,0,19,FALSE,0.001707118,19
-402,706,cigarette importance,,0.256956553,3.891708489,7,12,19,FALSE,0.004366681,19
+402,706,cigarette importance,barter,0.256956553,3.891708489,7,12,19,FALSE,0.004366681,19
 403,295,camp abortions,killings,7.991260651,0.125136702,18,1,19,FALSE,0.012282552,19
 405,383,transfer family interactions,family,3.770969856,0.265183769,17,2,19,FALSE,0.078042266,19
-406,544,post-World War II documents and artifacts (stills),,0.490488307,2.038784585,10,9,19,FALSE,0.134881794,19
-408,150,early personal aspirations,,2.364417267,0.422937192,16,3,19,FALSE,0.214361471,19
-411,771,places (stills) ,,0.607411649,1.646329966,11,8,19,FALSE,0.319658133,19
-412,65,Panstwowe Muzeum Auschwitz-Birkenau,,0.607411649,1.646329966,11,8,19,FALSE,0.319658133,19
+406,544,post-World War II documents and artifacts (stills),photographs,0.490488307,2.038784585,10,9,19,FALSE,0.134881794,19
+408,150,early personal aspirations,education,2.364417267,0.422937192,16,3,19,FALSE,0.214361471,19
+411,771,places (stills) ,photographs,0.607411649,1.646329966,11,8,19,FALSE,0.319658133,19
+412,65,Panstwowe Muzeum Auschwitz-Birkenau,post-conflict activity,0.607411649,1.646329966,11,8,19,FALSE,0.319658133,19
 413,728,psychological reactions,psychological reactions,1.661299127,0.601938558,15,4,19,FALSE,0.460569701,19
 414,778,survival,survival explanations,1.661299127,0.601938558,15,4,19,FALSE,0.460569701,19
-422,438,1940s documents and artifacts (stills),,0.552071974,1.811358025,10,8,18,FALSE,0.208392442,18
-423,755,famous camp personnel,,2.216157205,0.451231527,15,3,18,FALSE,0.30498829,18
-429,540,"Perl, Gisella",,inf,0,17,0,17,FALSE,0.002764223,17
+422,438,1940s documents and artifacts (stills),photographs,0.552071974,1.811358025,10,8,18,FALSE,0.208392442,18
+423,755,famous camp personnel,famous camp personnel,2.216157205,0.451231527,15,3,18,FALSE,0.30498829,18
+429,540,"Perl, Gisella",camp medical care,inf,0,17,0,17,FALSE,0.002764223,17
 431,271,Hungarian kapos,kapos,7.100240227,0.140840305,16,1,17,FALSE,0.031571006,17
-432,700,commemoration,,0.392219558,2.549592391,8,9,17,FALSE,0.062643256,17
-433,664,interviewee original works,,0.392219558,2.549592391,8,9,17,FALSE,0.062643256,17
+432,700,commemoration,post-conflict activity,0.392219558,2.549592391,8,9,17,FALSE,0.062643256,17
+433,664,interviewee original works,creative activity,0.392219558,2.549592391,8,9,17,FALSE,0.062643256,17
 434,702,forced march clothing,clothing,3.325873362,0.300672903,15,2,17,FALSE,0.115047256,17
 435,92,living conditions,camp living conditions,3.325873362,0.300672903,15,2,17,FALSE,0.115047256,17
-436,542,World War II-era photographs (stills),,0.496756433,2.013058985,9,8,17,FALSE,0.185431656,17
+436,542,World War II-era photographs (stills),photographs,0.496756433,2.013058985,9,8,17,FALSE,0.185431656,17
 437,572,Belgian prisoners,camp population,2.067961871,0.48356791,14,3,17,FALSE,0.301599004,17
-438,214,creative works,,0.631250974,1.584155972,10,7,17,FALSE,0.429055215,17
+438,214,creative works,creative activity,0.631250974,1.584155972,10,7,17,FALSE,0.429055215,17
 440,468,humiliation,camp humiliation,1.43916412,0.694847784,13,4,17,FALSE,0.60918813,17
 441,35,LagerfÌ__hrer,perpetrators,1.43916412,0.694847784,13,4,17,FALSE,0.60918813,17
-443,504,migration from countries,,1.062011783,0.941609139,12,5,17,FALSE,1,17
-445,380,forced march family interactions,,6.655021834,0.150262467,15,1,16,FALSE,0.031285572,16
-447,495,migration from Poland,,0.44146501,2.265185185,8,8,16,FALSE,0.106070761,16
-448,357,survivor reunions,,0.568001994,1.760557201,9,7,16,FALSE,0.280906018,16
-449,529,betrayals,,1.919831224,0.520879121,13,3,16,FALSE,0.418957461,16
-450,606,weddings (stills),,0.736822973,1.357178096,10,6,16,FALSE,0.590151729,16
+443,504,migration from countries,post-conflict activity,1.062011783,0.941609139,12,5,17,FALSE,1,17
+445,380,forced march family interactions,family,6.655021834,0.150262467,15,1,16,FALSE,0.031285572,16
+447,495,migration from Poland,post-conflict activity,0.44146501,2.265185185,8,8,16,FALSE,0.106070761,16
+448,357,survivor reunions,post-conflict activity,0.568001994,1.760557201,9,7,16,FALSE,0.280906018,16
+449,529,betrayals,betrayals,1.919831224,0.520879121,13,3,16,FALSE,0.418957461,16
+450,606,weddings (stills),photographs,0.736822973,1.357178096,10,6,16,FALSE,0.590151729,16
 452,562,housing conditions,camp living conditions,1.328169321,0.752916051,12,4,16,FALSE,0.78888496,16
 453,16,Yiddish (language),language skills,1.328169321,0.752916051,12,4,16,FALSE,0.78888496,16
-454,364,writing,,0.973298429,1.027434104,11,5,16,FALSE,1,16
+454,364,writing,camp cultural activities,0.973298429,1.027434104,11,5,16,FALSE,1,16
 455,611,criminal prisoner functionaries,kapos,0.160155244,6.243941642,4,11,15,FALSE,0.000818547,15
-456,32,"Zimetbaum, Mala",,inf,0,15,0,15,FALSE,0.008412048,15
-457,563,Holocaust education,,0.294036464,3.400938735,6,9,15,FALSE,0.021697664,15
-458,603,camp and prison artifacts (stills),,0.38619769,2.589347443,7,8,15,FALSE,0.087556958,15
-460,278,camp begging,,2.88116543,0.347081771,13,2,15,FALSE,0.17183818,15
+456,32,"Zimetbaum, Mala",camp escapes,inf,0,15,0,15,FALSE,0.008412048,15
+457,563,Holocaust education,education,0.294036464,3.400938735,6,9,15,FALSE,0.021697664,15
+458,603,camp and prison artifacts (stills),photographs,0.38619769,2.589347443,7,8,15,FALSE,0.087556958,15
+460,278,camp begging,self-preservation acts,2.88116543,0.347081771,13,2,15,FALSE,0.17183818,15
 465,73,arts-related forced labor,camp forced labor,1.217222949,0.821542184,11,4,15,FALSE,1,15
 466,451,physical condition,physical condition,1.217222949,0.821542184,11,4,15,FALSE,1,15
 467,367,cultural activities,camp cultural activities,1.217222949,0.821542184,11,4,15,FALSE,1,15
-468,416,games,,0.033823382,29.56534653,1,13,14,TRUE,2.08E-06,14
+468,416,games,camp cultural activities,0.033823382,29.56534653,1,13,14,TRUE,2.08E-06,14
 469,474,transfer killings,killings,0.176257896,5.673504696,4,10,14,FALSE,0.001990229,14
-472,662,World War II family photographs (stills),,1.623763816,0.615853112,11,3,14,FALSE,0.571261331,14
-473,732,propaganda,,1.623763816,0.615853112,11,3,14,FALSE,0.571261331,14
-476,259,military service,,0.036660136,27.27758535,1,12,13,TRUE,6.33E-06,13
+472,662,World War II family photographs (stills),photographs,1.623763816,0.615853112,11,3,14,FALSE,0.571261331,14
+473,732,propaganda,propaganda,1.623763816,0.615853112,11,3,14,FALSE,0.571261331,14
+476,259,military service,military,0.036660136,27.27758535,1,12,13,TRUE,6.33E-06,13
 477,686,homosexual kapos,kapos,0.080042753,12.49332344,2,11,13,FALSE,8.98E-05,13
 478,360,resistance discussions,camp resistance,0.195938914,5.103631423,4,9,13,FALSE,0.004725089,13
-480,304,publications (stills),,0.378420446,2.642563343,6,7,13,FALSE,0.077883463,13
-484,763,refugee camp experiences,,0.707390451,1.41364645,8,5,13,FALSE,0.553865565,13
-486,849,physical sensations,,1.475826972,0.677586207,10,3,13,FALSE,0.765642039,13
+480,304,publications (stills),photographs,0.378420446,2.642563343,6,7,13,FALSE,0.077883463,13
+484,763,refugee camp experiences,post-conflict experience,0.707390451,1.41364645,8,5,13,FALSE,0.553865565,13
+486,849,physical sensations,physical condition,1.475826972,0.677586207,10,3,13,FALSE,0.765642039,13
 487,26,prisoner medical personnel,camp medical care,0.99547536,1.004545206,9,4,13,FALSE,1,13
 488,402,languages,language skills,0.99547536,1.004545206,9,4,13,FALSE,1,13
 489,36,male homosexual prisoners,camp population,0.040012665,24.99208704,1,11,12,TRUE,1.92E-05,12
@@ -506,292 +506,292 @@
 492,363,attitudes toward Poland and/or Poles,attitudes,0.220540187,4.534320988,4,8,12,FALSE,0.010910081,12
 493,152,suicide attempts,suicides,inf,0,12,0,12,FALSE,0.023182216,12
 498,637,clothing,clothing,2.214830971,0.451501723,10,2,12,FALSE,0.3653826,12
-499,815,family photographs (stills) ,,2.214830971,0.451501723,10,2,12,FALSE,0.3653826,12
-501,430,1930s photographs (stills),,1.327954645,0.753037767,9,3,12,FALSE,1,12
+499,815,family photographs (stills) ,photographs,2.214830971,0.451501723,10,2,12,FALSE,0.3653826,12
+501,430,1930s photographs (stills),photographs,1.327954645,0.753037767,9,3,12,FALSE,1,12
 502,96,mothers,family,1.327954645,0.753037767,9,3,12,FALSE,1,12
-503,734,famous writers and publishers,,0.252170395,3.965572557,4,7,11,FALSE,0.042089823,11
-504,618,inter-prisoner behavioral conduct,,0.252170395,3.965572557,4,7,11,FALSE,0.042089823,11
+503,734,famous writers and publishers,famous non Jewish leaders,0.252170395,3.965572557,4,7,11,FALSE,0.042089823,11
+504,618,inter-prisoner behavioral conduct,social bonds,0.252170395,3.965572557,4,7,11,FALSE,0.042089823,11
 506,12,childbearing,camp childbearing,4.431842966,0.225639764,10,1,11,FALSE,0.190029968,11
 512,94,mass executions,mass murder,0.773921099,1.292121383,7,4,11,FALSE,0.745733312,11
-513,85,hiding places,,0.773921099,1.292121383,7,4,11,FALSE,0.745733312,11
-514,182,military,,0.773921099,1.292121383,7,4,11,FALSE,0.745733312,11
+513,85,hiding places,camp hiding and evasion,0.773921099,1.292121383,7,4,11,FALSE,0.745733312,11
+514,182,military,military,0.773921099,1.292121383,7,4,11,FALSE,0.745733312,11
 515,775,violent attacks,violence,0.773921099,1.292121383,7,4,11,FALSE,0.745733312,11
 516,464,forced march brutal treatment,violence,0.773921099,1.292121383,7,4,11,FALSE,0.745733312,11
 517,685,wartime family interactions,family,0.773921099,1.292121383,7,4,11,FALSE,0.745733312,11
-518,779,personal preparations,,1.180146792,0.847352217,8,3,11,FALSE,1,11
-519,766,people (stills) ,,1.180146792,0.847352217,8,3,11,FALSE,1,11
+518,779,personal preparations,self-preservation acts,1.180146792,0.847352217,8,3,11,FALSE,1,11
+519,766,people (stills) ,photographs,1.180146792,0.847352217,8,3,11,FALSE,1,11
 520,46,forced labor,camp forced labor,1.180146792,0.847352217,8,3,11,FALSE,1,11
-521,730,post-conflict encounters,,1.180146792,0.847352217,8,3,11,FALSE,1,11
-522,704,children,,1.180146792,0.847352217,8,3,11,FALSE,1,11
+521,730,post-conflict encounters,post-conflict activity,1.180146792,0.847352217,8,3,11,FALSE,1,11
+522,704,children,camp children,1.180146792,0.847352217,8,3,11,FALSE,1,11
 523,170,mass graves,corpses,0.110222077,9.072592593,2,8,10,FALSE,0.001854435,10
-524,543,World War II documents and artifacts (stills),,0.18908661,5.28858177,3,7,10,FALSE,0.012025115,10
-525,435,1980s photographs (stills),,0.18908661,5.28858177,3,7,10,FALSE,0.012025115,10
+524,543,World War II documents and artifacts (stills),photographs,0.18908661,5.28858177,3,7,10,FALSE,0.012025115,10
+525,435,1980s photographs (stills),photographs,0.18908661,5.28858177,3,7,10,FALSE,0.012025115,10
 526,731,sexual activities,camp sexual activities,inf,0,10,0,10,FALSE,0.037594723,10
-527,322,camp sterilization medical experiments,,0.294344006,3.397385298,4,6,10,FALSE,0.077916176,10
-528,604,fine arts (stills),,0.294344006,3.397385298,4,6,10,FALSE,0.077916176,10
-529,783,contact,,0.294344006,3.397385298,4,6,10,FALSE,0.077916176,10
-531,86,memorials and museums,,0.441830065,2.263313609,5,5,10,FALSE,0.187452145,10
-532,59,"Robota, Roza",,3.987788923,0.250765529,9,1,10,FALSE,0.300803678,10
+527,322,camp sterilization medical experiments,medical experiments,0.294344006,3.397385298,4,6,10,FALSE,0.077916176,10
+528,604,fine arts (stills),photographs,0.294344006,3.397385298,4,6,10,FALSE,0.077916176,10
+529,783,contact,contact,0.294344006,3.397385298,4,6,10,FALSE,0.077916176,10
+531,86,memorials and museums,post-conflict activity,0.441830065,2.263313609,5,5,10,FALSE,0.187452145,10
+532,59,"Robota, Roza",camp resistance,3.987788923,0.250765529,9,1,10,FALSE,0.300803678,10
 533,845,social groups,camp population,0.663216387,1.507803516,6,4,10,FALSE,0.507297066,10
-534,181,economics,,0.663216387,1.507803516,6,4,10,FALSE,0.507297066,10
-535,105,restitution,,0.663216387,1.507803516,6,4,10,FALSE,0.507297066,10
+534,181,economics,awareness,0.663216387,1.507803516,6,4,10,FALSE,0.507297066,10
+535,105,restitution,post-conflict activity,0.663216387,1.507803516,6,4,10,FALSE,0.507297066,10
 536,487,escape assistance,camp escapes,1.771092217,0.564623338,8,2,10,FALSE,0.733258788,10
-537,119,physical health,,1.771092217,0.564623338,8,2,10,FALSE,0.733258788,10
+537,119,physical health,physical condition,1.771092217,0.564623338,8,2,10,FALSE,0.733258788,10
 538,424,transfer to ghettos,ghetto experience,1.032403371,0.968613652,7,3,10,FALSE,1,10
 539,601,environmental conditions,camp living conditions,1.032403371,0.968613652,7,3,10,FALSE,1,10
-540,590,Jewish soldiers,,0.22070993,4.530833744,3,6,9,FALSE,0.028153696,9
+540,590,Jewish soldiers,military,0.22070993,4.530833744,3,6,9,FALSE,0.028153696,9
 541,741,famous aid givers,aid giving,inf,0,9,0,9,FALSE,0.065058457,9
 542,746,medical personnel,camp medical care,inf,0,9,0,9,FALSE,0.065058457,9
 543,320,air raid cleanup forced labor,camp forced labor,0.353387062,2.829758383,4,5,9,FALSE,0.144019314,9
-544,253,documents and artifacts (stills),,0.353387062,2.829758383,4,5,9,FALSE,0.144019314,9
-545,462,prison experiences,,3.543928494,0.282172736,8,1,9,FALSE,0.291228038,9
-546,844,denial,,3.543928494,0.282172736,8,1,9,FALSE,0.291228038,9
-547,509,civilian laborers,,0.552559913,1.809758502,5,4,9,FALSE,0.469892055,9
-548,75,Christian clergy and monastics,,0.552559913,1.809758502,5,4,9,FALSE,0.469892055,9
+544,253,documents and artifacts (stills),photographs,0.353387062,2.829758383,4,5,9,FALSE,0.144019314,9
+545,462,prison experiences,prison experience,3.543928494,0.282172736,8,1,9,FALSE,0.291228038,9
+546,844,denial,post-conflict experience,3.543928494,0.282172736,8,1,9,FALSE,0.291228038,9
+547,509,civilian laborers,camp population,0.552559913,1.809758502,5,4,9,FALSE,0.469892055,9
+548,75,Christian clergy and monastics,camp population,0.552559913,1.809758502,5,4,9,FALSE,0.469892055,9
 549,541,translation forced labor,camp forced labor,1.549367916,0.645424492,7,2,9,FALSE,0.730683796,9
-550,110,war crimes trials,,1.549367916,0.645424492,7,2,9,FALSE,0.730683796,9
+550,110,war crimes trials,trials,1.549367916,0.645424492,7,2,9,FALSE,0.730683796,9
 551,781,covert movement,camp covert activities,0.884724341,1.130295567,6,3,9,FALSE,1,9
 552,301,Jewish religious objects,religious_observances,0.06300143,15.87265548,1,7,8,FALSE,0.001485666,8
 553,117,Jewish life,religious_observances,0.06300143,15.87265548,1,7,8,FALSE,0.001485666,8
 554,248,medical experiments,medical experiments,0.264982578,3.773833005,3,5,8,FALSE,0.06324741,8
-555,69,armed forces,,0.264982578,3.773833005,3,5,8,FALSE,0.06324741,8
-556,116,anti-Jewish measures,,0.264982578,3.773833005,3,5,8,FALSE,0.06324741,8
+555,69,armed forces,military,0.264982578,3.773833005,3,5,8,FALSE,0.06324741,8
+556,116,anti-Jewish measures,antisemitism,0.264982578,3.773833005,3,5,8,FALSE,0.06324741,8
 557,765,burial sites (stills) ,corpses,0.264982578,3.773833005,3,5,8,FALSE,0.06324741,8
 558,832,famous forced labor factory managers,perpetrators,inf,0,8,0,8,FALSE,0.116508696,8
 559,760,Nazi organizations,perpetrators,0.441951645,2.262690981,4,4,8,FALSE,0.259633626,8
-560,801,businesses,,3.100261552,0.322553431,7,1,8,FALSE,0.448439545,8
+560,801,businesses,businesses,3.100261552,0.322553431,7,1,8,FALSE,0.448439545,8
 561,796,time awareness,camp time awareness,3.100261552,0.322553431,7,1,8,FALSE,0.448439545,8
 562,721,Allied military operations,liberators,0.737109659,1.356650246,5,3,8,FALSE,0.707389911,8
 563,777,killing techniques,killings,0.737109659,1.356650246,5,3,8,FALSE,0.707389911,8
 564,576,forced march stealing,camp stealing,0.737109659,1.356650246,5,3,8,FALSE,0.707389911,8
 565,15,stealing,camp stealing,1.327740248,0.753159363,6,2,8,FALSE,1,8
-566,715,educators,,1.327740248,0.753159363,6,2,8,FALSE,1,8
+566,715,educators,education,1.327740248,0.753159363,6,2,8,FALSE,1,8
 567,634,Austrian kapos,kapos,0.17661659,5.661982249,2,5,7,FALSE,0.031627148,7
-568,33,camp experiences,,inf,0,7,0,7,FALSE,0.108489174,7
-569,811,post-conflict return visits,,0.331391551,3.017578446,3,4,7,FALSE,0.211671901,7
-570,241,ghetto adaptation methods,,0.331391551,3.017578446,3,4,7,FALSE,0.211671901,7
+568,33,camp experiences,psychological reactions,inf,0,7,0,7,FALSE,0.108489174,7
+569,811,post-conflict return visits,post-conflict activity,0.331391551,3.017578446,3,4,7,FALSE,0.211671901,7
+570,241,ghetto adaptation methods,adaptation methods,0.331391551,3.017578446,3,4,7,FALSE,0.211671901,7
 571,600,identity concealment (aid giving),aid giving,0.331391551,3.017578446,3,4,7,FALSE,0.211671901,7
 572,225,Ukrainian camp guards,kapos,0.331391551,3.017578446,3,4,7,FALSE,0.211671901,7
-573,331,sanitary conditions,,0.589559283,1.696182266,4,3,7,FALSE,0.445078345,7
-574,726,discussions,,0.589559283,1.696182266,4,3,7,FALSE,0.445078345,7
+573,331,sanitary conditions,camp living conditions,0.589559283,1.696182266,4,3,7,FALSE,0.445078345,7
+574,726,discussions,discussions,0.589559283,1.696182266,4,3,7,FALSE,0.445078345,7
 575,569,escape preparations,camp escapes,0.589559283,1.696182266,4,3,7,FALSE,0.445078345,7
 576,517,malaria,camp diseases,0.589559283,1.696182266,4,3,7,FALSE,0.445078345,7
 577,11,Passover,religious_observances,0.589559283,1.696182266,4,3,7,FALSE,0.445078345,7
-578,58,post-conflict,,0.589559283,1.696182266,4,3,7,FALSE,0.445078345,7
+578,58,post-conflict,post-conflict activity,0.589559283,1.696182266,4,3,7,FALSE,0.445078345,7
 579,744,family occupations,family,0.589559283,1.696182266,4,3,7,FALSE,0.445078345,7
 580,370,barter,barter,0.589559283,1.696182266,4,3,7,FALSE,0.445078345,7
-581,63,"""Mischlinge""",,2.656787971,0.376394357,6,1,7,FALSE,0.683436046,7
+581,63,"""Mischlinge""",Jewish identity,2.656787971,0.376394357,6,1,7,FALSE,0.683436046,7
 582,644,attitudes toward Allied and/or neutral nations,attitudes,2.656787971,0.376394357,6,1,7,FALSE,0.683436046,7
 583,123,sexual assaults,camp sexual activities,2.656787971,0.376394357,6,1,7,FALSE,0.683436046,7
-584,814,post-conflict recovery,,1.10620915,0.903988183,5,2,7,FALSE,1,7
+584,814,post-conflict recovery,post-conflict experience,1.10620915,0.903988183,5,2,7,FALSE,1,7
 585,561,British prisoners of war,camp population,0.088289073,11.32642998,1,5,6,FALSE,0.012092041,6
 586,359,covert weapons procurement,camp covert activities,0.220879599,4.527353376,2,4,6,FALSE,0.075848317,6
 587,747,Fascist organization members,perpetrators,inf,0,6,0,6,FALSE,0.186761443,6
 588,266,menstruation,menstruation,inf,0,6,0,6,FALSE,0.186761443,6
 589,612,political prisoner functionaries,kapos,0.442073171,2.262068966,3,3,6,FALSE,0.379098112,6
 590,387,transfer from ghettos,transfer,0.442073171,2.262068966,3,3,6,FALSE,0.379098112,6
-591,87,identification papers,,0.442073171,2.262068966,3,3,6,FALSE,0.379098112,6
-592,770,objects (stills) ,,0.442073171,2.262068966,3,3,6,FALSE,0.379098112,6
+591,87,identification papers,self-preservation acts,0.442073171,2.262068966,3,3,6,FALSE,0.379098112,6
+592,770,objects (stills) ,photographs,0.442073171,2.262068966,3,3,6,FALSE,0.379098112,6
 593,584,Austrian prisoners,camp population,0.442073171,2.262068966,3,3,6,FALSE,0.379098112,6
-594,795,discriminatory measures,,0.442073171,2.262068966,3,3,6,FALSE,0.379098112,6
+594,795,discriminatory measures,antisemitism,0.442073171,2.262068966,3,3,6,FALSE,0.379098112,6
 595,82,ghetto food,food,2.213507625,0.451771654,5,1,6,FALSE,0.673851557,6
-596,178,refugee experiences,,2.213507625,0.451771654,5,1,6,FALSE,0.673851557,6
-597,260,migration policies,,0.884774559,1.130231413,4,2,6,FALSE,1,6
-598,619,military operations,,0.884774559,1.130231413,4,2,6,FALSE,1,6
-599,413,ships,,0.884774559,1.130231413,4,2,6,FALSE,1,6
+596,178,refugee experiences,post-conflict experience,2.213507625,0.451771654,5,1,6,FALSE,0.673851557,6
+597,260,migration policies,post-conflict experience,0.884774559,1.130231413,4,2,6,FALSE,1,6
+598,619,military operations,military,0.884774559,1.130231413,4,2,6,FALSE,1,6
+599,413,ships,transportation,0.884774559,1.130231413,4,2,6,FALSE,1,6
 600,707,shoes,clothing,0.11041576,9.056678167,1,4,5,FALSE,0.033344133,5
 601,361,resistance groups,camp resistance,0.11041576,9.056678167,1,4,5,FALSE,0.033344133,5
 602,29,Appell,camp Appell,0.294651281,3.393842365,2,3,5,FALSE,0.172016651,5
 603,749,mistreatment and death,violence,0.294651281,3.393842365,2,3,5,FALSE,0.172016651,5
 604,776,executions and killings,killings,0.294651281,3.393842365,2,3,5,FALSE,0.172016651,5
 605,790,population categories,camp population,0.294651281,3.393842365,2,3,5,FALSE,0.172016651,5
-606,627,collaborator treatment,,0.294651281,3.393842365,2,3,5,FALSE,0.172016651,5
-607,252,funerals,,inf,0,5,0,5,FALSE,0.332055352,5
+606,627,collaborator treatment,collaborators,0.294651281,3.393842365,2,3,5,FALSE,0.172016651,5
+607,252,funerals,corpses,inf,0,5,0,5,FALSE,0.332055352,5
 608,703,bystander responses,bystanders,0.663436411,1.507303463,3,2,5,FALSE,0.645655981,5
-609,767,personal papers (stills) ,,0.663436411,1.507303463,3,2,5,FALSE,0.645655981,5
-610,237,flight,,0.663436411,1.507303463,3,2,5,FALSE,0.645655981,5
+609,767,personal papers (stills) ,photographs,0.663436411,1.507303463,3,2,5,FALSE,0.645655981,5
+610,237,flight,flight,0.663436411,1.507303463,3,2,5,FALSE,0.645655981,5
 611,393,Jewish religious beliefs,religious_observances,0.663436411,1.507303463,3,2,5,FALSE,0.645655981,5
-612,764,reunions (stills) ,,0.663436411,1.507303463,3,2,5,FALSE,0.645655981,5
-613,432,1950s photographs (stills),,1.770420388,0.564837598,4,1,5,FALSE,1,5
+612,764,reunions (stills) ,photographs,0.663436411,1.507303463,3,2,5,FALSE,0.645655981,5
+613,432,1950s photographs (stills),photographs,1.770420388,0.564837598,4,1,5,FALSE,1,5
 614,837,camp religious observances,religious_observances,1.770420388,0.564837598,4,1,5,FALSE,1,5
 615,414,means of transport,transportation,1.770420388,0.564837598,4,1,5,FALSE,1,5
-616,820,famous French politicians and diplomats,,1.770420388,0.564837598,4,1,5,FALSE,1,5
-617,797,identity,,1.770420388,0.564837598,4,1,5,FALSE,1,5
+616,820,famous French politicians and diplomats,famous non Jewish leaders,1.770420388,0.564837598,4,1,5,FALSE,1,5
+617,797,identity,Jewish identity,1.770420388,0.564837598,4,1,5,FALSE,1,5
 618,394,Christian religious observances,religious_observances,1.770420388,0.564837598,4,1,5,FALSE,1,5
 619,535,covert activities,camp covert activities,1.770420388,0.564837598,4,1,5,FALSE,1,5
-620,143,displaced persons camps (generic),,1.770420388,0.564837598,4,1,5,FALSE,1,5
+620,143,displaced persons camps (generic),post-conflict experience,1.770420388,0.564837598,4,1,5,FALSE,1,5
 621,582,German civilian laborers,kapos,1.770420388,0.564837598,4,1,5,FALSE,1,5
 622,711,deaths,deaths,1.770420388,0.564837598,4,1,5,FALSE,1,5
-623,365,fine arts,,1.770420388,0.564837598,4,1,5,FALSE,1,5
+623,365,fine arts,creative activity,1.770420388,0.564837598,4,1,5,FALSE,1,5
 624,347,captivity,camp escapes,1.770420388,0.564837598,4,1,5,FALSE,1,5
 625,344,gay male sexual activities,camp sexual activities,0,inf,0,4,4,FALSE,0.008833448,4
-626,428,1910s photographs (stills),,0.147293571,6.789162562,1,3,4,FALSE,0.08881314,4
+626,428,1910s photographs (stills),photographs,0.147293571,6.789162562,1,3,4,FALSE,0.08881314,4
 627,508,forced labor battalion experiences,camp forced labor,0.147293571,6.789162562,1,3,4,FALSE,0.08881314,4
-628,476,arrests,,0.147293571,6.789162562,1,3,4,FALSE,0.08881314,4
-629,719,military units,,0.147293571,6.789162562,1,3,4,FALSE,0.08881314,4
+628,476,arrests,prison experience,0.147293571,6.789162562,1,3,4,FALSE,0.08881314,4
+629,719,military units,military,0.147293571,6.789162562,1,3,4,FALSE,0.08881314,4
 630,446,resistance,camp resistance,0.147293571,6.789162562,1,3,4,FALSE,0.08881314,4
-631,681,Jewish organizations,,0.147293571,6.789162562,1,3,4,FALSE,0.08881314,4
+631,681,Jewish organizations,Jewish organizations,0.147293571,6.789162562,1,3,4,FALSE,0.08881314,4
 632,693,covert communications,camp covert activities,inf,0,4,0,4,FALSE,0.319720644,4
 633,118,culture,camp cultural activities,inf,0,4,0,4,FALSE,0.319720644,4
-634,54,refugees,,inf,0,4,0,4,FALSE,0.319720644,4
+634,54,refugees,post-conflict experience,inf,0,4,0,4,FALSE,0.319720644,4
 635,427,transfer from prisons,transfer,inf,0,4,0,4,FALSE,0.319720644,4
-636,835,famous Jewish resistance fighters,,inf,0,4,0,4,FALSE,0.319720644,4
+636,835,famous Jewish resistance fighters,camp resistance,inf,0,4,0,4,FALSE,0.319720644,4
 637,631,religious identity,religious_observances,0.442194644,2.261447563,2,2,4,FALSE,0.591084533,4
-638,831,original works,,0.442194644,2.261447563,2,2,4,FALSE,0.591084533,4
+638,831,original works,creative activity,0.442194644,2.261447563,2,2,4,FALSE,0.591084533,4
 639,60,suicides,suicides,1.327526132,0.75328084,3,1,4,FALSE,1,4
-640,557,trial participants,,1.327526132,0.75328084,3,1,4,FALSE,1,4
-641,550,Siemens (firm),,1.327526132,0.75328084,3,1,4,FALSE,1,4
+640,557,trial participants,trials,1.327526132,0.75328084,3,1,4,FALSE,1,4
+641,550,Siemens (firm),camp forced labor,1.327526132,0.75328084,3,1,4,FALSE,1,4
 642,306,marriages,family,1.327526132,0.75328084,3,1,4,FALSE,1,4
 643,602,family homes (stills),family,1.327526132,0.75328084,3,1,4,FALSE,1,4
-644,717,military personnel,,1.327526132,0.75328084,3,1,4,FALSE,1,4
-645,111,Zionist organizations,,1.327526132,0.75328084,3,1,4,FALSE,1,4
-646,417,vocational training,,0,inf,0,3,3,FALSE,0.028828371,3
-647,392,displaced persons camp experiences,,0.221049195,4.523879862,1,2,3,FALSE,0.224495085,3
-648,389,political activities,,0.221049195,4.523879862,1,2,3,FALSE,0.224495085,3
+644,717,military personnel,military,1.327526132,0.75328084,3,1,4,FALSE,1,4
+645,111,Zionist organizations,Jewish organizations,1.327526132,0.75328084,3,1,4,FALSE,1,4
+646,417,vocational training,education,0,inf,0,3,3,FALSE,0.028828371,3
+647,392,displaced persons camp experiences,post-conflict experience,0.221049195,4.523879862,1,2,3,FALSE,0.224495085,3
+648,389,political activities,political activities,0.221049195,4.523879862,1,2,3,FALSE,0.224495085,3
 649,179,escapes,camp escapes,0.221049195,4.523879862,1,2,3,FALSE,0.224495085,3
-650,695,trial procedures,,0.221049195,4.523879862,1,2,3,FALSE,0.224495085,3
+650,695,trial procedures,trials,0.221049195,4.523879862,1,2,3,FALSE,0.224495085,3
 651,768,religious sites (stills) ,religious_observances,0.221049195,4.523879862,1,2,3,FALSE,0.224495085,3
-652,42,looting,,0.221049195,4.523879862,1,2,3,FALSE,0.224495085,3
+652,42,looting,camp stealing,0.221049195,4.523879862,1,2,3,FALSE,0.224495085,3
 653,90,Jewish religious texts,religious_observances,0.221049195,4.523879862,1,2,3,FALSE,0.224495085,3
-654,738,famous Zionist leaders,,0.221049195,4.523879862,1,2,3,FALSE,0.224495085,3
-655,101,professional training,,0.221049195,4.523879862,1,2,3,FALSE,0.224495085,3
+654,738,famous Zionist leaders,famous Jewish  leaders,0.221049195,4.523879862,1,2,3,FALSE,0.224495085,3
+655,101,professional training,education,0.221049195,4.523879862,1,2,3,FALSE,0.224495085,3
 656,88,infestations,camp living conditions,inf,0,3,0,3,FALSE,0.557631455,3
-657,426,deportation to ghettos,,inf,0,3,0,3,FALSE,0.557631455,3
+657,426,deportation to ghettos,deportation,inf,0,3,0,3,FALSE,0.557631455,3
 658,826,famous prisoner medical personnel,camp medical care,inf,0,3,0,3,FALSE,0.557631455,3
 659,467,ghetto brutal treatment,violence,inf,0,3,0,3,FALSE,0.557631455,3
-660,729,post-conflict relations,,inf,0,3,0,3,FALSE,0.557631455,3
-661,802,famous Jewish religious leaders,,inf,0,3,0,3,FALSE,0.557631455,3
-662,132,begging,,inf,0,3,0,3,FALSE,0.557631455,3
+660,729,post-conflict relations,post-conflict activity,inf,0,3,0,3,FALSE,0.557631455,3
+661,802,famous Jewish religious leaders,famous Jewish  leaders,inf,0,3,0,3,FALSE,0.557631455,3
+662,132,begging,self-preservation acts,inf,0,3,0,3,FALSE,0.557631455,3
 663,169,British armed forces,liberators,inf,0,3,0,3,FALSE,0.557631455,3
-664,502,flight from countries,,inf,0,3,0,3,FALSE,0.557631455,3
-665,503,flight to countries,,inf,0,3,0,3,FALSE,0.557631455,3
-666,722,military occupation conditions,,inf,0,3,0,3,FALSE,0.557631455,3
-667,807,releases,,inf,0,3,0,3,FALSE,0.557631455,3
-668,772,activities (stills) ,,0.884824733,1.130167323,2,1,3,FALSE,1,3
+664,502,flight from countries,flight,inf,0,3,0,3,FALSE,0.557631455,3
+665,503,flight to countries,flight,inf,0,3,0,3,FALSE,0.557631455,3
+666,722,military occupation conditions,famous Jewish  leaders,inf,0,3,0,3,FALSE,0.557631455,3
+667,807,releases,prison experience,inf,0,3,0,3,FALSE,0.557631455,3
+668,772,activities (stills) ,photographs,0.884824733,1.130167323,2,1,3,FALSE,1,3
 669,49,ghetto deaths,deaths,0.884824733,1.130167323,2,1,3,FALSE,1,3
 670,817,famous camp escapees,camp escapes,0.884824733,1.130167323,2,1,3,FALSE,1,3
-671,526,ghetto personnel,,0.884824733,1.130167323,2,1,3,FALSE,1,3
+671,526,ghetto personnel,collaborators,0.884824733,1.130167323,2,1,3,FALSE,1,3
 672,567,ghetto inhabitant physical condition,physical condition,0.884824733,1.130167323,2,1,3,FALSE,1,3
-673,221,schools,,0.884824733,1.130167323,2,1,3,FALSE,1,3
-674,194,persecuted group insignia,,0.884824733,1.130167323,2,1,3,FALSE,1,3
-675,716,movement,,0.884824733,1.130167323,2,1,3,FALSE,1,3
+673,221,schools,education,0.884824733,1.130167323,2,1,3,FALSE,1,3
+674,194,persecuted group insignia,tattoo,0.884824733,1.130167323,2,1,3,FALSE,1,3
+675,716,movement,political activities,0.884824733,1.130167323,2,1,3,FALSE,1,3
 676,226,Jewish ritual leaders and functionaries,religious_observances,0.884824733,1.130167323,2,1,3,FALSE,1,3
-677,690,media coverage,,0.884824733,1.130167323,2,1,3,FALSE,1,3
-678,750,refugee camps (generic) ,,0.884824733,1.130167323,2,1,3,FALSE,1,3
+677,690,media coverage,post-conflict experience,0.884824733,1.130167323,2,1,3,FALSE,1,3
+678,750,refugee camps (generic) ,post-conflict experience,0.884824733,1.130167323,2,1,3,FALSE,1,3
 679,532,Hasidic rebbes,religious_observances,0,inf,0,2,2,FALSE,0.094050609,2
 680,0,Italian armed forces,perpetrators,0,inf,0,2,2,FALSE,0.094050609,2
 681,592,deportation from countries,deportation to camps,0,inf,0,2,2,FALSE,0.094050609,2
 682,188,bribery,camp covert activities,0,inf,0,2,2,FALSE,0.094050609,2
-683,840,currency (stills) ,,0,inf,0,2,2,FALSE,0.094050609,2
-684,187,I. G. Farben,,0,inf,0,2,2,FALSE,0.094050609,2
+683,840,currency (stills) ,photographs,0,inf,0,2,2,FALSE,0.094050609,2
+684,187,I. G. Farben,camp forced labor,0,inf,0,2,2,FALSE,0.094050609,2
 685,186,Hasidism,religious_observances,0,inf,0,2,2,FALSE,0.094050609,2
 686,782,Christian sites,religious_observances,0,inf,0,2,2,FALSE,0.094050609,2
 687,701,corpse disposal,corpses,0,inf,0,2,2,FALSE,0.094050609,2
-688,798,political ideologies,,0,inf,0,2,2,FALSE,0.094050609,2
-689,800,Jewish youth organizations,,0,inf,0,2,2,FALSE,0.094050609,2
+688,798,political ideologies,political activities,0,inf,0,2,2,FALSE,0.094050609,2
+689,800,Jewish youth organizations,Jewish organizations,0,inf,0,2,2,FALSE,0.094050609,2
 690,723,deceptions,deceptions,0,inf,0,2,2,FALSE,0.094050609,2
-691,812,post-conflict reunions,,0,inf,0,2,2,FALSE,0.094050609,2
+691,812,post-conflict reunions,post-conflict activity,0,inf,0,2,2,FALSE,0.094050609,2
 692,804,famous Islamic religious leaders,religious_observances,0,inf,0,2,2,FALSE,0.094050609,2
 693,620,Polish resistance groups,camp resistance,0,inf,0,2,2,FALSE,0.094050609,2
-694,714,study,,0.442316064,2.260826772,1,1,2,FALSE,0.519407448,2
-695,816,events (stills) ,,0.442316064,2.260826772,1,1,2,FALSE,0.519407448,2
+694,714,study,education,0.442316064,2.260826772,1,1,2,FALSE,0.519407448,2
+695,816,events (stills) ,photographs,0.442316064,2.260826772,1,1,2,FALSE,0.519407448,2
 696,103,religious beliefs,religious_observances,0.442316064,2.260826772,1,1,2,FALSE,0.519407448,2
-697,454,prison procedures,,0.442316064,2.260826772,1,1,2,FALSE,0.519407448,2
-698,254,communist regime everyday life,,0.442316064,2.260826772,1,1,2,FALSE,0.519407448,2
-699,108,survivor organizations,,0.442316064,2.260826772,1,1,2,FALSE,0.519407448,2
-700,810,Zionist youth organizations,,0.442316064,2.260826772,1,1,2,FALSE,0.519407448,2
-701,429,1920s photographs (stills),,0.442316064,2.260826772,1,1,2,FALSE,0.519407448,2
-702,670,correspondence (stills),,0.442316064,2.260826772,1,1,2,FALSE,0.519407448,2
+697,454,prison procedures,prison experience,0.442316064,2.260826772,1,1,2,FALSE,0.519407448,2
+698,254,communist regime everyday life,post-conflict experience,0.442316064,2.260826772,1,1,2,FALSE,0.519407448,2
+699,108,survivor organizations,post-conflict experience,0.442316064,2.260826772,1,1,2,FALSE,0.519407448,2
+700,810,Zionist youth organizations,Jewish organizations,0.442316064,2.260826772,1,1,2,FALSE,0.519407448,2
+701,429,1920s photographs (stills),photographs,0.442316064,2.260826772,1,1,2,FALSE,0.519407448,2
+702,670,correspondence (stills),photographs,0.442316064,2.260826772,1,1,2,FALSE,0.519407448,2
 703,452,prison brutal treatment,violence,0.442316064,2.260826772,1,1,2,FALSE,0.519407448,2
-704,827,famous Jewish ghetto police,,0.442316064,2.260826772,1,1,2,FALSE,0.519407448,2
-705,733,political police,,0.442316064,2.260826772,1,1,2,FALSE,0.519407448,2
+704,827,famous Jewish ghetto police,collaborators,0.442316064,2.260826772,1,1,2,FALSE,0.519407448,2
+705,733,political police,perpetrators,0.442316064,2.260826772,1,1,2,FALSE,0.519407448,2
 706,537,ghetto covert activities,camp covert activities,0.442316064,2.260826772,1,1,2,FALSE,0.519407448,2
-707,189,discrimination responses,,0.442316064,2.260826772,1,1,2,FALSE,0.519407448,2
-708,127,Zionism,,0.442316064,2.260826772,1,1,2,FALSE,0.519407448,2
-709,441,1970s documents and artifacts (stills),,0.442316064,2.260826772,1,1,2,FALSE,0.519407448,2
-710,443,1990s documents and artifacts (stills),,0.442316064,2.260826772,1,1,2,FALSE,0.519407448,2
-711,824,famous Czech politicians and diplomats,,0.442316064,2.260826772,1,1,2,FALSE,0.519407448,2
+707,189,discrimination responses,antisemitism,0.442316064,2.260826772,1,1,2,FALSE,0.519407448,2
+708,127,Zionism,Jewish organizations,0.442316064,2.260826772,1,1,2,FALSE,0.519407448,2
+709,441,1970s documents and artifacts (stills),photographs,0.442316064,2.260826772,1,1,2,FALSE,0.519407448,2
+710,443,1990s documents and artifacts (stills),photographs,0.442316064,2.260826772,1,1,2,FALSE,0.519407448,2
+711,824,famous Czech politicians and diplomats,famous non Jewish leaders,0.442316064,2.260826772,1,1,2,FALSE,0.519407448,2
 712,622,Jewish resistance groups,camp resistance,0.442316064,2.260826772,1,1,2,FALSE,0.519407448,2
-713,756,miscellaneous famous people,,inf,0,2,0,2,FALSE,1,2
+713,756,miscellaneous famous people,famous non Jewish leaders,inf,0,2,0,2,FALSE,1,2
 714,769,religious objects (stills) ,religious_observances,inf,0,2,0,2,FALSE,1,2
-715,758,rescue transports,,inf,0,2,0,2,FALSE,1,2
-716,829,refugee nationals,,inf,0,2,0,2,FALSE,1,2
+715,758,rescue transports,transportation,inf,0,2,0,2,FALSE,1,2
+716,829,refugee nationals,post-conflict experience,inf,0,2,0,2,FALSE,1,2
 717,838,ghetto religious observances,religious_observances,inf,0,2,0,2,FALSE,1,2
-718,850,Jews,,inf,0,2,0,2,FALSE,1,2
+718,850,Jews,Jewish identity,inf,0,2,0,2,FALSE,1,2
 719,216,smuggling,camp covert activities,inf,0,2,0,2,FALSE,1,2
-720,580,discrimination,,inf,0,2,0,2,FALSE,1,2
-721,735,famous musicians and composers,,inf,0,2,0,2,FALSE,1,2
+720,580,discrimination,antisemitism,inf,0,2,0,2,FALSE,1,2
+721,735,famous musicians and composers,creative activity,inf,0,2,0,2,FALSE,1,2
 722,507,flight attempts,camp escapes,inf,0,2,0,2,FALSE,1,2
 723,677,Jewish religious observances (stills),religious_observances,0,inf,0,1,1,FALSE,0.306729028,1
-724,762,paramilitary organizations,,0,inf,0,1,1,FALSE,0.306729028,1
+724,762,paramilitary organizations,camp resistance,0,inf,0,1,1,FALSE,0.306729028,1
 725,617,forced labor squads (stills),camp forced labor,0,inf,0,1,1,FALSE,0.306729028,1
-726,774,moving image footage,,0,inf,0,1,1,FALSE,0.306729028,1
+726,774,moving image footage,photographs,0,inf,0,1,1,FALSE,0.306729028,1
 727,570,Christian religious holidays,religious_observances,0,inf,0,1,1,FALSE,0.306729028,1
 728,787,religions,religious_observances,0,inf,0,1,1,FALSE,0.306729028,1
-729,694,military uniforms,,0,inf,0,1,1,FALSE,0.306729028,1
-730,843,reflections,,0,inf,0,1,1,FALSE,0.306729028,1
-731,791,famous ghetto personnel,,0,inf,0,1,1,FALSE,0.306729028,1
-732,433,1960s photographs (stills),,0,inf,0,1,1,FALSE,0.306729028,1
-733,821,famous Polish politicians and diplomats,,0,inf,0,1,1,FALSE,0.306729028,1
-734,794,protection,,0,inf,0,1,1,FALSE,0.306729028,1
-735,434,1970s photographs (stills),,0,inf,0,1,1,FALSE,0.306729028,1
-736,737,famous collaborators,,0,inf,0,1,1,FALSE,0.306729028,1
+729,694,military uniforms,clothing,0,inf,0,1,1,FALSE,0.306729028,1
+730,843,reflections,self-preservation acts,0,inf,0,1,1,FALSE,0.306729028,1
+731,791,famous ghetto personnel,famous Jewish  leaders,0,inf,0,1,1,FALSE,0.306729028,1
+732,433,1960s photographs (stills),photographs,0,inf,0,1,1,FALSE,0.306729028,1
+733,821,famous Polish politicians and diplomats,famous non Jewish leaders,0,inf,0,1,1,FALSE,0.306729028,1
+734,794,protection,aid giving,0,inf,0,1,1,FALSE,0.306729028,1
+735,434,1970s photographs (stills),photographs,0,inf,0,1,1,FALSE,0.306729028,1
+736,737,famous collaborators,collaborators,0,inf,0,1,1,FALSE,0.306729028,1
 737,828,captives,camp escapes,0,inf,0,1,1,FALSE,0.306729028,1
-738,823,famous Israeli politicians and diplomats,,0,inf,0,1,1,FALSE,0.306729028,1
-739,682,aid organizations,,0,inf,0,1,1,FALSE,0.306729028,1
+738,823,famous Israeli politicians and diplomats,post-conflict experience,0,inf,0,1,1,FALSE,0.306729028,1
+739,682,aid organizations,Jewish organizations,0,inf,0,1,1,FALSE,0.306729028,1
 740,809,scouting organizations,,0,inf,0,1,1,FALSE,0.306729028,1
-741,625,Nuremberg Trials (Germany)(generic),,0,inf,0,1,1,FALSE,0.306729028,1
+741,625,Nuremberg Trials (Germany)(generic),trials,0,inf,0,1,1,FALSE,0.306729028,1
 742,674,Roma life,,0,inf,0,1,1,FALSE,0.306729028,1
-743,675,ghettos (stills),,0,inf,0,1,1,FALSE,0.306729028,1
-744,792,famous United States military personnel,,0,inf,0,1,1,FALSE,0.306729028,1
+743,675,ghettos (stills),photographs,0,inf,0,1,1,FALSE,0.306729028,1
+744,792,famous United States military personnel,military,0,inf,0,1,1,FALSE,0.306729028,1
 745,453,prison guards,perpetrators,0,inf,0,1,1,FALSE,0.306729028,1
-746,854,motivations,,0,inf,0,1,1,FALSE,0.306729028,1
-747,41,Armia Krajowa,,0,inf,0,1,1,FALSE,0.306729028,1
+746,854,motivations,psychological reactions,0,inf,0,1,1,FALSE,0.306729028,1
+747,41,Armia Krajowa,camp resistance,0,inf,0,1,1,FALSE,0.306729028,1
 748,256,covert economic activities,camp covert activities,0,inf,0,1,1,FALSE,0.306729028,1
 749,239,ghetto guards,perpetrators,0,inf,0,1,1,FALSE,0.306729028,1
 750,183,French armed forces,perpetrators,0,inf,0,1,1,FALSE,0.306729028,1
-751,113,Jewish education,,0,inf,0,1,1,FALSE,0.306729028,1
+751,113,Jewish education,education,0,inf,0,1,1,FALSE,0.306729028,1
 752,244,prisoner of war camps (generic),,0,inf,0,1,1,FALSE,0.306729028,1
 753,52,JudenrÌ__te,,0,inf,0,1,1,FALSE,0.306729028,1
-754,458,prison living conditions,,inf,0,1,0,1,FALSE,1,1
-755,752,famous child care-givers,,inf,0,1,0,1,FALSE,1,1
+754,458,prison living conditions,prison experience,inf,0,1,0,1,FALSE,1,1
+755,752,famous child care-givers,camp children,inf,0,1,0,1,FALSE,1,1
 756,853,quarantine,camp ,inf,0,1,0,1,FALSE,1,1
 757,833,famous German Nazi politicians and diplomats,,inf,0,1,0,1,FALSE,1,1
-758,847,guilt,,inf,0,1,0,1,FALSE,1,1
-759,818,famous Gestapo personnel,,inf,0,1,0,1,FALSE,1,1
+758,847,guilt,psychological reactions,inf,0,1,0,1,FALSE,1,1
+759,818,famous Gestapo personnel,perpetrators,inf,0,1,0,1,FALSE,1,1
 760,789,religious converts,,inf,0,1,0,1,FALSE,1,1
 761,751,communities,,inf,0,1,0,1,FALSE,1,1
-762,391,nationalist political parties,,inf,0,1,0,1,FALSE,1,1
-763,442,1980s documents and artifacts (stills),,inf,0,1,0,1,FALSE,1,1
-764,806,corpse cremations,,inf,0,1,0,1,FALSE,1,1
-765,439,1950s documents and artifacts (stills),,inf,0,1,0,1,FALSE,1,1
-766,813,post-conflict searches,,inf,0,1,0,1,FALSE,1,1
-767,437,1930s documents and artifacts (stills),,inf,0,1,0,1,FALSE,1,1
-768,803,famous Christian religious leaders,,inf,0,1,0,1,FALSE,1,1
-769,390,fascist political parties,,inf,0,1,0,1,FALSE,1,1
-770,250,religion and philosophy,,inf,0,1,0,1,FALSE,1,1
-771,636,organizations (stills),,inf,0,1,0,1,FALSE,1,1
-772,552,ghetto corpses,,inf,0,1,0,1,FALSE,1,1
-773,649,judicial proceedings,,inf,0,1,0,1,FALSE,1,1
-774,536,prison covert activities,,inf,0,1,0,1,FALSE,1,1
-775,659,Czech resistance groups,,inf,0,1,0,1,FALSE,1,1
-776,330,ghetto diseases,,inf,0,1,0,1,FALSE,1,1
-777,623,ghetto prayers,,inf,0,1,0,1,FALSE,1,1
-778,220,education,,inf,0,1,0,1,FALSE,1,1
-779,589,deportation to cities,,inf,0,1,0,1,FALSE,1,1
-780,608,civil defense,,inf,0,1,0,1,FALSE,1,1
+762,391,nationalist political parties,political activities,inf,0,1,0,1,FALSE,1,1
+763,442,1980s documents and artifacts (stills),photographs,inf,0,1,0,1,FALSE,1,1
+764,806,corpse cremations,corpses,inf,0,1,0,1,FALSE,1,1
+765,439,1950s documents and artifacts (stills),photographs,inf,0,1,0,1,FALSE,1,1
+766,813,post-conflict searches,post-conflict activity,inf,0,1,0,1,FALSE,1,1
+767,437,1930s documents and artifacts (stills),photographs,inf,0,1,0,1,FALSE,1,1
+768,803,famous Christian religious leaders,famous non Jewish leaders,inf,0,1,0,1,FALSE,1,1
+769,390,fascist political parties,political activities,inf,0,1,0,1,FALSE,1,1
+770,250,religion and philosophy,camp cultural activities,inf,0,1,0,1,FALSE,1,1
+771,636,organizations (stills),photographs,inf,0,1,0,1,FALSE,1,1
+772,552,ghetto corpses,corpses,inf,0,1,0,1,FALSE,1,1
+773,649,judicial proceedings,trials,inf,0,1,0,1,FALSE,1,1
+774,536,prison covert activities,camp covert activities,inf,0,1,0,1,FALSE,1,1
+775,659,Czech resistance groups,camp resistance,inf,0,1,0,1,FALSE,1,1
+776,330,ghetto diseases,camp diseases,inf,0,1,0,1,FALSE,1,1
+777,623,ghetto prayers,religious_observances,inf,0,1,0,1,FALSE,1,1
+778,220,education,education,inf,0,1,0,1,FALSE,1,1
+779,589,deportation to cities,deportation,inf,0,1,0,1,FALSE,1,1
+780,608,civil defense,camp resistance,inf,0,1,0,1,FALSE,1,1
 781,233,Soviet concentration camps (generic),,inf,0,1,0,1,FALSE,1,1
-782,195,ghetto medical care,,inf,0,1,0,1,FALSE,1,1
-783,616,deportation from regions,,inf,0,1,0,1,FALSE,1,1
+782,195,ghetto medical care,camp medical care,inf,0,1,0,1,FALSE,1,1
+783,616,deportation from regions,deportation,inf,0,1,0,1,FALSE,1,1
 784,191,sports organizations,,inf,0,1,0,1,FALSE,1,1
-785,348,prisons,,inf,0,1,0,1,FALSE,1,1
-786,493,transfer to prisons,,inf,0,1,0,1,FALSE,1,1
-787,736,"famous film, theater, television, and radio personnel",,inf,0,1,0,1,FALSE,1,1
-788,91,Jewish schools,,inf,0,1,0,1,FALSE,1,1
-789,515,Judaism,,inf,0,1,0,1,FALSE,1,1
-790,673,anti-Roma prejudice,,inf,0,1,0,1,FALSE,1,1
-791,126,ghetto executions,,inf,0,1,0,1,FALSE,1,1
+785,348,prisons,prison experience,inf,0,1,0,1,FALSE,1,1
+786,493,transfer to prisons,prison experience,inf,0,1,0,1,FALSE,1,1
+787,736,"famous film, theater, television, and radio personnel",famous non Jewish leaders,inf,0,1,0,1,FALSE,1,1
+788,91,Jewish schools,education,inf,0,1,0,1,FALSE,1,1
+789,515,Judaism,religious_observances,inf,0,1,0,1,FALSE,1,1
+790,673,anti-Roma prejudice,attitudes,inf,0,1,0,1,FALSE,1,1
+791,126,ghetto executions,killings,inf,0,1,0,1,FALSE,1,1
 792,687,government officials,,inf,0,1,0,1,FALSE,1,1
-793,691,eugenics measures,,inf,0,1,0,1,FALSE,1,1
-794,114,prayers,,inf,0,1,0,1,FALSE,1,1
-795,696,Jehovah's Witness religious observances,,inf,0,1,0,1,FALSE,1,1
+793,691,eugenics measures,medical experiments,inf,0,1,0,1,FALSE,1,1
+794,114,prayers,religious_observances,inf,0,1,0,1,FALSE,1,1
+795,696,Jehovah's Witness religious observances,religious_observances,inf,0,1,0,1,FALSE,1,1
