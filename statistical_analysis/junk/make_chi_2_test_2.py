@@ -27,24 +27,33 @@ def chi2test(df,df_biodata,category):
     df_category = df_biodata[[category,'IntCode']]
     df = df.merge(df_category,how='left',on="IntCode")
     # Get only categories interested
+    
 
-
+    #df = df.groupby('Gender')["KeywordLabel"].unique().to_frame(name="KeywordLabel").reset_index()
+    
+    #ff = df.groupby('Gender')["KeywordLabel"].unique().to_frame(name="KeywordLabel").reset_index()
+    #cccc = pd.get_dummies(ff.KeywordLabel.apply(pd.Series).stack()).sum(level=0)
+    
+    
     df = pd.concat([df, df[category].str.get_dummies()], axis=1)
 
     agg_pipeline = {}
     for element in df[category].unique():
+
         if pd.isna(element):
             continue
         agg_pipeline[element]='sum'
+    df[df['KeywordLabel']=='camp food sharing'].IntCode.unique()
+    df[df['KeywordLabel']=='camp food sharing'].IntCode.unique().shape
 
-   
+    
     contingency = df.groupby(['KeywordID','KeywordLabel','IntCode']).agg(agg_pipeline).reset_index()
 
     for key in agg_pipeline:
 
         contingency[key] = contingency[key].apply(lambda x: 0 if x <1 else 1)
 
-    
+    pdb.set_trace()
     contingency = contingency.groupby(['KeywordID',"KeywordLabel"]).agg(agg_pipeline).reset_index()
 
 

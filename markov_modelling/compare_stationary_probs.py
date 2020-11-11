@@ -16,7 +16,7 @@ from msmtools.estimation import connected_sets,is_connected,largest_connected_su
 from scipy.special import softmax
 
 
-from markov_utils import window,cg_transition_matrix,train_markov_chain,print_stationary_distributions
+#from markov_utils import window,cg_transition_matrix,train_markov_chain,print_stationary_distributions
 
 stationary_probs = []
 
@@ -49,12 +49,11 @@ if __name__ == '__main__':
                 if (field not in metadata_fields):
                     print ("The following metadata_field is not valid")
                     print (field)
-                    
                     metadata_fields_to_agregate.append(field)
                 else:
-       
+
                     metadata_fields_to_agregate.append(field)
-        
+
         if (key == "keywords"):
             for keyword in value:
                 if (keyword not in features_df.KeywordLabel.to_list()):
@@ -62,9 +61,9 @@ if __name__ == '__main__':
                     print (keyword)
                     pdb.set_trace()
                 else:
-       
+
                     keywords.append(keyword)
-    
+
     # Read the input data
     input_directory = constants.output_data_segment_keyword_matrix
 
@@ -74,36 +73,41 @@ if __name__ == '__main__':
     del features_df['Unnamed: 0']
 
     input_directory = constants.output_data_markov_modelling
+
     stationary_probs_complete = pd.read_csv(input_directory+'/'+'complete'+'/'+'stationary_probs.csv')
     statrionary_prob_selection = stationary_probs_complete[stationary_probs_complete['topic_name']=='camp selections']['stationary_prob'].values[0]
-
+    statrionary_prob_escape = stationary_probs_complete[stationary_probs_complete['topic_name']=='camp escapes']['stationary_prob'].values[0]
     for keyword in keywords:
         print (keyword)
         for element in metadata_fields_to_agregate:
             stationary_probs = pd.read_csv(input_directory+'/'+element+'/'+'stationary_probs.csv')
             del stationary_probs['Unnamed: 0']
-            friends_index = stationary_probs[stationary_probs['topic_name']=="friends"]['stationary_prob'].index
-            friendship_stationary_prob = stationary_probs[stationary_probs['topic_name']=="friendships"]['stationary_prob'].values[0]
-            
-            friends_stationary_prob=stationary_probs.iloc[friends_index,stationary_probs.columns.get_loc("stationary_prob")].values[0]
-            stationary_probs.iloc[friends_index,stationary_probs.columns.get_loc("stationary_prob")] =friendship_stationary_prob+friends_stationary_prob
-            
 
-            camp_food_sharing_index = stationary_probs[stationary_probs['topic_name']=="camp food sharing"]['stationary_prob'].index
-            camp_food_sharing_stationary_prob=stationary_probs.iloc[camp_food_sharing_index,stationary_probs.columns.get_loc("stationary_prob")].values[0]
+            if keyword == "friends":
+                new_value = stationary_probs[stationary_probs['topic_name']==keyword]['stationary_prob'].values[0] + stationary_probs[stationary_probs['topic_name']=="friendships"]['stationary_prob'].values[0]
 
-            food_sharing_stationary_prob = stationary_probs[stationary_probs['topic_name']=="food sharing"]['stationary_prob'].values[0]
-            
-            
-            stationary_probs.iloc[camp_food_sharing_index,stationary_probs.columns.get_loc("stationary_prob")] =food_sharing_stationary_prob+camp_food_sharing_stationary_prob
-
-
+            try:
+                if keyword == "camp food sharing":
+                    new_value = stationary_probs[stationary_probs['topic_name']==keyword]['stationary_prob'].values[0] + stationary_probs[stationary_probs['topic_name']=="food sharing"]['stationary_prob'].values[0]
+                
+            except: 
+                new_value = np.nan 
             stationary_probs = stationary_probs.rename(columns={'topic_name':'KeywordLabel'})
             stationary_probs = stationary_probs.rename(columns={'stationary_prob':'stationary_prob_'+element})
-            stationary_probs['stationary_prob_norm_'+element] = statrionary_prob_selection / stationary_probs['stationary_prob_'+element] 
-            print (element)
-            print(stationary_probs[stationary_probs['KeywordLabel']==keyword])
-                       
+            stationary_probs['stationary_prob_norm_sel_'+element] = statrionary_prob_selection / stationary_probs['stationary_prob_'+element]
+            stationary_probs['stationary_prob_norm_esca_'+element] =  stationary_probs['stationary_prob_'+element]  / statrionary_prob_escape
+           
+            
 
-  
-    
+            print (element)
+      
+            print ('Stationary prob:')
+            print (stationary_probs[stationary_probs['KeywordLabel']==keyword]['stationary_prob_'+element].values[0])
+            print ('Escape:')
+            print (stationary_probs[stationary_probs['KeywordLabel']==keyword]['stationary_prob_norm_esca_'+element].values[0])
+            print ("Selection:")
+            print (stationary_probs[stationary_probs['KeywordLabel']==keyword]['stationary_prob_norm_sel_'+element].values[0])
+           
+
+
+

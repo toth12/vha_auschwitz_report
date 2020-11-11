@@ -12,7 +12,7 @@ from anytree.importer import DictImporter
 from anytree import search
 import csv
 import pandas as pd
-
+from tqdm.auto import tqdm
 
 
 def find_container_subnodes(container_node_names):
@@ -53,24 +53,24 @@ def check_if_node_leaf(node_id):
         return False
 
 def check_if_place_and_time(node_id):
-    return int(node_id) in generic_ids
+    return node_id in generic_ids
 
 def check_if_in_term_hierarchy(node_id):
 
-    if int(node_id) in all_node_ids:
+    if node_id in all_node_ids:
         return True
     else:
         return False
 
 def has_multiple_parents(node_id):
 
-    if int(node_id) in double_nodes:
+    if node_id in double_nodes:
         return True
     else:
         return False
 
 def identify_parents(node_id):
-    res = search.findall_by_attr(root,int(node_id),name="id")
+    res = search.findall_by_attr(root,node_id,name="id")
     result_ids = []
     result_labels = []
     for re in res:
@@ -101,33 +101,61 @@ if __name__ == '__main__':
     root = importer.import_(treedict)
 
     # Read the segments data
-    csv_data = []
-    for el in input_files:
-
-        f = codecs.open(el,"rb","utf-8")
-        csvread = csv.reader(f,delimiter=',')
-        csv_data_temp = list(csvread)
-        columns = csv_data_temp[0]
-        #Drop the first line as that is the column
-        del csv_data_temp[0:1]
-        csv_data.extend(csv_data_temp)
-
-
-    # Rename the column field
-    columns[0] = "IntCode"
-    df = pd.DataFrame(csv_data,columns=columns)
+    df = pd.concat([pd.read_csv(el) for el in input_files])
 
     # Get the bio data
     bio_data = constants.input_files_biodata
     df_biodata = pd.read_excel(input_directory+bio_data, sheet_name=None)['Sheet1']
 
+
+    ### Cast datatypes
+
+    ## Start with segments data
+
+    df_numeric = ['IntCode','SegmentID','InTapenumber','OutTapenumber','KeywordID']
+    df_string = ['IntervieweeName','KeywordLabel']
+    df_time = ['InTimeCode','OutTimeCode']
+
+
+    # Cast to numeric
+    for col in df_numeric:
+        df[col] = pd.to_numeric(df[col])
+
+    # Cast to string
+    for col in df_string:
+        df[col] = df[col].astype('string')
+
+    # Cast to temporal
+
+    for col in df_time:
+        df[col] = pd.to_datetime(df[col], format="%H:%M:%S:%f")
+
+
+    ## Type cast on biodata
+    df_biodata_string = ['InterviewTitle','IntervieweeName','Gender','ExperienceGroup','CityOfBirth','CountryOfBirth','InterviewCity','InterviewCountry','InterviewLanguage','HistoricEvent','OrganizationName']
+    df_biodata_numeric = ['IntCode']
+    df_biodata_time = ['DateOfBirth','InterviewDate']
+
+    # Cast to numeric
+    for col in df_biodata_numeric:
+        df_biodata[col] = pd.to_numeric(df_biodata[col])
+
+    # Cast to string
+    for col in df_biodata_string:
+        df_biodata[col] = df_biodata[col].astype('string')
+
+    # Cast to temporal
+
+    for col in df_biodata_time:
+        df_biodata[col] = pd.to_datetime(df_biodata[col],errors='coerce')
+
+
+
     # Get the IntCode of Jewish survivors
     IntCode = df_biodata[df_biodata['ExperienceGroup']=='Jewish Survivor']['IntCode'].to_list()
-    IntCode = [str(el) for el in IntCode]
 
     # Leave only Jewish survivors
     df = df[df['IntCode'].isin(IntCode)]
-
     df_biodata = df_biodata[df_biodata['IntCode'].isin(IntCode)]
 
 
@@ -209,7 +237,7 @@ if __name__ == '__main__':
 
     # Update the group 2 with parent node name and id
 
-    for row in df_leafes_to_change.iterrows():
+    for row in tqdm(df_leafes_to_change.iterrows(), total=len(df_leafes_to_change)):
         parents = row[1]['parent_labels']
         parent_ids = row[1]['parent_ids']
         parents = parents
@@ -227,11 +255,9 @@ if __name__ == '__main__':
     
     # Put together the three groups (parent nodes, leaves used in more than 25 interviews, leaves used in less than 25 interviews) above
     keyword_ids_to_keep = df_parents.KeywordID.unique().tolist() + df_leafes_keep_unchanged.KeywordID.unique().tolist()+df_leafes_to_changed.KeywordID.unique().tolist()
-    keyword_ids_to_keep = [str(b) for b in keyword_ids_to_keep ]
     
     # Filter the original segment data
     new_df = df[df.KeywordID.isin(keyword_ids_to_keep)]
-    new_df['KeywordID']=pd.to_numeric(new_df['KeywordID'])
 
     # In case of keyword occurring in less than 25 interviews update them with the parent node
 
@@ -257,7 +283,7 @@ if __name__ == '__main__':
     # Loop over and include only parents nodes in case of group 1 from above
    
     int_codes=new_df.IntCode.unique().tolist()
-    for f,int_code in enumerate(int_codes):
+    for f,int_code in tqdm(enumerate(int_codes), total=len(int_codes)):
         #print (f)
         #print (len(int_codes))
         temp_df = new_df[new_df.IntCode.isin([int_code])]
@@ -283,5 +309,4 @@ if __name__ == '__main__':
 
     final_df = updated_new_df.append(temporary_df)
     final_df = final_df.sort_values(by=['IntCode','SegmentNumber'])
-
     final_df.to_csv(output_directory + output_file)

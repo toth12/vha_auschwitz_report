@@ -15,7 +15,7 @@ import itertools
 from msmtools.estimation import connected_sets,is_connected,largest_connected_submatrix
 from scipy.special import softmax
 import pyemma
-
+from tables import *
 from markov_utils import window,cg_transition_matrix,train_markov_chain,print_stationary_distributions,calculate_flux, calculate_mean_passage_time_between_states
 
 stationary_probs = []
@@ -45,6 +45,7 @@ if __name__ == '__main__':
     output_directory = constants.output_data_markov_modelling_aggregated_reports
     # Read the column index (index terms) of the matrix above
     features_df = pd.read_csv(input_directory+constants.output_segment_keyword_matrix_feature_index)
+    #state_index = features_df.KeywordLabel.to_list()
     
 
     input_directory = constants.output_data_markov_modelling
@@ -53,7 +54,7 @@ if __name__ == '__main__':
     for element in metadata_fields:
         print (element)
         try:
-            mm = pyemma.load(input_directory+'/'+element+'/'+'pyemma_model','simple')
+            mm = pyemma.load(input_directory+'/'+element+'_temp/'+'pyemma_model','simple')
             data = mm.P
             stats = stationary_probs_complete[0:100]
             stats  =stats.rename(columns={'topic_name':'KeywordLabel'})
@@ -78,10 +79,10 @@ if __name__ == '__main__':
             new_data = (new_data /new_data.sum(axis=1,keepdims=1))
 
             mm = train_markov_chain(new_data)
-
             
+            pdb.set_trace()
             mean_p = calculate_mean_passage_time_between_states(mm,state_index)
-            mean_p.to_csv(input_directory+'/'+element+'/mean_passage.csv')
+            mean_p.to_csv(input_directory+'/'+element + '_temp/mean_passage.csv')
         except:
             print ("The following metadata field could not be processed")
             print (element)

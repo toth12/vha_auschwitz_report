@@ -1,24 +1,20 @@
 import pandas as pd 
 import pdb
-from itertools import islice
 import numpy as np
-from pyemma import msm,plots
-import msmtools
-from msmtools.flux import tpt,ReactiveFlux
-from pyemma import plots as mplt
 import constants
-from scipy import sparse
-from sklearn import preprocessing
-import os
 import argparse
-import itertools 
-from msmtools.estimation import connected_sets,is_connected,largest_connected_submatrix
-from scipy.special import softmax
 import pyemma
+from tables import *
 
-from markov_utils import window,cg_transition_matrix,train_markov_chain,print_stationary_distributions,calculate_flux, calculate_mean_passage_time_between_states
+from markov_utils import window,cg_transition_matrix,train_markov_chain,print_stationary_distributions,calculate_flux,calculate_mean_passage_time_between_states
 
 stationary_probs = []
+
+
+def print_flux(flux):
+    for tr in flux:
+        print (tr)
+        print (flux[tr])
 
 if __name__ == '__main__':
     metadata_fields = ['complete','complete_m','complete_w','easy_w','easy_m','medium_m','medium_w','hard_m','hard_w',"notwork","notwork_m","notwork_w","work","work_m","work_w"]
@@ -79,14 +75,19 @@ if __name__ == '__main__':
                     targets.append(keyword)
     
     
+    state_index = features_df.KeywordLabel.to_list()
 
     input_directory = constants.output_data_markov_modelling
     stationary_probs_complete = pd.read_csv(input_directory+'/'+'complete'+'/'+'stationary_probs.csv')
 
     for element in metadata_fields_to_agregate:
         print (element)
-     
-        mm = pyemma.load(input_directory+'/'+element+'/'+'pyemma_model','simple')
+      
+        mm = pyemma.load(input_directory+element+'_temp/'+'pyemma_model','simple')
+
+        
+        
+        '''
         data = mm.P
         stats = stationary_probs_complete[0:100]
         stats  =stats.rename(columns={'topic_name':'KeywordLabel'})
@@ -111,13 +112,12 @@ if __name__ == '__main__':
         new_data = (new_data /new_data.sum(axis=1,keepdims=1))
 
         mm = train_markov_chain(new_data)
+        
 
-       
-
+       '''
+        pdb.set_trace()
         flux = calculate_flux(mm,state_index,sources,targets)
 
-        for tr in flux:
-            print (tr)
-            print (flux[tr])
+        
         pdb.set_trace()
 

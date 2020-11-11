@@ -1,24 +1,22 @@
 import constants
 import pandas as pd
-import codecs
-import csv
 import pdb
 import seaborn as sns
 import numpy as np
 import matplotlib.pyplot as plt
-from sklearn.ensemble import IsolationForest
-import datetime
-from scipy import stats, integrate
-from scipy.stats import chisquare
 from scipy.stats import chi2_contingency
 from random import randint
-import json
 from matplotlib.lines import Line2D
-import mpld3
 from plotly import express as px
+import sys
+import scipy.stats as stats
 import plotly
 import plotly.figure_factory as ff
-import sys
+from statsmodels.stats.multicomp import MultiComparison
+from statsmodels.sandbox.stats.multicomp import multipletests
+
+
+
 
 
 def random_with_N_digits(n):
@@ -28,9 +26,23 @@ def random_with_N_digits(n):
 
 def chi2test(df,df_biodata,category):
 
+    df.loc[(df.KeywordLabel == 'food sharing','KeywordID')] = 4289
+    df.loc[(df.KeywordLabel == 'food sharing','KeywordLabel')]="camp food sharing"
+
+    df.loc[(df.KeywordLabel == 'friendships','KeywordID')]=14276
+    df.loc[(df.KeywordLabel == 'friendships','KeywordLabel')]="friends"
+    pdb.set_trace()
     df_category = df_biodata[[category,'IntCode']]
     df = df.merge(df_category,how='left',on="IntCode")
+    # Get only categories interested
+    
 
+    #df = df.groupby('Gender')["KeywordLabel"].unique().to_frame(name="KeywordLabel").reset_index()
+    
+    #ff = df.groupby('Gender')["KeywordLabel"].unique().to_frame(name="KeywordLabel").reset_index()
+    #cccc = pd.get_dummies(ff.KeywordLabel.apply(pd.Series).stack()).sum(level=0)
+    
+   
     df = pd.concat([df, df[category].str.get_dummies()], axis=1)
 
     agg_pipeline = {}
@@ -39,12 +51,14 @@ def chi2test(df,df_biodata,category):
             continue
         agg_pipeline[element]='sum'
 
-   
+    
     contingency = df.groupby(['KeywordID','KeywordLabel','IntCode']).agg(agg_pipeline).reset_index()
-
+    pdb.set_trace()
+    '''
     for key in agg_pipeline:
 
         contingency[key] = contingency[key].apply(lambda x: 0 if x <1 else 1)
+    '''
 
     
     contingency = contingency.groupby(['KeywordID',"KeywordLabel"]).agg(agg_pipeline).reset_index()
@@ -56,7 +70,7 @@ def chi2test(df,df_biodata,category):
 
 
     #set up the visualization for the markers 
-
+    #contingency = contingency[contingency['KeywordLabel']=="camp food sharing"]
     result = []
     for element in contingency.iterrows():
         total_obs = []
@@ -72,12 +86,13 @@ def chi2test(df,df_biodata,category):
         if total_obs.min() <0:
             continue
         
-        
+
         test_result = chi2_contingency(total_obs)
         
         test_stat = test_result[0]
         p_value = test_result[1]
         
+
         #Visualize it
         
         plt.figure(figsize=(9, 9))
@@ -137,6 +152,9 @@ def chi2test(df,df_biodata,category):
         partial_result.extend(test_result[3][:,0].tolist())
 
         result.append(partial_result)
+        if element[1]['KeywordLabel']=="camp food sharing":
+            print (p_value)
+            
         
 
     column_labels_observed_expected_ratio = [element+'_observed_expected_ratio' for element in agg_pipeline]
@@ -150,7 +168,7 @@ def chi2test(df,df_biodata,category):
     columns.extend(column_labels_count_expected)
     df_chi = pd.DataFrame(result,columns=columns)
     df_chi = df_chi.sort_values('test_stat',ascending=False)
-    df_chi['p_value'] = df_chi['p_value']*len(df_chi)
+    #df_chi['p_value'] = df_chi['p_value']*len(df_chi)
     df_chi['significance'] = df_chi['p_value']<0.05
     
 
@@ -201,8 +219,9 @@ def chi2test(df,df_biodata,category):
         filename = "_".join(element.split(' '))+'.html'
         plotly.offline.plot(fig, filename=output_directory+'plots/'+filename,config=config,auto_open=False)
 
-
-
+    pdb.set_trace()
+    df_chi['corrected'] =  multipletests(df_chi['p_value'], method='bonferroni')[0]
+    print (df_chi)
     return (df_chi)
 
 
@@ -210,7 +229,7 @@ if __name__ == '__main__':
 
     # Read the data
 
-    #import sys
+
 
     categories = sys.argv
 
@@ -220,28 +239,32 @@ if __name__ == '__main__':
         sys.exit()
 
     category = categories[1]
+    input_directory = constants.input_data
+    input_file = constants.input_segments_with_simplified_keywords
+    bio_data = constants.input_files_biodata_birkenau
+    output_directory = constants.output_data_statistical_analysis
 
-    features_filter = constants.output_data +'filtered_nodes/'+'node_filter_1_output.json'
-    
+    # Read the input data
+    df = pd.read_csv(input_directory + input_file)
 
-    input_directory_segments = constants.input_data
-    output_directory = constants.output_chi2_test_birkenau
-    input_files = constants.input_files_segments
+    # Eliminate those index terms that occur in less than 100 interviews
+    kws = df.groupby(['KeywordID', 'KeywordLabel'])['IntCode'].unique().map(lambda x: len(x)).to_frame(name="TotalNumberIntervieweeUsing").reset_index()
+    kws_needed = kws[kws.TotalNumberIntervieweeUsing > 0][['KeywordID' , 'KeywordLabel']]
 
-    input_files = [input_directory_segments+i for i in input_files]
+    keywords = kws_needed.reset_index()[['KeywordID', 'KeywordLabel']]
+    df = df[df['KeywordID'].isin(kws_needed['KeywordID'])]
 
-    # Read the input files into panda dataframe
-    df = pd.concat([pd.read_csv(el) for el in input_files])
 
-    # Filter out non Jewish survivors
+    # Filter out Birkenau survivors
 
     # Get the bio data
 
-    input_directory_biodata = constants.input_data_filtered
+    
     bio_data = constants.input_files_biodata_birkenau
-    df_biodata = pd.read_csv(input_directory_biodata+bio_data)
+    df_biodata = pd.read_csv(input_directory + bio_data)
+    
 
-    #df_biodata = pd.read_excel(input_directory_biodata+bio_data, sheet_name=None)['Sheet1']
+    
 
 
     if category == "CountryOfBirth":
@@ -252,42 +275,17 @@ if __name__ == '__main__':
         df_biodata = df_biodata[df_biodata['CountryOfBirth'].isin(country_to_leave)]
 
 
-
-
-
     # Get the IntCode of Jewish survivors
-    IntCode = df_biodata[df_biodata['ExperienceGroup']=='Jewish Survivor']['IntCode'].to_list()
+    IntCode = df_biodata.IntCode.to_list()
     IntCode = [str(el) for el in IntCode]
 
-    
 
-
-
-    # Leave only Jewish survivors
+    # Leave only Birkenau survivors
     df = df[df['IntCode'].isin(IntCode)]
-
-    df_biodata = df_biodata[df_biodata['IntCode'].isin(IntCode)]
-
-    
-
     df["IntCode"] = df.IntCode.map(lambda x: int(x))
 
 
 
-    with codecs.open(features_filter ) as json_file:
-        new_features = json.load(json_file)
-    for element in new_features:
-        for covering_term in element:
-            new_id = random_with_N_digits(8)
-            for feature_id in element[covering_term]:
-                indices = df[df.KeywordID==str(feature_id)].index
-                for ind in indices:
-                    df.at[ind,'KeywordID'] = str(new_id)
-                    df.at[ind,'KeywordLabel'] = covering_term
-    
-    kws = df.groupby(['KeywordID'])['IntCode'].unique().map(lambda x: len(x)).to_frame(name="TotalNumberIntervieweeUsing").reset_index()
-    kws_needed = kws[kws.TotalNumberIntervieweeUsing>50]['KeywordID'].to_list()
-    df = df[df['KeywordID'].isin(kws_needed)] 
     result = chi2test(df,df_biodata,category)
     if category =="CountryOfBirth":
 

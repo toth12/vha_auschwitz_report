@@ -15,6 +15,13 @@ import csv
 import numpy as np
 import re
 from datetime import timedelta
+import pdb
+from pandas.api.types import is_string_dtype
+from pandas.api.types import is_numeric_dtype
+from pandas.api.types import is_datetime64_any_dtype as is_datetime
+from pandas.api.types import is_datetime64_any_dtype as is_timedelta64_ns_dtype
+
+
 
 
 def find_year(keywords,type):
@@ -67,7 +74,6 @@ def infer_length_of_stay(bio_data):
 def infer_number_of_segments(bio_data,segment_data):
     number_of_segments = segment_data.groupby('IntCode')['SegmentNumber'].unique().to_frame(name="Segments").reset_index()
     number_of_segments['number_of_segments']=number_of_segments['Segments'].apply(lambda x: len(x))
-    number_of_segments['IntCode'] = pd.to_numeric(number_of_segments['IntCode'])
     del number_of_segments["Segments"]
     bio_data = bio_data.merge(number_of_segments)
     return bio_data
@@ -76,14 +82,7 @@ def infer_number_of_segments(bio_data,segment_data):
 def infer_old_new_system(bio_data,segment_data):
 
     df = segment_data
-    # Transform InTimeCode OutTimeCode into temporal data
-
-    df['InTimeCode'] = pd.to_datetime(df['InTimeCode'], format = "%H:%M:%S:%f")
-
-
-
-    df['OutTimeCode'] = pd.to_datetime(df['OutTimeCode'], format = "%H:%M:%S:%f")
-
+    
     # Drop duplicated segments
 
     df_segment_length = df.drop_duplicates('SegmentID')
@@ -106,7 +105,8 @@ def infer_old_new_system(bio_data,segment_data):
 
     old_system_in_codes = df_segment_length[df_segment_length.segment_lenght>timedelta(minutes=1)]['IntCode'].unique().tolist()
 
-    segmentation_system = ['old' if str(x)  in old_system_in_codes else 'new' for x in bio_data['IntCode'].tolist()]
+    segmentation_system = ['old' if x in old_system_in_codes else 'new' for x in bio_data['IntCode'].tolist()]
+
     bio_data['segmentation_system']=segmentation_system
     return bio_data
     
@@ -115,20 +115,9 @@ def infer_old_new_system(bio_data,segment_data):
     #df_segment_length[df_segment_length['IntCode'].isin(old_system_in_codes)]['segment_lenght'].mean()
 
 
-    segmentation_system = ['old' if str(x)  in old_system_in_codes else 'new' for x in bio_data['IntCode'].tolist()]
-    bio_data['segmentation_system']=segmentation_system
-    return bio_data
-
 def infer_total_length_of_segments(bio_data,segment_data):
 
     df = segment_data
-    # Transform InTimeCode OutTimeCode into temporal data
-
-    df['InTimeCode'] = pd.to_datetime(df['InTimeCode'], format = "%H:%M:%S:%f")
-
-
-
-    df['OutTimeCode'] = pd.to_datetime(df['OutTimeCode'], format = "%H:%M:%S:%f")
 
     # Drop duplicated segments
 
@@ -158,7 +147,6 @@ def infer_total_length_of_segments(bio_data,segment_data):
 
     df_interview_segment_length['length_in_minutes']= np.round(df_interview_segment_length['length'] / np.timedelta64(1, 'm'))
 
-    df_interview_segment_length['IntCode'] = pd.to_numeric(df_interview_segment_length['IntCode'])
     bio_data = bio_data.merge(df_interview_segment_length)
     return bio_data
 
@@ -179,7 +167,6 @@ def was_in_Birkenau(bio_data,segment_data):
 
     intcode_kwords['Birkenau_mentioned_times'] = intcode_kwords.Keywords.apply(was_in_Birkenau_helper)
     del intcode_kwords["Keywords"]
-    intcode_kwords['IntCode'] = pd.to_numeric(intcode_kwords['IntCode'])
     bio_data = bio_data.merge(intcode_kwords)
     # Calculate whether Birkenau occurs at least 2/3 of all interview segments
     bio_data['Birkenau_segment_percentage'] = bio_data['Birkenau_mentioned_times'] / bio_data['number_of_segments']
@@ -187,7 +174,7 @@ def was_in_Birkenau(bio_data,segment_data):
     return bio_data
 
 def is_transfer_route_helper(keywords):
-    if '15803' in keywords:
+    if 15803 in keywords:
         return True
     else:
         return False
@@ -196,8 +183,6 @@ def is_transfer_route(bio_data,segment_data):
     df = segment_data
     df = df.groupby(['IntCode'])['KeywordID'].apply(list).to_frame(name="KeywordID").reset_index()
     df['is_transfer_route'] = df.KeywordID.apply(is_transfer_route_helper)
-    df = df.astype({"IntCode":int})
-
     bio_data=bio_data.merge(df)
 
     return bio_data
@@ -206,7 +191,6 @@ def is_transfer_route(bio_data,segment_data):
 def infer_forced_labour(bio_data,segment_data):
     df=segment_data.groupby("IntCode")['KeywordLabel'].apply(list).to_frame(name="Keywords").reset_index()
     df['forced_labor'] = df.Keywords.apply(infer_forced_labour_helper)
-    df = df.astype({"IntCode":int})
     del df["Keywords"]
     #Check the number of people who did forced labour
     #df[df.forced_labour_type.str.len().eq(0)]
@@ -260,31 +244,63 @@ if __name__ == '__main__':
     # Read the input files into panda dataframe
 
     # Read the segments data
-    csv_data = []
-    for el in input_files:
-
-        f = codecs.open(el,"rb","utf-8")
-        csvread = csv.reader(f,delimiter=',')
-        csv_data_temp = list(csvread)
-        columns = csv_data_temp[0]
-        #Drop the first line as that is the column
-        del csv_data_temp[0:1]
-        csv_data.extend(csv_data_temp)
-
-
-
-    columns[0] = "IntCode"
-    df = pd.DataFrame(csv_data,columns=columns)
-
+    
+    df = pd.concat([pd.read_csv(el) for el in input_files])
+    
+    
     # Read the biodata
 
     # Get the bio data
     bio_data = constants.input_files_biodata
     df_biodata = pd.read_excel(input_directory+bio_data, sheet_name=None)['Sheet1']
 
+
+    ### Cast datatypes
+
+    ## Start with segments data
+
+    df_numeric = ['IntCode','SegmentID','InTapenumber','OutTapenumber','KeywordID']
+    df_string = ['IntervieweeName','KeywordLabel']
+    df_time = ['InTimeCode','OutTimeCode']
+
+
+    # Cast to numeric
+    for col in df_numeric:
+        df[col] = pd.to_numeric(df[col])
+
+    # Cast to string
+    for col in df_string:
+        df[col] = df[col].astype('string')
+
+    # Cast to temporal
+
+    for col in df_time:
+        df[col] = pd.to_datetime(df[col], format="%H:%M:%S:%f")
+
+
+    ## Type cast on biodata
+    df_biodata_string = ['InterviewTitle','IntervieweeName','Gender','ExperienceGroup','CityOfBirth','CountryOfBirth','InterviewCity','InterviewCountry','InterviewLanguage','HistoricEvent','OrganizationName']
+    df_biodata_numeric = ['IntCode']
+    df_biodata_time = ['DateOfBirth','InterviewDate']
+
+    # Cast to numeric
+    for col in df_biodata_numeric:
+        df_biodata[col] = pd.to_numeric(df_biodata[col])
+
+    # Cast to string
+    for col in df_biodata_string:
+        df_biodata[col] = df_biodata[col].astype('string')
+
+    # Cast to temporal
+
+    for col in df_biodata_time:
+        df_biodata[col] = pd.to_datetime(df_biodata[col],errors='coerce')
+
+    
+
     # Get the IntCode of Jewish survivors
     IntCode = df_biodata[df_biodata['ExperienceGroup']=='Jewish Survivor']['IntCode'].to_list()
-    IntCode = [str(el) for el in IntCode]
+    
 
     # Leave only Jewish survivors
     df = df[df['IntCode'].isin(IntCode)]
@@ -317,5 +333,34 @@ if __name__ == '__main__':
 
     df_biodata = infer_total_length_of_segments(df_biodata,df)
     df_biodata = was_in_Birkenau(df_biodata,df)
+
+    # Make sure that the inferred fields are in the correct datatypes
+    
+
+    df_biodata_list = ['forced_labor','forced_labour_type','KeywordID']
+    df_biodata_bool = ['is_transfer_route']
+    df_biodata_string.extend(['segmentation_system'])
+    df_biodata_numeric.extend(['earliest_year', 'latest_year','length_of_stay', 'number_of_segments','Birkenau_mentioned_times','Birkenau_segment_percentage','easy', 'hard','medium','length_in_minutes'])
+    df_biodata_delta_time = ['length']
+
+    # Check lists
+    for col in df_biodata_list:
+        assert isinstance(df_biodata[col].iloc()[2], list)
+
+    # Check boolean
+    for col in df_biodata_bool:
+        assert df_biodata[col].dtypes.name == 'bool'
+
+    # Check string
+    for col in df_biodata_string:
+        assert is_string_dtype(df_biodata[col])
+
+    # Check numeric
+    for col in df_biodata_numeric:
+        assert is_numeric_dtype(df_biodata[col])
+
+    # Check temporal length
+    for col in df_biodata_delta_time:
+        df_biodata[col].dtype == 'timedelta64[ns]'
 
     df_biodata.to_csv(input_directory+output_file)
