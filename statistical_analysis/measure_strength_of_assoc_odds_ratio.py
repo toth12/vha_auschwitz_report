@@ -97,7 +97,7 @@ if __name__ == '__main__':
 
         # Skip the topic if mentioned less than 5 by either women or men due to statistical insignificance
 
-        if (mentioned_w<5) or (mentioned_m <5):
+        if (mentioned_w<0) or (mentioned_m <0):
             continue
 
         not_mentioned_w =  totals[0]-mentioned_w
