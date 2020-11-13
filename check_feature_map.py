@@ -29,6 +29,7 @@ if __name__ == '__main__':
     #Load the feature map
     feature_cover_term_map= pd.read_csv('feature_map.csv')
 
+
     #Load the term hiearchy 
     input_directory = constants.input_data
     input_files_term_hierarchy = constants.input_files_term_hierarchy
@@ -46,7 +47,10 @@ if __name__ == '__main__':
     for label in feature_cover_term_map['KeywordLabel'].to_list():
         if (label == "hiding valuables") or (label=="mass execution coverups"):
             continue
-        node = find_nodes_by_name_pattern(label)
+        try:
+            node = find_nodes_by_name_pattern(label)
+        except:
+            pdb.set_trace()
         if (len(node)<1):
             print (label)
             pdb.set_trace()
