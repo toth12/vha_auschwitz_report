@@ -17,7 +17,7 @@ input_segments_with_simplified_keywords = "all_segments_only_Jewish_survivors_ge
 
 input_files_biodata_birkenau='biodata_birkenau.csv'
 input_files_biodata_with_inferred_fields='biodata_with_inferred_fields.csv'
-
+feature_map = 'feature_map.csv'
 
 # Output data folders
 
