@@ -43,3 +43,7 @@ output_segment_keyword_matrix_document_index = "document_index.csv"
 output_segment_keyword_matrix_feature_index = "feature_index.csv"
 output_segment_keyword_matrix_data_file = "segment_keyword_matrix.npy"
 output_segment_keyword_matrix_data_file_txtfmt = "segment_keyword_matrix.txt"
+
+output_segment_keyword_matrix_document_index = "document_index.csv"
+output_segment_keyword_matrix_feature_index_original = "feature_index_original.csv"
+output_segment_keyword_matrix_data_file_original = "segment_keyword_matrix_original.npy"

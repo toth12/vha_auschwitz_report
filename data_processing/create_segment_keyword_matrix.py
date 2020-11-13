@@ -31,31 +31,28 @@ if __name__ == '__main__':
 
 
     if min_count ==0:
-        output_segment_keyword_matrix = constants.output_segment_keyword_matrix_data_file
-        output_document_index = constants.output_segment_keyword_matrix_document_index 
-        output_feature_index = constants.output_segment_keyword_matrix_feature_index
+        output_segment_keyword_matrix = constants.output_segment_keyword_matrix_data_file_original
+        output_document_index = constants.output_segment_keyword_matrix_document_index
+        output_feature_index = constants.output_segment_keyword_matrix_feature_index_original
     else:
         output_segment_keyword_matrix = constants.output_segment_keyword_matrix_data_file+'_'+str(min_count)
         output_document_index = constants.output_segment_keyword_matrix_document_index+'_'+str(min_count)
         output_feature_index = constants.output_segment_keyword_matrix_feature_index+'_'+str(min_count)
    
     df = pd.read_csv(input_directory + input_file)
-
+    df['KeywordLabel']= df['KeywordLabel'].str.strip()
     # Eliminate those index terms that occur in less than 100 interviews
     kws = df.groupby(['KeywordID', 'KeywordLabel'])['IntCode'].unique().map(lambda x: len(x)).to_frame(name="TotalNumberIntervieweeUsing").reset_index()
     kws_needed = kws[kws.TotalNumberIntervieweeUsing > min_count][['KeywordID' , 'KeywordLabel']]
 
     keywords = kws_needed.reset_index()[['KeywordID', 'KeywordLabel']]
 
-    # Fix
-    keywords_orig = keywords.copy()
-    # Fix ends
-
-    df = df[df['KeywordID'].isin(kws_needed['KeywordID'])]
-    
     # Filter with the feature map
-
     keywords = keywords[keywords.KeywordLabel.isin(feature_map.KeywordLabel)].reset_index()
+
+    df = df[df['KeywordID'].isin(keywords['KeywordID'])]
+    
+    
     # Save the keywords that is used, this will be the feature index
     keywords.to_csv(output_directory + output_feature_index)
     
@@ -80,7 +77,7 @@ if __name__ == '__main__':
 
     interview_lengths = []
     one_segment_ints = 0
-    missing = []
+    removed = 0 
     for intcode in tqdm(np.unique(intcodes)):
     #for intcode in np.unique(intcodes):
         kw_in_segm = kw_ids[intcodes == intcode]
@@ -99,12 +96,8 @@ if __name__ == '__main__':
         segment_keyword_matrix_single = np.zeros((l+1, len(keywords)))
 
         for keyword, segnum in zip(kw_in_segm, segnums_in_segm):
-            try:
-                keyword_index = keywords[keywords.KeywordID == keyword].index[0]
-            except:
-                missing.append(keywords_orig[keywords_orig.KeywordID == keyword].KeywordLabel.values[0])
-                print (keywords_orig[keywords_orig.KeywordID == keyword])
-                continue
+            keyword_index = keywords[keywords.KeywordID == keyword].index[0]
+
 
             # a) add one, don't overwrite -> enable multiple keywords per segment
             # b) take into account time information that is encoded in segment number, i.e.
@@ -114,6 +107,7 @@ if __name__ == '__main__':
 
         # Make sure that the first segment contains a keyword
         if len(np.where(segment_keyword_matrix_single[0]>0)[0])==0:
+            removed = removed +1
             continue
     
         interview_lengths.append(l)
@@ -126,7 +120,6 @@ if __name__ == '__main__':
     
     segment_keyword_matrix = np.array(segment_keyword_matrices)
     assert len(segment_keyword_matrix) ==len(intcodes_final)
-    pdb.set_trace()
     # Save the segment keyword matrix
     np.save(output_directory + output_segment_keyword_matrix, segment_keyword_matrix)
     #np.savetxt(output_directory + output_segment_keyword_matrix, segment_keyword_matrix, fmt='%d')
