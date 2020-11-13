@@ -25,6 +25,15 @@ if __name__ == '__main__':
     features_df = pd.read_csv(input_directory + 
                           constants.output_segment_keyword_matrix_feature_index)
 
+
+
+
+    # Read the segment index term matrix
+    data = np.load(input_directory + 'segment_keyword_matrix_orig.npy', 
+                  allow_pickle=True)
+    # Read the column index (index terms) of the matrix above
+    features_df = pd.read_csv(input_directory + 
+                          'feature_index_orig.csv')
     # Create the row index  of the matrix above
     segment_df = pd.read_csv(input_directory + 
                          constants.output_segment_keyword_matrix_document_index)
@@ -64,7 +73,7 @@ if __name__ == '__main__':
             # Estimate fuzzy trajectories
             #empyt = [element[0] for element in input_data_set if element[0].sum()==0]
             trajs = mu.estimate_fuzzy_trajectories(input_data_set)
-            
+            pdb.set_trace()
             # Visualize implied timescale and save it
             mu.visualize_implied_time_scale(trajs,output_directory+'/implied_time_scale.png')
             mu.visualize_implied_time_scale_bayes(trajs, output_directory+'/implied_time_scales_bay.png')

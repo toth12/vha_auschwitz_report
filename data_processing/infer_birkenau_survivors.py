@@ -20,6 +20,7 @@ df_biodata = pd.read_csv(input_folder+input_file)
 df_biodata = df_biodata.fillna(0)
 
 df_biodata = df_biodata[((df_biodata.Birkenau_segment_percentage>0.7)&(df_biodata.earliest_year>1942)&(df_biodata.is_transfer_route==False)&(df_biodata.segmentation_system=='new')&(df_biodata.length_in_minutes>5))]
+#df_biodata = df_biodata[((df_biodata.Birkenau_segment_percentage>0.7)&(df_biodata.earliest_year>1942)&(df_biodata.is_transfer_route==False)&(df_biodata.length_in_minutes>5))]
 
 df_biodata.to_csv(output_folder+output_file)
     

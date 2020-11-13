@@ -84,7 +84,7 @@ if __name__ == '__main__':
     # Use camp menstruation (a women topic) as a check point
     # Women definitely discuss this topic more than men
 
-    index_mens = features_df[features_df['KeywordLabel']=='camp menstruation'].index[0]
+    index_mens = features_df[features_df['KeywordLabel']=='menstruation'].index[0]
     assert complete_result[index_mens][0] > complete_result[index_mens][1]
 
     # Make a pairwise comparison of all features
@@ -97,7 +97,7 @@ if __name__ == '__main__':
 
         # Skip the topic if mentioned less than 5 by either women or men due to statistical insignificance
 
-        if (mentioned_w<0) or (mentioned_m <0):
+        if (mentioned_w<50) or (mentioned_m <50):
             continue
 
         not_mentioned_w =  totals[0]-mentioned_w
@@ -125,7 +125,7 @@ if __name__ == '__main__':
 
     # Make a Bonferroni correction
     df_final_results['significance_Bonferroni_corrected'] = multipletests(df_final_results['p_value'], method='bonferroni')[0]
-
+    df_final_results['significance'] = df_final_results['p_value']<0.05
     # Sort results according to p_value
     df_final_results = df_final_results.sort_values('p_value')
 
