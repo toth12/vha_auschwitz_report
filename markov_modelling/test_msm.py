@@ -3,6 +3,10 @@
 
 import numpy as np
 import pandas as pd
+
+import sys, os
+sys.path.append(os.path.realpath(os.path.dirname(__file__)+"/.."))
+
 import constants
 from markov_modelling import markov_utils as mu
 from tqdm.auto import tqdm
