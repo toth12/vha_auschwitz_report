@@ -35,8 +35,6 @@ if __name__ == '__main__':
     for interview in tqdm(data):
       interview_result = []
       for segment in interview:
-        # Check for empty segment here
-        assert len( np.where(segment>0)[0])>0
         merge_table_indices = features_df.copy()
         merge_table_covering_terms = feature_cover_term_map.copy()
         

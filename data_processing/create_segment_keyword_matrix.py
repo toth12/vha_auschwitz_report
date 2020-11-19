@@ -108,8 +108,6 @@ if __name__ == '__main__':
         # Make sure that the first segment contains a keyword
         
 
-        for i,row in enumerate(segment_keyword_matrix_single):
-            if len(np.where(row>0)[0])==0:
 
         if len(np.where(segment_keyword_matrix_single[0]>0)[0])==0:
             removed = removed +1
