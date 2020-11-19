@@ -35,6 +35,8 @@ if __name__ == '__main__':
     for interview in tqdm(data):
       interview_result = []
       for segment in interview:
+        # Check for empty segment here
+        assert len( np.where(segment>0)[0])>0
         merge_table_indices = features_df.copy()
         merge_table_covering_terms = feature_cover_term_map.copy()
         
@@ -50,6 +52,8 @@ if __name__ == '__main__':
       assert len(interview_result) > 1
       result.append(interview_result)
     result = np.array(result)
+
+    
     output_directory = constants.output_data_segment_keyword_matrix
     output_segment_keyword_matrix = constants.output_segment_keyword_matrix_data_file
     output_feature_index = constants.output_segment_keyword_matrix_feature_index
@@ -59,8 +63,8 @@ if __name__ == '__main__':
     cover_term_index.reset_index().to_csv(output_directory + output_feature_index)
 
 
-
     '''
+    
     dif = [element for element in cover_term_index.CoverTerm.to_list() if element not in merge_table.CoverTerm.to_list()]
     if len(dif)>0:
       pdb.set_trace()

@@ -3,15 +3,12 @@
 
 import numpy as np
 import pandas as pd
-
-import sys, os
-sys.path.append(os.path.realpath(os.path.dirname(__file__)+"/.."))
-
 import constants
 from markov_modelling import markov_utils as mu
 from tqdm.auto import tqdm
 import json
 import unittest
+import pdb
 
 
 class TestDiscreteTrajectories(unittest.TestCase):
@@ -19,8 +16,8 @@ class TestDiscreteTrajectories(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         # Load the input data
-        input_directory = '../' + constants.output_data_segment_keyword_matrix
-
+        input_directory = constants.output_data_segment_keyword_matrix
+        feature_map_file = constants.feature_map
         # Read the segment index term matrix
         data = np.load(input_directory + constants.output_segment_keyword_matrix_data_file.replace('.txt', '.npy'),
                        allow_pickle=True)
@@ -35,7 +32,7 @@ class TestDiscreteTrajectories(unittest.TestCase):
 
         #cls.int_codes = segment_df['IntCode'].to_list()
 
-
+        
 
         # Read the metadata partitions
         with open(input_directory + "metadata_partitions.json") as read_file:
@@ -44,19 +41,26 @@ class TestDiscreteTrajectories(unittest.TestCase):
         indices = metadata_partitions['complete']
         input_data_set = np.take(data, indices)
 
+        pdb.set_trace()
         # TODO: why is "complete" lacking so many interviews?
-        cls.segment_index = pd.read_csv('../data/output/segment_keyword_matrix/document_index.csv').iloc[indices]
-
+        cls.segment_index = pd.read_csv(input_directory+'document_index.csv').iloc[indices]
+        
 
         # Estimate fuzzy trajectories
         cls.trajs = mu.estimate_fuzzy_trajectories(input_data_set, n_realizations=1)
 
-
+        
         # load raw data for comparison
-        rawdat = pd.read_csv('../data/input/all_segments_only_Jewish_survivors_generic_terms_deleted_below_25_replaced_for_parent_node.csv')
-
+        rawdat = pd.read_csv(constants.input_data+'all_segments_only_Jewish_survivors_generic_terms_deleted_below_25_replaced_for_parent_node.csv')
+        
+        cls.feature_map = pd.read_csv(constants.input_data+feature_map_file)
+        
         # only keep keepwords that are in main data.
-        cls.cleaned_dat = rawdat[rawdat.KeywordID.isin(cls.features_df.KeywordID.unique())]
+
+        cls.cleaned_dat = rawdat[rawdat.KeywordLabel.isin(cls.feature_map.KeywordLabel.unique())]
+
+        #old
+        #cls.cleaned_dat = rawdat[rawdat.KeywordID.isin(cls.features_df.KeywordID.unique())]
 
 
     def test_lengths(self):
@@ -76,6 +80,38 @@ class TestDiscreteTrajectories(unittest.TestCase):
                     check_trajs[intcode].append([kwid])
 
                 last_segnum = segnum
+        
+        # Example starts
+
+        cover_term_number=self.trajs[105][1]
+        # -> 79
+
+        cover_term_label = self.features_df.iloc()[cover_term_number]['KeywordLabel']
+        # -> perpetrators
+
+        int_code = self.segment_index.iloc()[105]['IntCode']
+
+        # -> 576
+
+        # Test whether the interview code 576 in the raw data speaks about perpetrators
+
+        # Get all original keywords belonging to the cover term perpetrators
+
+        perpetrators = self.feature_map[self.feature_map.CoverTerm=="perpetrators"].KeywordLabel.to_list()
+
+        # Get all original keywords in interview 576
+        original_keywords = self.cleaned_dat[self.cleaned_dat['IntCode']==576].KeywordLabel.to_list()
+
+        # Is there any overlapping between perpetrators and the original_keywords
+
+        overlapping_elements = [element for element in original_keywords if element in perpetrators]
+
+        assert len(overlapping_elements)>0
+
+        # Example ends
+
+        pdb.set_trace()
+
 
         relabled_trajs = [np.array([self.features_df[self.features_df['Unnamed: 0'] == d]['KeywordID'].to_numpy() for d in dtraj if d !=-1]).squeeze() for dtraj in self.trajs]
 
@@ -99,6 +135,7 @@ class TestDiscreteTrajectories(unittest.TestCase):
                 raise RuntimeError(f'Interview with IntCode {intcode} appears longer than in original dataset.')
 
     def test_has_emptysegments(self):
+        pdb.set_trace()
         self.assertTrue(-1 in np.unique(np.concatenate(self.trajs)), msg='Trajectories have no empty states.')
 
     def test_emptysegments(self):

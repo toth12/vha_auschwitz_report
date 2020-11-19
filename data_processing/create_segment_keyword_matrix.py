@@ -96,6 +96,7 @@ if __name__ == '__main__':
         segment_keyword_matrix_single = np.zeros((l+1, len(keywords)))
 
         for keyword, segnum in zip(kw_in_segm, segnums_in_segm):
+            pdb.set_trace()
             keyword_index = keywords[keywords.KeywordID == keyword].index[0]
 
 
@@ -106,6 +107,11 @@ if __name__ == '__main__':
     
 
         # Make sure that the first segment contains a keyword
+        
+
+        for i,row in enumerate(segment_keyword_matrix_single):
+            if len(np.where(row>0)[0])==0:
+                pdb.set_trace()
         if len(np.where(segment_keyword_matrix_single[0]>0)[0])==0:
             removed = removed +1
             continue
