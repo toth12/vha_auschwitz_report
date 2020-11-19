@@ -41,7 +41,6 @@ class TestDiscreteTrajectories(unittest.TestCase):
         indices = metadata_partitions['complete']
         input_data_set = np.take(data, indices)
 
-        pdb.set_trace()
         # TODO: why is "complete" lacking so many interviews?
         cls.segment_index = pd.read_csv(input_directory+'document_index.csv').iloc[indices]
         
@@ -135,7 +134,6 @@ class TestDiscreteTrajectories(unittest.TestCase):
                 raise RuntimeError(f'Interview with IntCode {intcode} appears longer than in original dataset.')
 
     def test_has_emptysegments(self):
-        pdb.set_trace()
         self.assertTrue(-1 in np.unique(np.concatenate(self.trajs)), msg='Trajectories have no empty states.')
 
     def test_emptysegments(self):
