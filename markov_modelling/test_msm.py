@@ -8,6 +8,7 @@ from markov_modelling import markov_utils as mu
 from tqdm.auto import tqdm
 import json
 import unittest
+import pdb
 
 
 class TestDiscreteTrajectories(unittest.TestCase):
@@ -41,7 +42,8 @@ class TestDiscreteTrajectories(unittest.TestCase):
         
         # load raw data for comparison
         rawdat = pd.read_csv(constants.input_data+'all_segments_only_Jewish_survivors_generic_terms_deleted_below_25_replaced_for_parent_node.csv')
-        
+        rawdat['KeywordLabel']= rawdat['KeywordLabel'].str.strip()
+
         cls.feature_map = pd.read_csv(constants.input_data+feature_map_file)
         ct_id = {t:i for i, t in enumerate(cls.feature_map.CoverTerm.unique())}
         ct_id_list = [ct_id[term] for term in cls.feature_map.CoverTerm]
@@ -51,7 +53,6 @@ class TestDiscreteTrajectories(unittest.TestCase):
                                    left_on='KeywordLabel', right_on='CoverTerm', how='left')
 
         assert(all(cls.features_df['index'] == cls.features_df['CoverTermID']))
-        
         # only keep keepwords that are in main data.
         cls.cleaned_dat = rawdat[rawdat.KeywordLabel.isin(cls.feature_map.KeywordLabel.unique())]
 
@@ -87,6 +88,9 @@ class TestDiscreteTrajectories(unittest.TestCase):
 
 
         for traj, intcode in zip(relabled_trajs, self.segment_index['IntCode']):
+            print ('------')
+            print (len(traj))
+            print (len(check_trajs[intcode]))
             if len(traj) == len(check_trajs[intcode]):
                 for traj_step, reference in zip(traj, check_trajs[intcode]):
                     self.assertTrue(traj_step in reference, f'{traj_step} not in {reference}')
@@ -103,6 +107,9 @@ class TestDiscreteTrajectories(unittest.TestCase):
                 self.assertTrue(traj_match, f'{traj_step} not in {reference} for IntCode {intcode}')
                 # multiple trajectories in this int-code
             else:
+                import pdb
+                
+                pdb.set_trace()
                 raise RuntimeError(f'Interview with IntCode {intcode} appears longer than in original dataset.')
 
     def test_has_emptysegments(self):

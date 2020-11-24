@@ -112,7 +112,8 @@ if __name__ == '__main__':
         if len(np.where(segment_keyword_matrix_single[0]>0)[0])==0:
             removed = removed +1
             continue
-    
+        if intcode == 1141:
+            pdb.set_trace()
         interview_lengths.append(l)
         intcodes_final.append(intcode)
         segment_keyword_matrices.append(segment_keyword_matrix_single)
