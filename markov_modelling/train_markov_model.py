@@ -64,7 +64,6 @@ if __name__ == '__main__':
             # Estimate fuzzy trajectories
             #empyt = [element[0] for element in input_data_set if element[0].sum()==0]
             trajs = mu.estimate_fuzzy_trajectories(input_data_set)
-            pdb.set_trace()
             # Visualize implied timescale and save it
             mu.visualize_implied_time_scale(trajs,output_directory+'/implied_time_scale.png')
             mu.visualize_implied_time_scale_bayes(trajs, output_directory+'/implied_time_scales_bay.png')
