@@ -41,6 +41,7 @@ class TestDiscreteTrajectories(unittest.TestCase):
         
         # load raw data for comparison
         rawdat = pd.read_csv(constants.input_data+'all_segments_only_Jewish_survivors_generic_terms_deleted_below_25_replaced_for_parent_node.csv')
+        rawdat['KeywordLabel']= rawdat['KeywordLabel'].str.strip()
         
         cls.feature_map = pd.read_csv(constants.input_data+feature_map_file)
         ct_id = {t:i for i, t in enumerate(cls.feature_map.CoverTerm.unique())}
