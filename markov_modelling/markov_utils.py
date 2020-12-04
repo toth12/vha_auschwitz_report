@@ -432,9 +432,56 @@ def visualize_most_important_paths(msm,fraction,features_df,KeywordLabel_A,Keywo
     fig.savefig(output)
 
 
+def estimate_pi_error(dtrajs, orig_msm, ntrails=10, conf_interval=0.68):
+    """
+    Estimate boostrap error for stationary probability
 
+    :param dtrajs: list of np.array, discrete trajectories
+    :param orig_msm: pyemma.msm.MarkovModel
+    Only used for reference of lag time and to incorporate ML
+    stationary distribution to data frame
+    :param ntrails: int, the number of bootstrap samples to draw.
+    :param conf_interval: float 0 < conf_interval < 1
 
+    :return:
+    pandas.DataFrame instance containing ML MSM pi and bootstrap error
+    """
+    from pyemma.util.statistics import confidence_interval
 
+    pi_samples = np.zeros((ntrails, orig_msm.nstates))
+
+    for trial in tqdm(range(ntrails)):
+        try:
+            bs_sample = np.random.choice(len(dtrajs),
+                                         size=len(dtrajs),
+                                         replace=True)
+            dtraj_sample = list(np.array(dtrajs)[bs_sample])
+
+            msm = pyemma.msm.estimate_markov_model(dtraj_sample,
+                                                   lag=orig_msm.lag)
+
+            pi_samples[trial, msm.active_set] = msm.pi
+        except Exception as e:
+            print(e)
+
+    std = pi_samples.std(axis=0)
+    lower_confidence, upper_confidence = confidence_interval(pi_samples, conf_interval)
+
+    probabilities = pd.DataFrame(np.array([orig_msm.active_set,
+                                           orig_msm.pi,
+                                           std,
+                                           lower_confidence,
+                                           upper_confidence]).T,
+                                 columns=['State',
+                                          'StatDist',
+                                          'Std',
+                                          'LowerConf',
+                                          'UpperConf'])
+
+    # type cast to int
+    probabilities['State'] = probabilities['State'].astype(int)
+
+    return probabilities
 
 
 if __name__ == '__main__':
