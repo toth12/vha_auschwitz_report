@@ -70,6 +70,9 @@ if __name__ == '__main__':
 
             # Estimate the Markov model from the trajectories
             msm = mu.estimate_markov_model_from_trajectories(trajs)
+
+            stat_dist_error = mu.estimate_pi_error(trajs, msm, ntrails=25)
+            stat_dist_error.to_csv(output_directory + '/stat_dist_error.csv', index=False)
             
             # Create histogram to compare stationary distribution with plausibility measure
             mu.prepare_histogram_to_compare_stationary_distribution_with_plausi_measure(msm, output_directory + '/histogram.png')
