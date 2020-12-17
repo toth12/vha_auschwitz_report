@@ -16,12 +16,12 @@ from tqdm.auto import tqdm
 import numpy as np
 pd.set_option('display.max_rows', 500)
 
-
+#40279
 
 if __name__ == '__main__':
 
     story_beginning_ids = [13310,14233,7601,7528,10983,16328,14232,14226,16123]
-    story_ending_ids = [13310,14233,7601,7528, 16297,16192,13929,14226,14232,13930,16162]
+    story_ending_ids = [13310,14233,7601,7528,16297,16192,13929,14226,14232,13930,16162]
     input_directory = constants.input_data
     output_directory = input_directory
     
@@ -29,14 +29,28 @@ if __name__ == '__main__':
     input_files = [input_directory+i for i in input_files]
 
     df = pd.concat([pd.read_csv(el) for el in input_files])
+    df = df.reset_index()
+
+    '''
+    df = df_orig[0:500000]
+    df = df.append(df_orig[df_orig.IntCode==40279])
+    df = df.reset_index()
+    '''
+ 
+
     
 
+
     story_beginning_patterns = ['deportation from','deportation to','transfer from','transfer to Auschwitz']
-    story_beginning_patterns = ['transfer from','transfer to']
+    story_ending_patterns = ['transfer from','transfer to']
 
     for element in story_beginning_patterns:
         relevant_ids = df[df.KeywordLabel.str.contains(element)].KeywordID.drop_duplicates().tolist()
         story_beginning_ids.extend(relevant_ids)
+
+    for element in story_ending_patterns:
+        relevant_ids = df[df.KeywordLabel.str.contains(element)].KeywordID.drop_duplicates().tolist()
+        story_ending_ids.extend(relevant_ids)
 
 
 
@@ -104,6 +118,8 @@ if __name__ == '__main__':
                     to_drop.append(element)
 
     df = df.drop(df.index[to_drop])
+    print (df[df.IntCode==40279])
+    pdb.set_trace()
     df.to_csv(output_directory+constants.input_files_segments_story_end_beginning_distinguished[0])
 
     # Convenience method to check if the process came through as expected
