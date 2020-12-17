@@ -9,6 +9,8 @@ input_data_filtered = "data/input/filtered/"
 # Input data sets
 
 input_files_segments = ["Auschwitz_segments_03112020_1.csv","Auschwitz_segments_03112020_2.csv"]
+input_files_segments_story_end_beginning_distinguished = ["Auschwitz_segments_story_end_beginning_distinguished.csv"]
+
 input_files_biodata='biodata.xlsx'
 input_files_term_hierarchy = 'termhierarchy_3.json'
 input_segments_with_simplified_keywords = "all_segments_only_Jewish_survivors_generic_terms_deleted_below_25_replaced_for_parent_node.csv"
