@@ -29,7 +29,7 @@ if __name__ == '__main__':
     input_files = [input_directory+i for i in input_files]
 
     df = pd.concat([pd.read_csv(el) for el in input_files])
-    df = df[0:100000]
+    
 
     story_beginning_patterns = ['deportation from','deportation to','transfer from','transfer to Auschwitz']
     story_beginning_patterns = ['transfer from','transfer to']
