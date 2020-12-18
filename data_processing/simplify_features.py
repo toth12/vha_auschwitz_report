@@ -106,7 +106,7 @@ if __name__ == '__main__':
     bio_data = constants.input_files_biodata
     df_biodata = pd.read_excel(input_directory+bio_data, sheet_name=None)['Sheet1']
 
-
+    
     ### Cast datatypes
 
     ## Start with segments data
@@ -124,7 +124,7 @@ if __name__ == '__main__':
     for col in df_string:
         df[col] = df[col].astype('string')
 
-    
+
 
 
     ## Type cast on biodata
@@ -198,7 +198,7 @@ if __name__ == '__main__':
     df_keywords['is_in_term_hierarchy'] = df_keywords.KeywordID.apply(check_if_in_term_hierarchy)
 
     # Eliminate these keywords
-    df_keywords = df_keywords[df_keywords["is_in_term_hierarchy"]==True]
+    #df_keywords = df_keywords[df_keywords["is_in_term_hierarchy"]==True]
 
     # Identify if a keyword is a leaf
     df_keywords['is_leaf'] = df_keywords.KeywordID.apply(check_if_node_leaf)
