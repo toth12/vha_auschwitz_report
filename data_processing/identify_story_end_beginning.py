@@ -20,8 +20,10 @@ pd.set_option('display.max_rows', 500)
 
 if __name__ == '__main__':
 
-    story_beginning_ids = [13310,14233,7601,7528,10983,16328,14232,14226,16123]
-    story_ending_ids = [13310,14233,7601,7528,16297,16192,13929,14226,14232,13930,16162]
+    #story_beginning_ids = [13310,14233,7601,7528,10983,16328,14232,14226,16123]
+    #story_ending_ids = [13310,14233,7601,7528,16297,16192,13929,14226,14232,13930,16162]
+    story_beginning_ids = []
+    story_ending_ids = []
     input_directory = constants.input_data
     output_directory = input_directory
     
@@ -41,8 +43,8 @@ if __name__ == '__main__':
     
 
 
-    story_beginning_patterns = ['deportation from','deportation to','transfer from','transfer to Auschwitz']
-    story_ending_patterns = ['transfer from','transfer to']
+    story_beginning_patterns = ['deportation to Auschwitz','transfer to Auschwitz']
+    story_ending_patterns = ['transfer from Auschwitz','camp liberation']
 
     for element in story_beginning_patterns:
         relevant_ids = df[df.KeywordLabel.str.contains(element)].KeywordID.drop_duplicates().tolist()

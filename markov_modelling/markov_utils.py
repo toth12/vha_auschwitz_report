@@ -370,6 +370,7 @@ def visualize_most_important_paths(msm,fraction,features_df,KeywordLabel_A,Keywo
 
     A = features_df[features_df['KeywordLabel'].isin([KeywordLabel_A])].index.to_numpy()
     B = features_df[features_df['KeywordLabel'] == KeywordLabel_B].index.to_numpy()
+
     nodename_dict = {i:features_df.iloc[j].KeywordLabel for i, j in enumerate(msm.active_set)}
     tpt = pyemma.msm.tpt(msm, msm._full2active[A], msm._full2active[B])
     paths, capacities = tpt.pathways(fraction=fraction)

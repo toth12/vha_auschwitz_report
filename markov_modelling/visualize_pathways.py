@@ -35,8 +35,10 @@ if __name__ == '__main__':
 
     output_directory = constants.output_data_markov_modelling_aggregated_reports
     # Read the column index (index terms) of the matrix above
-    features_df = pd.read_csv(input_directory+constants.output_segment_keyword_matrix_feature_index)
-
+    
+    features_df = pd.read_csv(input_directory+constants.output_segment_keyword_matrix_feature_index,index_col='index')
+    features_df = features_df.drop(columns=['Unnamed: 0'])
+    features_df = features_df.sort_values('index').reset_index('index')
     metadata_fields_to_agregate = []
     sources = []
     targets = []
@@ -125,6 +127,8 @@ if __name__ == '__main__':
        '''
         
         #flux = calculate_flux(mm,state_index,sources,targets)
+
+        #python markov_modelling/visualize_pathways.py --metadata_fields complete_m --source story_beginning --target story_ending --flux 0.2
 
         
         
