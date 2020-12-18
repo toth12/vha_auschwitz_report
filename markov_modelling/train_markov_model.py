@@ -24,7 +24,7 @@ if __name__ == '__main__':
     # Read the column index (index terms) of the matrix above
     features_df = pd.read_csv(input_directory + 
                           constants.output_segment_keyword_matrix_feature_index)
-
+    features_df = features_df.drop(columns=['index','Unnamed: 0'])
     # Create the row index  of the matrix above
     segment_df = pd.read_csv(input_directory + 
                          constants.output_segment_keyword_matrix_document_index)
@@ -61,12 +61,14 @@ if __name__ == '__main__':
             except:
                 pass
            
+            pdb.set_trace()
             # Estimate fuzzy trajectories
             #empyt = [element[0] for element in input_data_set if element[0].sum()==0]
             trajs = mu.estimate_fuzzy_trajectories(input_data_set)
             # Visualize implied timescale and save it
             mu.visualize_implied_time_scale(trajs,output_directory+'/implied_time_scale.png')
             mu.visualize_implied_time_scale_bayes(trajs, output_directory+'/implied_time_scales_bay.png')
+
 
             # Estimate the Markov model from the trajectories
             msm = mu.estimate_markov_model_from_trajectories(trajs)
