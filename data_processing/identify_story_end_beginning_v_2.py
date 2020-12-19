@@ -1,4 +1,5 @@
-"""Replaces those keywords that occur in less than 25 interviews with their respective parent node
+"""Replaces those keywords that occur in less than 25 interviews with their res
+pective parent node
 
 As output it constructs a new segment data containing only Jewish survivors and the simplified keywords.
 """
@@ -77,25 +78,35 @@ if __name__ == '__main__':
 
     for col in df_time:
         df[col] = pd.to_datetime(df[col], format="%H:%M:%S:%f")
-
-
+    '''
+    df['index_original'] = df.index
+    segments_to_change = df[df.KeywordID.isin(story_beginning_ids)]
+    segments_to_change['KeywordLabel']="arrival"
+    segments_to_change['KeywordID']=88888
+    #df = df.drop(segments_to_change.index)
+    df = df.append(segments_to_change)
+    '''
     segments_to_change = df[df.KeywordID.isin(story_beginning_ids)]
     print ("Number of iterations needed: "+str(len(segments_to_change)))
+   
     for row_index in tqdm(segments_to_change.index):
         story_beginning=df.iloc()[row_index ].copy()
         story_beginning['KeywordID']=88888
         story_beginning['KeywordLabel']='story_beginning'
         df.iloc()[row_index]=story_beginning
-
+   
 
     segments_to_change = df[df.KeywordID.isin(story_ending_ids)]
 
     print ("Number of iterations needed: "+str(len(segments_to_change)))
-    for row_index in segments_to_change.index:
+    
+    for row_index in tqdm(segments_to_change.index):
         story_beginning=df.iloc()[row_index ].copy()
         story_beginning['KeywordID']=9999
         story_beginning['KeywordLabel']='story_ending'
         df.iloc()[row_index]=story_beginning
+
+    df.to_csv(output_directory+constants.input_files_segments_story_end_beginning_distinguished[0])
 
     pdb.set_trace()
 
