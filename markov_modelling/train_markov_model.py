@@ -61,7 +61,6 @@ if __name__ == '__main__':
             except:
                 pass
            
-            pdb.set_trace()
             # Estimate fuzzy trajectories
             #empyt = [element[0] for element in input_data_set if element[0].sum()==0]
             trajs = mu.estimate_fuzzy_trajectories(input_data_set)

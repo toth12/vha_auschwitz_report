@@ -1,3 +1,10 @@
+"""Replaces those keywords that occur in less than 25 interviews with their res
+pective parent node
+
+As output it constructs a new segment data containing only Jewish survivors and the simplified keywords.
+"""
+
+
 import json
 import constants
 import pdb
@@ -10,7 +17,7 @@ from tqdm.auto import tqdm
 import numpy as np
 pd.set_option('display.max_rows', 500)
 
-
+#40279
 
 if __name__ == '__main__':
 
