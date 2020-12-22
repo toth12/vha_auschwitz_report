@@ -92,8 +92,7 @@ if __name__ == '__main__':
     with codecs.open(input_directory+input_files_term_hierarchy,encoding = "utf-8-sig") as json_file:
         treedict = json.load(json_file)
 
-    input_files = constants.input_files_segments
-    input_files = [input_directory+i for i in input_files]
+    input_file = constants.input_files_segments_story_end_beginning_distinguished[0]
 
     # import the term hieararchy
     importer = DictImporter()
@@ -101,13 +100,13 @@ if __name__ == '__main__':
     root = importer.import_(treedict)
 
     # Read the segments data
-    df = pd.concat([pd.read_csv(el) for el in input_files])
+    df = pd.read_csv(input_directory+input_file)
 
     # Get the bio data
     bio_data = constants.input_files_biodata
     df_biodata = pd.read_excel(input_directory+bio_data, sheet_name=None)['Sheet1']
 
-
+    
     ### Cast datatypes
 
     ## Start with segments data
@@ -125,10 +124,7 @@ if __name__ == '__main__':
     for col in df_string:
         df[col] = df[col].astype('string')
 
-    # Cast to temporal
 
-    for col in df_time:
-        df[col] = pd.to_datetime(df[col], format="%H:%M:%S:%f")
 
 
     ## Type cast on biodata
@@ -202,7 +198,7 @@ if __name__ == '__main__':
     df_keywords['is_in_term_hierarchy'] = df_keywords.KeywordID.apply(check_if_in_term_hierarchy)
 
     # Eliminate these keywords
-    df_keywords = df_keywords[df_keywords["is_in_term_hierarchy"]==True]
+    #df_keywords = df_keywords[df_keywords["is_in_term_hierarchy"]==True]
 
     # Identify if a keyword is a leaf
     df_keywords['is_leaf'] = df_keywords.KeywordID.apply(check_if_node_leaf)

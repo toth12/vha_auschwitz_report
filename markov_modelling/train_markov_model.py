@@ -24,7 +24,7 @@ if __name__ == '__main__':
     # Read the column index (index terms) of the matrix above
     features_df = pd.read_csv(input_directory + 
                           constants.output_segment_keyword_matrix_feature_index)
-
+    features_df = features_df.drop(columns=['index','Unnamed: 0'])
     # Create the row index  of the matrix above
     segment_df = pd.read_csv(input_directory + 
                          constants.output_segment_keyword_matrix_document_index)
@@ -68,11 +68,12 @@ if __name__ == '__main__':
             mu.visualize_implied_time_scale(trajs,output_directory+'/implied_time_scale.png')
             mu.visualize_implied_time_scale_bayes(trajs, output_directory+'/implied_time_scales_bay.png')
 
+
             # Estimate the Markov model from the trajectories
             msm = mu.estimate_markov_model_from_trajectories(trajs)
 
-            stat_dist_error = mu.estimate_pi_error(trajs, msm, ntrails=25)
-            stat_dist_error.to_csv(output_directory + '/stat_dist_error.csv', index=False)
+            #stat_dist_error = mu.estimate_pi_error(trajs, msm, ntrails=25)
+            #stat_dist_error.to_csv(output_directory + '/stat_dist_error.csv', index=False)
             
             # Create histogram to compare stationary distribution with plausibility measure
             mu.prepare_histogram_to_compare_stationary_distribution_with_plausi_measure(msm, output_directory + '/histogram.png')
