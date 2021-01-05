@@ -8,3 +8,4 @@ python data_processing/partition_interviews_into_metadata_groups.py
 python statistical_analysis/measure_strength_of_assoc_odds_ratio.py
 python markov_modelling/train_markov_model.py
 python markov_modelling/create_bootstrapping_plots.py --metadata_fields complete_m complete_w
+#python markov_modelling/create_bootstrapping_plots.py --metadata_fields work notwork

@@ -14,10 +14,28 @@ import constants
 import json
 import scipy.stats as stats
 from statsmodels.sandbox.stats.multicomp import multipletests
-
+import argparse
 
 
 if __name__ == '__main__':
+
+    # Load the metadata fields
+    # python statistical_analysis/measure_strength_of_assoc_odds_ratio.py --metadata_fields complete_m complete_w
+    metadata_fields = ['complete','complete_m','complete_w','easy_w','easy_m','medium_m','medium_w','hard_m','hard_w',"notwork","notwork_m","notwork_w","work","work_m","work_w"]
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--metadata_fields', nargs='+')
+    metadata_fields_to_agregate = []
+    for key, value in parser.parse_args()._get_kwargs():
+        if (key == "metadata_fields"):
+            for field in value:
+                if (field not in metadata_fields):
+                    print ("The following metadata_field is not valid")
+                    print (field)
+                    pdb.set_trace()
+                else:
+                    metadata_fields_to_agregate.append(field)
+
+    
     # Load the input data
     input_directory = constants.output_data_segment_keyword_matrix
 
@@ -37,19 +55,17 @@ if __name__ == '__main__':
 
     # Set the output directory
     output_directory = constants.output_data_report_statistical_analysis
-    output_file = 'strength_of_association_men_women_odds_ratio.csv'
-
+    output_file = 'strength_of_association_odds_ratio_'+'_'.join(metadata_fields_to_agregate)+'.csv'
     # Read the metadata partitions
     with open(input_directory + "metadata_partitions.json") as read_file:
         metadata_partitions = json.load(read_file)
 
     # First check for women and then men
-    metadata_fields = ['complete_w','complete_m']
     partial_results = []
     totals = []
 
     # Get the relevant data
-    for element in metadata_fields:
+    for element in metadata_fields_to_agregate:
         interview_keyword_matrices = []
         indices = metadata_partitions[element]
         input_data_set = np.take(data,indices)
@@ -58,7 +74,7 @@ if __name__ == '__main__':
 
         # Get the total number of women first and then men in the sample (later to be used for the multiple comparison test)
         totals.append(len(input_data_set))
-
+        print (totals)
         # Iterare through the individual interviews (represented as a segment-keyword matrix)
         for interview in input_data_set:
 
@@ -84,8 +100,9 @@ if __name__ == '__main__':
     # Use camp menstruation (a women topic) as a check point
     # Women definitely discuss this topic more than men
 
-    index_mens = features_df[features_df['KeywordLabel']=='menstruation'].index[0]
-    assert complete_result[index_mens][0] > complete_result[index_mens][1]
+    if ('complete_w' in metadata_fields_to_agregate) and ('complete_m' in metadata_fields_to_agregate):
+        index_mens = features_df[features_df['KeywordLabel']=='menstruation'].index[0]
+        assert complete_result[index_mens][0] > complete_result[index_mens][1]
 
     # Make a pairwise comparison of all features
     final_results = []
@@ -117,7 +134,7 @@ if __name__ == '__main__':
 
         # Save results into a dictionary, (p_value same for men and women)
 
-        part_result = {'topic_word':features_df.iloc()[i].KeywordLabel,'p_value':pvalue_w,'women':oddsratio_w,'men':oddsratio_m,'count_w':mentioned_w,"count_m":mentioned_m}
+        part_result = {'topic_word':features_df.iloc()[i].KeywordLabel,'p_value':pvalue_w,metadata_fields_to_agregate[0]:oddsratio_w,metadata_fields_to_agregate[1]:oddsratio_m,'count_'+metadata_fields_to_agregate[0]:mentioned_w,"count_"+metadata_fields_to_agregate[1]:mentioned_m}
         final_results.append(part_result)
 
     # Put results into a panda df

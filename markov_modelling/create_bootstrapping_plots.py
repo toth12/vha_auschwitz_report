@@ -47,7 +47,6 @@ def estimate_pi_error(dtrajs, orig_msm, ntrails=10, conf_interval=0.68, return_s
 
             msm = pyemma.msm.estimate_markov_model(dtraj_sample, 
                                                     lag=orig_msm.lag)
-
             pi_samples[trial, msm.active_set] = msm.pi
         except Exception as e: 
             print(e)
@@ -147,7 +146,7 @@ if __name__ == '__main__':
     
 
     for index,KeywordLabel in enumerate(features_df.KeywordLabel.to_list()):
-        for n, k in enumerate(['complete_m', 'complete_w']):
+        for n, k in enumerate(metadata_fields_to_agregate):
             state_samples = samples[k][:, index]
             plt.hist(state_samples, bins=20, label=f'sample dist {k}', color=f'C{n}')
             
@@ -155,7 +154,7 @@ if __name__ == '__main__':
             plt.vlines(lower_confidence, 0, 10,  color=f'C{n}', linestyle=':', label=f'lower conf {k}')
             plt.vlines(upper_confidence, 0, 10,  color=f'C{n}', linestyle='--', label=f'upper conf {k}')
             plt.vlines(msms[k].pi[index], 0, 10, color='k', label='ML estimate' if n==1 else None)
-    
+
         plt.legend()
         plt.savefig(output_directory+'/'+KeywordLabel+'.png')
         plt.clf()
