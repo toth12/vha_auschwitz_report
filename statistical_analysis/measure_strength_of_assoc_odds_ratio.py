@@ -37,8 +37,8 @@ if __name__ == '__main__':
 
     
     # Load the input data
-    input_directory = constants.output_data_segment_keyword_matrix
-
+    #input_directory = constants.output_data_segment_keyword_matrix
+    input_directory = '/Users/gmt28/Documents/Workspace/vha_auschwitz_report_public/vha_auschwitz_report/data/output_aid_giving_sociability_expanded/output/segment_keyword_matrix/'
     # Read the segment index term matrix
     data = np.load(input_directory + constants.output_segment_keyword_matrix_data_file.replace('.txt', '.npy'), 
                   allow_pickle=True)
@@ -54,7 +54,8 @@ if __name__ == '__main__':
     int_codes = segment_df['IntCode'].to_list()
 
     # Set the output directory
-    output_directory = constants.output_data_report_statistical_analysis
+    #output_directory = constants.output_data_report_statistical_analysis
+    output_directory = '/Users/gmt28/Documents/Workspace/vha_auschwitz_report_public/vha_auschwitz_report/data/output_aid_giving_sociability_expanded/output/reports_statistical_analysis/'
     output_file = 'strength_of_association_odds_ratio_'+'_'.join(metadata_fields_to_agregate)+'.csv'
     # Read the metadata partitions
     with open(input_directory + "metadata_partitions.json") as read_file:
@@ -145,5 +146,4 @@ if __name__ == '__main__':
     df_final_results['significance'] = df_final_results['p_value']<0.05
     # Sort results according to p_value
     df_final_results = df_final_results.sort_values('p_value')
-
     df_final_results.to_csv(output_directory+output_file)
