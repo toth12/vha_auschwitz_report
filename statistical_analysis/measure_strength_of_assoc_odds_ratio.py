@@ -21,7 +21,22 @@ if __name__ == '__main__':
 
     # Load the metadata fields
     # python statistical_analysis/measure_strength_of_assoc_odds_ratio.py --metadata_fields complete_m complete_w
+    
     metadata_fields = ['complete','complete_m','complete_w','easy_w','easy_m','medium_m','medium_w','hard_m','hard_w',"notwork","notwork_m","notwork_w","work","work_m","work_w"]
+    
+    # Add countries
+
+    bio_data = constants.input_files_biodata_birkenau
+    df_biodata = pd.read_csv(constants.input_data+bio_data)
+    df_biodata = df_biodata.fillna(0)
+    country_of_origins = df_biodata.groupby('CountryOfBirth')['CountryOfBirth'].count().to_frame('Count').reset_index().CountryOfBirth.to_list()
+    country_of_origins_with_gender = []
+    # Add male and female
+    for element in country_of_origins:
+        country_of_origins_with_gender.append(element+'_w')
+        country_of_origins_with_gender.append(element+'_m')
+    metadata_fields = metadata_fields + country_of_origins_with_gender
+
     parser = argparse.ArgumentParser()
     parser.add_argument('--metadata_fields', nargs='+')
     metadata_fields_to_agregate = []
@@ -37,8 +52,8 @@ if __name__ == '__main__':
 
     
     # Load the input data
-    #input_directory = constants.output_data_segment_keyword_matrix
-    input_directory = '/Users/gmt28/Documents/Workspace/vha_auschwitz_report_public/vha_auschwitz_report/data/output_aid_giving_sociability_expanded/output/segment_keyword_matrix/'
+    input_directory = constants.output_data_segment_keyword_matrix
+    #input_directory = '/Users/gmt28/Documents/Workspace/vha_auschwitz_report_public/vha_auschwitz_report/data/output_aid_giving_sociability_expanded/output/segment_keyword_matrix/'
     # Read the segment index term matrix
     data = np.load(input_directory + constants.output_segment_keyword_matrix_data_file.replace('.txt', '.npy'), 
                   allow_pickle=True)
@@ -54,8 +69,8 @@ if __name__ == '__main__':
     int_codes = segment_df['IntCode'].to_list()
 
     # Set the output directory
-    #output_directory = constants.output_data_report_statistical_analysis
-    output_directory = '/Users/gmt28/Documents/Workspace/vha_auschwitz_report_public/vha_auschwitz_report/data/output_aid_giving_sociability_expanded/output/reports_statistical_analysis/'
+    output_directory = constants.output_data_report_statistical_analysis
+    #output_directory = '/Users/gmt28/Documents/Workspace/vha_auschwitz_report_public/vha_auschwitz_report/data/output_aid_giving_sociability_expanded/output/reports_statistical_analysis/'
     output_file = 'strength_of_association_odds_ratio_'+'_'.join(metadata_fields_to_agregate)+'.csv'
     # Read the metadata partitions
     with open(input_directory + "metadata_partitions.json") as read_file:
