@@ -365,9 +365,8 @@ def visualize_tpt_major_flux(msm,features_df,KeywordLabel_A,KeywordLabel_B,outpu
     fig.savefig(output_file)
 
 
-def visualize_most_important_paths(msm,fraction,features_df,KeywordLabel_A,KeywordLabel_B,output_directory):
+def visualize_most_important_paths(msm,fraction,features_df,KeywordLabel_A,KeywordLabel_B,output_directory=None):
     #TODO: use isin instead of direct mask
-
     A = features_df[features_df['KeywordLabel'].isin([KeywordLabel_A])].index.to_numpy()
     B = features_df[features_df['KeywordLabel'] == KeywordLabel_B].index.to_numpy()
     nodename_dict = {i:features_df.iloc[j].KeywordLabel for i, j in enumerate(msm.active_set)}
@@ -426,10 +425,12 @@ def visualize_most_important_paths(msm,fraction,features_df,KeywordLabel_A,Keywo
     nx.draw_networkx_edges(pathgraph, pos, node_size=msm.pi[pathg_nodes]*10000,
                            edge_cmap=edge_cmap, 
                         edge_color=weights, width=2, ax=ax)
+        
+    if output_directory:
+        output_file_name = 'most_imp_path_'+KeywordLabel_A+'_'+KeywordLabel_B + '_'+str(fraction)+'.png'
+        output = output_directory + '/' + output_file_name
+        fig.savefig(output)
 
-    output_file_name = 'most_imp_path_'+KeywordLabel_A+'_'+KeywordLabel_B + '_'+str(fraction)+'.png'
-    output = output_directory + '/' + output_file_name
-    fig.savefig(output)
 
 
 def estimate_pi_error(dtrajs, orig_msm, ntrails=10, conf_interval=0.68):
