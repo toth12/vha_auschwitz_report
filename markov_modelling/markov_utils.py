@@ -82,7 +82,7 @@ def print_stationary_distributions(mm, topic_labels):
         #print (topic_labels[element])
         #print (mm.pi[element])
         #print ('\n')
-        results.append({'topic_name':topic_labels[mm.active_set[element]],'stationary_prob':mm.pi[element]})
+        results.append({'topic_name':topic_labels[element],'stationary_prob':mm.pi[element]})
     return results
 
 

@@ -1,3 +1,9 @@
+#!/bin/bash
+mkdir -p data/{output/{markov_modelling,reports_statistical_analysis,statistical_analysis,segment_keyword_matrix},input}
+mkdir -p data/output/statistical_analysis/plots/{Gender,CountryOfBirth}
+mkdir -p data/output/reports_statistical_analysis/{plots,tables}
+
+
 cp data/input/feature_maps/feature_map_with_friends_food_sharing.csv data/input/feature_map.csv
 
 python data_processing/identify_story_end_beginning.py
@@ -28,11 +34,15 @@ python statistical_analysis/measure_strength_of_assoc_odds_ratio.py --metadata_f
 python markov_modelling/train_markov_model.py
 python markov_modelling/create_bootstrapping_plots.py --metadata_fields complete_m complete_w
 pytest markov_modelling/test_msm.py
-#python markov_modelling/create_bootstrapping_plots.py --metadata_fields work notwork
-#python markov_modelling/create_bootstrapping_plots.py --metadata_fields work_w work_m
+python markov_modelling/create_bootstrapping_plots.py --metadata_fields work notwork
+python markov_modelling/create_bootstrapping_plots.py --metadata_fields work_w work_m
 
 
 mv data/output data/output_aid_giving_sociability_expanded
+
+mkdir -p data/{output/{markov_modelling,reports_statistical_analysis,statistical_analysis,segment_keyword_matrix},input}
+mkdir -p data/output/statistical_analysis/plots/{Gender,CountryOfBirth}
+mkdir -p data/output/reports_statistical_analysis/{plots,tables}
 
 cp data/input/feature_maps/feature_map_no_friends_no_food_sharing.csv data/input/feature_map.csv
 

@@ -10,6 +10,7 @@ import constants
 import markov_utils as mu
 from tables import *
 import json
+from msmtools.estimation import connected_sets
 
 
 
@@ -39,6 +40,11 @@ if __name__ == '__main__':
     with open(input_directory + "metadata_partitions.json") as read_file:
         metadata_partitions = json.load(read_file)
 
+    '''metadata_partitions_temp = {}
+    metadata_partitions_temp['notwork'] = metadata_partitions['notwork']
+    metadata_partitions_temp['work'] = metadata_partitions['work']
+    metadata_partitions = metadata_partitions_temp
+    '''
     for key in metadata_partitions:
         try:
             
@@ -71,7 +77,13 @@ if __name__ == '__main__':
 
             # Estimate the Markov model from the trajectories
             msm = mu.estimate_markov_model_from_trajectories(trajs)
-
+            
+            # Get the active set
+            topic_labels_active_set = [features_df.KeywordLabel.to_list()[j] for i, j in enumerate(msm.active_set)]
+            df_active_states = pd.DataFrame(topic_labels_active_set,columns=['KeywordLabel'])
+            df_active_states.to_csv(output_directory+'/state_index.csv')
+            #msm._full2active[97]
+    
             #stat_dist_error = mu.estimate_pi_error(trajs, msm, ntrails=25)
             #stat_dist_error.to_csv(output_directory + '/stat_dist_error.csv', index=False)
             
@@ -94,7 +106,14 @@ if __name__ == '__main__':
 
 
             # Get the stationary distributions
-            stationary_probs = mu.print_stationary_distributions(msm,features_df.KeywordLabel.to_list())
+            
+
+            
+            stationary_probs = mu.print_stationary_distributions(msm,df_active_states.KeywordLabel.to_list())
+            df_stationary_probs = pd.DataFrame(stationary_probs)
+            df_stationary_probs[df_stationary_probs.topic_name=="social bonds"]
+
+            #pdb.set_trace()
             pd.DataFrame(stationary_probs).to_csv(output_directory+'/stationary_probs.csv')
         except KeyboardInterrupt:
             print('Keyboard interrupt, quitting.')

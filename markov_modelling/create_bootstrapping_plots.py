@@ -17,6 +17,8 @@ from tqdm.auto import tqdm
 from pyemma.util.statistics import confidence_interval
 import pdb
 import argparse
+from collections import Counter
+from msmtools.estimation import connected_sets
 
 
 
@@ -36,8 +38,9 @@ def estimate_pi_error(dtrajs, orig_msm, ntrails=10, conf_interval=0.68, return_s
     """
     from pyemma.util.statistics import confidence_interval
     
-    pi_samples = np.zeros((ntrails, orig_msm.nstates))
-
+    #pi_samples = np.zeros((ntrails, len(orig_msm.nstates)))
+    pi_samples = np.zeros((ntrails, orig_msm.count_matrix_full.shape[0]))
+    all_states = np.arange(start=0, stop=orig_msm.count_matrix_full.shape[0], step=1)
     for trial in tqdm(range(ntrails)):
         try:
             bs_sample = np.random.choice(len(dtrajs), 
@@ -47,10 +50,19 @@ def estimate_pi_error(dtrajs, orig_msm, ntrails=10, conf_interval=0.68, return_s
 
             msm = pyemma.msm.estimate_markov_model(dtraj_sample, 
                                                     lag=orig_msm.lag)
-            pi_samples[trial, msm.active_set] = msm.pi
-        except Exception as e: 
-            print(e)
+            stationary_probs = msm.pi
+            if len(connected_sets(msm.count_matrix_full))>1:
+                disconnected_states = [element for element in all_states if element not in connected_sets(msm.count_matrix_full)[0]]
+                if len(disconnected_states)>0:
+                    for element in disconnected_states:
+                        stationary_probs = np.insert(stationary_probs,element,0)
+
+            #pi_samples[trial, msm.active_set] = stationary_probs
             
+            pi_samples[trial, all_states] = stationary_probs
+        except Exception as e:
+            pdb.set_trace()
+            print(e)
     if return_samples:
         return pi_samples
     
@@ -83,7 +95,7 @@ if __name__ == '__main__':
                 if (field not in metadata_fields):
                     print ("The following metadata_field is not valid")
                     print (field)
-                    pdb.set_trace()
+                    metadata_fields_to_agregate.append(field)
                 else:
                     metadata_fields_to_agregate.append(field)
     # Load the input data
@@ -112,6 +124,7 @@ if __name__ == '__main__':
 
     samples = {}
     msms = {}
+    state_indices = {}
 
     # Make the output directory
     output_directory = constants.output_data_markov_modelling + 'bootstrap/'+ '_'.join(metadata_fields_to_agregate)
@@ -124,6 +137,7 @@ if __name__ == '__main__':
         os.mkdir(output_directory)
     except:
         pass
+    ntrails = 25
     for key in metadata_fields_to_agregate:
         indices = metadata_partitions[key]
 
@@ -138,26 +152,42 @@ if __name__ == '__main__':
         # Estimate the Markov model from the trajectories
         msm = mu.estimate_markov_model_from_trajectories(trajs)
         
-        error_est = estimate_pi_error(trajs, msm, return_samples=True, ntrails=25)
-        
+        error_est = estimate_pi_error(trajs, msm, return_samples=True, ntrails=ntrails)
+        topic_labels_active_set = [features_df.KeywordLabel.to_list()[j] for i, j in enumerate(msm.active_set)]
         samples[key] = error_est
+        state_indices[key]=[]
+        state_indices[key].extend(topic_labels_active_set)
         msms[key] = msm
 
+
     
+    aggregate_states = []
+    for element in state_indices:
+        aggregate_states.extend(state_indices[element])
 
+
+    joint_states = {x: count for x, count in Counter(aggregate_states).items() if count > 1}
+    joint_states = joint_states.keys()
     for index,KeywordLabel in enumerate(features_df.KeywordLabel.to_list()):
-        for n, k in enumerate(metadata_fields_to_agregate):
-            state_samples = samples[k][:, index]
-            plt.hist(state_samples, bins=20, label=f'sample dist {k}', color=f'C{n}')
-            
-            lower_confidence, upper_confidence = confidence_interval(state_samples, 0.68)
-            plt.vlines(lower_confidence, 0, 10,  color=f'C{n}', linestyle=':', label=f'lower conf {k}')
-            plt.vlines(upper_confidence, 0, 10,  color=f'C{n}', linestyle='--', label=f'upper conf {k}')
-            plt.vlines(msms[k].pi[index], 0, 10, color='k', label='ML estimate' if n==1 else None)
+        # Check if it is in the active set for both samples
+        if (KeywordLabel in joint_states) == False:
+           continue
+        else:
+            for n, k in enumerate(metadata_fields_to_agregate):
+                #index = state_indices[k].index(KeywordLabel)
+                try:
+                    state_samples = samples[k][:, index]
+                    plt.hist(state_samples, bins=20, label=f'sample dist {k}', color=f'C{n}')
+                    lower_confidence, upper_confidence = confidence_interval(state_samples, 0.68)
+                    plt.vlines(lower_confidence, 0, 10,  color=f'C{n}', linestyle=':', label=f'lower conf {k}')
+                    plt.vlines(upper_confidence, 0, 10,  color=f'C{n}', linestyle='--', label=f'upper conf {k}')
+                    plt.vlines(msms[k].pi[msms[k]._full2active[index]], 0, 10, color='k', label='ML estimate' if n==1 else None)
+                except:
+                    pdb.set_trace()
 
-        plt.legend()
-        plt.savefig(output_directory+'/'+KeywordLabel+'.png')
-        plt.clf()
+            plt.legend()
+            plt.savefig(output_directory+'/'+KeywordLabel+'.png')
+            plt.clf()
 
 
 
