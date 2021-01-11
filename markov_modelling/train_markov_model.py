@@ -40,11 +40,11 @@ if __name__ == '__main__':
     with open(input_directory + "metadata_partitions.json") as read_file:
         metadata_partitions = json.load(read_file)
 
-    '''metadata_partitions_temp = {}
-    metadata_partitions_temp['notwork'] = metadata_partitions['notwork']
-    metadata_partitions_temp['work'] = metadata_partitions['work']
-    metadata_partitions = metadata_partitions_temp
-    '''
+    #metadata_partitions_temp = {}
+    #metadata_partitions_temp['Austria_w'] = metadata_partitions['Austria_w']
+    #metadata_partitions_temp['work'] = metadata_partitions['work']
+    #metadata_partitions = metadata_partitions_temp
+    #problems with: Yugoslavia (historical)_m, Austria_w
     for key in metadata_partitions:
         try:
             
@@ -77,6 +77,11 @@ if __name__ == '__main__':
 
             # Estimate the Markov model from the trajectories
             msm = mu.estimate_markov_model_from_trajectories(trajs)
+            '''
+            if not (msm.count_matrix_full.shape[0] ==len(features_df.KeywordLabel.to_list())):
+                pdb.set_trace()
+
+            '''
             
             # Get the active set
             topic_labels_active_set = [features_df.KeywordLabel.to_list()[j] for i, j in enumerate(msm.active_set)]
@@ -115,6 +120,7 @@ if __name__ == '__main__':
 
             #pdb.set_trace()
             pd.DataFrame(stationary_probs).to_csv(output_directory+'/stationary_probs.csv')
+            '''
         except KeyboardInterrupt:
             print('Keyboard interrupt, quitting.')
             import sys
