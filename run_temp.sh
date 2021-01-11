@@ -1,6 +1,11 @@
 #!/bin/bash
 #python markov_modelling/train_markov_model.py
 
+
+
+python markov_modelling/create_bootstrapping_plots.py --metadata_fields work notwork
+python markov_modelling/create_bootstrapping_plots.py --metadata_fields work_w work_m
+python markov_modelling/create_bootstrapping_plots.py --metadata_fields notwork_w notwork_m
 python markov_modelling/create_bootstrapping_plots.py --metadata_fields Poland_w Poland_m
 python markov_modelling/create_bootstrapping_plots.py --metadata_fields Hungary_w Hungary_m
 python markov_modelling/create_bootstrapping_plots.py --metadata_fields Romania_w Romania_m
