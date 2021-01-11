@@ -120,7 +120,7 @@ if __name__ == '__main__':
 
             #pdb.set_trace()
             pd.DataFrame(stationary_probs).to_csv(output_directory+'/stationary_probs.csv')
-            '''
+            
         except KeyboardInterrupt:
             print('Keyboard interrupt, quitting.')
             import sys
