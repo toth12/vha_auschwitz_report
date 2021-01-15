@@ -318,18 +318,30 @@ def visualize_msm_graph(msm,features_df,output_file,
 
     fig.savefig(output_file)
 
-def visualize_tpt_major_flux(msm,features_df,KeywordLabel_A,KeywordLabel_B,output_file):
-    A = features_df[features_df['KeywordLabel'].isin([KeywordLabel_A])].index.to_numpy()
-    B = features_df[features_df['KeywordLabel'] == KeywordLabel_B].index.to_numpy()
+def get_tpt_major_flux(msm,features_df,KeywordLabel_A,KeywordLabel_B,fraction=.9):
+    if not isinstance(KeywordLabel_A, list):
+        KeywordLabel_A = [KeywordLabel_A]
+    if not isinstance(KeywordLabel_B, list):
+        KeywordLabel_B = [KeywordLabel_B]
+
+    A = features_df[features_df['KeywordLabel'].isin(KeywordLabel_A)].index.to_numpy()
+    B = features_df[features_df['KeywordLabel'].isin(KeywordLabel_B)].index.to_numpy()
+
     assert -1 not in msm._full2active[A] and -1 not in msm._full2active[B]
 
     tpt = pyemma.msm.tpt(msm, msm._full2active[A], msm._full2active[B])
-    fl = tpt.major_flux()
+    fl = tpt.major_flux(fraction)
 
     # Draw the graph
     g = nx.from_numpy_array(fl, create_using=nx.DiGraph)
     nodename_dict = {i:features_df.iloc[j].KeywordLabel for i, j in enumerate(msm.active_set)}
     g = nx.relabel_nodes(g, nodename_dict)
+    
+    return g, tpt, nodename_dict
+
+def visualize_tpt_major_flux(msm,features_df,KeywordLabel_A,KeywordLabel_B,output_file,fraction=.9):
+
+    g, _, nodename_dict = get_tpt_major_flux(msm,features_df,KeywordLabel_A,KeywordLabel_B,fraction=fraction)
 
     edge_cmap = plt.matplotlib.colors.LinearSegmentedColormap.from_list("uwe",[(0, 0, 0, .1), (0, 0, 0, 1)])
 
@@ -362,15 +374,26 @@ def visualize_tpt_major_flux(msm,features_df,KeywordLabel_A,KeywordLabel_B,outpu
     nx.draw_networkx_edges(g, pos, edge_cmap=edge_cmap, node_size=msm.pi*1000,
                         edge_color=weights, width=2, ax=ax);
 
-    fig.savefig(output_file)
+    if output_file is not None:
+        fig.savefig(output_file)
+
+    return g, pos, nodename_dict
 
 
-def visualize_most_important_paths(msm,fraction,features_df,KeywordLabel_A,KeywordLabel_B,output_directory=None):
-    #TODO: use isin instead of direct mask
-    A = features_df[features_df['KeywordLabel'].isin([KeywordLabel_A])].index.to_numpy()
-    B = features_df[features_df['KeywordLabel'] == KeywordLabel_B].index.to_numpy()
+def visualize_most_important_paths(msm, fraction, features_df, KeywordLabel_A, KeywordLabel_B, output_directory=None):
+    if not isinstance(KeywordLabel_A, list):
+        KeywordLabel_A = [KeywordLabel_A]
+    if not isinstance(KeywordLabel_B, list):
+        KeywordLabel_B = [KeywordLabel_B]
+
+    A = features_df[features_df['KeywordLabel'].isin(KeywordLabel_A)].index.to_numpy()
+    B = features_df[features_df['KeywordLabel'].isin(KeywordLabel_B)].index.to_numpy()
+
+    assert -1 not in msm._full2active[A] and -1 not in msm._full2active[B]
+
     nodename_dict = {i:features_df.iloc[j].KeywordLabel for i, j in enumerate(msm.active_set)}
     tpt = pyemma.msm.tpt(msm, msm._full2active[A], msm._full2active[B])
+
     paths, capacities = tpt.pathways(fraction=fraction)
     pathgraph = nx.DiGraph()
     pathg_node_names = []
@@ -430,6 +453,8 @@ def visualize_most_important_paths(msm,fraction,features_df,KeywordLabel_A,Keywo
         output_file_name = 'most_imp_path_'+KeywordLabel_A+'_'+KeywordLabel_B + '_'+str(fraction)+'.png'
         output = output_directory + '/' + output_file_name
         fig.savefig(output)
+
+    return pathgraph, pos, nodename_dict
 
 
 
