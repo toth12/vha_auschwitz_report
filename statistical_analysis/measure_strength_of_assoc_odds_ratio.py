@@ -122,6 +122,7 @@ if __name__ == '__main__':
 
     # Make a pairwise comparison of all features
     final_results = []
+    pdb.set_trace()
     for i,row in enumerate(complete_result):
 
         # Create a contingency table for every feature
