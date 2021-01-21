@@ -6,7 +6,7 @@ mkdir -p data/output/statistical_analysis/plots/{Gender,CountryOfBirth}
 mkdir -p data/output/reports_statistical_analysis/{plots,tables}
 
 
-cp data/input/feature_maps/feature_map_with_friends_food_sharing.csv data/input/feature_map.csv
+cp data/input/feature_maps/feature_map.csv data/input/feature_map.csv
 
 python data_processing/identify_story_end_beginning.py
 python data_processing/simplify_features.py
@@ -57,7 +57,7 @@ python markov_modelling/create_bootstrapping_plots.py --metadata_fields Czechosl
 
 
 
-
+'''
 mv data/output data/output_aid_giving_sociability_expanded
 
 mkdir -p data/{output/{markov_modelling,reports_statistical_analysis,statistical_analysis,segment_keyword_matrix},input}
@@ -111,3 +111,4 @@ python markov_modelling/create_bootstrapping_plots.py --metadata_fields Italy_w 
 python markov_modelling/create_bootstrapping_plots.py --metadata_fields Austria-Hungary\ \(historical\)_w Austria-Hungary\ \(historical\)_m
 python markov_modelling/create_bootstrapping_plots.py --metadata_fields Czechoslovakia\ \(historical\)_w Czechoslovakia\ \(historical\)_m
 pytest markov_modelling/test_msm.py
+'''
