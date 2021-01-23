@@ -14,7 +14,8 @@ from tqdm.auto import tqdm
 
 if __name__ == '__main__':
     # Load the input data
-
+    # feature_cover_term_map[~feature_cover_term_map.KeywordLabel.isin(features_df.KeywordLabel.to_list())]
+    # len(result[0][0]) == len(cover_term_index)
     input_directory = constants.output_data_segment_keyword_matrix
     input_segment_keyword_matrix = constants.output_segment_keyword_matrix_data_file_original
     input_document_index = constants.output_segment_keyword_matrix_document_index
@@ -57,8 +58,9 @@ if __name__ == '__main__':
     output_feature_index = constants.output_segment_keyword_matrix_feature_index
 
     np.save(output_directory + output_segment_keyword_matrix, result)
+  
     cover_term_index = cover_term_index.rename(columns={"CoverTerm":"KeywordLabel"})
-    cover_term_index.reset_index().to_csv(output_directory + output_feature_index)
+    cover_term_index.reset_index(drop=True).to_csv(output_directory + output_feature_index)
 
 
     '''

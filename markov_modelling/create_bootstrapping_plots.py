@@ -150,7 +150,7 @@ if __name__ == '__main__':
         trajs = mu.estimate_fuzzy_trajectories(input_data_set)
 
         # Estimate the Markov model from the trajectories
-        msm = mu.estimate_markov_model_from_trajectories(trajs)
+        msm = mu.estimate_markov_model_from_trajectories(trajs,msmlag=2)
         
         error_est = estimate_pi_error(trajs, msm, return_samples=True, ntrails=ntrails)
         topic_labels_active_set = [features_df.KeywordLabel.to_list()[j] for i, j in enumerate(msm.active_set)]
@@ -169,25 +169,27 @@ if __name__ == '__main__':
     joint_states = {x: count for x, count in Counter(aggregate_states).items() if count > 1}
     joint_states = joint_states.keys()
     for index,KeywordLabel in enumerate(features_df.KeywordLabel.to_list()):
-        # Check if it is in the active set for both samples
-        if (KeywordLabel in joint_states) == False:
-           continue
-        else:
-            for n, k in enumerate(metadata_fields_to_agregate):
-                #index = state_indices[k].index(KeywordLabel)
-                try:
-                    state_samples = samples[k][:, index]
-                    plt.hist(state_samples, bins=20, label=f'sample dist {k}', color=f'C{n}')
-                    lower_confidence, upper_confidence = confidence_interval(state_samples, 0.68)
-                    plt.vlines(lower_confidence, 0, 10,  color=f'C{n}', linestyle=':', label=f'lower conf {k}')
-                    plt.vlines(upper_confidence, 0, 10,  color=f'C{n}', linestyle='--', label=f'upper conf {k}')
-                    plt.vlines(msms[k].pi[msms[k]._full2active[index]], 0, 10, color='k', label='ML estimate' if n==1 else None)
-                except:
-                    pdb.set_trace()
+        try:
+            # Check if it is in the active set for both samples
+            if (KeywordLabel in joint_states) == False:
+               continue
+            else:
+                for n, k in enumerate(metadata_fields_to_agregate):
+                    #index = state_indices[k].index(KeywordLabel)
+                    try:
+                        state_samples = samples[k][:, index]
+                        plt.hist(state_samples, bins=20, label=f'sample dist {k}', color=f'C{n}')
+                        lower_confidence, upper_confidence = confidence_interval(state_samples, 0.68)
+                        plt.vlines(lower_confidence, 0, 10,  color=f'C{n}', linestyle=':', label=f'lower conf {k}')
+                        plt.vlines(upper_confidence, 0, 10,  color=f'C{n}', linestyle='--', label=f'upper conf {k}')
+                        plt.vlines(msms[k].pi[msms[k]._full2active[index]], 0, 10, color='k', label='ML estimate' if n==1 else None)
+                    except:
+                        pdb.set_trace()
 
-            plt.legend()
-            plt.savefig(output_directory+'/'+KeywordLabel+'.png')
-            plt.clf()
-
+                plt.legend()
+                plt.savefig(output_directory+'/'+KeywordLabel+'.png')
+                plt.clf()
+        except:
+            pass
 
 

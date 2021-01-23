@@ -25,7 +25,9 @@ if __name__ == '__main__':
     # Read the column index (index terms) of the matrix above
     features_df = pd.read_csv(input_directory + 
                           constants.output_segment_keyword_matrix_feature_index)
-    features_df = features_df.drop(columns=['index','Unnamed: 0'])
+   
+    features_df = features_df.drop(columns=['Unnamed: 0'])
+    
     # Create the row index  of the matrix above
     segment_df = pd.read_csv(input_directory + 
                          constants.output_segment_keyword_matrix_document_index)
@@ -76,7 +78,7 @@ if __name__ == '__main__':
 
 
             # Estimate the Markov model from the trajectories
-            msm = mu.estimate_markov_model_from_trajectories(trajs)
+            msm = mu.estimate_markov_model_from_trajectories(trajs,msmlag=3)
             '''
             if not (msm.count_matrix_full.shape[0] ==len(features_df.KeywordLabel.to_list())):
                 pdb.set_trace()
