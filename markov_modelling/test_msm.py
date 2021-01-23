@@ -3,8 +3,8 @@
 
 import numpy as np
 import pandas as pd
-from . import constants
-from . import markov_utils as mu
+import constants
+from markov_modelling import markov_utils as mu
 from tqdm.auto import tqdm
 import json
 import unittest

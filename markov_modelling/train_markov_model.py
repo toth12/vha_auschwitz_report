@@ -71,14 +71,27 @@ if __name__ == '__main__':
            
             # Estimate fuzzy trajectories
             #empyt = [element[0] for element in input_data_set if element[0].sum()==0]
-            trajs = mu.estimate_fuzzy_trajectories(input_data_set)
+            
+
+            new_input_data_set=[]
+
+            for interview in input_data_set:
+                new_interview = []
+                for row in interview:
+                    if row.sum()>0:
+                        new_interview.append(row)
+                new_input_data_set.append(np.vstack(new_interview))
+            input_data_set = new_input_data_set
+            
+            trajs = mu.estimate_fuzzy_trajectories(new_input_data_set)
+            
             # Visualize implied timescale and save it
             mu.visualize_implied_time_scale(trajs,output_directory+'/implied_time_scale.png')
             mu.visualize_implied_time_scale_bayes(trajs, output_directory+'/implied_time_scales_bay.png')
 
 
             # Estimate the Markov model from the trajectories
-            msm = mu.estimate_markov_model_from_trajectories(trajs,msmlag=3)
+            msm = mu.estimate_markov_model_from_trajectories(trajs,msmlag=1)
             '''
             if not (msm.count_matrix_full.shape[0] ==len(features_df.KeywordLabel.to_list())):
                 pdb.set_trace()

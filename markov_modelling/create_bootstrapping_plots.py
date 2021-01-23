@@ -137,7 +137,7 @@ if __name__ == '__main__':
         os.mkdir(output_directory)
     except:
         pass
-    ntrails = 25
+    ntrails = 1000
     for key in metadata_fields_to_agregate:
         indices = metadata_partitions[key]
 
@@ -145,12 +145,21 @@ if __name__ == '__main__':
         # Make sure that interviews with only one segment are not included
         for i in range(0,input_data_set.shape[0]):
             assert (input_data_set[i].shape[0]>1)
+        new_input_data_set=[]
+
+        for interview in input_data_set:
+            new_interview = []
+            for row in interview:
+                if row.sum()>0:
+                    new_interview.append(row)
+            new_input_data_set.append(np.vstack(new_interview))
+        input_data_set = new_input_data_set
 
         # Estimate fuzzy trajectories
         trajs = mu.estimate_fuzzy_trajectories(input_data_set)
 
         # Estimate the Markov model from the trajectories
-        msm = mu.estimate_markov_model_from_trajectories(trajs,msmlag=2)
+        msm = mu.estimate_markov_model_from_trajectories(trajs,msmlag=1)
         
         error_est = estimate_pi_error(trajs, msm, return_samples=True, ntrails=ntrails)
         topic_labels_active_set = [features_df.KeywordLabel.to_list()[j] for i, j in enumerate(msm.active_set)]
