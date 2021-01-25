@@ -137,7 +137,7 @@ if __name__ == '__main__':
         os.mkdir(output_directory)
     except:
         pass
-    ntrails = 1000
+    ntrails = 50
     for key in metadata_fields_to_agregate:
         indices = metadata_partitions[key]
 
@@ -147,6 +147,7 @@ if __name__ == '__main__':
             assert (input_data_set[i].shape[0]>1)
         new_input_data_set=[]
 
+        # Eliminate empty steps
         for interview in input_data_set:
             new_interview = []
             for row in interview:

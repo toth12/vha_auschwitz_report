@@ -74,7 +74,7 @@ if __name__ == '__main__':
             
 
             new_input_data_set=[]
-
+            # Eliminate empty steps
             for interview in input_data_set:
                 new_interview = []
                 for row in interview:
