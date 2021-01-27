@@ -82,16 +82,14 @@ if __name__ == '__main__':
     # First check for women and then men
     partial_results = []
     totals = []
-
+    metadata_partitions_temp = {}
+    metadata_partitions_temp['complete_w'] = metadata_partitions['complete_w']
+    metadata_partitions = metadata_partitions_temp
     # Get the relevant data
     for element in metadata_fields_to_agregate:
         interview_keyword_matrices = []
         indices = metadata_partitions[element]
         input_data_set = np.take(data,indices)
-
-        ### For every every interview create a one dimensional interview keyword matrix as a first step
-
-        # Get the total number of women first and then men in the sample (later to be used for the multiple comparison test)
         totals.append(len(input_data_set))
         print (totals)
         # Iterare through the individual interviews (represented as a segment-keyword matrix)
@@ -112,57 +110,7 @@ if __name__ == '__main__':
         # Make the count matrix and add it to the list that stores it
         feature_counts = interview_keyword_matrices.sum(0)
         partial_results.append(feature_counts)
-
+        pdb.set_trace()
     # Make a count matrix with rows as features and the first column for women and the second one for women
     complete_result = np.vstack(partial_results).T
-
-    # Use camp menstruation (a women topic) as a check point
-    # Women definitely discuss this topic more than men
-
-    if ('complete_w' in metadata_fields_to_agregate) and ('complete_m' in metadata_fields_to_agregate):
-        index_mens = features_df[features_df['KeywordLabel']=='menstruation'].index[0]
-        assert complete_result[index_mens][0] > complete_result[index_mens][1]
-
-    # Make a pairwise comparison of all features
-    final_results = []
-
-    for i,row in enumerate(complete_result):
-
-        # Create a contingency table for every feature
-        mentioned_w = row[0]
-        mentioned_m = row[1]
-
-        # Skip the topic if mentioned less than 5 by either women or men due to statistical insignificance
-
-        if (mentioned_w<0) or (mentioned_m <0):
-            continue
-
-        not_mentioned_w =  totals[0]-mentioned_w
-        not_mentioned_m =  totals[1]-mentioned_m
-
-        # Apply T-test and calculate odds ratios (a topic mentioned and it is a woman who mentions it and a topic mentioned and it is a man who mentions)
-        # see, https://stackoverflow.com/questions/61023380/calculating-odds-ratio-in-python
-        # Calculate odds ratio for the women (upper left corner of the contingency table)
-
-        contingency_w = [[mentioned_w,mentioned_m],[not_mentioned_w,not_mentioned_m]]
-        oddsratio_w, pvalue_w = stats.fisher_exact(contingency_w)
-
-        # Calculate odds ratio for the men
-
-        contingency_m = [[mentioned_m,mentioned_w],[not_mentioned_m,not_mentioned_w]]
-        oddsratio_m, pvalue_m = stats.fisher_exact(contingency_m)
-
-        # Save results into a dictionary, (p_value same for men and women)
-
-        part_result = {'topic_word':features_df.iloc()[i].KeywordLabel,'p_value':pvalue_w,metadata_fields_to_agregate[0]:oddsratio_w,metadata_fields_to_agregate[1]:oddsratio_m,'count_'+metadata_fields_to_agregate[0]:mentioned_w,"count_"+metadata_fields_to_agregate[1]:mentioned_m}
-        final_results.append(part_result)
-
-    # Put results into a panda df
-    df_final_results = pd.DataFrame(final_results)
-
-    # Make a Bonferroni correction
-    df_final_results['significance_Bonferroni_corrected'] = multipletests(df_final_results['p_value'], method='bonferroni')[0]
-    df_final_results['significance'] = df_final_results['p_value']<0.05
-    # Sort results according to p_value
-    df_final_results = df_final_results.sort_values('p_value')
-    df_final_results.to_csv(output_directory+output_file)
+   

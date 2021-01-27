@@ -15,6 +15,9 @@ import json
 import scipy.stats as stats
 from statsmodels.sandbox.stats.multicomp import multipletests
 import argparse
+import matplotlib.pyplot as plt
+import plotly.express as px
+
 
 
 if __name__ == '__main__':
@@ -108,7 +111,26 @@ if __name__ == '__main__':
 
         # Transform the individual interview keyword matrices into one count matrix (women or men  - keywords with total count)
         interview_keyword_matrices = np.vstack(interview_keyword_matrices)
-
+        df = pd.DataFrame(interview_keyword_matrices,columns=features_df.KeywordLabel.to_list())
+        df.drop([col for col, val in df.sum().iteritems() if val < 100], axis=1, inplace=True)
+        '''
+        f = plt.figure(figsize=(10, 10))
+        plt.matshow(df.corr(), fignum=f.number)
+        plt.xticks(range(df.select_dtypes(['number']).shape[1]), df.select_dtypes(['number']).columns, fontsize=14, rotation=45)
+        plt.yticks(range(df.select_dtypes(['number']).shape[1]), df.select_dtypes(['number']).columns, fontsize=14)
+        cb = plt.colorbar()
+        cb.ax.tick_params(labelsize=14)
+        plt.title('Correlation Matrix', fontsize=10);
+        plt.show()
+        '''
+        '''import seaborn as sns
+        import matplotlib.pyplot as plt
+        heatmap = sns.heatmap(df.corr(), vmin=0.2, vmax=1,xticklabels=True, yticklabels=True)
+        plt.show()
+        '''
+        fig = px.imshow(df.corr(),x=df.columns.tolist(),y=df.columns.tolist())
+        fig.show()
+        pdb.set_trace()
         # Make the count matrix and add it to the list that stores it
         feature_counts = interview_keyword_matrices.sum(0)
         partial_results.append(feature_counts)
