@@ -68,20 +68,12 @@ if __name__ == '__main__':
                 os.mkdir(output_directory)
             except:
                 pass
-           
-            # Estimate fuzzy trajectories
-            #empyt = [element[0] for element in input_data_set if element[0].sum()==0]
-            
 
-            new_input_data_set=[]
-            # Eliminate empty steps
+            # check input data for long empty segments and split interview there
+            # currently split if gap is longer than 2 minutes
+            new_input_data_set = []
             for interview in input_data_set:
-                new_interview = []
-                for row in interview:
-                    if row.sum()>0:
-                        new_interview.append(row)
-                new_input_data_set.append(np.vstack(new_interview))
-            input_data_set = new_input_data_set
+                new_input_data_set += mu.split_interview(interview, max_gap=2)
             
             trajs = mu.estimate_fuzzy_trajectories(new_input_data_set)
             

@@ -3,7 +3,7 @@
 
 import numpy as np
 import pandas as pd
-import constants
+from . import constants
 from markov_modelling import markov_utils as mu
 from tqdm.auto import tqdm
 import json
@@ -126,6 +126,35 @@ class TestDiscreteTrajectories(unittest.TestCase):
 
             np.testing.assert_array_equal(is_empty_raw, is_empty_traj,
                                           err_msg=f'Empty state positions don`t match for IntCode {intcode}')
+    def test_interviewsplitter_simple(self):
+        interview = np.zeros((50, 100))  # 50 minutes, 100 topics
+        interview[np.arange(0, 10), 1] = 1
+        interview[np.arange(20, 35, 3), 3] = 1
+
+        si = mu.split_interview(interview, max_gap=3)
+        self.assertEqual(len(si), 2)
+        self.assertEqual(len(si[0]), 10)
+        self.assertEqual(si[0].sum(), 10)
+        self.assertEqual(len(si[1]), 13)  # removes last zero
+        self.assertEqual(si[1].sum(), 5)
+
+        si = mu.split_interview(interview, max_gap=1)
+        self.assertEqual(len(si), 6)
+        self.assertEqual(len(si[0]), 10)
+        self.assertEqual(si[0].sum(), 10)
+
+        for _si in si[1:]:
+            self.assertEqual(len(_si), 1)  # removes last zero
+            self.assertEqual(_si.sum(), 1)
+
+        interview = np.zeros((50, 100))  # 50 minutes, 100 topics
+        interview[:, 1] = 1
+        # interview[np.arange(20, 35, 3), 3] = 1
+
+        si = mu.split_interview(interview, max_gap=3)
+        self.assertEqual(len(si), 1)
+        self.assertTrue(np.all(si[0] == interview))
+
     '''
     def test_special_cases(self):
         #TODO: please complete test
