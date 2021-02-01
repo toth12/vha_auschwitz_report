@@ -73,7 +73,9 @@ if __name__ == '__main__':
             # currently split if gap is longer than 2 minutes
             new_input_data_set = []
             for interview in input_data_set:
-                new_input_data_set += mu.split_interview(interview, max_gap=2)
+                _new_input_data_set = mu.split_interview(interview, max_gap=2)
+                # make sure to exclude single segments
+                new_input_data_set += [_int for _int in _new_input_data_set if len(_int) > 1]
             
             trajs = mu.estimate_fuzzy_trajectories(new_input_data_set)
             
@@ -118,12 +120,7 @@ if __name__ == '__main__':
 
 
             # Get the stationary distributions
-            
-
-            
             stationary_probs = mu.print_stationary_distributions(msm,df_active_states.KeywordLabel.to_list())
-            df_stationary_probs = pd.DataFrame(stationary_probs)
-            df_stationary_probs[df_stationary_probs.topic_name=="social bonds"]
 
             #pdb.set_trace()
             pd.DataFrame(stationary_probs).to_csv(output_directory+'/stationary_probs.csv')
