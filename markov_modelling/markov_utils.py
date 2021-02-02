@@ -510,6 +510,23 @@ def estimate_pi_error(dtrajs, orig_msm, ntrails=10, conf_interval=0.68):
     return probabilities
 
 
+def consecutive(data, stepsize=1):
+    return np.split(data, np.where(np.diff(data) != stepsize)[0]+1)
+
+
+def split_interview(interview, max_gap=1):
+    all_empty_segments = consecutive(np.where(interview.sum(axis=1) == 0)[0])
+    empty_segs = [gap for gap in all_empty_segments if len(gap) > max_gap]
+
+    if len(empty_segs) > 0:
+        int_indices = np.arange(interview.shape[0])
+        int_indices = int_indices[~np.in1d(int_indices, np.concatenate(empty_segs))]
+        segment_index_list = consecutive(int_indices)
+        return [interview[idx] for idx in segment_index_list]
+    else:
+        return [interview]
+
+
 if __name__ == '__main__':
     pass
 
