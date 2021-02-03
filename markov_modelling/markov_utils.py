@@ -23,7 +23,6 @@ def window(seq, n=2):
         result = result[1:] + (elem,)
         yield result
 
-
 def cg_transition_matrix(T, chi):
     """
     Map a transition matrix T to coarse states via membership
