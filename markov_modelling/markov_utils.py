@@ -104,15 +104,17 @@ def calculate_mean_passage_time_between_states(mm, topic_labels):
     return df_passage_times
 
 def print_mean_passage_time(mm, topic_labels, source,limit = 10):
-    source_index = topic_labels.index(source)
-    topic_labels_active_set = {i:topic_labels[j] for i, j in enumerate(mm.active_set)}
     
-    df_passage_times = pd.DataFrame(topic_labels_active_set.items(),columns=['index','topic_labels']).set_index('index')
+    source_index = topic_labels.index(source)
+    #topic_labels_active_set = {i:topic_labels[j] for i, j in enumerate(mm.active_set)}
+    
+    df_passage_times = pd.DataFrame(topic_labels,columns=['topic_labels']).set_index('index')
+    print ('aa')
     mean_ps = []
-    for key in topic_labels_active_set:
+    for key,label in enumerate(topic_labels):
         try:
             assert mm._full2active[source_index] != -1 and mm._full2active[key] != -1
-            mfpt = pyemma.msm.tpt(mm, [mm._full2active[source_index]],[mm._full2active[key]]).mfpt
+            mfpt = pyemma.msm.tpt(mm,[mm._full2active[key]],[mm._full2active[source_index]]).mfpt
             mean_ps.append(mfpt)
 
         except:
@@ -120,7 +122,7 @@ def print_mean_passage_time(mm, topic_labels, source,limit = 10):
             mean_ps.append(np.nan)
     df_passage_times['mfpt'] =mean_ps
     df_passage_times = df_passage_times.sort_values('mfpt',ascending=True)
-    print ('hello')
+    print ('helloka')
     for i,row in enumerate(df_passage_times[0:limit].iterrows()):
         print (i)
         print (row[1]['topic_labels'])
