@@ -131,7 +131,7 @@ def print_mean_passage_time(mm, topic_labels, source,limit = 10):
 
 
 
-def calculate_flux(mm,topic_labels,source,target,fraction=0.3):
+def calculate_flux(mm,topic_labels,source,target,fraction=0.3,print=False):
     #A=[8],B=[2,13],
     # Calculate the flux between two states camp arrival and camp liquidiation / camp transfer )
     np.set_printoptions(suppress=True) 
@@ -154,7 +154,6 @@ def calculate_flux(mm,topic_labels,source,target,fraction=0.3):
 
     # Print the best path between the two states
 
-    print("Path flux\t\t%path\t%of total\tpath")
 
     topic_sequences = {}
     for i in range(len(bestpaths)):
@@ -170,10 +169,10 @@ def calculate_flux(mm,topic_labels,source,target,fraction=0.3):
             topic_sequence = '-'.join(topic_sequence)
             topic_sequences[topic_sequence]=100.0*bestpathfluxes[i]/tpt.total_flux
    
-    
-    for tr in topic_sequences:
-        print (tr)
-        print (topic_sequences[tr])
+    if print:
+        for tr in topic_sequences:
+            print (tr)
+            print (topic_sequences[tr])
     return topic_sequences
 
 
