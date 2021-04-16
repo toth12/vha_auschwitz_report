@@ -17,36 +17,26 @@ from msmtools.estimation import connected_sets
 
 if __name__ == '__main__':
     # Load the input data
-    input_directory = constants.output_data_segment_keyword_matrix
 
     # Read the segment index term matrix
-    data = np.load(input_directory + constants.output_segment_keyword_matrix_data_file.replace('.txt', '.npy'), 
+    data = np.load(constants.segment_keyword_matrix.replace('.txt', '.npy'), 
                   allow_pickle=True)
     # Read the column index (index terms) of the matrix above
-    features_df = pd.read_csv(input_directory + 
-                          constants.output_segment_keyword_matrix_feature_index)
-   
+    features_df = pd.read_csv(constants.segment_keyword_matrix_feature_index)
     features_df = features_df.drop(columns=['Unnamed: 0'])
     
-    # Create the row index  of the matrix above
-    segment_df = pd.read_csv(input_directory + 
-                         constants.output_segment_keyword_matrix_document_index)
 
-    int_codes = segment_df['IntCode'].to_list()
+    # Metadata partitions file
+    metadata_partitions_file = constants.metadata_partitions
 
 
     # Set the output directory
     output_directory_temp = constants.output_data_markov_modelling
 
     # Read the metadata partitions
-    with open(input_directory + "metadata_partitions.json") as read_file:
+    with open(metadata_partitions_file) as read_file:
         metadata_partitions = json.load(read_file)
 
-    #metadata_partitions_temp = {}
-    #metadata_partitions_temp['Austria_w'] = metadata_partitions['Austria_w']
-    #metadata_partitions_temp['work'] = metadata_partitions['work']
-    #metadata_partitions = metadata_partitions_temp
-    #problems with: Yugoslavia (historical)_m, Austria_w
     for key in metadata_partitions:
         try:
             
@@ -78,7 +68,7 @@ if __name__ == '__main__':
                 new_input_data_set += [_int for _int in _new_input_data_set if len(_int) > 1]
             
             trajs = mu.estimate_fuzzy_trajectories(new_input_data_set)
-            
+   
             # Visualize implied timescale and save it
             mu.visualize_implied_time_scale(trajs,output_directory+'/implied_time_scale.png')
             mu.visualize_implied_time_scale_bayes(trajs, output_directory+'/implied_time_scales_bay.png')
@@ -130,6 +120,3 @@ if __name__ == '__main__':
             import sys
             sys.exit()
 
-        #except:
-        #    print ("Training the Markov model with the following metadata field was not possible")
-        #    print (key)

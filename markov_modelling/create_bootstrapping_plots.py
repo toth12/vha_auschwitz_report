@@ -84,44 +84,43 @@ def estimate_pi_error(dtrajs, orig_msm, ntrails=10, conf_interval=0.68, return_s
     return probabilities
 
 if __name__ == '__main__':
-    # python markov_modelling/create_bootstrapping_plots.py --metadata_fields complete_m complete_w
-    metadata_fields = ['complete','complete_m','complete_w','easy_w','easy_m','medium_m','medium_w','hard_m','hard_w',"notwork","notwork_m","notwork_w","work","work_m","work_w"]
+
     parser = argparse.ArgumentParser()
     parser.add_argument('--metadata_fields', nargs='+')
+    # Load the input data
+
+    # Read the segment index term matrix
+    data = np.load(constants.segment_keyword_matrix.replace('.txt', '.npy'), 
+                  allow_pickle=True)
+
+    # Read the column index (index terms) of the matrix above
+    features_df = pd.read_csv(constants.segment_keyword_matrix_feature_index)
+
+    metadata_partitions_file = constants.metadata_partitions
+    
+
+
+    
+    # Read the metadata partitions
+    with open(metadata_partitions_file) as read_file:
+        metadata_partitions = json.load(read_file)
+
     metadata_fields_to_agregate = []
     for key, value in parser.parse_args()._get_kwargs():
         if (key == "metadata_fields"):
             for field in value:
-                if (field not in metadata_fields):
+                if (field not in metadata_partitions.keys()):
                     print ("The following metadata_field is not valid")
                     print (field)
-                    metadata_fields_to_agregate.append(field)
+                    pdb.set_trace()
                 else:
                     metadata_fields_to_agregate.append(field)
-    # Load the input data
-    input_directory = constants.output_data_segment_keyword_matrix
-
-    # Read the segment index term matrix
-    data = np.load(input_directory + constants.output_segment_keyword_matrix_data_file.replace('.txt', '.npy'), 
-                  allow_pickle=True)
-    # Read the column index (index terms) of the matrix above
-    features_df = pd.read_csv(input_directory + 
-                          constants.output_segment_keyword_matrix_feature_index)
-
-    # Create the row index  of the matrix above
-    segment_df = pd.read_csv(input_directory + 
-                         constants.output_segment_keyword_matrix_document_index)
-
-    int_codes = segment_df['IntCode'].to_list()
 
 
     # Set the output directory
     output_directory_temp = constants.output_data_markov_modelling
 
-    # Read the metadata partitions
-    with open(input_directory + "metadata_partitions.json") as read_file:
-        metadata_partitions = json.load(read_file)
-
+ 
     samples = {}
     msms = {}
     state_indices = {}

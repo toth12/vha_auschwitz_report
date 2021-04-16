@@ -19,31 +19,34 @@ import argparse
 
 if __name__ == '__main__':
 
-    # Load the metadata fields
-    # python statistical_analysis/measure_strength_of_assoc_odds_ratio.py --metadata_fields complete_m complete_w
-    
-    metadata_fields = ['complete','complete_m','complete_w','easy_w','easy_m','medium_m','medium_w','hard_m','hard_w',"notwork","notwork_m","notwork_w","work","work_m","work_w"]
-    
-    # Add countries
-
-    bio_data = constants.input_files_biodata_birkenau
-    df_biodata = pd.read_csv(constants.input_data+bio_data)
-    df_biodata = df_biodata.fillna(0)
-    country_of_origins = df_biodata.groupby('CountryOfBirth')['CountryOfBirth'].count().to_frame('Count').reset_index().CountryOfBirth.to_list()
-    country_of_origins_with_gender = []
-    # Add male and female
-    for element in country_of_origins:
-        country_of_origins_with_gender.append(element+'_w')
-        country_of_origins_with_gender.append(element+'_m')
-    metadata_fields = metadata_fields + country_of_origins_with_gender
 
     parser = argparse.ArgumentParser()
     parser.add_argument('--metadata_fields', nargs='+')
+  
+    
+    # Load the input data
+
+    # Read the segment index term matrix
+    data = np.load(constants.segment_keyword_matrix.replace('.txt', '.npy'), 
+                  allow_pickle=True)
+
+    # Read the column index (index terms) of the matrix above
+    features_df = pd.read_csv(constants.segment_keyword_matrix_feature_index)
+
+    metadata_partitions_file = constants.metadata_partitions
+    
+
+
+    
+    # Read the metadata partitions
+    with open(metadata_partitions_file) as read_file:
+        metadata_partitions = json.load(read_file)
+
     metadata_fields_to_agregate = []
     for key, value in parser.parse_args()._get_kwargs():
         if (key == "metadata_fields"):
             for field in value:
-                if (field not in metadata_fields):
+                if (field not in metadata_partitions.keys()):
                     print ("The following metadata_field is not valid")
                     print (field)
                     pdb.set_trace()
@@ -51,33 +54,11 @@ if __name__ == '__main__':
                     metadata_fields_to_agregate.append(field)
 
     
-    # Load the input data
-    input_directory = constants.output_data_segment_keyword_matrix
-    #input_directory = '/Users/gmt28/Documents/Workspace/vha_auschwitz_report_public/vha_auschwitz_report/data/output_aid_giving_sociability_expanded/output/segment_keyword_matrix/'
-    # Read the segment index term matrix
-    data = np.load(input_directory + constants.output_segment_keyword_matrix_data_file.replace('.txt', '.npy'), 
-                  allow_pickle=True)
-
-    # Read the column index (index terms) of the matrix above
-    features_df = pd.read_csv(input_directory + 
-                          constants.output_segment_keyword_matrix_feature_index)
-    
-  
-    #features_df = pd.DataFrame(features_df.sort_values('index')["KeywordLabel"].to_list(),columns=["KeywordLabel"])
-    
-    # Create the row index  of the matrix above
-    segment_df = pd.read_csv(input_directory + 
-                         constants.output_segment_keyword_matrix_document_index)
-
-    int_codes = segment_df['IntCode'].to_list()
-
     # Set the output directory
     output_directory = constants.output_data_report_statistical_analysis
     #output_directory = '/Users/gmt28/Documents/Workspace/vha_auschwitz_report_public/vha_auschwitz_report/data/output_aid_giving_sociability_expanded/output/reports_statistical_analysis/'
     output_file = 'strength_of_association_odds_ratio_'+'_'.join(metadata_fields_to_agregate)+'.csv'
-    # Read the metadata partitions
-    with open(input_directory + "metadata_partitions.json") as read_file:
-        metadata_partitions = json.load(read_file)
+
 
     # First check for women and then men
     partial_results = []
