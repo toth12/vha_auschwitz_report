@@ -6,7 +6,7 @@ git checkout -b data-analysis origin/data-analysis
 
 conda create -n au_env python=3.7.2
 conda activate au_env
-pip install -r requirements.txt
+pip install -r requirements.txt / conda install --file requirements.txt
 conda develop yourpath
 
 conda install -c anaconda pytest
@@ -17,3 +17,6 @@ conda install requirements.txt
  --no-cache-dir --no-binary :all:
 
 conda develop
+
+
+1. unzip the input data file

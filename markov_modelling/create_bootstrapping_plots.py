@@ -19,6 +19,8 @@ import pdb
 import argparse
 from collections import Counter
 from msmtools.estimation import connected_sets
+from matplotlib.pyplot import figure
+
 
 
 
@@ -136,7 +138,7 @@ if __name__ == '__main__':
         os.mkdir(output_directory)
     except:
         pass
-    ntrails = 50
+    ntrails = 2
     for key in metadata_fields_to_agregate:
         indices = metadata_partitions[key]
 
@@ -179,6 +181,8 @@ if __name__ == '__main__':
     joint_states = joint_states.keys()
     for index,KeywordLabel in enumerate(features_df.KeywordLabel.to_list()):
         try:
+            figure(figsize=(8,8))
+            plt.margins(0)
             # Check if it is in the active set for both samples
             if (KeywordLabel in joint_states) == False:
                continue
@@ -186,17 +190,27 @@ if __name__ == '__main__':
                 for n, k in enumerate(metadata_fields_to_agregate):
                     #index = state_indices[k].index(KeywordLabel)
                     try:
+                        if 'w' in k.split('_'):
+                            leg = 'women'
+                        else:
+                            leg = 'men'
                         state_samples = samples[k][:, index]
-                        plt.hist(state_samples, bins=20, label=f'sample dist {k}', color=f'C{n}')
+                        #plt.figure(figsize=(28,28)) #change your figure size as per your desire heres
+                        
+                        y, x, _ = plt.hist(state_samples, bins=20, label=f'{leg}', color=f'C{n}')
                         lower_confidence, upper_confidence = confidence_interval(state_samples, 0.68)
-                        plt.vlines(lower_confidence, 0, 10,  color=f'C{n}', linestyle=':', label=f'lower conf {k}')
-                        plt.vlines(upper_confidence, 0, 10,  color=f'C{n}', linestyle='--', label=f'upper conf {k}')
-                        plt.vlines(msms[k].pi[msms[k]._full2active[index]], 0, 10, color='k', label='ML estimate' if n==1 else None)
+                        #plt.vlines(lower_confidence, 0, 10,  color=f'C{n}', linestyle=':', label=f'lower conf {k}')
+                        #plt.vlines(upper_confidence, 0, 10,  color=f'C{n}', linestyle='--', label=f'upper conf {k}')
+                        
+                        plt.vlines(msms[k].pi[msms[k]._full2active[index]], 0, 10, color='k', label='ML estimate' if n==1 else None,linestyles='dashed')
+                        plt.ylabel("Count (R=10000)", size=14)
+                        plt.xlabel("Stationary probality", size=14)
+
                     except:
                         pdb.set_trace()
-
-                plt.legend()
-                plt.savefig(output_directory+'/'+KeywordLabel+'.png')
+                
+                plt.legend(bbox_to_anchor=(1.05, 1), loc='center left', borderaxespad=0.)
+                plt.savefig(output_directory+'/'+KeywordLabel+'.png',bbox_inches='tight')
                 plt.clf()
         except:
             pass

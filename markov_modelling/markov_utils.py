@@ -380,7 +380,7 @@ def visualize_tpt_major_flux(msm,features_df,KeywordLabel_A,KeywordLabel_B,outpu
     return g, pos, nodename_dict
 
 
-def visualize_most_important_paths(msm, fraction, features_df, KeywordLabel_A, KeywordLabel_B, output_directory=None):
+def visualize_most_important_paths(msm, fraction, features_df, KeywordLabel_A, KeywordLabel_B, output_directory=None,gender="m"):
     if not isinstance(KeywordLabel_A, list):
         KeywordLabel_A = [KeywordLabel_A]
     if not isinstance(KeywordLabel_B, list):
@@ -442,8 +442,11 @@ def visualize_most_important_paths(msm, fraction, features_df, KeywordLabel_A, K
 
 
     fig, ax = plt.subplots(figsize=(10, 10))
-
-    nx.draw_networkx_nodes(pathgraph, pos, node_size=msm.pi[pathg_nodes]*10000, ax=ax, )
+    if gender == 'm':
+        color = '#1f77b4'
+    else:
+        color = '#ff7f0e'
+    nx.draw_networkx_nodes(pathgraph, pos, node_size=msm.pi[pathg_nodes]*10000, ax=ax, node_color=color)
     nx.draw_networkx_labels(pathgraph, pos, labels=labels, font_size=9)
     nx.draw_networkx_edges(pathgraph, pos, node_size=msm.pi[pathg_nodes]*10000,
                            edge_cmap=edge_cmap, 

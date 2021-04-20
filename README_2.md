@@ -1,10 +1,10 @@
 # VHA Auschwitz Reports
 
-This repository contains python code to investigate testimonies by survivors of the Auschwitz-Birkenau concentration camp. Testimonies that these workflows analyze were provided by the USC Shoah Foundation and they are preserved in the Visual History Archive of the Foundation
+This repository contains python code to investigate testimonies by survivors of the Auschwitz-Birkenau concentration camp. Testimonies that these workflows analyze were provided by the USC Shoah Foundation and they are preserved in the Visual History Archive of the Foundation.
 
 # Description of research project:
 
-The USC Shoah Foundation’s Visual History Archive preserves 55.000 interviews with Holocaust survivors. These interviews together document victims' experience in Nazi death camps. However, with 13 years of cumulative interview time, it is highly challenging to study the ensemble of all interviews; conceptually, it is specifically challenging to study the thousands of human narratives as dynamic processes unfolding over time. In this study we elaborated a computational approach and a small scale conceptual framework to study a highly important subset of the 55.000 interviews: 6628 testimonies by Jewish survivors of the Auschwitz-Birkenau death camp. To represent the ensemble of all possible topics about which Auschwitz-Birkenau survivors talk we applied the concept of state space. We used the Markov State Model to model this state space as a dynamical system. The modelIn practice, the Markov State Model is used to learned all possible sequences of topics realized in the  6628 Auschwitz testimonies. The Markov State Model along with the Transition Path Theory allowed us to compare the way women and men remember about their time in the camp. We found that acts of solidarity and social bonds are ones of the most important topics in their narratives. However, we found that women are much more likely to recall acts of solidarity and social relations. Furthermore, we found that men and women remember about these topics in different contexts. Our results indicate that men and women behave very differently in such an extreme environment as Auschwitz-Birkenau. Our results suggest that not only were women more likely to recall solidarity and social relations in their testimonies but they were also more likely to experience them in the camp.
+The USC Shoah Foundation’s Visual History Archive preserves 55.000 interviews with Holocaust survivors. These interviews together document victims' experience in Nazi death camps. However, with 13 years of cumulative interview time, it is highly challenging to study the ensemble of all interviews; conceptually, it is specifically challenging to study the thousands of human narratives as dynamic processes unfolding over time. In this study we elaborated a computational approach and a small scale conceptual framework to study a highly important subset of the 55.000 interviews: 6628 testimonies by Jewish survivors of the Auschwitz-Birkenau death camp. To represent the ensemble of all possible topics about which Auschwitz-Birkenau survivors talk we applied the concept of state space. We used the Markov State Model to model this state space as a dynamical system. The model is used to learned all possible sequences of topics realized in the 6628 Auschwitz testimonies. The Markov State Model along with the Transition Path Theory allowed us to compare the way women and men remember about their time in the camp. We found that acts of solidarity and social bonds are ones of the most important topics in their narratives. However, we found that women are much more likely to recall acts of solidarity and social relations. Furthermore, we found that men and women remember about these topics in different contexts. Our results indicate that men and women behave very differently in such an extreme environment as Auschwitz-Birkenau. Our results suggest that not only were women more likely to recall solidarity and social relations in their testimonies but they were also more likely to experience them in the camp.
 
 
 ## Data set
@@ -34,6 +34,8 @@ git clone https://github.com/toth12/vha_auschwitz_report.git
 
 2. Install python requirements with conda (code compatible with Python 3 and tested with Python 3.7.2):
 
+conda env create --file environment.yml -n au_test
+
 First, create a virtual environment:
 ```
 conda create -n au_env python=3.7.2
@@ -58,6 +60,11 @@ conda config --add channels conda-forge
 conda install -c conda-forge pyemma
 ```
 
+Fifth, install wordcloud with conda:
+
+```
+conda install -c conda-forge wordcloud
+```
 
 3. Add your path to the python path
 
@@ -108,8 +115,26 @@ In data/output/reports_statistical_analysis you  find the results of odds ratio 
 
 ## Data analysis
 
-In the notebooks directory you will find
+In the notebooks directory you will find jupyther notebooks in which data analysis is accomplished; here you will also find data visualizations. To run the notebooks you need to have jupyther installed on your machine. 
 
+
+```
+conda install -c conda-forge jupyterlab
+```
+
+
+After installation:
+
+
+```
+cd notebooks
+jupyter notebook
+```
+
+Each notebook analyzes different aspects of the dataset:
+1. 1_Significance_Sociability_Solidarity_All_Survivors: studies topics related to solidarity and social bonds in testimonies of all survivors.
+2. 2_Significance_Sociability_Solidarity_Women_Men: compares topics related to solidarity and social bonds in testimonies of men and women
+3. 
 
 # Appendix
 
