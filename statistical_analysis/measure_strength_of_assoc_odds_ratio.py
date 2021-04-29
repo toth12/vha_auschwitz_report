@@ -3,8 +3,7 @@
 
 '''Creates a two dimensional count matrix: columns are women and men, rows are the keywords; it does a pairwise comparison
 of each feature with a contingency table (number of women mentioning a topic, number of men mentioning a topic, number of women not mentioning a topic
-number of men not mentioning a topic; tests if there is a statistical signficance between them and measures the odds ratio for women and men
-finally does a Bonferroni correction for the final statistical significance test'''
+number of men not mentioning a topic; tests if there is a statistical signficance between them and measures the odds ratio for women and men'''
 
 import pdb
 import numpy as np
@@ -141,8 +140,7 @@ if __name__ == '__main__':
     # Put results into a panda df
     df_final_results = pd.DataFrame(final_results)
 
-    # Make a Bonferroni correction
-    df_final_results['significance_Bonferroni_corrected'] = multipletests(df_final_results['p_value'], method='bonferroni')[0]
+    # Check for statistical significance
     df_final_results['significance'] = df_final_results['p_value']<0.05
     # Sort results according to p_value
     df_final_results = df_final_results.sort_values('p_value')

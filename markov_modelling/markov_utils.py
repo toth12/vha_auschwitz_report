@@ -370,7 +370,7 @@ def visualize_tpt_major_flux(msm,features_df,KeywordLabel_A,KeywordLabel_B,outpu
     pos = nx.fruchterman_reingold_layout(g, iterations=10, k=5e-3, pos=init_pos_dict)#) fixed=keep)
     fig, ax = plt.subplots(figsize=(10, 10))
     nx.draw_networkx_nodes(g, pos, node_size=msm.pi*1000, ax=ax, )
-    nx.draw_networkx_labels(g, pos, labels=labels, font_size=9)
+    nx.draw_networkx_labels(g, pos, labels=labels, font_size=14)
     nx.draw_networkx_edges(g, pos, edge_cmap=edge_cmap, node_size=msm.pi*1000,
                         edge_color=weights, width=2, ax=ax);
 
@@ -447,7 +447,8 @@ def visualize_most_important_paths(msm, fraction, features_df, KeywordLabel_A, K
     else:
         color = '#ff7f0e'
     nx.draw_networkx_nodes(pathgraph, pos, node_size=msm.pi[pathg_nodes]*10000, ax=ax, node_color=color)
-    nx.draw_networkx_labels(pathgraph, pos, labels=labels, font_size=9)
+    nx.draw_networkx_labels(pathgraph, pos, labels=labels, font_size=16)
+
     nx.draw_networkx_edges(pathgraph, pos, node_size=msm.pi[pathg_nodes]*10000,
                            edge_cmap=edge_cmap, 
                         edge_color=weights, width=2, ax=ax)

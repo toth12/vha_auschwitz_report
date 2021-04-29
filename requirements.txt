@@ -1,5 +1,5 @@
 markov_clustering==0.0.6.dev0
-networkx==2.3
+networkx==2.5.1
 msmtools==1.2.5
 pyintergraph==1.2.0
 corextopic==1.0.5

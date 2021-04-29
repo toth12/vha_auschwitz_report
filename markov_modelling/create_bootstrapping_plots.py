@@ -95,6 +95,8 @@ if __name__ == '__main__':
     data = np.load(constants.segment_keyword_matrix.replace('.txt', '.npy'), 
                   allow_pickle=True)
 
+    
+
     # Read the column index (index terms) of the matrix above
     features_df = pd.read_csv(constants.segment_keyword_matrix_feature_index)
 
@@ -138,7 +140,7 @@ if __name__ == '__main__':
         os.mkdir(output_directory)
     except:
         pass
-    ntrails = 50
+    ntrails = 10000
     for key in metadata_fields_to_agregate:
         indices = metadata_partitions[key]
 
@@ -202,9 +204,9 @@ if __name__ == '__main__':
                         #plt.vlines(lower_confidence, 0, 10,  color=f'C{n}', linestyle=':', label=f'lower conf {k}')
                         #plt.vlines(upper_confidence, 0, 10,  color=f'C{n}', linestyle='--', label=f'upper conf {k}')
                         
-                        plt.vlines(msms[k].pi[msms[k]._full2active[index]], 0, 10, color='k', label='ML estimate' if n==1 else None,linestyles='dashed')
+                        plt.vlines(msms[k].pi[msms[k]._full2active[index]], 0, 1400, color='k', label='Model estimate' if n==1 else None,linestyles='dashed')
                         plt.ylabel("Count (R=10000)", size=14)
-                        plt.xlabel("Stationary probality", size=14)
+                        plt.xlabel("Stationary probability", size=14)
 
                     except:
                         pdb.set_trace()

@@ -2,9 +2,9 @@
 
 set -x
 
-mkdir -p data/{output/{markov_modelling,reports_statistical_analysis,statistical_analysis,segment_keyword_matrix},input}
-mkdir -p data/output/statistical_analysis/plots/{Gender,CountryOfBirth}
-mkdir -p data/output/reports_statistical_analysis/{plots,tables}
+mkdir -p data/{output/{markov_modelling,reports_statistical_analysis}}
+
+
 
 
 
