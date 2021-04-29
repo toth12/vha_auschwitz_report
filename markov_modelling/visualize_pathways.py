@@ -6,6 +6,7 @@ import argparse
 import pyemma
 from tables import *
 
+
 from markov_utils import *
 
 stationary_probs = []

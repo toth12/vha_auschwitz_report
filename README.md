@@ -1,280 +1,136 @@
 # VHA Auschwitz Reports
 
-This repository contains python workflows to investigate testimonies by survivors of Auschwitz-Birkenau concentration camp. Testimonies that these workflows analyze were provided by the USC Shoah Foundation.
+This repository contains python code to investigate testimonies by survivors of the Auschwitz-Birkenau concentration camp. Testimonies that these workflows analyze were provided by the USC Shoah Foundation and they are preserved in the Visual History Archive of the Foundation.
+
+# Description of research project:
+
+The USC Shoah Foundation’s Visual History Archive preserves 55.000 interviews with Holocaust survivors. These interviews together document victims' experience in Nazi death camps. However, with 13 years of cumulative interview time, it is highly challenging to study the ensemble of all interviews; conceptually, it is specifically challenging to study the thousands of human narratives as dynamic processes unfolding over time. In this study we elaborated a computational approach and a small scale conceptual framework to study a highly important subset of the 55.000 interviews: 6628 testimonies by Jewish survivors of the Auschwitz-Birkenau death camp. To represent the ensemble of all possible topics about which Auschwitz-Birkenau survivors talk we applied the concept of state space. We used the Markov State Model to model this state space as a dynamical system. The model is used to learned all possible sequences of topics realized in the 6628 Auschwitz testimonies. The Markov State Model along with the Transition Path Theory allowed us to compare the way women and men remember about their time in the camp. We found that acts of solidarity and social bonds are ones of the most important topics in their narratives. However, we found that women are much more likely to recall acts of solidarity and social relations. Furthermore, we found that men and women remember about these topics in different contexts. Our results indicate that men and women behave very differently in such an extreme environment as Auschwitz-Birkenau. Our results suggest that not only were women more likely to recall solidarity and social relations in their testimonies but they were also more likely to experience them in the camp.
+
 
 ## Data set
 
-The dataset that Shoah Foundation gave consists of three elements:
-1. Segment data (Auschwitz_segments_03112020_1.csv,Auschwitz_segments_03112020_2.csv)
+To run this code you need to download the dataset from here.
 
-This contains all testimony segments in which survivors address their stay in Auschwitz. It is a table in which every row corresponds to a testimony segment and the topic words attached to it. Since multiple topics words (sometimes refered as keywords here) are typically attached to a segment, multiple rows can represent a given segment. For instance, the following three rows represent the segment 16 (SegmentID: 514929) of interview 2 (IntCode 2) with interviewee named Rosalie Greenfield :
+The dataset consists of three elements:
+1. List of segment-keyword matrices: segment_keyword_matrix.npy
 
+Each testimony is represented as a segment - keyword matrix; rows correspond to segments and columns correspond to keywords or topic words
 
+2. The column index of the matrices above: feature_index.csv
 
-2   Rosalie Greenfield  514929  16  1   00:15:00:00 1   00:16:00:00 7601    Auschwitz II-Birkenau (Poland : Death Camp)
+3. Metadata partitions: metadata_partitions.json
 
-2   Rosalie Greenfield  514929  16  1   00:15:00:00 1   00:16:00:00 13310   Oświęcim (Kraków, Poland)
+Interviews are partitioned in terms of different biodata infos of interviewees; each partition is a key in the json file and the value attached to the key is a list of index positions. Each index position corresponds to an element in the list of segment - keyword matrices, i.e.to an interview represented as a segment-keyword matrix.
 
-2   Rosalie Greenfield  514929  16  1   00:15:00:00 1   00:16:00:00 14226   Poland 1944 (July 22) - 1945 (January 16)
-
-This interview segment has been annotated with three topic words:Auschwitz II-Birkenau (Poland : Death Camp),Oświęcim (Kraków, Poland),Poland 1944 (July 22) - 1945 (January 16). The unique ids (KeywordID) of these topic words: 7601,13310,14226.
-
-The record also tells the beginning and the end of the segment:00:15:00:00 and 00:16:00:00
-
-The segment data has been further processed (see below), most importantly, a segment-keyword matrix was constructed.
-
-2. Biodata (biodata.xlsx)
-
-This contains basic bio data about each interviewee and metadata about the interview: gender, country of birth, place where the interview was recorded, interview language, etc.
-
-The biodata is connected with the segment data through the IntCode column.
-
-3. The topic word hiearchy (termhierarchy_3.json):
-
-The Shoah Foundation's topic word system is a hierarchical tree; this file contains this tree. The topic words in this file are connected with the segment data through the KeywordID.
 
 ## Getting Started
 
+
 1. Git clone this library
-2. Install python requirements (code compatible with Python 3 only and tested only on Mac OS Sierra 10.12.6):
+
+```
+git clone https://github.com/toth12/vha_auschwitz_report.git
+```
+
+2. Install python requirements with conda (code compatible with Python 3 and tested with Python 3.7.2 on Mac OS Sierra 10.12.6 and on Linux Ubuntu 16.4):
+
+
+First, create a virtual environment:
+```
+conda create -n au_env python=3.7.2
+```
+
+Second, activate the environment:
+
+```
+conda activate au_env
+```
+
+Third, install libraries needed:
 
 ```
 pip install -r requirements.txt
 ```
 
-3. Create the data directory (ignored by git) with the following command:
+Fourth, install pyemma with conda:
 
 ```
-mkdir -p data/{output/{markov_modelling,reports_statistical_analysis,statistical_analysis,segment_keyword_matrix},input}
+conda config --add channels conda-forge
+conda install -c conda-forge pyemma=2.5.9
 ```
 
+Fifth, install wordcloud with conda:
 
 ```
-mkdir -p data/output/statistical_analysis/plots/{Gender,CountryOfBirth}
+conda install -c conda-forge wordcloud==1.8.1
 ```
 
-```
-mkdir -p data/output/reports_statistical_analysis/{plots,tables}
-```
+3. Add your path to the python path
 
-4. Get the following input files and copy them to data/input:
-
-* Auschwitz_segments_03112020_1.csv
-* Auschwitz_segments_03112020_2.csv
-* biodata.xlsx
-* termhierarchy_3.json (todo: rename this)
-* forced_labour_typology.csv
-
-## Workflows available in this repo:
-
-* Preprocessing of the data (prerequisit of running any workflow below)
-* Baisc Statistical analysis of the data set
-* Chi2 significance test and strength of association (odds ratio) of index terms for Gender and CountryOfOrigin
-* Markov State Modelling of the data set
-
-## Preprocessing of the data
-
-### Simplify keywords:
-
-The Shoah Foundation's keyword system is a hierarchical tree; with this script, those nodes (i.e. keywords) that are leaves and used in less then 25 interviews are replaced for their parent node (for instance, the parent node of "suicide attampt" is "suicide"). This script also eliminates testimony segments by non-Jewish survivors. Furthermore, those keywords that describe places, names, and historical events are also removed.
+First, get your current path:
 
 ```
-python data_processing/simplify_features.py
+pwd
 ```
 
-Input data:
-* complete input data as defined above
-
-Output data (saved to data/input folder):
-* all_segments_only_Jewish_survivors_generic_terms_deleted_below_25_replaced_for_parent_node.csv
-
-### Infer further biodata:
-
-This scripts infers further bio information about interviewees from the segment data: interviewee's arrival year to and leaving year from the Auschwitz  complex, his or her length of stay in the Auschwitz complex, type of force labour he / she did when staying in Auschwitz, whether he or she was on transfer route, whether she or he was in Birkenau, type (easy,medium,hard) of forced labour she or he did:
+Second, add your path:
 
 ```
-python data_processing/infer_further_biodata.py
+conda develop yourpath
 ```
 
-Input:
-
-* complete input data as defined above
-
-Output:
-
-* biodata_with_inferred_fields.cvs (saved to data/input)
-
-This ia new biodata file with new columns
-
-### Identify Birkenau survivors:
-
-Identifies those survivors who stayed in Birkenau beween 1943 and 1945.
-
+4. Create the data/input directory from the project folder
 ```
-python data_processing/infer_birkenau_survivors.py
+mkdir -p data/input/
 ```
 
-Input:
+5. Download the dataset from the following link, unzip the data files and copy them to the data/input folder
 
-* biodata_with_inferred_fields.cvs (saved to data/input)
+## Run the code
 
-Output:
+You can run all research code with one bash script:
 
-* biodata_birkenau.csv (saved to data/input)
-
-### Create a segment-keyword matrix:
-
-Creates a segment-keyword matrix from the data pre-processed above; rows are the segments and columns are keywords. If a segment has been annotated with a given keyword, the script sets the corresponding column to one, otherwise it remains 0. This matrix is therefore a binary matrix. The scripts also creates a keyword index and a segment index in a csv file. 
 ```
-python data_processing/create_segment_keyword_matrix.py
+bash run.sh
+```
+
+Be patient, running this code can take several hours
+
+## Data output
+
+In the folder data/output/ you will find the results. 
+
+In data/output/markov_modelling/{metadata field} you will find the results of markov training:
+
+- stationary probability of topics: "stationary_probs.csv"
+- markov state model: "pyemma_model"
+- bayesian markov state model: "pyemma_model_bayes"
+- results of implied time scale tests: "implied_time_scale.png" and "implied_time_scale_bayes.png"
+- index of activate states in the markov model: "state_index.csv"
+
+In data/output/markov_modelling/bootstrap{metadata field_metadata field} you will find the results of bootstrapping. This aims to uncover if the difference between two groups (represented through metadata partitioning), for instance men and women, in terms of the same topics' stationary probability is statististically significant. For each topic you will find a plot that shows the results of bootstrapping. 
+
+In data/output/reports_statistical_analysis you find the results of odds ratio analysis and Fisher test. These compare the number of times a given keyword occurs in testimonies of one group and another group (again men and women). They tell whether the difference is statistically significant and reveal whether a keyword correlates positively or negatively with the two groups. In the csv file strength_of_association_odds_ratio_{group 1}_{group 2}.csv each row describes the Fisher test and the result of odds ratio analysis for a given keyword.
+
+## Data analysis
+
+In the notebooks directory you will find jupyther notebooks in which data analysis is accomplished; here you will also find data visualizations. To run the notebooks you need to have jupyther installed on your machine. 
+
+
+```
+conda install -c conda-forge jupyterlab
 ```
 
 
-Input:
-* all_segments_only_Jewish_survivors_generic_terms_deleted_below_25_replaced_for_parent_node.csv
+After installation:
 
-Output:
-* data/output/segment_keyword_matrix/segment_keyword_matrix.txt
-* data/output/segment_keyword_matrix/feature_index.csv
-* data/output/segment_keyword_matrix/document_index.csv
-
-## Baisc statistical analysis of the data set
-
-This workflow makes a basic descriptive statistical analysis of the biodata and the segment data (entire data set); results of this is written to data/output/report_statistical_analaysis folder. The output is plots (in the plots folder), tables (in the tables folder), and a written report (report.txt)
-
-Run the following code from the main project folder (use python3):
-```
-python statistical_analysis/make_statistical_analysis.py
-```
-
-Input data:
-
-* 'data/input/Auschwitz_segments_03112020_1.csv'
-* 'data/input/Auschwitz_segments_03112020_2.csv'
-* 'data/input/biodata.xlsx'
-
-Output data:
-
-* data/output/report_statistical_analaysis/plots
-* data/output/report_statistical_analaysis/tables
-* data/output/report_statistical_analaysis/report.txt
-
-## Chi2 significance test and strength of association
-
-This workflow applies chi2test of significance and odds ratio analysis between two categorical variables (CountryOfOrigin and Gender) and index terms for survivors who stayed in Birkenau between 1943 and 1945:
-
-Input data:
-
-* all_segments_only_Jewish_survivors_generic_terms_deleted_below_25_replaced_for_parent_node.csv (saved to data/input)
-* biodata_birkenau.csv (saved to data/input)
 
 ```
-python statistical_analysis/make_chi_2_test.py Gender
+cd notebooks
+jupyter notebook
 ```
 
-Output data:
-* data/output/statistical_analysis/chi_test_filtered_gender_with_strenght_of_assoc.csv
-* data/output/statistical_analysis/plots/Gender
-* data/output/statistical_analysis/plots/F.html'
-* data/output/statistical_analysis/plots/M.html
-
-```
-python statistical_analysis/make_chi_2_test.py CountryOfBirth
-```
-
-Output data:
-* data/output/statistical_analysis/chi_test_filtered_country_of_birth_with_strenght_of_assoc.csv
-* data/output/statistical_analysis/plots/{CountryName}.html
-* data/output/statistical_analysis/plots/CountryOfOrigin/'
-
-
-## Markov Chain analysis of the data set:
-
-```
-python markov_modelling/train_markov_model.py
-```
-
-First, partitions the segment-keyword matrix into subsets based on the metadata. For instance, it creates a segment keyword matrix that contains segments only by women survivors of Birkenau (the new document index is saved). Next, it finds all unique topic word combinations (named higher level topic in the paper), which will be the states in the first Markov State model; it creates a null count matrix with the topic combinations as rows and columns. After this it creates a trajectory list, i.e. list of 'higher level topics' that follow each other. It iterates through the reshaped segment-keyword matrix, detects the corresponding topic combination, and appends it to the trajectory list. Next, each pair of topic combinations is identified, and the previously created null count matrix is updated accordingly. Following this step, the count matrix is transformed into a transition matrix, again higher level topics as rows and columns. With a technique of fuzzy markov chain, the transition matrix with higher level topics is transformed into a new transiton matrix with the original topic words. Finally, this is used to train the final Markov State Model. It also calculates the stationary probabilities of different topic words.
-
-See the metadata field in the Appendix here
-
-
-
-
-Input data:
-* data/output/segment_keyword_matrix/segment_keyword_matrix.txt
-* data/output/segment_keyword_matrix/feature_index.csv
-* data/output/segment_keyword_matrix/document_index.csv
-* data/input/biodata_birkenau.csv
-
-Output data:
-* data/output/markov_modelling/{metadata_field_name}/document_index.csv
-* data/output/markov_modelling/{metadata_field_name}/pyemma_model
-* data/output/markov_modelling/{metadata_field_name}/stationary_probs.csv
-* data/output/markov_modelling/{metadata_field_name}/transition_matrix.np
-
-
-
-This reshaped segment-keyword matrix is viewed as one complete trajectory. 
-
-### Utility functions for data analysis
-
-visualize_most_important_paths(mm,0.1,features_df,'friends','camp food sharing',output_directory)
-
-
-1. Print stationary probability of a given topic in a given sub-data
-
-```
-python markov_modelling/compare_stationary_probs.py --metadata_fields work_w --keywords 'camp food sharing'
-```
-
-This prints the stationary probability of 'camp food sharing' in the work_w subdata, i.e the stationary probability of 'camp food sharing' in testimonies of women who worked (work_w).
-
-2. Print trajectories between topics:
-
-First, load the dataset:
-```
-python markov_modelling/analyze_data.py --metadata_partition complete_w
-```
-
-then run once the code stops:
-
-```
-calculate_flux(mm,state_index,['friends'],['camp food sharing'],0.1)
-```
-
-
-This prints the possible trajectories between 'friends' and 'camp food sharing', including the flux of a given trajectory, in testimonies of all women (complete_w).
-
-3. Get closest topic to a given topic through the firsrt mean passage time:
-
-First, load the dataset:
-```
-python markov_modelling/analyze_data.py --metadata_partition complete_w
-```
-
-then run once the code stops:
-
-```
-print_mean_passage_time(mm,state_index,'friends',30)
-```
-
-Prints the 30 closest topics to 'friends' in all testimonies by women (complete_w). Proximity defined through the mean passage time.
-
-4. Visualize most important paths between topics:
-
-First, load the dataset:
-```
-python markov_modelling/analyze_data.py --metadata_partition complete_w
-```
-
-then run once the code stops:
-
-```
-visualize_most_important_paths(mm,0.1,features_df,'friends','camp food sharing',output_directory)
-```
-
-Prints the most important paths between "friends" and "camp foodd sharing" in all testimonies by women (complete_w) and save the output - automatically- to data/output/markov_modelling/complete_w/most_imp_path_{topic_1}_{topic_2}_0.1.png
+Each notebook analyzes different aspects of the dataset.
 
 # Appendix
 

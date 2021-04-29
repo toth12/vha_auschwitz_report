@@ -3,8 +3,7 @@
 
 '''Creates a two dimensional count matrix: columns are women and men, rows are the keywords; it does a pairwise comparison
 of each feature with a contingency table (number of women mentioning a topic, number of men mentioning a topic, number of women not mentioning a topic
-number of men not mentioning a topic; tests if there is a statistical signficance between them and measures the odds ratio for women and men
-finally does a Bonferroni correction for the final statistical significance test'''
+number of men not mentioning a topic; tests if there is a statistical signficance between them and measures the odds ratio for women and men'''
 
 import pdb
 import numpy as np
@@ -14,42 +13,58 @@ import constants
 import json
 import scipy.stats as stats
 from statsmodels.sandbox.stats.multicomp import multipletests
-
+import argparse
 
 
 if __name__ == '__main__':
+
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--metadata_fields', nargs='+')
+  
+    
     # Load the input data
-    input_directory = constants.output_data_segment_keyword_matrix
 
     # Read the segment index term matrix
-    data = np.load(input_directory + constants.output_segment_keyword_matrix_data_file.replace('.txt', '.npy'), 
+    data = np.load(constants.segment_keyword_matrix.replace('.txt', '.npy'), 
                   allow_pickle=True)
 
     # Read the column index (index terms) of the matrix above
-    features_df = pd.read_csv(input_directory + 
-                          constants.output_segment_keyword_matrix_feature_index)
+    features_df = pd.read_csv(constants.segment_keyword_matrix_feature_index)
 
-    # Create the row index  of the matrix above
-    segment_df = pd.read_csv(input_directory + 
-                         constants.output_segment_keyword_matrix_document_index)
+    metadata_partitions_file = constants.metadata_partitions
+    
 
-    int_codes = segment_df['IntCode'].to_list()
 
-    # Set the output directory
-    output_directory = constants.output_data_report_statistical_analysis
-    output_file = 'strength_of_association_men_women_odds_ratio.csv'
-
+    
     # Read the metadata partitions
-    with open(input_directory + "metadata_partitions.json") as read_file:
+    with open(metadata_partitions_file) as read_file:
         metadata_partitions = json.load(read_file)
 
+    metadata_fields_to_agregate = []
+    for key, value in parser.parse_args()._get_kwargs():
+        if (key == "metadata_fields"):
+            for field in value:
+                if (field not in metadata_partitions.keys()):
+                    print ("The following metadata_field is not valid")
+                    print (field)
+                    pdb.set_trace()
+                else:
+                    metadata_fields_to_agregate.append(field)
+
+    
+    # Set the output directory
+    output_directory = constants.output_data_report_statistical_analysis
+    #output_directory = '/Users/gmt28/Documents/Workspace/vha_auschwitz_report_public/vha_auschwitz_report/data/output_aid_giving_sociability_expanded/output/reports_statistical_analysis/'
+    output_file = 'strength_of_association_odds_ratio_'+'_'.join(metadata_fields_to_agregate)+'.csv'
+
+
     # First check for women and then men
-    metadata_fields = ['complete_w','complete_m']
     partial_results = []
     totals = []
 
     # Get the relevant data
-    for element in metadata_fields:
+    for element in metadata_fields_to_agregate:
         interview_keyword_matrices = []
         indices = metadata_partitions[element]
         input_data_set = np.take(data,indices)
@@ -58,7 +73,7 @@ if __name__ == '__main__':
 
         # Get the total number of women first and then men in the sample (later to be used for the multiple comparison test)
         totals.append(len(input_data_set))
-
+        print (totals)
         # Iterare through the individual interviews (represented as a segment-keyword matrix)
         for interview in input_data_set:
 
@@ -84,11 +99,13 @@ if __name__ == '__main__':
     # Use camp menstruation (a women topic) as a check point
     # Women definitely discuss this topic more than men
 
-    index_mens = features_df[features_df['KeywordLabel']=='menstruation'].index[0]
-    assert complete_result[index_mens][0] > complete_result[index_mens][1]
+    if ('complete_w' in metadata_fields_to_agregate) and ('complete_m' in metadata_fields_to_agregate):
+        index_mens = features_df[features_df['KeywordLabel']=='menstruation'].index[0]
+        assert complete_result[index_mens][0] > complete_result[index_mens][1]
 
     # Make a pairwise comparison of all features
     final_results = []
+
     for i,row in enumerate(complete_result):
 
         # Create a contingency table for every feature
@@ -117,16 +134,14 @@ if __name__ == '__main__':
 
         # Save results into a dictionary, (p_value same for men and women)
 
-        part_result = {'topic_word':features_df.iloc()[i].KeywordLabel,'p_value':pvalue_w,'women':oddsratio_w,'men':oddsratio_m,'count_w':mentioned_w,"count_m":mentioned_m}
+        part_result = {'topic_word':features_df.iloc()[i].KeywordLabel,'p_value':pvalue_w,metadata_fields_to_agregate[0]:oddsratio_w,metadata_fields_to_agregate[1]:oddsratio_m,'count_'+metadata_fields_to_agregate[0]:mentioned_w,"count_"+metadata_fields_to_agregate[1]:mentioned_m}
         final_results.append(part_result)
 
     # Put results into a panda df
     df_final_results = pd.DataFrame(final_results)
 
-    # Make a Bonferroni correction
-    df_final_results['significance_Bonferroni_corrected'] = multipletests(df_final_results['p_value'], method='bonferroni')[0]
+    # Check for statistical significance
     df_final_results['significance'] = df_final_results['p_value']<0.05
     # Sort results according to p_value
     df_final_results = df_final_results.sort_values('p_value')
-
     df_final_results.to_csv(output_directory+output_file)

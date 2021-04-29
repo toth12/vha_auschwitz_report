@@ -23,7 +23,6 @@ def window(seq, n=2):
         result = result[1:] + (elem,)
         yield result
 
-
 def cg_transition_matrix(T, chi):
     """
     Map a transition matrix T to coarse states via membership
@@ -82,7 +81,7 @@ def print_stationary_distributions(mm, topic_labels):
         #print (topic_labels[element])
         #print (mm.pi[element])
         #print ('\n')
-        results.append({'topic_name':topic_labels[mm.active_set[element]],'stationary_prob':mm.pi[element]})
+        results.append({'topic_name':topic_labels[element],'stationary_prob':mm.pi[element]})
     return results
 
 
@@ -105,15 +104,17 @@ def calculate_mean_passage_time_between_states(mm, topic_labels):
     return df_passage_times
 
 def print_mean_passage_time(mm, topic_labels, source,limit = 10):
-    source_index = topic_labels.index(source)
-    topic_labels_active_set = {i:topic_labels[j] for i, j in enumerate(mm.active_set)}
     
-    df_passage_times = pd.DataFrame(topic_labels_active_set.items(),columns=['index','topic_labels']).set_index('index')
+    source_index = topic_labels.index(source)
+    #topic_labels_active_set = {i:topic_labels[j] for i, j in enumerate(mm.active_set)}
+    
+    df_passage_times = pd.DataFrame(topic_labels,columns=['topic_labels']).set_index('index')
+    print ('aa')
     mean_ps = []
-    for key in topic_labels_active_set:
+    for key,label in enumerate(topic_labels):
         try:
             assert mm._full2active[source_index] != -1 and mm._full2active[key] != -1
-            mfpt = pyemma.msm.tpt(mm, [mm._full2active[source_index]],[mm._full2active[key]]).mfpt
+            mfpt = pyemma.msm.tpt(mm,[mm._full2active[key]],[mm._full2active[source_index]]).mfpt
             mean_ps.append(mfpt)
 
         except:
@@ -121,7 +122,7 @@ def print_mean_passage_time(mm, topic_labels, source,limit = 10):
             mean_ps.append(np.nan)
     df_passage_times['mfpt'] =mean_ps
     df_passage_times = df_passage_times.sort_values('mfpt',ascending=True)
-    print ('hello')
+    print ('helloka')
     for i,row in enumerate(df_passage_times[0:limit].iterrows()):
         print (i)
         print (row[1]['topic_labels'])
@@ -130,7 +131,7 @@ def print_mean_passage_time(mm, topic_labels, source,limit = 10):
 
 
 
-def calculate_flux(mm,topic_labels,source,target,fraction=0.3):
+def calculate_flux(mm,topic_labels,source,target,fraction=0.3,print=False):
     #A=[8],B=[2,13],
     # Calculate the flux between two states camp arrival and camp liquidiation / camp transfer )
     np.set_printoptions(suppress=True) 
@@ -153,7 +154,6 @@ def calculate_flux(mm,topic_labels,source,target,fraction=0.3):
 
     # Print the best path between the two states
 
-    print("Path flux\t\t%path\t%of total\tpath")
 
     topic_sequences = {}
     for i in range(len(bestpaths)):
@@ -169,10 +169,10 @@ def calculate_flux(mm,topic_labels,source,target,fraction=0.3):
             topic_sequence = '-'.join(topic_sequence)
             topic_sequences[topic_sequence]=100.0*bestpathfluxes[i]/tpt.total_flux
    
-    
-    for tr in topic_sequences:
-        print (tr)
-        print (topic_sequences[tr])
+    if print:
+        for tr in topic_sequences:
+            print (tr)
+            print (topic_sequences[tr])
     return topic_sequences
 
 
@@ -318,18 +318,30 @@ def visualize_msm_graph(msm,features_df,output_file,
 
     fig.savefig(output_file)
 
-def visualize_tpt_major_flux(msm,features_df,KeywordLabel_A,KeywordLabel_B,output_file):
-    A = features_df[features_df['KeywordLabel'].isin([KeywordLabel_A])].index.to_numpy()
-    B = features_df[features_df['KeywordLabel'] == KeywordLabel_B].index.to_numpy()
+def get_tpt_major_flux(msm,features_df,KeywordLabel_A,KeywordLabel_B,fraction=.9):
+    if not isinstance(KeywordLabel_A, list):
+        KeywordLabel_A = [KeywordLabel_A]
+    if not isinstance(KeywordLabel_B, list):
+        KeywordLabel_B = [KeywordLabel_B]
+
+    A = features_df[features_df['KeywordLabel'].isin(KeywordLabel_A)].index.to_numpy()
+    B = features_df[features_df['KeywordLabel'].isin(KeywordLabel_B)].index.to_numpy()
+
     assert -1 not in msm._full2active[A] and -1 not in msm._full2active[B]
 
     tpt = pyemma.msm.tpt(msm, msm._full2active[A], msm._full2active[B])
-    fl = tpt.major_flux()
+    fl = tpt.major_flux(fraction)
 
     # Draw the graph
     g = nx.from_numpy_array(fl, create_using=nx.DiGraph)
     nodename_dict = {i:features_df.iloc[j].KeywordLabel for i, j in enumerate(msm.active_set)}
     g = nx.relabel_nodes(g, nodename_dict)
+    
+    return g, tpt, nodename_dict
+
+def visualize_tpt_major_flux(msm,features_df,KeywordLabel_A,KeywordLabel_B,output_file,fraction=.9):
+
+    g, _, nodename_dict = get_tpt_major_flux(msm,features_df,KeywordLabel_A,KeywordLabel_B,fraction=fraction)
 
     edge_cmap = plt.matplotlib.colors.LinearSegmentedColormap.from_list("uwe",[(0, 0, 0, .1), (0, 0, 0, 1)])
 
@@ -358,20 +370,30 @@ def visualize_tpt_major_flux(msm,features_df,KeywordLabel_A,KeywordLabel_B,outpu
     pos = nx.fruchterman_reingold_layout(g, iterations=10, k=5e-3, pos=init_pos_dict)#) fixed=keep)
     fig, ax = plt.subplots(figsize=(10, 10))
     nx.draw_networkx_nodes(g, pos, node_size=msm.pi*1000, ax=ax, )
-    nx.draw_networkx_labels(g, pos, labels=labels, font_size=9)
+    nx.draw_networkx_labels(g, pos, labels=labels, font_size=14)
     nx.draw_networkx_edges(g, pos, edge_cmap=edge_cmap, node_size=msm.pi*1000,
                         edge_color=weights, width=2, ax=ax);
 
-    fig.savefig(output_file)
+    if output_file is not None:
+        fig.savefig(output_file)
+
+    return g, pos, nodename_dict
 
 
-def visualize_most_important_paths(msm,fraction,features_df,KeywordLabel_A,KeywordLabel_B,output_directory):
-    #TODO: use isin instead of direct mask
+def visualize_most_important_paths(msm, fraction, features_df, KeywordLabel_A, KeywordLabel_B, output_directory=None,gender="m"):
+    if not isinstance(KeywordLabel_A, list):
+        KeywordLabel_A = [KeywordLabel_A]
+    if not isinstance(KeywordLabel_B, list):
+        KeywordLabel_B = [KeywordLabel_B]
 
-    A = features_df[features_df['KeywordLabel'].isin([KeywordLabel_A])].index.to_numpy()
-    B = features_df[features_df['KeywordLabel'] == KeywordLabel_B].index.to_numpy()
+    A = features_df[features_df['KeywordLabel'].isin(KeywordLabel_A)].index.to_numpy()
+    B = features_df[features_df['KeywordLabel'].isin(KeywordLabel_B)].index.to_numpy()
+
+    assert -1 not in msm._full2active[A] and -1 not in msm._full2active[B]
+
     nodename_dict = {i:features_df.iloc[j].KeywordLabel for i, j in enumerate(msm.active_set)}
     tpt = pyemma.msm.tpt(msm, msm._full2active[A], msm._full2active[B])
+
     paths, capacities = tpt.pathways(fraction=fraction)
     pathgraph = nx.DiGraph()
     pathg_node_names = []
@@ -420,16 +442,24 @@ def visualize_most_important_paths(msm,fraction,features_df,KeywordLabel_A,Keywo
 
 
     fig, ax = plt.subplots(figsize=(10, 10))
+    if gender == 'm':
+        color = '#1f77b4'
+    else:
+        color = '#ff7f0e'
+    nx.draw_networkx_nodes(pathgraph, pos, node_size=msm.pi[pathg_nodes]*10000, ax=ax, node_color=color)
+    nx.draw_networkx_labels(pathgraph, pos, labels=labels, font_size=16)
 
-    nx.draw_networkx_nodes(pathgraph, pos, node_size=msm.pi[pathg_nodes]*10000, ax=ax, )
-    nx.draw_networkx_labels(pathgraph, pos, labels=labels, font_size=9)
     nx.draw_networkx_edges(pathgraph, pos, node_size=msm.pi[pathg_nodes]*10000,
                            edge_cmap=edge_cmap, 
                         edge_color=weights, width=2, ax=ax)
+        
+    if output_directory:
+        output_file_name = 'most_imp_path_'+KeywordLabel_A+'_'+KeywordLabel_B + '_'+str(fraction)+'.png'
+        output = output_directory + '/' + output_file_name
+        fig.savefig(output)
 
-    output_file_name = 'most_imp_path_'+KeywordLabel_A+'_'+KeywordLabel_B + '_'+str(fraction)+'.png'
-    output = output_directory + '/' + output_file_name
-    fig.savefig(output)
+    return pathgraph, pos, nodename_dict
+
 
 
 def estimate_pi_error(dtrajs, orig_msm, ntrails=10, conf_interval=0.68):
@@ -482,6 +512,23 @@ def estimate_pi_error(dtrajs, orig_msm, ntrails=10, conf_interval=0.68):
     probabilities['State'] = probabilities['State'].astype(int)
 
     return probabilities
+
+
+def consecutive(data, stepsize=1):
+    return np.split(data, np.where(np.diff(data) != stepsize)[0]+1)
+
+
+def split_interview(interview, max_gap=1):
+    all_empty_segments = consecutive(np.where(interview.sum(axis=1) == 0)[0])
+    empty_segs = [gap for gap in all_empty_segments if len(gap) > max_gap]
+
+    if len(empty_segs) > 0:
+        int_indices = np.arange(interview.shape[0])
+        int_indices = int_indices[~np.in1d(int_indices, np.concatenate(empty_segs))]
+        segment_index_list = consecutive(int_indices)
+        return [interview[idx] for idx in segment_index_list]
+    else:
+        return [interview]
 
 
 if __name__ == '__main__':
