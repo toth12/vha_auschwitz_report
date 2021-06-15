@@ -8,6 +8,11 @@ input_directory = "data/input/"
 
 # Input data sets
 
+segment_keyword_matrix_original = input_directory + "segment_keyword_matrix_original.npy"
+segment_keyword_matrix_original_feature_index = input_directory + "feature_index_original.csv"
+
+feature_map = input_directory + "feature_map_no_friends_no_food_sharing.csv"
+
 segment_keyword_matrix_feature_index = input_directory + "feature_index.csv"
 segment_keyword_matrix = input_directory + "segment_keyword_matrix.npy"
 metadata_partitions = input_directory + "metadata_partitions.json"

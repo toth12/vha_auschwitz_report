@@ -67,6 +67,15 @@ if __name__ == '__main__':
                 # make sure to exclude single segments
                 new_input_data_set += [_int for _int in _new_input_data_set if len(_int) > 1]
             
+
+            # temp
+            #pdb.set_trace()
+            #trajs = mu.estimate_fuzzy_trajectories(new_input_data_set[99:100])
+            #msm = mu.estimate_markov_model_from_trajectories(trajs,msmlag=1)
+
+            # temp
+
+
             trajs = mu.estimate_fuzzy_trajectories(new_input_data_set)
    
             # Visualize implied timescale and save it

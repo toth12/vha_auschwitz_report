@@ -140,7 +140,7 @@ if __name__ == '__main__':
         os.mkdir(output_directory)
     except:
         pass
-    ntrails = 10000
+    ntrails = 100
     for key in metadata_fields_to_agregate:
         indices = metadata_partitions[key]
 

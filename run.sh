@@ -2,7 +2,7 @@
 
 set -x
 
-mkdir -p data/{output/{markov_modelling,reports_statistical_analysis}}
+mkdir -p data/output/{markov_modelling,reports_statistical_analysis}
 
 
 
