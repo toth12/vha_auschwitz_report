@@ -204,7 +204,7 @@ if __name__ == '__main__':
                         #plt.vlines(lower_confidence, 0, 10,  color=f'C{n}', linestyle=':', label=f'lower conf {k}')
                         #plt.vlines(upper_confidence, 0, 10,  color=f'C{n}', linestyle='--', label=f'upper conf {k}')
                         
-                        plt.vlines(msms[k].pi[msms[k]._full2active[index]], 0, 1400, color='k', label='Model estimate' if n==1 else None,linestyles='dashed')
+                        plt.vlines(msms[k].pi[msms[k]._full2active[index]], 0, 110, color='k', label='Model estimate' if n==1 else None,linestyles='dashed')
                         plt.ylabel("Count (R=10000)", size=14)
                         plt.xlabel("Stationary probability", size=14)
 
