@@ -36,11 +36,14 @@ if __name__ == '__main__':
     # Read the metadata partitions
     with open(metadata_partitions_file) as read_file:
         metadata_partitions = json.load(read_file)
-
+    failed = []
     for key in metadata_partitions:
         try:
             
             print (key)
+            #if (key !="Netherlands") and (key !="Netherlands_w"):
+                #continue
+
             
             indices = metadata_partitions[key]
 
@@ -124,8 +127,11 @@ if __name__ == '__main__':
             #pdb.set_trace()
             pd.DataFrame(stationary_probs).to_csv(output_directory+'/stationary_probs.csv')
             
-        except KeyboardInterrupt:
+        except:
+
             print('Keyboard interrupt, quitting.')
             import sys
-            sys.exit()
+            failed.append(key)
+            continue
+        print (failed)
 
