@@ -49,6 +49,7 @@ if __name__ == '__main__':
 
 
             input_data_set = np.take(data,indices)
+            
             # Make sure that interviews with only one segment are not included
             for i in range(0,input_data_set.shape[0]):
                 assert (input_data_set[i].shape[0]>1)
@@ -72,7 +73,7 @@ if __name__ == '__main__':
             
 
             # temp
-            #pdb.set_trace()
+            pdb.set_trace()
             #trajs = mu.estimate_fuzzy_trajectories(new_input_data_set[99:100])
             #msm = mu.estimate_markov_model_from_trajectories(trajs,msmlag=1)
 
