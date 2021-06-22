@@ -73,7 +73,7 @@ if __name__ == '__main__':
             
 
             # temp
-            pdb.set_trace()
+            
             #trajs = mu.estimate_fuzzy_trajectories(new_input_data_set[99:100])
             #msm = mu.estimate_markov_model_from_trajectories(trajs,msmlag=1)
 

@@ -11,7 +11,7 @@ input_directory = "data/input/"
 segment_keyword_matrix_original = input_directory + "segment_keyword_matrix_original.npy"
 segment_keyword_matrix_original_feature_index = input_directory + "feature_index_original.csv"
 
-feature_map = input_directory + "feature_map_no_friends_no_food_sharing.csv"
+feature_map = input_directory + "feature_map_no_friends_no_food_sharing_2.csv"
 feature_map_expanded = input_directory + "feature_map_cover_term_expanded.csv"
 
 segment_keyword_matrix_feature_index = input_directory + "feature_index.csv"
