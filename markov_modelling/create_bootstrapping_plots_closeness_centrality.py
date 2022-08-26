@@ -20,8 +20,15 @@ import argparse
 from collections import Counter
 from msmtools.estimation import connected_sets
 from matplotlib.pyplot import figure
+import networkx as nx
 
 
+
+def measure_centrality(pm_model):
+    P = pm_model.P
+    gP = nx.from_numpy_array(P, create_using=nx.DiGraph)
+    centrality = nx.closeness_centrality(gP)
+    return list(centrality.values())
 
 
 def estimate_pi_error(dtrajs, orig_msm, ntrails=10, conf_interval=0.68, return_samples=False):
@@ -52,7 +59,12 @@ def estimate_pi_error(dtrajs, orig_msm, ntrails=10, conf_interval=0.68, return_s
 
             msm = pyemma.msm.estimate_markov_model(dtraj_sample, 
                                                     lag=orig_msm.lag)
-            stationary_probs = msm.pi
+            
+            res = measure_centrality(msm)
+
+       
+            
+            stationary_probs = res
             if len(connected_sets(msm.count_matrix_full))>1:
                 disconnected_states = [element for element in all_states if element not in connected_sets(msm.count_matrix_full)[0]]
                 if len(disconnected_states)>0:
@@ -73,7 +85,7 @@ def estimate_pi_error(dtrajs, orig_msm, ntrails=10, conf_interval=0.68, return_s
     lower_confidence, upper_confidence = confidence_interval(pi_samples, conf_interval)
     
     probabilities = pd.DataFrame(np.array([orig_msm.active_set, 
-                                           orig_msm.pi, 
+                                           measure_centrality(orig_msm), 
                                            std, 
                                            lower_confidence, 
                                            upper_confidence]).T,
@@ -140,7 +152,7 @@ if __name__ == '__main__':
         os.mkdir(output_directory)
     except:
         pass
-    ntrails = 1000
+    ntrails = 100
     for key in metadata_fields_to_agregate:
         indices = metadata_partitions[key]
 
@@ -212,7 +224,7 @@ if __name__ == '__main__':
                         pdb.set_trace()
                 
                 plt.legend(bbox_to_anchor=(1.05, 1), loc='center left', borderaxespad=0.)
-                plt.savefig(output_directory+'/'+KeywordLabel+'.png',bbox_inches='tight')
+                plt.savefig("data/output/centrality/"+KeywordLabel+'.png',bbox_inches='tight')
                 plt.clf()
         except:
             pass

@@ -4,19 +4,27 @@ This repository contains python code to investigate testimonies by survivors of 
 
 # Description of research project:
 
-The USC Shoah Foundation’s Visual History Archive preserves 55.000 interviews with Holocaust survivors. These interviews together document victims' experience in Nazi death camps. However, with 13 years of cumulative interview time, it is highly challenging to study the ensemble of all interviews; conceptually, it is specifically challenging to study the thousands of human narratives as dynamic processes unfolding over time. In this study we elaborated a computational approach and a small scale conceptual framework to study a highly important subset of the 55.000 interviews: 6628 testimonies by Jewish survivors of the Auschwitz-Birkenau death camp. To represent the ensemble of all possible topics about which Auschwitz-Birkenau survivors talk we applied the concept of state space. We used the Markov State Model to model this state space as a dynamical system. The model is used to learned all possible sequences of topics realized in the 6628 Auschwitz testimonies. The Markov State Model along with the Transition Path Theory allowed us to compare the way women and men remember about their time in the camp. We found that acts of solidarity and social bonds are ones of the most important topics in their narratives. However, we found that women are much more likely to recall acts of solidarity and social relations. Furthermore, we found that men and women remember about these topics in different contexts. Our results indicate that men and women behave very differently in such an extreme environment as Auschwitz-Birkenau. Our results suggest that not only were women more likely to recall solidarity and social relations in their testimonies but they were also more likely to experience them in the camp.
+The USC Shoah Foundation’s Visual History Archive preserves 55.000 interviews with Holocaust survivors. These interviews together document victims' experience in Nazi death camps. However, with 13 years of cumulative interview time, it is highly challenging to study the ensemble of all interviews; conceptually, it is specifically challenging to study the thousands of human narratives as dynamic processes unfolding over time. In this study we elaborated a computational approach and a small scale conceptual framework to study a highly important subset of the 55.000 interviews: 6628 testimonies by Jewish survivors of the Auschwitz-Birkenau death camp. To represent the ensemble of all possible topics about which Auschwitz-Birkenau survivors talk we applied the concept of state space. We used the Markov State Model to model this state space as a dynamical system. The model is used to learn all possible sequences of topics realized in the 6628 Auschwitz testimonies. The Markov State Model along with the Transition Path Theory allowed us to compare the way women and men remember about their time in the camp. We found that acts of solidarity and social bonds are ones of the most important topics in their narratives. However, we found that women are much more likely to recall acts of solidarity and social relations. Furthermore, we found that men and women remember about these topics in different contexts. Our results indicate that men and women behave very differently in such an extreme environment as Auschwitz-Birkenau. Our results suggest that not only were women more likely to recall solidarity and social relations in their testimonies but they were also more likely to experience them in the camp. 
+
+The result of this research was published in:
+
+Toth et al., Studying Large-Scale Behavioral Differences in Auschwitz-Birkenau with Simulation of Gendered Narratives, Digital Humanities Quarterly 16:3, http://www.digitalhumanities.org/dhq/vol/16/3/000622/000622.html
+
+This repository makes our findings reproducable. Code was developed in the Python environment described below. Reproducability in any other environment is not guaranteed. The time to run the code in this repository depends on the computational resources available; in some cases it can take an entire day. 
 
 
 ## Data set
 
-To run this code you need to download the dataset from here.
+To run this code you need to download the base dataset from here:
+
+Toth, Gabor Mihaly, 2021, "Replication Data for the VHA Auschwitz Report Project", https://doi.org/10.7910/DVN/JFH2BJ, Harvard Dataverse, V2
 
 The dataset consists of three elements:
-1. List of segment-keyword matrices: segment_keyword_matrix.npy
+1. List of segment-keyword matrices: segment_keyword_matrix_original.npy
 
 Each testimony is represented as a segment - keyword matrix; rows correspond to segments and columns correspond to keywords or topic words
 
-2. The column index of the matrices above: feature_index.csv
+2. The column index of the matrices above: feature_index_original.csv
 
 3. Metadata partitions: metadata_partitions.json
 
@@ -125,8 +133,20 @@ conda install -c conda-forge jupyterlab
 After installation:
 
 
+
 ```
 cd notebooks
+```
+
+Create symlink to the output folder:
+
+```
+ln -s ../data/output output
+```
+
+Run the notebooks:
+
+```
 jupyter notebook
 ```
 

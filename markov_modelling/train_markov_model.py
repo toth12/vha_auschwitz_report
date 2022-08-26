@@ -36,16 +36,20 @@ if __name__ == '__main__':
     # Read the metadata partitions
     with open(metadata_partitions_file) as read_file:
         metadata_partitions = json.load(read_file)
-
+    failed = []
     for key in metadata_partitions:
         try:
             
             print (key)
+            #if (key !="Netherlands") and (key !="Netherlands_w"):
+                #continue
+
             
             indices = metadata_partitions[key]
 
 
             input_data_set = np.take(data,indices)
+            
             # Make sure that interviews with only one segment are not included
             for i in range(0,input_data_set.shape[0]):
                 assert (input_data_set[i].shape[0]>1)
@@ -67,6 +71,15 @@ if __name__ == '__main__':
                 # make sure to exclude single segments
                 new_input_data_set += [_int for _int in _new_input_data_set if len(_int) > 1]
             
+
+            # temp
+            
+            #trajs = mu.estimate_fuzzy_trajectories(new_input_data_set[99:100])
+            #msm = mu.estimate_markov_model_from_trajectories(trajs,msmlag=1)
+
+            # temp
+
+
             trajs = mu.estimate_fuzzy_trajectories(new_input_data_set)
    
             # Visualize implied timescale and save it
@@ -115,8 +128,11 @@ if __name__ == '__main__':
             #pdb.set_trace()
             pd.DataFrame(stationary_probs).to_csv(output_directory+'/stationary_probs.csv')
             
-        except KeyboardInterrupt:
+        except:
+
             print('Keyboard interrupt, quitting.')
             import sys
-            sys.exit()
+            failed.append(key)
+            continue
+        print (failed)
 
