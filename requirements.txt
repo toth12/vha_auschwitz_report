@@ -12,6 +12,6 @@ seaborn==0.10.0
 more_itertools==8.6.0
 numpy==1.19.4
 tqdm==4.46.0
-ipython==7.19.0
+ipython==8.10.0
 python_igraph==0.8.3
 scikit_learn==0.24.1
